@@ -38,6 +38,6 @@ COPY ./srcs/create_user.sql ./create_user.sql
 COPY ./srcs/init_mysql.sh ./init_mysql.sh
 COPY ./srcs/start.sh ./start.sh
 
-RUN ./init_mysql.sh
+RUN bash init_mysql.sh
 EXPOSE 80
 EXPOSE 443
