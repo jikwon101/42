@@ -73,11 +73,3 @@ char		*ft_strtrim(const char *s1, const char *set)
 	result[i] = 0;
 	return (result);
 }
-
-#include <stdio.h>
-int main()
-{
-	char *result = ft_strtrim("", "");
-	printf("result:[%s]\n", result);
-	return (0);	
-}
