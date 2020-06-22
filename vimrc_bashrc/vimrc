@@ -4,7 +4,6 @@ set ai
 set tabstop=4
 set ignorecase
 set hlsearch
-set background=dark
 syntax on
 set wmnu
 set showmatch
