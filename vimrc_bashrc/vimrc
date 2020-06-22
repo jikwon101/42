@@ -14,5 +14,4 @@ set nu
 set cindent
 set incsearch
 syntax on
-set backspace=eol,start,indent
 set cul
