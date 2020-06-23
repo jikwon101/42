@@ -1,0 +1,13 @@
+
+R 2323  122
+NO ../new
+SO    ./download/ls
+S    ./test/temp
+F  0,0,0
+C 23,24,9
+
+WE /home/jikwon
+
+EA  ../
+
+R 200 300
