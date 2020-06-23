@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 22:00:02 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/10 23:29:01 by jikwon           ###   ########.fr       */
+/*   Updated: 2020/06/23 22:05:21 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
-char			*ft_strstr(const char *big, const char *little);
+int				ft_strcmp(char *s1, char *s2);
 #endif
