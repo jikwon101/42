@@ -1,6 +1,0 @@
-first
-
-third
-fourth
-
-sixth
