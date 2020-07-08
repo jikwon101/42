@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 22:00:02 by jikwon            #+#    #+#             */
-/*   Updated: 2020/06/23 22:05:21 by jikwon           ###   ########.fr       */
+/*   Updated: 2020/07/08 12:42:59 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,9 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
 int				ft_strcmp(char *s1, char *s2);
+int				to_line(char **line, char *w_nl, char **fd_set, char *temp_buff);
+int				get_next_line(int fd, char **line);
+int				ft_atoi_base(char *str, char *base);
+char			*putnbr_base(long nbr, char *base_to);
+char			*ft_conver_base(char *nber, char *base_from, char *base_to);
 #endif

@@ -9,7 +9,7 @@ SRCS=ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 
 SRCS_B=ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 	   ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
-SRCS_C=ft_strcmp_bonus.c
+SRCS_C=ft_strcmp_bonus.c get_next_line_bonus.c ft_atoi_base_bonus.c ft_putnbr_base_bonus.c ft_convert_base_bonus.c
 OBJECTS=*.o
 INCLUDES=./
 CC=gcc
@@ -27,9 +27,10 @@ bonus: $(SRCS) $(SRCS_B) libft.h
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 jikwon: $(SRCS) libft.h
-	$(CC) $(CFLAGS) -I$(INCLUDES) -c $(SRCS_B) $(SRCS) $(SRCS_C)
+	$(CC) $(CFLAGS) -I$(INCLUDES) -c $(SRCS_B) $(SRCS) $(SRCS_C) -D BUFFER_SIZE=30
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
+	rm -rf $(SRCS:.c=.o) $(SRCS_B:.c=.o) $(SRCS_C:.c=.o)
 clean:
 	rm -rf $(OBJECTS)
 
