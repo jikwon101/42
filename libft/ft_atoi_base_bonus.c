@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi_base_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/04 20:34:24 by jikwon            #+#    #+#             */
-/*   Updated: 2020/06/23 22:45:38 by jikwon           ###   ########.fr       */
+/*   Created: 2020/07/08 12:04:28 by jikwon            #+#    #+#             */
+/*   Updated: 2020/07/08 12:14:57 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-char	*ft_strchr(const char *str, int c)
+static int ft_index(char *base, char c)
 {
-	int		i;
+	int i;
 
 	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i])
+	while (base[i])
 	{
-		if (str[i] == c)
-			return ((char *)(str + i));
+		if (base[i] == c)
+			return (i);
 		i++;
 	}
-	if (c == '\0')
-		return ((char *)(str + i));
-	return (0);
+	return (i);
+}
+int	ft_atoi_base(char *str, char *base)
+{
+	int	i;
+	int nbr;
+	int sign;
+
+	i = 0;
+	nbr =  0;
+	sign = 1;
+	while (str[i] == '-' || str[i] == '+')
+	{
+		sign = (str[i] == '-') ? -1 : 1;		
+		i++;
+	}
+	while (str[i])
+	{
+		nbr = nbr * ft_strlen(base) + ft_index(base, str[i]);
+		i++;
+	}
+	return (sign * nbr);
 }

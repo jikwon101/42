@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_conver_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/04 20:34:24 by jikwon            #+#    #+#             */
-/*   Updated: 2020/06/23 22:45:38 by jikwon           ###   ########.fr       */
+/*   Created: 2020/07/08 12:17:41 by jikwon            #+#    #+#             */
+/*   Updated: 2020/07/08 12:47:02 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+char *ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	int		i;
+	int	mid_result;
+	char *result;
 
-	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == c)
-			return ((char *)(str + i));
-		i++;
-	}
-	if (c == '\0')
-		return ((char *)(str + i));
-	return (0);
+	mid_result = ft_atoi_base(nbr, base_from);
+	result = putnbr_base(mid_result, base_to);
+	return (result);
 }
