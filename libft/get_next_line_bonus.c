@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 18:04:13 by jikwon            #+#    #+#             */
-/*   Updated: 2020/06/24 15:35:25 by jikwon           ###   ########.fr       */
+/*   Updated: 2020/07/28 22:00:04 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*ft_strndup(char *str, int size)
 {
 	char	*result;
-	
+
 	if (str == NULL)
 		return (0);
 	if ((result = (char *)malloc(size + 1)) == 0)

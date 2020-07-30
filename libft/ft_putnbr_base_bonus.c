@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_base_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 12:19:18 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/08 12:42:33 by jikwon           ###   ########.fr       */
+/*   Updated: 2020/07/28 22:00:32 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int ft_cnt(long nbr, char *base_to)
+static int	ft_cnt(long nbr, char *base_to)
 {
 	int cnt;
 	int base_size;
@@ -29,12 +29,12 @@ static int ft_cnt(long nbr, char *base_to)
 	return (cnt);
 }
 
-char *putnbr_base(long nbr, char *base_to)
+char		*putnbr_base(long nbr, char *base_to)
 {
-	int cnt;;
-	char *result;
-	int sign;
-	
+	int		cnt;
+	char	*result;
+	int		sign;
+
 	cnt = 0;
 	sign = nbr < 0 ? -1 : 1;
 	nbr = (nbr >= 0) ? nbr : -nbr;

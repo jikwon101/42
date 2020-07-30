@@ -6,12 +6,13 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 12:04:28 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/08 12:14:57 by jikwon           ###   ########.fr       */
+/*   Updated: 2020/07/28 21:58:57 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-static int ft_index(char *base, char c)
+
+static int	ft_index(char *base, char c)
 {
 	int i;
 
@@ -24,18 +25,19 @@ static int ft_index(char *base, char c)
 	}
 	return (i);
 }
-int	ft_atoi_base(char *str, char *base)
+
+int			ft_atoi_base(char *str, char *base)
 {
 	int	i;
 	int nbr;
 	int sign;
 
 	i = 0;
-	nbr =  0;
+	nbr = 0;
 	sign = 1;
 	while (str[i] == '-' || str[i] == '+')
 	{
-		sign = (str[i] == '-') ? -1 : 1;		
+		sign = (str[i] == '-') ? -1 : 1;
 		i++;
 	}
 	while (str[i])
