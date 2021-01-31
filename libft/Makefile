@@ -13,7 +13,7 @@ SRCS_C=ft_strcmp_bonus.c get_next_line_bonus.c ft_atoi_base_bonus.c ft_putnbr_ba
 OBJECTS=*.o
 INCLUDES=./
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -g3
 
 all: $(NAME)
 
