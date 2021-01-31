@@ -13,7 +13,7 @@ SRCS_C=ft_strcmp_bonus.c get_next_line_bonus.c ft_atoi_base_bonus.c ft_putnbr_ba
 OBJECTS=*.o
 INCLUDES=./
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -g3
 
 all: $(NAME)
 
@@ -26,11 +26,13 @@ bonus: $(SRCS) $(SRCS_B) libft.h
 	$(CC) $(CFLAGS) -I$(INCLUDES) -c $(SRCS_B) $(SRCS)
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
+
 jikwon: $(SRCS) libft.h
 	$(CC) $(CFLAGS) -I$(INCLUDES) -c $(SRCS_B) $(SRCS) $(SRCS_C) -D BUFFER_SIZE=30
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 	rm -rf $(SRCS:.c=.o) $(SRCS_B:.c=.o) $(SRCS_C:.c=.o)
+
 clean:
 	rm -rf $(OBJECTS)
 

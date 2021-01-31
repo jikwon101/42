@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base_bonus.c                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/08 12:17:41 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 22:00:18 by jikwon           ###   ########.fr       */
+/*   Created: 2020/02/29 21:24:38 by jikwon            #+#    #+#             */
+/*   Updated: 2020/04/06 16:02:23 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char	*ft_strdup(const char *s)
 {
-	int		mid_result;
-	char	*result;
+	char	*new;
+	int		len;
+	int		i;
 
-	mid_result = ft_atoi_base(nbr, base_from);
-	result = putnbr_base(mid_result, base_to);
-	return (result);
+	i = 0;
+	len = 0;
+	while (s[len])
+		len++;
+	if ((new = (char *)malloc(len + 1)) == 0)
+		return (0);
+	while (s[i])
+	{
+		new[i] = s[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }

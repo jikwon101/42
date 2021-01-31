@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base_bonus.c                            :+:      :+:    :+:   */
+/*   keycontrol.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/08 12:17:41 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 22:00:18 by jikwon           ###   ########.fr       */
+/*   Created: 2020/07/29 20:30:53 by jikwon            #+#    #+#             */
+/*   Updated: 2020/07/31 15:15:43 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef KEYCONTROL_H
+# define KEYCONTROL_H
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
-{
-	int		mid_result;
-	char	*result;
+# include "../cub3d.h"
 
-	mid_result = ft_atoi_base(nbr, base_from);
-	result = putnbr_base(mid_result, base_to);
-	return (result);
-}
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_A 0
+# define KEY_W 13
+# define KEY_D 2
+# define KEY_S 1
+# define ESC 53
+
+void	move_w(t_ptr *set, double speed);
+void	move_s(t_ptr *set, double speed);
+void	move_d(t_ptr *set, double speed);
+void	move_a(t_ptr *set, double speed);
+
+#endif

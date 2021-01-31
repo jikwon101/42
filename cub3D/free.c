@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base_bonus.c                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/08 12:17:41 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 22:00:18 by jikwon           ###   ########.fr       */
+/*   Created: 2020/08/02 11:35:15 by jikwon            #+#    #+#             */
+/*   Updated: 2020/08/04 15:59:22 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+void	free_all(t_ptr *set)
 {
-	int		mid_result;
-	char	*result;
-
-	mid_result = ft_atoi_base(nbr, base_from);
-	result = putnbr_base(mid_result, base_to);
-	return (result);
+	if (set->v != NULL)
+		free(set->v);
+	if (set->f != NULL)
+		free_t_file(set->f);
+	if (set->s != NULL)
+		free(set->s);
+	return ;
 }

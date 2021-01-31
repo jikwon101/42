@@ -1,0 +1,14 @@
+R 1080 800
+
+NO ./srcs/wall_n.xpm
+SO ./srcs/wall_s.xpm
+WE ./srcs/wall_w.xpm
+EA ./srcs/wall_e.xpm
+S ./srcs/sprite.xpm
+F 104,68,0
+C 111,180,215
+1111111111111
+10000000000001
+10000000200001
+1N000000000001
+11111111111111

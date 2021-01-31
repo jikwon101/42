@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base_bonus.c                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/08 12:17:41 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 22:00:18 by jikwon           ###   ########.fr       */
+/*   Created: 2020/04/11 02:21:50 by hyoon             #+#    #+#             */
+/*   Updated: 2020/04/11 02:21:53 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int		mid_result;
-	char	*result;
+	size_t	i;
 
-	mid_result = ft_atoi_base(nbr, base_from);
-	result = putnbr_base(mid_result, base_to);
-	return (result);
+	i = 0;
+	while (s[i])
+		i++;
+	write(fd, s, i);
 }
