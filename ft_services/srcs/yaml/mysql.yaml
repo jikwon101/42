@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql-42
+          imagePullPolicy: Never
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+          ports:
+          - containerPort: 3306
+            name: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  labels:
+    app: mysql
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+
