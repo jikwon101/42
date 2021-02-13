@@ -1,6 +1,6 @@
-#CHECK
-1. Dockerfile env 삭제
-2. SSH_USER = jikwon, SSH_PWD = 2021 변수로 설정하기. 
+# Connect
+`ssh admin@192.168.99.100`
+pod /home/admin/ 이 home dir
 
 # Promblem01
 ## 상황

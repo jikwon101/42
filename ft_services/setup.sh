@@ -9,15 +9,17 @@ build()
 	imgs=("nginx" "wordpress" "mysql" "phpmyadmin" "ftps" "grafana" "telegraf" "influxdb")
 	for img in "${imgs[@]}"
 	do
+		echo "\033[32mBuild image/${img}_42 \033[0m"
 		docker build -t ${img}_42 ./srcs/$img/. | grep Step
 	done
 }
 
 service()
 {
+	echo "\033[35mCreate service \033[0m"
 	svcs=("nginx" "wordpress" "mysql" "phpmyadmin" "ftps" "grafana" "influxdb")
 	for svc in "${svcs[@]}"
-	do
+	do	
 		kubectl apply -f srcs/$svc/${svc}-service.yaml
 	done
 }
