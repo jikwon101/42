@@ -32,8 +32,8 @@ if [ "$#" -eq 0 ]; then
 	secret
 	configmap
 	service
-	pv
 	pvc
+	pv
 fi
 
 args=("$@")
