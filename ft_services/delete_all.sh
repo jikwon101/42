@@ -30,7 +30,7 @@ pvc()
 if [ "$#" -eq 0 ]; then
 	deploy
 	secret
-	configmap
+	config
 	service
 	pvc
 	pv
