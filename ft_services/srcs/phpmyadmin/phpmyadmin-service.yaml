@@ -4,6 +4,8 @@ metadata:
   labels:
     app: phpmyadmin
   name: phpmyadmin-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   ports:
   - name: phpmyadmin

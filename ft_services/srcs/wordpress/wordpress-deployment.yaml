@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: Never
           ports:
           - containerPort: 5050
+            name: wordpress
           livenessProbe:
             initialDelaySeconds: 20
             periodSeconds: 10

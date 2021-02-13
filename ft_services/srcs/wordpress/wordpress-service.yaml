@@ -4,6 +4,8 @@ metadata:
   name: wordpress-service
   labels:
     app: wordpress
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     app: wordpress

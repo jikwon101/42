@@ -24,7 +24,7 @@ service()
 
 deploy()
 {
-	deploys=("nginx" "wordpress" "mysql" "phpmyadmin" "ftps" "grafana" "telegraf" "influxdb")
+	deploys=("nginx" "mysql" "phpmyadmin" "ftps" "grafana" "telegraf" "influxdb" "wordpress")
 	for deploy in "${deploys[@]}"
 	do
 		kubectl apply -f srcs/$deploy/${deploy}-deployment.yaml

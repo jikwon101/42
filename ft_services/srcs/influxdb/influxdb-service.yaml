@@ -4,6 +4,8 @@ metadata:
   name: influxdb-service
   labels:
     app: influxdb
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     app: influxdb

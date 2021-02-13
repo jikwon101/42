@@ -8,5 +8,5 @@ data:
     address-pools:
     - name: default
       protocol: layer2
-      address:
-        - 192.168.99.100/24
+      addresses:
+      - 192.168.99.100-192.168.99.100
