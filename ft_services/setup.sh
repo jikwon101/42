@@ -54,7 +54,7 @@ config()
 }
 
 eval $(minikube docker-env)
-#build
+build
 secret
 service
 volume
