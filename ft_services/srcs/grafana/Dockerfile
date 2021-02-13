@@ -1,12 +1,10 @@
-FROM alpine:3.13.1
+FROM alpine:3.12.3
 
 # Install grafana
-RUN apk update && \
-	apk --no-cache add grafana
+RUN     apk add grafana=7.3.6-r0 --repository=https://dl-cdn.alpinelinux.org/alpine/latest-stable/community/
 
 # Set up grafana config
 COPY srcs/grafana.ini /etc/grafana/grafana.ini
-
 # Set up grafana dashboards
 ENV G_PATH /usr/share/grafana/conf/provisioning
 COPY srcs/dashboards /var/lib/grafana/dashboards
