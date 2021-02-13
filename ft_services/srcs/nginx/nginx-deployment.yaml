@@ -26,12 +26,12 @@ spec:
         - name: SSH_USER
           valueFrom:
             secretKeyRef:
-              name: ssh-nginx
+              name: nginx-secret
               key: username
         - name: SSH_PWD
           valueFrom:
             secretKeyRef:
-              name: ssh-nginx
+              name: nginx-secret
               key: password
         name: nginx
         ports:

@@ -1,4 +1,9 @@
 #!/bin/bash -e
+metallb()
+{
+	kubectl apply -f srcs/metallb/metallb-control.yaml
+	kubectl apply -f srcs/metallb/metallb-config.yaml
+}
 build()
 {
 	imgs=("nginx" "wordpress" "mysql" "phpmyadmin" "ftps" "grafana" "telegraf" "influxdb")
@@ -54,8 +59,28 @@ config()
 }
 
 eval $(minikube docker-env)
-build
-secret
-service
-volume
-deploy
+
+if [ "$#" -eq 0 ]; then
+	build
+	metallb
+	secret
+	service
+	volume
+	deploy
+fi
+
+if [ "$#" -eq 1 ]; then
+	if [ $1 == "x" ]; then
+		secret
+		service
+		volume
+		deploy
+		exit 0
+	fi
+fi
+
+args=("$@")
+for (( c=0; c < $#; c++ ))
+do
+	${args[$c]}
+done
