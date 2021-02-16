@@ -32,7 +32,7 @@ config_file()
 	rm ./srcs/wordpress/srcs/wordpress.sql
 	rm ./srcs/phpmyadmin/srcs/config.inc.php
 	rm ./srcs/metallb/metallb-config.yaml
-	rm ./srcs/nginx/srcs/defaul.conf
+	rm ./srcs/nginx/srcs/default.conf
 }
 if [ "$#" -eq 0 ]; then
 	config_file
