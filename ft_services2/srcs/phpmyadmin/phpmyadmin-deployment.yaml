@@ -24,4 +24,17 @@ spec:
         imagePullPolicy: Never
         name: phpmyadmin
         ports:
-          - containerPort: 5000
+        - containerPort: 5000
+          name: phpmyadmin
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          tcpSocket: 
+            port: 5050
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          tcpSocket:
+            port: 9000

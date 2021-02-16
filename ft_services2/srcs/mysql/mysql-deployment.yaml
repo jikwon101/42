@@ -19,7 +19,14 @@ spec:
           image: mysql_42
           imagePullPolicy: Never
           ports:
-            - containerPort: 3306
+          - containerPort: 3306
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            httpGet:
+              path: /ping
+              port: 3306
           volumeMounts:
           - name: mysql-volume
             mountPath: /var/lib/mysql
