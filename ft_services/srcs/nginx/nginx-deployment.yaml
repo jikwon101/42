@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image : nginx_42
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: username
+        - name: SSH_PWD
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: password
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
+        - containerPort: 443
+          name: https
+        - containerPort: 22
+          name: ssh
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - 'pgrep nginx && pgrep sshd'

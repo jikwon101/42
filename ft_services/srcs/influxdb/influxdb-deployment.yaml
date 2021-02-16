@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+  labels:
+    app: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb_42
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8086
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - 'pgrep influxd'
+        volumeMounts:
+        - name: influxdb-volume
+          mountPath: /var/lib/influxdb
+      volumes:
+      - name: influxdb-volume
+        persistentVolumeClaim:
+          claimName: influxdb-volume-claim
