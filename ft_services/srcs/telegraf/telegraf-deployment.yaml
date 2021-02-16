@@ -17,11 +17,15 @@ spec:
         - name: telegraf
           image: telegraf_42
           imagePullPolicy: Never
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - 'pgrep telegraf'
+          livenessProbe:
+            initialDelaySeconds:
+            periodSeconds:
+            timeoutSeconds:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - 'pgrep telegraf'
           volumeMounts:
             - name: docker-unix-socket
               mountPath: /var/run/docker.sock

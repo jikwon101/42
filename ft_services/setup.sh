@@ -76,7 +76,7 @@ config()
 
 setting_minikube()
 {
-	minikube start
+	minikube start --driver=virtualbox
 	sleep 3
 	IP=`minikube ip`
 	MINI_IP='$MINI_IP'
