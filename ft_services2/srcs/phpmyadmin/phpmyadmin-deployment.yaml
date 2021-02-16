@@ -9,11 +9,6 @@ spec:
   selector:
     matchLabels:
       app: phpmyadmin
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -30,11 +25,8 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 10
           timeoutSeconds: 5
-          tcpSocket: 
-            port: 5050
-        livenessProbe:
-          initialDelaySeconds: 20
-          periodSeconds: 10
-          timeoutSeconds: 5
-          tcpSocket:
-            port: 9000
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - 'pgrep php-fpm7 && pgrep nginx'

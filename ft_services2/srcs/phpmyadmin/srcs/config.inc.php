@@ -34,7 +34,7 @@ $cfg['Servers'][$i]['user'] = 'admin';
 $cfg['Servers'][$i]['password'] = 'pass';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
-$cfg['PmaAbsoluteUri'] = '192.168.49.2:5000';
+$cfg['PmaAbsoluteUri'] = '192.168.99.100:5000';
 /**
  * phpMyAdmin configuration storage settings.
  */
