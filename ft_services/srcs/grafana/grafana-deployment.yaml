@@ -19,15 +19,6 @@ spec:
           imagePullPolicy: Never
           ports:
           - containerPort: 3000
-          livenessProbe:
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            timeoutSeconds: 5
-            exec:
-              command:
-              - /bin/sh
-              - -c
-              - 'pgrep grafana'
           envFrom:
           - secretRef:
               name: grafana-secret

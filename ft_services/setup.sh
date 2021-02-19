@@ -76,6 +76,7 @@ config()
 
 setting_minikube()
 {
+	export MINIKUBE_HOME=~/goinfre
 	minikube start --driver=virtualbox
 	sleep 3
 	IP=`minikube ip`
