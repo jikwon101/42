@@ -3,24 +3,28 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/time.h>
+
 # define ERR 1
 # define NOERR 0
 # define DIED 1
 # define FULL 2
+# define CF 1000L //conversion factor 1ms = 1000us
+
 typedef struct s_philo
 {
 	pthread_t thread;
 	int idx;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
+	int remain;
 	long last_meal;
 	long t_start;
 }	t_philo;
 
-const int nbr_ph = 2;
-const int t_die = 800;
-const int t_eat = 200;
-const int t_sleep = 200;
+const int nbr_ph = 4;
+const int t_die = 410; //(ms)
+const int t_eat = 200; //(ms)
+const int t_sleep = 100; //(ms)
 int state = 0;
 
 pthread_mutex_t *m_forks;
@@ -42,13 +46,17 @@ int init_mutex(void)
 	return (NOERR);
 }
 
+//return ms
 long get_time(void)
 {
 	struct timeval s_time;
+	long ms;
 
 	gettimeofday(&s_time, NULL);
-	return (s_time.tv_sec * 1000L + s_time.tv_usec / 1000L);
+	ms = s_time.tv_sec * CF + s_time.tv_usec / CF;
+	return (ms);
 }
+
 void ft_putnbr(long long nbr)
 {
 	char base[] = "0123456789";
@@ -77,13 +85,13 @@ void ft_putstr(const char *str)
 int print_msg(const char *str, t_philo *one)
 {
 	pthread_mutex_lock(&m_write);
-	//if (state != DIED && state != FULL)
-//	{
+	if (state != DIED && state != FULL)
+	{
 		ft_putnbr(get_time() - one->t_start);
 		ft_putstr("ms idx ");
 		ft_putnbr(one->idx);
 		ft_putstr(str);
-//	}
+	}
 	pthread_mutex_unlock(&m_write);
 	return (NOERR);
 }	
@@ -106,33 +114,57 @@ t_philo *init_threads(void)
 	}
 	return (ph_set);
 }
+
+void *check_death(void *arg)
+{
+	t_philo *one;
+
+	one = (t_philo *)arg;
+	while (state != DIED)
+	{
+		if (get_time() - one->last_meal > t_die)
+		{
+			print_msg(" is died", one);
+			pthread_mutex_lock(&m_state);
+			state = DIED;
+			pthread_mutex_unlock(&m_state);
+			break;
+		}
+	}
+	return (NOERR);
+}
+
 void do_eat(t_philo *one)
 {
 	long t_target;
+
 	pthread_mutex_lock(one->right_fork);
 	pthread_mutex_lock(one->left_fork);
-	//one->last_meal = get_time();
-	//t_target = get_time() + t_eat;
+	one->last_meal = get_time();
 	print_msg(" has taken a fork\n", one);
-	print_msg(" here\n", one);
-	//usleep(t_eat);
-	print_msg(" dropped a fork\n", one);
-	pthread_mutex_unlock(one->left_fork);
+	print_msg(" is eating\n", one);
+	t_target = one->last_meal + t_eat;
+	while (get_time() < t_target)
+		usleep(100); //100us = 0.1ms
 	pthread_mutex_unlock(one->right_fork);
+	pthread_mutex_unlock(one->left_fork);
 }
 
 void *routine(void *arg)
 {
 	t_philo *one;
+	pthread_t died;
 	
 	one = (t_philo *)arg;
-	one->idx % 2 ? 0 : usleep(t_eat);
-	//while (state != DIED && state != FULL)
-	while (1)
+	pthread_create(&died, NULL, &check_death, one);
+	pthread_detach(died);
+	if (one->idx % 2 == 0)  
+		usleep(t_eat * CF - 1); //usleep = us . t_eat = ms
+	while (state != DIED && state != FULL)
 	{
 		do_eat(one);
 		print_msg(" is sleeping\n", one);
-		usleep(t_sleep);
+		usleep(t_sleep * CF);
 		print_msg(" is thinking\n", one);
 	}	
 	return (NOERR);
@@ -145,10 +177,13 @@ int make_threads(t_philo *ph_set)
 	i = 0;
 	while (i < nbr_ph)
 	{
+		ph_set[i].last_meal = get_time();
+		ph_set[i].t_start = get_time();
 		pthread_create(&ph_set[i].thread, NULL, routine, &ph_set[i]);
-		usleep(10); //temporaily 10
+		usleep(1); 
 		i++;
 	}
+	i = 0;
 	while (i < nbr_ph)
 		pthread_join(ph_set[i++].thread, NULL);
 	return (NOERR);
