@@ -3,18 +3,17 @@
 void *check_death(void *arg)
 {
 	t_philo *one;
-	long gap;
+	uint64_t gap;
 	one = (t_philo *)arg;
 	while (state != DIED)
 	{
 		gap = get_time() - one->last_meal;
 		if (gap > t_die)
 		{
-		
 			pthread_mutex_lock(&m_write);
-			printf("%d : died . %lu ms\n", one->idx, gap);
+			printf("%d : died . %llu ms\n", one->idx, gap);
 			pthread_mutex_unlock(&m_write);
-			print_msg(" is died\n", one);
+			//print_msg(" is died\n", one);
 			pthread_mutex_lock(&m_state);
 			state = DIED;
 			pthread_mutex_unlock(&m_state);

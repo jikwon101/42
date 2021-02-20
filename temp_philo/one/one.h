@@ -15,9 +15,9 @@
 # define CF 1000L
 
 int nbr_ph;
-int	t_die;
-int t_eat;
-int t_sleep;
+uint64_t	t_die;
+uint64_t t_eat;
+uint64_t t_sleep;
 int must_eat;
 int state;
 
@@ -32,8 +32,8 @@ typedef struct	s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	int				remain;
-	long			last_meal;
-	long			t_start;
+	uint64_t			last_meal;
+	uint64_t			t_start;
 }				t_philo;
 
 //monitor.c
@@ -52,8 +52,8 @@ int	ft_atoi(char *str);
 
 //utils.c
 int print_msg(const char *str, t_philo *one);
-long get_time(void);
-
+uint64_t get_time(void);
+void print_msg_thread(const char *str, t_philo *one);
 //main.c
 void do_eat(t_philo *one);
 void *routine(void *arg);

@@ -1,21 +1,32 @@
 #include "one.h"
 
+void my_time(long now, long target)
+{
+	uint64_t tmp;
+
+	tmp = now + target;
+	while (get_time() <  tmp)
+		usleep(10);
+	return ;
+}
 void do_eat(t_philo *one)
 {
-	long t_target;
+	uint64_t t_target;
+	uint64_t temp;
 
-	pthread_mutex_lock(one->right_fork);
 	pthread_mutex_lock(one->left_fork);
+	pthread_mutex_lock(one->right_fork);
+	print_msg_thread(" has taken a fork\n",one);
+	print_msg_thread(" is eating\n", one);
 	one->last_meal = get_time();
-	print_msg(" has taken a fork\n", one);
-	print_msg(" is eating\n", one);
-	if (one->remain > 0)
-		one->remain -= 1;
-	t_target = one->last_meal + t_eat;
+	t_target = one->last_meal + t_eat;         
 	while (get_time() < t_target)
 		usleep(10); //100us = 0.1ms
-		pthread_mutex_unlock(one->right_fork);
+	//my_time(one->last_meal, t_eat);
+	pthread_mutex_unlock(one->right_fork);
 	pthread_mutex_unlock(one->left_fork);
+	if (one->remain > 0)
+		one->remain -= 1;
 }
 
 void *routine(void *arg)
@@ -23,21 +34,20 @@ void *routine(void *arg)
 	t_philo *one;
 	pthread_t died;
 	pthread_t full;
-	long t_target;
+	uint64_t t_target;
 
 	one = (t_philo *)arg;
 	pthread_create(&died, NULL, &check_death, one);
 	pthread_detach(died);
-	if (one->idx % 2 == 0)  
-		usleep(t_eat * CF / 2); //usleep = us . t_eat = ms
+	one->idx % 2 ? 0 : usleep(t_eat * CF - 1.5 * one->idx); //usleep = us . t_eat = ms
 	while (state != DIED && state != FULL)
 	{
 		do_eat(one);
-		print_msg(" is sleeping\n", one);
+		print_msg_thread(" is sleeping\n", one);
 		t_target = get_time() + t_sleep;
 		while (get_time() < t_target)
 			usleep(10);
-		print_msg(" is thinking\n", one);
+		print_msg_thread(" is thinking\n", one);
 	}
 	return (NOERR);
 }

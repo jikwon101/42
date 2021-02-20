@@ -1,0 +1,130 @@
+1ms idx 1 has taken a fork
+1ms idx 1 is eating
+0ms idx 3 has taken a fork
+0ms idx 3 is eating
+201ms idx 1 is sleeping
+200ms idx 3 is sleeping
+200ms idx 5 has taken a fork
+200ms idx 5 is eating
+203ms idx 2 has taken a fork
+203ms idx 2 is eating
+400ms idx 3 is thinking
+400ms idx 5 is sleeping
+400ms idx 4 has taken a fork
+401ms idx 1 is thinking
+400ms idx 4 is eating
+403ms idx 2 is sleeping
+404ms idx 1 has taken a fork
+404ms idx 1 is eating
+600ms idx 4 is sleeping
+600ms idx 3 has taken a fork
+600ms idx 5 is thinking
+600ms idx 3 is eating
+603ms idx 2 is thinking
+603ms idx 5 has taken a fork
+604ms idx 1 is sleeping
+603ms idx 5 is eating
+800ms idx 4 is thinking
+800ms idx 3 is sleeping
+800ms idx 2 has taken a fork
+800ms idx 2 is eating
+803ms idx 5 is sleeping
+804ms idx 1 is thinking
+803ms idx 4 has taken a fork
+803ms idx 4 is eating
+1000ms idx 2 is sleeping
+1001ms idx 1 has taken a fork
+1000ms idx 3 is thinking
+1001ms idx 1 is eating
+1003ms idx 4 is sleeping
+1003ms idx 5 is thinking
+1003ms idx 3 has taken a fork
+1003ms idx 3 is eating
+1201ms idx 1 is sleeping
+1200ms idx 5 has taken a fork
+1200ms idx 2 is thinking
+1200ms idx 5 is eating
+1203ms idx 4 is thinking
+1203ms idx 3 is sleeping
+1203ms idx 2 has taken a fork
+1203ms idx 2 is eating
+1401ms idx 1 is thinking
+1400ms idx 5 is sleeping
+1400ms idx 4 has taken a fork
+1400ms idx 4 is eating
+1403ms idx 3 is thinking
+1404ms idx 1 has taken a fork
+1403ms idx 2 is sleeping
+1404ms idx 1 is eating
+1600ms idx 4 is sleeping
+1600ms idx 5 is thinking
+1600ms idx 3 has taken a fork
+1600ms idx 3 is eating
+1604ms idx 1 is sleeping
+1603ms idx 2 is thinking
+1603ms idx 5 has taken a fork
+1603ms idx 5 is eating
+1800ms idx 4 is thinking
+1800ms idx 2 has taken a fork
+1800ms idx 3 is sleeping
+1800ms idx 2 is eating
+1803ms idx 4 has taken a fork
+1803ms idx 5 is sleeping
+1804ms idx 1 is thinking
+1803ms idx 4 is eating
+2000ms idx 3 is thinking
+2000ms idx 2 is sleeping
+2001ms idx 1 has taken a fork
+2001ms idx 1 is eating
+2003ms idx 5 is thinking
+2003ms idx 3 has taken a fork
+2003ms idx 4 is sleeping
+2003ms idx 3 is eating
+2200ms idx 5 has taken a fork
+2200ms idx 2 is thinking
+2201ms idx 1 is sleeping
+2200ms idx 5 is eating
+2203ms idx 4 is thinking
+2203ms idx 3 is sleeping
+2203ms idx 2 has taken a fork
+2203ms idx 2 is eating
+2400ms idx 5 is sleeping
+2400ms idx 4 has taken a fork
+2401ms idx 1 is thinking
+2400ms idx 4 is eating
+2404ms idx 1 has taken a fork
+2403ms idx 3 is thinking
+2403ms idx 2 is sleeping
+2404ms idx 1 is eating
+2600ms idx 4 is sleeping
+2600ms idx 5 is thinking
+2600ms idx 3 has taken a fork
+2600ms idx 3 is eating
+2604ms idx 1 is sleeping
+2603ms idx 2 is thinking
+2603ms idx 5 has taken a fork
+2603ms idx 5 is eating
+2800ms idx 4 is thinking
+2800ms idx 2 has taken a fork
+2800ms idx 3 is sleeping
+2800ms idx 2 is eating
+2803ms idx 5 is sleeping
+2803ms idx 4 has taken a fork
+2804ms idx 1 is thinking
+2803ms idx 4 is eating
+3000ms idx 3 is thinking
+3000ms idx 2 is sleeping
+3001ms idx 1 has taken a fork
+3001ms idx 1 is eating
+3003ms idx 5 is thinking
+3003ms idx 3 has taken a fork
+3003ms idx 4 is sleeping
+3003ms idx 3 is eating
+3200ms idx 2 is thinking
+3200ms idx 5 has taken a fork
+3200ms idx 5 is eating
+3203ms idx 4 is thinking
+3203ms idx 2 has taken a fork
+3203ms idx 2 is eating
+3400ms idx 4 has taken a fork
+3400ms idx 4 is eating

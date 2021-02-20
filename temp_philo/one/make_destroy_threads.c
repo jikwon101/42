@@ -3,14 +3,15 @@ int make_threads(t_philo *ph_set)
 {
 	int	i;
 	pthread_t full;
-
+	uint64_t temp;
 	i = 0;
 	while (i < nbr_ph)
 	{
-		ph_set[i].last_meal = get_time();
-		ph_set[i].t_start = get_time();
+		temp = get_time();
+		ph_set[i].last_meal = temp;
+		ph_set[i].t_start = temp;
 		pthread_create(&ph_set[i].thread, NULL, routine, &ph_set[i]);
-		usleep(1); 
+		usleep(50); 
 		i++;
 	}
 	if (must_eat > 0)
