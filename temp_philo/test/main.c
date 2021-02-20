@@ -10,6 +10,10 @@
 # define FULL 2
 # define CF 1000L //conversion factor 1ms = 1000us
 
+// thread 마다 must_eat 이 0 이면 full thread 중단. 
+//must_eat 0이면 state++하기. state = nbr_ph 면 끝.
+//state이 dead면 -1주기. 0 < state < nbr_ph일떄까지만돌리기.
+
 typedef struct s_philo
 {
 	pthread_t thread;
@@ -21,10 +25,11 @@ typedef struct s_philo
 	long t_start;
 }	t_philo;
 
-const int nbr_ph = 4;
+const int nbr_ph = 2;
 const int t_die = 410; //(ms)
 const int t_eat = 200; //(ms)
 const int t_sleep = 100; //(ms)
+const int must_eat = 1;
 int state = 0;
 
 pthread_mutex_t *m_forks;
@@ -108,8 +113,9 @@ t_philo *init_threads(void)
 		ph_set[i].idx = i + 1;
 		ph_set[i].left_fork = &m_forks[i];
 		ph_set[i].right_fork = &m_forks[(i + 1) % nbr_ph];
-		ph_set[i].last_meal = get_time();
-		ph_set[i].t_start = get_time();
+		ph_set[i].remain = 1;
+		//ph_set[i].last_meal = get_time();
+		//ph_set[i].t_start = get_time();
 		i++;
 	}
 	return (ph_set);
@@ -144,6 +150,7 @@ void do_eat(t_philo *one)
 	print_msg(" has taken a fork\n", one);
 	print_msg(" is eating\n", one);
 	t_target = one->last_meal + t_eat;
+	one->remain -= 1;
 	while (get_time() < t_target)
 		usleep(100); //100us = 0.1ms
 	pthread_mutex_unlock(one->right_fork);
@@ -158,8 +165,10 @@ void *routine(void *arg)
 	one = (t_philo *)arg;
 	pthread_create(&died, NULL, &check_death, one);
 	pthread_detach(died);
+	pthread_create(&full, NULL, &check_full, ph_set);
+	pthread_detach(full);
 	if (one->idx % 2 == 0)  
-		usleep(t_eat * CF - 1); //usleep = us . t_eat = ms
+		usleep(t_eat * CF / 2); //usleep = us . t_eat = ms
 	while (state != DIED && state != FULL)
 	{
 		do_eat(one);
@@ -169,7 +178,30 @@ void *routine(void *arg)
 	}	
 	return (NOERR);
 }
+void *check_full(void *arg)
+{
+	t_philo *ph_set;
+	int i;
+	int res_sum;
 
+	ph_set = (t_philo *)arg;
+	while (state != DIED && state != FULL)
+	{
+		i = 0;
+		while (i < nbr_ph)
+		{
+			res_sum += ph_set[i].remain;
+			i++;
+		}
+		if (res_sum <= 0)
+		{
+			pthread_mutex_lock(&m_state);
+			state = FULL;
+			pthread_mutex_unlock(&m_state);
+		}
+	}
+	return (NOERR);
+}
 int make_threads(t_philo *ph_set)
 {
 	int	i;
