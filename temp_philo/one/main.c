@@ -21,7 +21,7 @@ void do_eat(t_philo *one)
 	one->last_meal = get_time();
 	t_target = one->last_meal + t_eat;         
 	while (get_time() < t_target)
-		usleep(10); //100us = 0.1ms
+		usleep(50); //100us = 0.1ms
 	//my_time(one->last_meal, t_eat);
 	pthread_mutex_unlock(one->right_fork);
 	pthread_mutex_unlock(one->left_fork);
@@ -46,7 +46,7 @@ void *routine(void *arg)
 		print_msg_thread(" is sleeping\n", one);
 		t_target = get_time() + t_sleep;
 		while (get_time() < t_target)
-			usleep(10);
+			usleep(50);
 		print_msg_thread(" is thinking\n", one);
 	}
 	return (NOERR);

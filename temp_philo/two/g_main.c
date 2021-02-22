@@ -34,8 +34,9 @@ typedef struct s_philo
 	int remain;
 	uint64_t last_meal;
 	uint64_t t_start;
-	t_info *info;
 }	t_philo;
+
+t_info info;
 
 uint64_t get_time(void)
 {
@@ -46,38 +47,37 @@ uint64_t get_time(void)
 }
 
 
-int init_info(t_info *info)
+int init_info(void)
 {
-	info->nbr_of_philo = 5;
-	info->t_die = 800;
-	info->t_eat = 200;
-	info->t_sleep = 200;
-	info->must_eat = 7;
-	info->state = NORMAL;
+	info.nbr_of_philo = 5;
+	info.t_die = 800;
+	info.t_eat = 200;
+	info.t_sleep = 200;
+	info.must_eat = 7;
+	info.state = NORMAL;
 	sem_unlink("s_eat");
 	sem_unlink("s_write");
 	sem_unlink("s_state");
-	info->s_write = sem_open("s_write", O_CREAT, 0644, 1);
-	int max_eat  = info->nbr_of_philo  / 2;
-	info->s_eat = sem_open("s_eat", O_CREAT, 0644, max_eat);
-	info->s_state = sem_open("s_state", O_CREAT, S_IRWXU, 1);
+	info.s_write = sem_open("s_write", O_CREAT, 0644, 1);
+	int max_eat  = info.nbr_of_philo  / 2;
+	info.s_eat = sem_open("s_eat", O_CREAT, 0644, max_eat);
+	info.s_state = sem_open("s_state", O_CREAT, S_IRWXU, 1);
 	return (NOERR);
 }
 
-t_philo *init_philo(t_info *info)
+t_philo *init_philo()
 {
 	t_philo *ph_set;
 	int i;
 
 	i = 0;
-	ph_set = (t_philo *)malloc(sizeof(t_philo) * info->nbr_of_philo);
-	while (i < info->nbr_of_philo)
+	ph_set = (t_philo *)malloc(sizeof(t_philo) * info.nbr_of_philo);
+	while (i < info.nbr_of_philo)
 	{
 		ph_set[i].idx = i + 1;
-		ph_set[i].remain = info->must_eat;
+		ph_set[i].remain = info.must_eat;
 		ph_set[i].last_meal = get_time();
 		ph_set[i].t_start = get_time();
-		ph_set[i].info = info;
 		i++;
 	}
 	return (ph_set);
@@ -98,28 +98,28 @@ void ft_putnbr(long num)
 
 void print_msg(const char *str, t_philo *one)
 {
-	if (one->remain == 0 || one->info->state == DIED || one->info->state == FULL)
+	if (one->remain == 0 || info.state == DIED || info.state == FULL)
 		return ;
-	sem_wait(one->info->s_write);
+	sem_wait(info.s_write);
 	ft_putnbr(get_time() - one->t_start);
 	ft_putstr("ms idx ");
 	ft_putnbr(one->idx);
 	ft_putstr(str);
-	sem_post(one->info->s_write);
+	sem_post(info.s_write);
 }
 
 int do_eat(t_philo *one)
 {
-	sem_wait(one->info->s_eat);
+	sem_wait(info.s_eat);
 	print_msg(" has taken forks\n", one);
 	print_msg(" is eating\n", one);
 	one->last_meal = get_time();
 	uint64_t target;
-	target = one->last_meal + one->info->t_eat;
+	target = one->last_meal + info.t_eat;
 	while (get_time() < target)
 		usleep(50);
-	usleep(one->info->t_eat);
-	sem_post(one->info->s_eat);
+	usleep(info.t_eat);
+	sem_post(info.s_eat);
 	one->remain > 0 ? one->remain -= 1 : 0;
 	return (0);
 }
@@ -131,15 +131,15 @@ void *check_death(void *arg)
 
 
 	one = (t_philo *)arg;
-	while (one->info->state != DIED)
+	while (info.state != DIED)
 	{
 		gap = get_time() - one->last_meal;
-		if (gap > one->info->t_die)
+		if (gap > info.t_die)
 		{
 			print_msg(" is died\n", one);
-			sem_wait(one->info->s_state);
-			one->info->state = DIED;
-			sem_post(one->info->s_state);
+			sem_wait(info.s_state);
+			info.state = DIED;
+			sem_post(info.s_state);
 			break;
 		}
 	}
@@ -148,27 +148,25 @@ void *check_death(void *arg)
 void *check_full(void *arg)
 {
 	t_philo *ph_set;
-	t_info *info;
 	int i;
 	
 	ph_set = (t_philo *)arg;
-	info = ph_set[0].info;
-	if (info->must_eat == -1)
+	if (info.must_eat == -1)
 		return (NOERR);
-	while (info->state != DIED && info->state != FULL)
+	while (info.state != DIED && info.state != FULL)
 	{
 		i = 0;
-		while (i < info->nbr_of_philo)
+		while (i < info.nbr_of_philo)
 		{
 			if (ph_set[i].remain > 0)
 				i = 0;
 			else
 				i++;
 		}
-		sem_wait(info->s_state);
+		sem_wait(info.s_state);
 		print_msg(" is FULLED\n", &ph_set[0]);
-		info->state = FULL;
-		sem_post(info->s_state);
+		info.state = FULL;
+		sem_post(info.s_state);
 	}
 	return (NOERR);
 }
@@ -184,20 +182,20 @@ void *routine(void *arg)
 	pthread_create(&death, NULL, &check_death, (void *)one);
 	pthread_detach(death);
 	if (one->idx % 2 == 0)
-		usleep(one->info->t_eat * 2 / 3);
-	while (one->info->state != DIED && one->info->state != FULL)
+		usleep(info.t_eat * 2 / 3);
+	while (info.state != DIED && info.state != FULL)
 	{
 		do_eat(one);
 		print_msg(" is sleeping\n", one);
 		uint64_t target;
-		target = get_time() + one->info->t_sleep;
+		target = get_time() + info.t_sleep;
 		while (get_time() < target)
 			usleep(50);
 		print_msg(" is thinking\n", one);
 	}
 	return (NOERR);
 }
-int make_threads(t_philo *ph_set, t_info info)
+int make_threads(t_philo *ph_set)
 {
 	int i;
 	pthread_t full;
@@ -219,12 +217,11 @@ int make_threads(t_philo *ph_set, t_info info)
 
 int main()
 {
-	t_info info;
 	t_philo *ph_set;
 
-	init_info(&info);
-	ph_set = init_philo(&info);
-	make_threads(ph_set, info);
+	init_info();
+	ph_set = init_philo();
+	make_threads(ph_set);
 	if (info.state == FULL)
 		write(1, "FULL\n", 5);
 	else if (info.state == DIED)
