@@ -162,8 +162,6 @@ void *check_full(void *arg)
 	
 	ph_set = (t_philo *)arg;
 	info = ph_set[0].info;
-	if (info->must_eat == -1)
-		return (NOERR);
 	while (info->state != DIED && info->state != FULL)
 	{
 		i = 0;
@@ -220,10 +218,6 @@ int make_threads(t_philo *ph_set, t_info info)
 	i = 0;
 	while (i < info.nbr_of_philo)
 		pthread_join(ph_set[i++].thread, NULL);
-	if (info.state == FULL)
-		write(1, "FULL\n", 5);
-	else if (info.state == DIED)
-		write(1, "DIED\n", 5);
 	return (NOERR);
 }
 
@@ -235,4 +229,5 @@ int main()
 	init_info(&info);
 	ph_set = init_philo(&info);
 	make_threads(ph_set, info);
+	printf("state : %d\n", info.state);
 }
