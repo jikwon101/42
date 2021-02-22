@@ -39,10 +39,10 @@ typedef struct s_philo
 t_info g_info;
 void init_info(void)
 {
-	g_info.nbr_of_philo = 2;
-	g_info.t_die = 310;
+	g_info.nbr_of_philo = 4;
+	g_info.t_die = 410;
 	g_info.t_eat = 200;
-	g_info.t_sleep = 100;
+	g_info.t_sleep = 200;
 	g_info.must_eat = 2;
 }
 uint64_t get_time(void)
@@ -80,15 +80,45 @@ t_philo *init_philo(void)
 	}
 	return (ph_set);
 }
+void ft_putstr(const char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+void ft_putnbr(long num)
+{
+	char c ;
+	if (num >= 10)
+		ft_putnbr(num / 10);
+	c = num % 10 + '0';
+	write(1, &c, 1);
+}
+
+void print_msg(const char *str, t_philo *one)
+{
+	if (one->remain == 0 || one->state == DIED || one->state == FULL)
+		return ;
+	sem_wait(g_info.s_write);
+	ft_putnbr(get_time() - one->t_start);
+	ft_putstr("ms idx ");
+	ft_putnbr(one->idx);
+	ft_putstr(str);
+	sem_post(g_info.s_write);
+}
+
 void do_eat(t_philo *one)
 {
+	uint64_t target;
+
 	sem_wait(g_info.s_eat);
-	sem_wait(g_info.s_write);
-	printf("%d is eating\n", one->idx);
-	sem_post(g_info.s_write);
-	usleep(g_info.t_eat * 1000L);
-	one->remain = one->remain > 0 ? one->remain - 1 : one->remain;
+	print_msg(" has taken forks\n", one);
+	print_msg(" is eating\n", one);
+	one->last_meal = get_time();
+	target = get_time() + g_info.t_eat;
+	while (get_time() < target)
+		usleep(50);
 	sem_post(g_info.s_eat);
+	one->remain = one->remain > 0 ? one->remain - 1 : one->remain;
 }
 void *check_death(void *arg)
 {
@@ -99,11 +129,8 @@ void *check_death(void *arg)
 	{
 		if (get_time() - one->last_meal > g_info.t_die)
 		{
-			sem_wait(g_info.s_write);
-			printf("%d is died\n", one->idx);
-			sem_post(g_info.s_write);
+			print_msg(" is died\n", one);
 			one->state = DIED;
-			sem_post(g_info.s_death);
 		}
 	}
 	return (NOERR);
@@ -111,15 +138,20 @@ void *check_death(void *arg)
 int	routine(t_philo *one)
 {
 	pthread_t death;
-	
+	uint64_t target;
+
 	pthread_create(&death, NULL, &check_death, one);
 	pthread_detach(death);
+	if (one->idx % 2 == 0)
+		usleep(g_info.t_eat / 2);
 	while (one->state != DIED)
 	{
 		do_eat(one);
-		printf("%d is sleeping\n", one->idx);
-		usleep(g_info.t_sleep * 1000L);
-		printf("%d is thinking\n", one->idx);
+		print_msg(" is sleeping\n", one);
+		target = get_time() + g_info.t_sleep;
+		while (get_time() < target)
+			usleep(50);
+		print_msg(" is thingking\n", one);
 	}
 	return (NOERR);
 }
@@ -131,7 +163,7 @@ void kill_process(t_philo *ph_set)
 	i = 0;
 	while (i < g_info.nbr_of_philo)
 	{
-		kill(ph_set[i].pid, SIGINT);
+		kill(ph_set[i].pid, SIGTERM);
 		i++;
 	}
 	return ;
@@ -145,11 +177,12 @@ int make_process(t_philo *ph_set)
 	while (i < g_info.nbr_of_philo)
 	{
 		ph_set[i].pid = fork();
-		if (ph_set[i].pid > 0)
+		if (ph_set[i].pid == 0)
 		{
 			routine(&ph_set[i]);
-			return (0);
+			exit (0);
 		}
+		i++;
 	}
 	i = 0;
 	while (i < g_info.nbr_of_philo)
@@ -164,9 +197,10 @@ int main()
 	init_sema();
 	ph_set = init_philo();
 	make_process(ph_set);
-	sem_wait(g_info.s_death);
-	kill_process(ph_set);
-	printf("DIED\n");
-
+	sem_unlink("s_write");
+	sem_unlink("s_eat");
+	sem_unlink("s_death");
+	sem_close(g_info.s_write);
+	sem_close(g_info.s_eat);
+	sem_close(g_info.s_death);
 }
-
