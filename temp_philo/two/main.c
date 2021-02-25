@@ -126,14 +126,14 @@ int do_eat(t_philo *one)
 void *check_death(void *arg)
 {
 	t_philo *one;
-	uint64_t gap;
+	int64_t gap;
 	uint64_t die;
 
 
 	one = (t_philo *)arg;
 	while (one->info->state != DIED)
 	{
-		gap = get_time() - one->last_meal;
+		gap = (int64_t)(get_time() - one->last_meal);
 		if (gap > one->info->t_die)
 		{
 			print_msg(" is died\n", one);

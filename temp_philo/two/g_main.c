@@ -127,14 +127,13 @@ void *check_death(void *arg)
 {
 	t_philo *one;
 	uint64_t gap;
-	uint64_t die;
 
 
 	one = (t_philo *)arg;
 	while (info.state != DIED)
 	{
 		gap = get_time() - one->last_meal;
-		if (gap > info.t_die)
+		if (gap > (int64_t)info.t_die)
 		{
 			print_msg(" is died\n", one);
 			sem_wait(info.s_state);
