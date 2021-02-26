@@ -1,56 +1,51 @@
-#include "one.h"
-//return m
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/25 20:34:42 by jikwon            #+#    #+#             */
+/*   Updated: 2021/02/25 20:34:43 by jikwon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-uint64_t get_time(void)
+#include "one.h"
+
+int64_t	get_time(void)
 {
-	struct timeval s_time;
+	struct timeval	s_time;
+	int64_t			temp;
 
 	gettimeofday(&s_time, NULL);
-	return (s_time.tv_sec * CF + s_time.tv_usec / CF);
+	temp = s_time.tv_sec * CONVERT_FACTOR;
+	temp += s_time.tv_usec / CONVERT_FACTOR;
+	return (temp);
 }
 
-int print_msg(const char *str, t_philo *one)
+void	print_msg(const char *str, t_philo *one, int64_t time)
 {
+	if (one->remain == 0 || g_info.state != NORMAL)
+		return ;
+	pthread_mutex_lock(&g_info.m_write);
+	printf("%lldms idx %d %s", time - one->t_start, one->idx, str);
+	pthread_mutex_unlock(&g_info.m_write);
+}
 
-	pthread_mutex_lock(&m_write);
-	if (state != DIED && one->remain != 0)
+int64_t	ft_atoi(char *str)
+{
+	int		i;
+	int64_t	nbr;
+
+	i = 0;
+	nbr = 0;
+	while (str[i])
 	{
-		ft_putnbr(get_time() - one->t_start);
-		ft_putstr("ms idx ");
-		ft_putnbr(one->idx);
-		ft_putstr(str);
+		if ('0' <= str[i] && str[i] <= '9')
+			nbr = nbr * 10 + str[i] - '0';
+		else
+			return (-1);
+		i++;
 	}
-	pthread_mutex_unlock(&m_write);
-	return (NOERR);
-}
-typedef struct s_tmp
-{
-	t_philo *one;
-	const char *str;
-} t_tmp;
-
-void *print_temp(void *arg)
-{
-	t_tmp *temp;
-	temp = (t_tmp *)arg;
-	pthread_mutex_lock(&m_write);
-	if (temp->one->remain!= 0 && state != DIED)
-	{
-		ft_putnbr(get_time() - temp->one->t_start);
-		ft_putstr("ms idx ");
-		ft_putnbr(temp->one->idx);
-		ft_putstr(temp->str);
-	}
-	pthread_mutex_unlock(&m_write);
-	return (0);
-}
-void print_msg_thread(const char *str, t_philo *one)
-{
-	pthread_t t_msg;
-	t_tmp temp;
-
-	temp.one = one;
-	temp.str = str;
-	pthread_create(&t_msg, NULL, print_temp, &temp);
-	pthread_join(t_msg, NULL);
+	return (nbr);
 }

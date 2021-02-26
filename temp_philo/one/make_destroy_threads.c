@@ -1,43 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_destroy_threads.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/25 20:40:37 by jikwon            #+#    #+#             */
+/*   Updated: 2021/02/25 20:41:14 by jikwon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "one.h"
-int make_threads(t_philo *ph_set)
+
+int		make_threads(t_philo *ph_set)
 {
-	int	i;
-	pthread_t full;
-	uint64_t temp;
+	int			i;
+	pthread_t	full;
+
 	i = 0;
-	while (i < nbr_ph)
+	while (i < g_info.nbr_of_philo)
 	{
-		temp = get_time();
-		ph_set[i].last_meal = temp;
-		ph_set[i].t_start = temp;
+		ph_set[i].last_meal = get_time();
+		ph_set[i].t_start = ph_set[i].last_meal;
 		pthread_create(&ph_set[i].thread, NULL, routine, &ph_set[i]);
-		usleep(50); 
+		usleep(50);
 		i++;
 	}
-	if (must_eat > 0)
-	{
-		pthread_create(&full, NULL, &check_full, ph_set);
-		pthread_detach(full);
-	}
+	pthread_create(&full, NULL, &check_full, ph_set);
+	pthread_detach(full);
 	i = 0;
-	while (i < nbr_ph)
+	while (i < g_info.nbr_of_philo)
 		pthread_join(ph_set[i++].thread, NULL);
-	if (state == DIED)
-		printf("one of them is died\n");
-	else if (state == FULL)
-		printf("they are  full\n");
 	return (NOERR);
 }
-void finish_threads(t_philo *ph_set)
+
+void	finish_threads(t_philo *ph_set)
 {
 	int i;
 
 	i = 0;
-	while (i < nbr_ph)
-		pthread_mutex_destroy(&m_forks[i++]);
-	pthread_mutex_destroy(&m_write);
-	pthread_mutex_destroy(&m_state);
+	while (i < g_info.nbr_of_philo)
+		pthread_mutex_destroy(&g_info.m_forks[i++]);
+	pthread_mutex_destroy(&g_info.m_write);
+	pthread_mutex_destroy(&g_info.m_state);
 	free(ph_set);
-	free(m_forks);
+	free(g_info.m_forks);
 }
-

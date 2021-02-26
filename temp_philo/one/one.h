@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   one.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/25 20:43:05 by jikwon            #+#    #+#             */
+/*   Updated: 2021/02/25 20:46:20 by jikwon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ONE_H
 # define ONE_H
 
@@ -12,18 +24,21 @@
 # define NORMAL 0
 # define DIED 1
 # define FULL 2
-# define CF 1000L
+# define NONDIGIT -1
+# define CONVERT_FACTOR 1000L
 
-int nbr_ph;
-uint64_t	t_die;
-uint64_t t_eat;
-uint64_t t_sleep;
-int must_eat;
-int state;
-
-pthread_mutex_t *m_forks;
-pthread_mutex_t m_write;
-pthread_mutex_t m_state;
+typedef struct	s_info
+{
+	int				nbr_of_philo;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				must_eat;
+	int				state;
+	pthread_mutex_t	*m_forks;
+	pthread_mutex_t	m_write;
+	pthread_mutex_t	m_state;
+}				t_info;
 
 typedef struct	s_philo
 {
@@ -32,33 +47,46 @@ typedef struct	s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	int				remain;
-	uint64_t			last_meal;
-	uint64_t			t_start;
+	int64_t			last_meal;
+	int64_t			t_start;
 }				t_philo;
 
-//monitor.c
-void *check_death(void *arg);
-void *check_full(void *arg);
+t_info			g_info;
 
-//init.c
-int  init_mutex(void);
-t_philo *init_threads(void);
-int	init_state(int ac, char **av);
+/*
+** monitor.c
+*/
 
-//common.c
-void ft_putnbr(long long nbr);
-void ft_putstr(const char *str);
-int	ft_atoi(char *str);
+void			*check_death(void *arg);
+void			*check_full(void *arg);
 
-//utils.c
-int print_msg(const char *str, t_philo *one);
-uint64_t get_time(void);
-void print_msg_thread(const char *str, t_philo *one);
-//main.c
-void do_eat(t_philo *one);
-void *routine(void *arg);
+/*
+**init.c
+*/
 
-//make_destroy_threads.c
-void finish_threads(t_philo *ph_set);
-int make_threads(t_philo *ph_set);
+int				init_mutex(void);
+t_philo			*init_threads(void);
+int				init_info(int ac, char **av);
+
+/*
+**utils.c
+*/
+
+void			print_msg(const char *str, t_philo *one, int64_t time);
+int64_t			get_time(void);
+int64_t			ft_atoi(char *str);
+
+/*
+**main.c
+*/
+
+void			do_eat(t_philo *one);
+void			*routine(void *arg);
+
+/*
+**make_destroy_threads.c
+*/
+
+void			finish_threads(t_philo *ph_set);
+int				make_threads(t_philo *ph_set);
 #endif
