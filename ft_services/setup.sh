@@ -76,10 +76,12 @@ config()
 
 setting_minikube()
 {
-	export MINIKUBE_HOME=~/goinfre
-	minikube start --driver=virtualbox
+	#export MINIKUBE_HOME=~/goinfre
+	#minikube start --driver=virtualbox
+	minikube start
 	sleep 3
-	IP=`minikube ip`
+	#IP=`minikube ip`
+	IP = '127.0.0.1'
 	MINI_IP='$MINI_IP'
 	sed "s|$MINI_IP|$IP|g" ./srcs/nginx/srcs/default.conf.temp > ./srcs/nginx/srcs/default.conf
 	sed "s|$MINI_IP|$IP|g" ./srcs/wordpress/srcs/wordpress.sql.temp > ./srcs/wordpress/srcs/wordpress.sql
