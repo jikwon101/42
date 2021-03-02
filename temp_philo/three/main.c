@@ -176,7 +176,7 @@ int		routine(t_philo *one)
 	one->t_start = get_time();
 	one->last_meal = one->t_start;
 	if (one->idx % 2 == 0)
-		usleep(g_info.t_eat * CONVERT_FACTOR - 100);
+		usleep(g_info.t_eat * CONVERT_FACTOR);
 	while (one->state != DIED)
 	{
 		do_eat(one);
