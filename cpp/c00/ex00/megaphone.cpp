@@ -1,20 +1,13 @@
 #include <iostream>
 
-int is_upper(char c)
-{
-	if ('A' <= c && c <= 'Z')
-		return (1);
-	return (0);
-}
-
-int is_lower(char c)
+int		is_lower(char c)
 {
 	if ('a' <= c && c <= 'z')
 		return (1);
 	return (0);
 }
 
-char *case_converter(char *str)
+char	*case_converter(char *str)
 {
 	int	i;
 
@@ -28,7 +21,7 @@ char *case_converter(char *str)
 	return (str);
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	int	i;
 	
