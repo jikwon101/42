@@ -6,7 +6,7 @@ FLAG=-Wall -Werror -Wextra -std=c++98
 all: $(NAME)
 
 $(NAME): $(OBJT)
-	g++ $(FLAG) $(OBJT) -c $(NAME)
+	g++ $(FLAG) $(OBJT) -o $(NAME)
 
 $(OBJT): $(SRCS)
 	g++ $(FLAG) -c $(SRCS)
