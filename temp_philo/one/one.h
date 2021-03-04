@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:43:05 by jikwon            #+#    #+#             */
-/*   Updated: 2021/02/25 20:46:20 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:55:45 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int64_t			ft_atoi(char *str);
 
 void			do_eat(t_philo *one);
 void			*routine(void *arg);
+int				make_threads(t_philo *ph_set);
 
 /*
-**make_destroy_threads.c
+**clean.c
 */
 
 void			finish_threads(t_philo *ph_set);
-int				make_threads(t_philo *ph_set);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:41:30 by jikwon            #+#    #+#             */
-/*   Updated: 2021/02/25 22:40:35 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:32:50 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void	*routine(void *arg)
 {
 	t_philo		*one;
 	pthread_t	death;
-	pthread_t	full;
 	int64_t		target;
 
 	one = (t_philo *)arg;
 	pthread_create(&death, NULL, &check_death, one);
 	pthread_detach(death);
-	one->idx % 2 ? 0 : usleep(g_info.t_eat * 2 / 3);
+	one->idx % 2 ? 0 : usleep(g_info.t_eat);
 	while (g_info.state == NORMAL)
 	{
 		do_eat(one);
@@ -49,6 +48,26 @@ void	*routine(void *arg)
 			usleep(50);
 		print_msg("is thinking\n", one, get_time());
 	}
+	return (NOERR);
+}
+
+int		make_threads(t_philo *ph_set)
+{
+	int			i;
+	pthread_t	full;
+
+	i = 0;
+	while (i < g_info.nbr_of_philo)
+	{
+		pthread_create(&ph_set[i].thread, NULL, routine, &ph_set[i]);
+		usleep(50);
+		i++;
+	}
+	pthread_create(&full, NULL, &check_full, ph_set);
+	pthread_detach(full);
+	i = 0;
+	while (i < g_info.nbr_of_philo)
+		pthread_join(ph_set[i++].thread, NULL);
 	return (NOERR);
 }
 

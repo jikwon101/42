@@ -1,9 +1,27 @@
-SRCS=main.c make_destroy_threads.c utils.c \
-	 init.c monitor.c
+NAME=philo_one
+
+SRCS=main.c \
+	 clean.c \
+	 utils.c \
+	 init.c \
+	 monitor.c
+
 OBJT=$(SRCS:.c=.o)
 
+FLAG=-Wall -Wextra -Werror
 
-all: 
-	rm -rf a.out
-	gcc -g3 $(SRCS)
+all: $(NAME)
 
+$(NAME): $(OBJT)
+	gcc $(FLAG) $(OBJT) -o $(NAME)
+
+$(OBJT): $(SRCS)
+	gcc $(FLAG) -c $(SRCS)
+
+clean:
+	rm -rf $(OBJT)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:34:42 by jikwon            #+#    #+#             */
-/*   Updated: 2021/02/25 20:34:43 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:49:49 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int64_t	ft_atoi(char *str)
 		if ('0' <= str[i] && str[i] <= '9')
 			nbr = nbr * 10 + str[i] - '0';
 		else
-			return (-1);
+			return (NONDIGIT);
 		i++;
 	}
 	return (nbr);

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:36:44 by jikwon            #+#    #+#             */
-/*   Updated: 2021/02/25 20:46:15 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:30:22 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_philo	*init_threads(void)
 		ph_set[i].right_fork =
 				&g_info.m_forks[(i + 1) % g_info.nbr_of_philo];
 		ph_set[i].remain = g_info.must_eat;
+		ph_set[i].last_meal = get_time();
+		ph_set[i].t_start = ph_set[i].last_meal;
 		i++;
 	}
 	return (ph_set);
