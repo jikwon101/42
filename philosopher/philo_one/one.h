@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   two.h                                              :+:      :+:    :+:   */
+/*   one.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 19:49:04 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 13:53:07 by jikwon           ###   ########.fr       */
+/*   Created: 2021/02/25 20:43:05 by jikwon            #+#    #+#             */
+/*   Updated: 2021/03/04 12:55:45 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TWO_H
-# define TWO_H
+#ifndef ONE_H
+# define ONE_H
 
 # include <stdio.h>
-# include <sys/time.h>
-# include <stdlib.h>
-# include <semaphore.h>
 # include <unistd.h>
 # include <pthread.h>
-# include <fcntl.h>
-# include <sys/stat.h>
+# include <sys/time.h>
+# include <stdlib.h>
 
 # define ERR 1
 # define NOERR 0
@@ -32,35 +29,29 @@
 
 typedef struct	s_info
 {
-	int		nbr_of_philo;
-	int		t_die;
-	int		t_eat;
-	int		t_sleep;
-	int		must_eat;
-	int		state;
-	sem_t	*s_write;
-	sem_t	*s_eat;
-	sem_t	*s_state;
+	int				nbr_of_philo;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				must_eat;
+	int				state;
+	pthread_mutex_t	*m_forks;
+	pthread_mutex_t	m_write;
+	pthread_mutex_t	m_state;
 }				t_info;
 
 typedef struct	s_philo
 {
-	int			idx;
-	pthread_t	thread;
-	int			remain;
-	int64_t		last_meal;
-	int64_t		t_start;
+	int				idx;
+	pthread_t		thread;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+	int				remain;
+	int64_t			last_meal;
+	int64_t			t_start;
 }				t_philo;
 
 t_info			g_info;
-
-/*
-** main.c
-*/
-
-int				make_threads(t_philo *ph_set);
-void			*routin(void *arg);
-void			do_eat(t_philo *one);
 
 /*
 ** monitor.c
@@ -70,25 +61,32 @@ void			*check_death(void *arg);
 void			*check_full(void *arg);
 
 /*
-** init.c
+**init.c
 */
 
+int				init_mutex(void);
+t_philo			*init_threads(void);
 int				init_info(int ac, char **av);
-int				init_sema(void);
-t_philo			*init_philo(void);
 
 /*
-** clean.c
-*/
-
-int				clean_sema(int code);
-
-/*
-** utils.c
+**utils.c
 */
 
 void			print_msg(const char *str, t_philo *one, int64_t time);
-int64_t			ft_atoi(char *str);
 int64_t			get_time(void);
+int64_t			ft_atoi(char *str);
 
+/*
+**main.c
+*/
+
+void			do_eat(t_philo *one);
+void			*routine(void *arg);
+int				make_threads(t_philo *ph_set);
+
+/*
+**clean.c
+*/
+
+void			finish_threads(t_philo *ph_set);
 #endif

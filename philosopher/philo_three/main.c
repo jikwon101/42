@@ -6,7 +6,7 @@
 /*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:06:15 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 17:39:28 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 18:00:43 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ void	do_eat(t_philo *one)
 {
 	int64_t	target;
 
-	sem_wait(g_info.s_eat);
+	sem_wait(g_info.s_fork);
+	sem_wait(g_info.s_fork);
 	print_msg("has taken forks\n", one, get_time());
 	one->last_meal = get_time();
 	print_msg("is eating\n", one, one->last_meal);
 	target = one->last_meal + g_info.t_eat;
 	while (get_time() < target)
 		usleep(50);
-	sem_post(g_info.s_eat);
+	sem_post(g_info.s_fork);
+	sem_post(g_info.s_fork);
 	one->remain = one->remain > 0 ? one->remain - 1 : one->remain;
 }
 
@@ -37,8 +39,6 @@ int		routine(t_philo *one)
 	pthread_detach(death);
 	pthread_create(&full, NULL, &check_full, (void *)one);
 	pthread_detach(full);
-	one->t_start = get_time();
-	one->last_meal = one->t_start;
 	if (one->idx % 2 == 0)
 		usleep(g_info.t_eat * CONVERT_FACTOR);
 	while (one->state != DIED)

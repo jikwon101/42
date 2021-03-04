@@ -6,7 +6,7 @@
 /*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:07:56 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 15:41:30 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 16:54:12 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ int64_t	get_time(void)
 	temp += s_time.tv_usec / CONVERT_FACTOR;
 	return (temp);
 }
-
-void	print_msg(const char *str, t_philo *one, int64_t time)
+void	print_msg(const char *str, t_philo one, int64_t time)
 {
-	if (one->remain == 0 || one->state == DIED)
+	if (one.remain == 0 || one.state == DIED)
 		return ;
 	sem_wait(g_info.s_write);
-	printf("%lldms idx %d %s", time - one->t_start, one->idx, str);
+	printf("%lldms idx %d %s", time - one.t_start, one.idx, str);
 	sem_post(g_info.s_write);
 }

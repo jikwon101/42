@@ -6,42 +6,44 @@
 /*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:06:15 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 17:39:28 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 17:12:22 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "three.h"
 
-void	do_eat(t_philo *one)
+void	do_eat(t_philo one)
 {
 	int64_t	target;
 
 	sem_wait(g_info.s_eat);
 	print_msg("has taken forks\n", one, get_time());
-	one->last_meal = get_time();
-	print_msg("is eating\n", one, one->last_meal);
-	target = one->last_meal + g_info.t_eat;
+	one.last_meal = get_time();
+	print_msg("is eating\n", one, one.last_meal);
+	target = one.last_meal + g_info.t_eat;
 	while (get_time() < target)
 		usleep(50);
 	sem_post(g_info.s_eat);
-	one->remain = one->remain > 0 ? one->remain - 1 : one->remain;
+	one.remain = one.remain > 0 ? one.remain - 1 : one.remain;
 }
 
-int		routine(t_philo *one)
+int		routine(t_philo one)
 {
 	pthread_t	death;
 	pthread_t	full;
 	int64_t		target;
-
-	pthread_create(&death, NULL, &check_death, (void *)one);
+	
+	
+	pthread_create(&death, NULL, &check_death, (void *)&one);
 	pthread_detach(death);
-	pthread_create(&full, NULL, &check_full, (void *)one);
+	pthread_create(&full, NULL, &check_full, (void *)&one);
 	pthread_detach(full);
-	one->t_start = get_time();
-	one->last_meal = one->t_start;
-	if (one->idx % 2 == 0)
+	
+	one.t_start = get_time();
+	one.last_meal = one.t_start;
+	if (one.idx % 2 == 0)
 		usleep(g_info.t_eat * CONVERT_FACTOR);
-	while (one->state != DIED)
+	while (one.state != DIED)
 	{
 		do_eat(one);
 		print_msg("is sleeping\n", one, get_time());
@@ -63,7 +65,9 @@ int		make_process(t_philo *ph_set)
 		ph_set[i].pid = fork();
 		if (ph_set[i].pid == 0)
 		{
-			routine(&ph_set[i]);
+			//routine(ph_set[i]);
+			while (1)
+				;
 			exit(0);
 		}
 		else if (ph_set[i].pid < 0)

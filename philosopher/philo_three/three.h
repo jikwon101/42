@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:27:16 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 17:38:45 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 18:01:22 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_info
 	int		t_sleep;
 	int		must_eat;
 	sem_t	*s_write;
-	sem_t	*s_eat;
+	sem_t	*s_fork;
 	sem_t	*s_death;
 	sem_t	*s_full;
 }				t_info;

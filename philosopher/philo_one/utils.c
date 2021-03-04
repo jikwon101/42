@@ -3,26 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 14:07:56 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 15:41:30 by jikwon           ###   ########.fr       */
+/*   Created: 2021/02/25 20:34:42 by jikwon            #+#    #+#             */
+/*   Updated: 2021/03/04 12:49:49 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "three.h"
+#include "one.h"
 
-void	kill_process(t_philo *ph_set)
+int64_t	get_time(void)
 {
-	int	i;
+	struct timeval	s_time;
+	int64_t			temp;
 
-	i = 0;
-	while (i < g_info.nbr_of_philo)
-	{
-		kill(ph_set[i].pid, SIGTERM);
-		i++;
-	}
-	return ;
+	gettimeofday(&s_time, NULL);
+	temp = s_time.tv_sec * CONVERT_FACTOR;
+	temp += s_time.tv_usec / CONVERT_FACTOR;
+	return (temp);
+}
+
+void	print_msg(const char *str, t_philo *one, int64_t time)
+{
+	if (one->remain == 0 || g_info.state != NORMAL)
+		return ;
+	pthread_mutex_lock(&g_info.m_write);
+	printf("%lldms idx %d %s", time - one->t_start, one->idx, str);
+	pthread_mutex_unlock(&g_info.m_write);
 }
 
 int64_t	ft_atoi(char *str)
@@ -41,24 +48,4 @@ int64_t	ft_atoi(char *str)
 		i++;
 	}
 	return (nbr);
-}
-
-int64_t	get_time(void)
-{
-	struct timeval	s_time;
-	int64_t			temp;
-
-	gettimeofday(&s_time, NULL);
-	temp = s_time.tv_sec * CONVERT_FACTOR;
-	temp += s_time.tv_usec / CONVERT_FACTOR;
-	return (temp);
-}
-
-void	print_msg(const char *str, t_philo *one, int64_t time)
-{
-	if (one->remain == 0 || one->state == DIED)
-		return ;
-	sem_wait(g_info.s_write);
-	printf("%lldms idx %d %s", time - one->t_start, one->idx, str);
-	sem_post(g_info.s_write);
 }

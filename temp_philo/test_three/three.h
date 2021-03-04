@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:27:16 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 17:38:45 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 16:54:51 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ t_info			g_info;
 */
 
 int				make_process(t_philo *ph_set);
-void			do_eat(t_philo *ph_set);
-int				routine(t_philo *one);
+void			do_eat(t_philo one);
+int				routine(t_philo one);
 
 /*
 ** monitor.c
@@ -93,5 +93,5 @@ int				clean_sema(int code);
 void			kill_process(t_philo *ph_set);
 int64_t			ft_atoi(char *str);
 int64_t			get_time(void);
-void			print_msg(const char *str, t_philo *one, int64_t time);
+void			print_msg(const char *str, t_philo one, int64_t time);
 #endif

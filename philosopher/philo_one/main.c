@@ -3,43 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 13:41:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 13:41:01 by jikwon           ###   ########.fr       */
+/*   Created: 2021/02/25 20:41:30 by jikwon            #+#    #+#             */
+/*   Updated: 2021/03/04 13:32:50 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "two.h"
+#include "one.h"
 
 void	do_eat(t_philo *one)
 {
-	int64_t	target;
+	int64_t target;
 
-	sem_wait(g_info.s_eat);
-	print_msg("has taken forks\n", one, get_time());
+	pthread_mutex_lock(one->left_fork);
+	pthread_mutex_lock(one->right_fork);
+	print_msg("has taken a fork\n", one, get_time());
 	one->last_meal = get_time();
 	print_msg("is eating\n", one, one->last_meal);
 	target = one->last_meal + g_info.t_eat;
 	while (get_time() < target)
 		usleep(50);
-	sem_post(g_info.s_eat);
+	pthread_mutex_unlock(one->right_fork);
+	pthread_mutex_unlock(one->left_fork);
 	one->remain > 0 ? one->remain -= 1 : 0;
 }
 
 void	*routine(void *arg)
 {
 	t_philo		*one;
-	int			i;
-	int64_t		target;
 	pthread_t	death;
+	int64_t		target;
 
-	i = 0;
 	one = (t_philo *)arg;
-	pthread_create(&death, NULL, &check_death, (void *)one);
+	pthread_create(&death, NULL, &check_death, one);
 	pthread_detach(death);
-	if (one->idx % 2 == 0)
-		usleep(g_info.t_eat * 2 / 3);
+	one->idx % 2 ? 0 : usleep(g_info.t_eat);
 	while (g_info.state == NORMAL)
 	{
 		do_eat(one);
@@ -60,7 +59,7 @@ int		make_threads(t_philo *ph_set)
 	i = 0;
 	while (i < g_info.nbr_of_philo)
 	{
-		pthread_create(&ph_set[i].thread, NULL, &routine, &ph_set[i]);
+		pthread_create(&ph_set[i].thread, NULL, routine, &ph_set[i]);
 		usleep(50);
 		i++;
 	}
@@ -74,19 +73,18 @@ int		make_threads(t_philo *ph_set)
 
 int		main(int ac, char **av)
 {
-	t_philo	*ph_set;
+	t_philo *ph_set;
 
 	if (init_info(ac, av) == ERR)
 		return (ERR);
-	if (init_sema() == ERR)
+	if (init_mutex() == ERR)
 		return (ERR);
-	if ((ph_set = init_philo()) == NULL)
-		return (ERR);
+	ph_set = init_threads();
 	make_threads(ph_set);
 	if (g_info.state == DIED)
 		printf("Someone is died\n");
 	else if (g_info.state == FULL)
 		printf("All are full\n");
-	free(ph_set);
-	return (clean_sema(NOERR));
+	finish_threads(ph_set);
+	return (NOERR);
 }

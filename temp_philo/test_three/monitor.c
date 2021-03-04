@@ -6,7 +6,7 @@
 /*   By: jikwon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:07:33 by jikwon            #+#    #+#             */
-/*   Updated: 2021/03/04 15:51:13 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/03/04 16:39:29 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*check_death(void *arg)
 		now = get_time();
 		if (now - one->last_meal > g_info.t_die)
 		{
-			print_msg("is died\n", one, now);
+			print_msg("is died\n", *one, now);
 			one->state = DIED;
 		}
 	}
@@ -40,7 +40,7 @@ void	*check_full(void *arg)
 		return (NOERR);
 	while (one->remain != 0)
 		usleep(100);
-	print_msg("is full\n", one, get_time());
+	print_msg("is full\n", *one, get_time());
 	sem_post(g_info.s_full);
 	return (NOERR);
 }
