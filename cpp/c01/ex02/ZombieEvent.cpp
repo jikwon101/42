@@ -1,19 +1,22 @@
+#include "ZombieEvent.hpp"
+
 //Store a type in the object
-void setZombieType(Zombie &zombie)
+void ZombieEvent::setZombieType(Zombie *zombie)
 {
-	std::cout << "[1] Supernatural Zombies." << std::endl;
-	std::cout << "    They are created in a supernatural way." << std::endl;
-	std::cout << "[2] Magic Zombies." << std::endl;
-	std::cout << "    They comes as a result of the powers possessed by witches." << std::endl;
+	std::random_device rd;
+
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 5);
+	zombie->type = dis(gen);
 }
 
 //Create a Zombie with the chosen type, name it, and return it.
-Zombie* newZombie(std::string name)
+Zombie* ZombieEvent::newZombie(std::string name)
 {
 	Zombie *new_zombie;
 
-	new_zomebie = new Zombie;
+	new_zombie = new Zombie(name);
 	setZombieType(new_zombie);
-	new_zombie.announce();
+	new_zombie->announce();
 	return (new_zombie);
 }

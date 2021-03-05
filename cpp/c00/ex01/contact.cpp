@@ -1,6 +1,6 @@
 #include "phonebook.hpp"
 
-std::string Contact::header[11] = {
+std::string Contact::s_header[11] = {
 	"Frist name",
 	"Last name",
 	"Nickname",
@@ -38,7 +38,7 @@ bool Contact::GetInfo(void)
 
 	while (i < 11)
 	{
-		std::cout << std::left << std::setw(width) << header[i] << " : " << info[i] << std::endl;
+		std::cout << std::left << std::setw(width) << s_header[i] << " : " << info[i] << std::endl;
 		i++;
 	}
 	return (true);
@@ -52,7 +52,7 @@ bool Contact::SetInfo(int index)
 	while (i < 11)
 	{
 		std::cout << "[" << i + 1 << "/11] ";
-		std::cout << "Enter your " << this->header[i] << std::endl;
+		std::cout << "Enter your " << s_header[i] << std::endl;
 		std::cout << "+  ";
 		getline(std::cin, this->info[i]);
 		i++;

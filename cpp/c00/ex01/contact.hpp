@@ -10,7 +10,7 @@ class	Contact {
 private:
 	int					index;
 	std::string			info[11];
-	static std::string	header[11];
+	static std::string	s_header[11];
 
 public:
 	bool				GetPromptList(void);
