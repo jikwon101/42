@@ -48,7 +48,7 @@ bool Contact::SetInfo(int index)
 {
 	int i = 0;
 
-	this->index = index;
+	this->index = index + 1;
 	while (i < 11)
 	{
 		std::cout << "[" << i + 1 << "/11] ";

@@ -19,7 +19,10 @@ bool Phonebook::AddContact(void)
 
 int Phonebook::ConvertToInt(char c)
 {
-	return (c - '0');
+	int res;
+
+	res = static_cast<int>(c - '0');
+	return (res);
 }
 
 bool Phonebook::SearchPhonebook(void)
@@ -35,18 +38,18 @@ bool Phonebook::SearchPhonebook(void)
 	ShowSearchPrompt();
 	while (1)
 	{	
-		std::cout << "Enter the index you want to see or 9 to exit." << std::endl;
+		std::cout << "Enter the index you want to see or '0' to exit." << std::endl;
 		std::cout << ">  ";
 		tmp = std::cin.get();
 		input = ConvertToInt(tmp);
 		std::cin.ignore(100, '\n');
 
-		if (0 <= input && input < this->num_of_contacts)
+		if (0 < input && input <= this->num_of_contacts)
 		{
-			this->list[input].GetInfo();
+			this->list[input - 1].GetInfo();
 			break ;
 		}
-		else if (input == 9)
+		else if (input == 0)
 			break;
 		else
 			std::cout << "Wrong number" << std::endl;

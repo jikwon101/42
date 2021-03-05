@@ -1,13 +1,18 @@
-SRCS= megaphone.cpp
 NAME= megaphone
+SRCS= megaphone.cpp
+OBJT= megaphone.o
+FLAG= -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
-$(NAME):
-	clang++ $(SRCS) -o $(NAME)
+$(NAME): $(OBJT)
+	clang++ $(FLAG) $(OBJT) -o $(NAME)
 
+$(OBJT): $(SRCS)
+	clang++ $(FLAG) -c $(SRCS)
+			  
 clean:
-	rm -rf megaphone.o
+	rm -rf $(OBJT)
 
 fclean: clean
 	rm -rf $(NAME)

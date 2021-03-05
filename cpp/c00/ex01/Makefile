@@ -1,15 +1,15 @@
+NAME=phonebook
 SRCS=main.cpp phonebook.cpp contact.cpp
 OBJT=$(SRCS:.cpp=.o)
-NAME=phonebook
 FLAG=-Wall -Werror -Wextra -std=c++98
 
 all: $(NAME)
 
 $(NAME): $(OBJT)
-	g++ $(FLAG) $(OBJT) -o $(NAME)
+	clang++ $(FLAG) $(OBJT) -o $(NAME)
 
 $(OBJT): $(SRCS)
-	g++ $(FLAG) -c $(SRCS)
+	clang++ $(FLAG) -c $(SRCS)
 
 clean:
 	rm -rf $(OBJT)

@@ -1,25 +1,5 @@
 #include <iostream>
-
-int		is_lower(char c)
-{
-	if ('a' <= c && c <= 'z')
-		return (1);
-	return (0);
-}
-
-char	*case_converter(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (is_lower(str[i]))
-			str[i] = str[i] - 32;
-		i++;
-	}
-	return (str);
-}
+#include <cctype>
 
 int		main(int ac, char **av)
 {
@@ -31,7 +11,10 @@ int		main(int ac, char **av)
 	{
 		for (i = 1; av[i]; i++)
 		{
-			std::cout << case_converter(av[i]);
+			for (int j = 0 ; av[i][j]; j++)
+			{
+				std::cout << static_cast<char>(toupper((av[i][j])));
+			}
 		}
 	}
 	std::cout << std::endl;
