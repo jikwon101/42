@@ -11,10 +11,12 @@ private:
 	std::string _new;
 	std::string buff;
 	std::string file;
-public:
-	void setInfo(std::string file, std::string _old, std::string _new);
-	void sed(void);
+	void setInfo(std::string file, std::string oldstr, std::string newstr);
+	void replaceByLine(void);
 	int	readFile();
-	void writeFile();
+	int writeFile();
+
+public:
+	int sed(std::string file, std::string oldstr, std::string newstr);
 };
 #endif

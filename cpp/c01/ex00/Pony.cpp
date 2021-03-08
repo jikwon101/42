@@ -1,4 +1,5 @@
 #include "Pony.hpp"
+
 Pony::Pony(int num)
 {
 	this->num = num;

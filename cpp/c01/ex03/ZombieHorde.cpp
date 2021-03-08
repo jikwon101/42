@@ -1,26 +1,34 @@
 #include "ZombieHorde.hpp"
 
-//Store a type in the object
-void ZombieHorde::setZombieType(int type)
+ZombieHorde::ZombieHorde(int n):size(n), type(-1)
 {
-	this->type = type;
+	std::string name;
+
+	if (n < 0)
+	{
+		std::cout << "Error in horde size." << std::endl;
+		std::cout << "It will reset to 0." << std::endl;
+		this->size = 0;
+	}
+	this->horde = new Zombie[this->size];
+	for (int i = 0 ; i < this->size ; i++)
+	{
+		name = RandomName();
+		this->horde[i].setName(name);
+	}
+
 }
 
-//Create a Zombie with the chosen type, name it, and return it.
-Zombie* ZombieHorde::newZombie(std::string name)
+ZombieHorde::~ZombieHorde()
 {
-	Zombie *new_zombie;
-
-	new_zombie = new Zombie(name, type);
-	return (new_zombie);
+	delete[] horde;
 }
 
-//Create a name.
 std::string ZombieHorde::RandomName(void)
 {
 	int namelen;
 	std::string name;
-	static const char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	const char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 	namelen = 8;
 	std::random_device rd;
@@ -29,4 +37,39 @@ std::string ZombieHorde::RandomName(void)
 	for (int i = 0 ; i < namelen ; i++)
 		name += (alphanum[dis(gen)]);
 	return (name);
-};
+}
+
+void ZombieHorde::setType(int type)
+{
+	if (this->type != -1)
+	{
+		std::cout << "Error: They are already allocated in " << this->type << "." << std::endl;
+		return ;
+	}
+	this->type = type;
+	for (int i = 0; i < this->size ; i++)
+	{
+		this->horde[i].setType(this->type);
+	}
+}
+
+void ZombieHorde::announce(void)
+{
+	if (this->size == 0)
+	{
+		std::cout << "Error: There are no horde." << std::endl;
+		return ;
+	}
+	if (this->type == -1)
+	{
+		std::cout << "Error: Set type first before make them announce." << std::endl;
+		std::cout << "Use setType([type])" << std::endl;
+		return ;
+	}
+	for (int i = 0; i < this->size ; i++)
+	{
+		this->horde[i].announce();
+	}
+}
+
+

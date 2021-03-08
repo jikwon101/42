@@ -32,15 +32,14 @@ std::string ZombieEvent::RandomName(void)
 };
 
 //Create a 'Zombie' with a ramdom name and make if 'announce' it.
-void ZombieEvent::randomChump(void)
+Zombie *ZombieEvent::randomChump(void)
 {
 	std::string name;
 	Zombie *zombie;
 
 	name = RandomName();
 	zombie = newZombie(name);
-	zombie->announce();
-	delete zombie;
+	return (zombie);
 }
 
 

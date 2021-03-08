@@ -7,6 +7,7 @@ void ponyOnTheStack(void)
 	std::cout << "Return (ponyOnTheStack)" << std::endl;
 	return ;
 }
+
 void ponyOnTheHeap(void)
 {
 	Pony *heap_pony;
@@ -17,6 +18,7 @@ void ponyOnTheHeap(void)
 	std::cout << "Return (ponyOnTheStack)" << std::endl;
 	return ;
 }
+
 int main(void)
 {
 	std::cout << "Run pony on the Stack" << std::endl;

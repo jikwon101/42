@@ -1,13 +1,29 @@
 #include "sed.hpp"
 
-void Sed::setInfo(std::string file, std::string old_str, std::string new_str)
-{
-	this->file = file;
-	this->_old = old_str;
-	this->_new = new_str;
+int Sed::sed(std::string file, std::string oldstr, std::string newstr)
+{	
+	int ret;
+	
+	std::cout << this << std::endl;
+	setInfo(file, oldstr, newstr);
+	if (readFile() == false)
+	{
+		std::cout << "Error opening file." << std::endl;
+		return (false);
+	}
+	replaceByLine();
+	ret = writeFile();
+	return (ret);
 }
 
-void Sed::sed(void)
+void Sed::setInfo(std::string file, std::string oldstr, std::string newstr)
+{
+	this->file = file;
+	this->_old = oldstr;
+	this->_new = newstr;
+}
+
+void Sed::replaceByLine(void)
 {
 	size_t start_pos = 0;
 
@@ -40,7 +56,7 @@ int Sed::readFile(void)
 	return (true);
 }
 
-void Sed::writeFile(void)
+int Sed::writeFile(void)
 {
 	std::string title;
 	std::ofstream write_file;
@@ -48,7 +64,12 @@ void Sed::writeFile(void)
 	title = this->file;
 	title += ".replace";
 	write_file.open(title);
+	if (write_file.fail())
+	{
+		std::cout << "Error creating file" << std::endl;
+		return (false);
+	}
 	write_file.write(this->buff.c_str(), this->buff.length());
 	write_file.close();
-	return ;
+	return (true);
 }

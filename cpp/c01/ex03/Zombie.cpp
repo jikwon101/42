@@ -1,10 +1,15 @@
 #include "Zombie.hpp"
 
-//Output something along the lines of: at least the name and type.
-Zombie::Zombie(std::string name, int type)
+Zombie::Zombie(){}
+
+void Zombie::setType(int type)
+{
+	this->type = type;
+}
+
+void Zombie::setName(std::string name)
 {
 	this->name = name;
-	this->type = type;
 }
 
 void Zombie::announce(void)

@@ -13,6 +13,6 @@ private:
 
 public:
 	void setZombieType(int type);
-	void randomChump(void);
+	Zombie* randomChump(void);
 };
 #endif

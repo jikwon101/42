@@ -11,7 +11,9 @@ private:
 	int type;
 
 public:
-	Zombie(std::string name, int type);
+	Zombie();
+	void setType(int type);
+	void setName(std::string name);
 	void announce(void);
 };
 

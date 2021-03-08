@@ -1,5 +1,7 @@
 #include "Human.hpp"
 
+Human::Human():my_brain()
+{}
 const Brain& Human::getBrain() const
 {
 	return (this->my_brain);
@@ -7,8 +9,5 @@ const Brain& Human::getBrain() const
 
 std::string Human::identify(void)
 {
-	std::string temp;
-
-	temp = this->my_brain.identify();
-	return (temp);
+	return (this->my_brain.identify());
 }

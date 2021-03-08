@@ -9,6 +9,7 @@ private:
 	const Brain my_brain;
 
 public:
+	Human();
 	std::string identify(void);
 	const Brain& getBrain() const;
 };

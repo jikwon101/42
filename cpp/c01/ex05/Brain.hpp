@@ -8,8 +8,10 @@
 class Brain
 {
 public:
+	int neuron;
 public:
+	Brain();
 	std::string identify(void) const;
-	uintptr_t getAddress(const Brain &my) const;
 };
+
 #endif
