@@ -1,5 +1,5 @@
 #include "Fixed.hpp"
-#include <bitset>
+
 const int Fixed::nbr_of_fractial = 8;
 
 /*
@@ -24,20 +24,20 @@ Fixed::~Fixed()
 Fixed::Fixed(const Fixed &src)
 {
 	std::cout << "Copy constructor clled" << std::endl;
-	*this = src;
+	if (this != &src)
+		this->fixed_point_val = src.getRawBits();
 }
 
 Fixed::Fixed(const int src)
 {
 	std::cout << "Int constructor called" << std::endl;
-	fixed_point_val = src << nbr_of_fractial;
-	//????
+	fixed_point_val = src << Fixed::nbr_of_fractial;
 }
 
 Fixed::Fixed(const float src)
 {
 	std::cout << "Float constructor called" << std::endl;
-	//????
+	fixed_point_val = (int)(roundf(src * (1 << Fixed::nbr_of_fractial)));
 }
 
 /*
@@ -63,13 +63,13 @@ void	Fixed::setRawBits(int const raw)
 
 float	Fixed::toFloat(void) const
 {
-	//?
-	return (1);
+	float res;
+	res = (float)(fixed_point_val) / (1 << nbr_of_fractial);
+	return (res);
 }
 
 int		Fixed::toInt(void)	const
 {
-	//?
 	int	res;
 	res = fixed_point_val >> nbr_of_fractial;
 	return (res);
@@ -78,6 +78,6 @@ int		Fixed::toInt(void)	const
 
 std::ostream& operator<<(std::ostream& os, const Fixed &src)
 {
-	std::cout << src.getRawBits();
+	os << src.toFloat();
 	return (os);
 }
