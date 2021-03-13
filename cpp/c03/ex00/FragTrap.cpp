@@ -122,13 +122,29 @@ void	FragTrap::beRepaired(unsigned int amount)
 
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	return ;
+	void (FragTrap::*attack[5])(std::string const &target) = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
+
+	(attack[0])(target);
 }
 
-void	FragTrap::gunwizardAttack(std::string const& target)
+void	FragTrap::mechromagicianAttack(std::string const& target)
 {
+	std::cout << "I have two robot arms!" << std::endl;
+
 }
-void	FragTrap::gunwizardAttack(std::string const& target)
-void	FragTrap::laserAttack(std::string const& target)
-void	FragTrap::oneshotAttack(std::string const& target)
-void	FragTrap::gunwizardAttack(std::string const& target)
+void	FragTrap::minionTrapAttack(std::string const& target)
+{
+	std::cout << "Mini-trap on the field!" << std::endl;
+}
+void	FragTrap::meatUnicycleAttack(std::string const& target)
+{
+	std::cout << "I AM ON FIRE!! OH GOD, PUT ME OUT!!!" << std::endl;
+}
+void	FragTrap::blightBotAttack(std::string const& target)
+{
+	std::cout << "Tell me i'm the prettiest!!" << std::endl;
+}
+void	FragTrap::funzerkerAttack(std::string const& target)
+{
+	std::cout << "Oh god I can't stop!" << std::endl;
+}
