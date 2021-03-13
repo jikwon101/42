@@ -122,9 +122,9 @@ void	FragTrap::beRepaired(unsigned int amount)
 
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	void (FragTrap::*attack[5])(std::string const &target) = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
-
-	(attack[0])(target);
+	void (FragTrap::*attack[5])(std::string const &target) = {
+		&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
+	(FragTrap::attack[0])(target);
 }
 
 void	FragTrap::mechromagicianAttack(std::string const& target)
