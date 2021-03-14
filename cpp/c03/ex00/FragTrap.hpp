@@ -16,7 +16,7 @@ private:
 	int 		melee_attack_damage;
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
-	void		(*attack[5])(std::string const& target);
+	//void		(*attack[5])(std::string const& target);
 public:
 	FragTrap();
 	~FragTrap();

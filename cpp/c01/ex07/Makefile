@@ -1,7 +1,7 @@
 NAME=replace
 SRCS=main.cpp sed.cpp
 OBJT=$(SRCS:.cpp=.o)
-FLAG=-Wall -Werror -Wextra -std=c++98
+FLAG=-Wall -Werror -Wextra -std=c++98 -g3
 
 all: $(NAME)
 

@@ -4,7 +4,6 @@ int Sed::sed(std::string file, std::string oldstr, std::string newstr)
 {	
 	int ret;
 	
-	std::cout << this << std::endl;
 	setInfo(file, oldstr, newstr);
 	if (readFile() == false)
 	{
