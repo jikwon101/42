@@ -1,13 +1,12 @@
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
 #include <iostream>
 #include <string>
-#include <random>
 
-class ScavTrap
+class ClapTrap
 {
-private:
+protected:
 	int			hp;
 	int			max_hp;
 	int		 	ep;
@@ -17,17 +16,17 @@ private:
 	int 		melee_attack_damage;
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
+
 public:
-	ScavTrap();
-	~ScavTrap();
-	ScavTrap(const std::string src_name);
-	ScavTrap(const ScavTrap& src);
-	ScavTrap& operator=(const ScavTrap &src);
-	void		rangeAttack(std::string const& target);
-	void		meleeAttack(std::string const& target);
+	ClapTrap();
+	~ClapTrap();
+	ClapTrap(const std::string src_name);
+	ClapTrap(const ClapTrap& src);
+	ClapTrap& operator=(const ClapTrap &src);
+	virtual void rangeAttack(std::string const& target);
+	virtual void meleeAttack(std::string const& target);
 	void		takeDamage(unsigned int amount);
 	void		beRepaired(unsigned int amount);
-	void		challengeNewcomer(void);
 	void		printMsg(std::string msg);
 	void		printInt(int num);
 };

@@ -1,12 +1,12 @@
 #ifndef SCAVTRAP_HPP
 #define SCAVTRAP_HPP
 
-#include <iostream>
-#include <string>
+#include "ClapTrap.hpp"
 #include <random>
 
-class ScavTrap
+class ScavTrap : public ClapTrap
 {
+/*
 private:
 	int			hp;
 	int			max_hp;
@@ -17,19 +17,22 @@ private:
 	int 		melee_attack_damage;
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
+*/
 public:
 	ScavTrap();
 	~ScavTrap();
 	ScavTrap(const std::string src_name);
 	ScavTrap(const ScavTrap& src);
 	ScavTrap& operator=(const ScavTrap &src);
+	void printMsg(std::string msg);
+	void printInt(int num);
 	void		rangeAttack(std::string const& target);
 	void		meleeAttack(std::string const& target);
+/*
 	void		takeDamage(unsigned int amount);
 	void		beRepaired(unsigned int amount);
+*/
 	void		challengeNewcomer(void);
-	void		printMsg(std::string msg);
-	void		printInt(int num);
 };
 
 #endif

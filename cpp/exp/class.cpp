@@ -5,14 +5,19 @@ class Animal
 {
 private:
 	std::string kind;
+protected:
 public:
 	int num_of_legs;
+	void	printnum();
 	Animal();
 	~Animal();
 	void	setKind(std::string kind);
 	std::string	getKind();
 };
-
+void Animal::printnum()
+{
+	std::cout << "print NUM" << std::endl;
+}
 Animal::Animal()
 {
 	std::cout << "This is Animal class" << std::endl;
@@ -34,7 +39,7 @@ std::string Animal::getKind()
 {
 	return (this->kind);
 }
-class Pig : protected Animal 
+class Pig : public Animal 
 {
 private:
 	std::string type;
@@ -58,8 +63,9 @@ Pig::~Pig()
 
 int main()
 {
-	Pig _pig;
+	Pig pig;
 	//std::cout << _pig.num_of_legs << std::endl;
 	//std::cout << _pig.getKind() << std::endl;
+	pig.printnum();
 
 }

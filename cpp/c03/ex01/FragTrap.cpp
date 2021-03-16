@@ -1,8 +1,8 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-ScavTrap::ScavTrap()
+FragTrap::FragTrap()
 {
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
+	printMsg("Recompiling my combat code!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -14,14 +14,14 @@ ScavTrap::ScavTrap()
 	armor_damage_reduction = 5;
 }
 
-ScavTrap::~ScavTrap()
+FragTrap::~FragTrap()
 {
-	printMsg("I'm too pretty to die!\n");
+	printMsg("Argh arghargh death gurgle gurglegurgle urgh... death\n");
 }
 
-ScavTrap::ScavTrap(const std::string src_name)
+FragTrap::FragTrap(const std::string src_name)
 {
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
+	printMsg("Recompiling my combat code!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -33,9 +33,8 @@ ScavTrap::ScavTrap(const std::string src_name)
 	armor_damage_reduction = 5;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& src)
+FragTrap::FragTrap(const FragTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -47,9 +46,9 @@ ScavTrap::ScavTrap(const ScavTrap& src)
 	this->armor_damage_reduction = src.armor_damage_reduction;
 }
 
-ScavTrap& ScavTrap::operator=(const ScavTrap& src)
+FragTrap& FragTrap::operator=(const FragTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
+	printMsg("Look out everybody! Things are about to get awesome!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -65,9 +64,9 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& src)
 	return (*this);
 }
 
-void	ScavTrap::rangeAttack(std::string const& target)
+void	FragTrap::rangeAttack(std::string const& target)
 {	
-	printMsg("WOW! I hit 'em!\n");
+	printMsg("Pop pop!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -76,9 +75,9 @@ void	ScavTrap::rangeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::meleeAttack(std::string const& target)
+void	FragTrap::meleeAttack(std::string const& target)
 {	
-	printMsg("Heyyah!\n");
+	printMsg("Take that!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -87,35 +86,40 @@ void	ScavTrap::meleeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::challengeNewcomer(void)
+void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::string list[] = {
-	"Find treasure map!",
-	"Survive scavenger attacks: 0/3",
-	"Don't hurt orphan rathyds!",
-	"Kill adult threshere: 0/6",
-	"Talk to Seymour.",
-	"Follow Dr.Minte.",
-	"Open Lab19 vault."
+	"I have two robot arms!",
+	"Mini-trap on the field!",	
+	"I AM ON FIRE!! OH GOD, PUT ME OUT!!!",
+	"Tell me i'm the prettiest!!",
+	"Oh god I can't stop!",
+	"I am rubber, and you are so dead!",
+	"Love bullets!"
 	};
 	std::uniform_int_distribution<int> dis(0, 6);
+	
 	printMsg(list[dis(gen)]);
-	printMsg(".");
-	printMsg(" Then, if you live, return to me here, where I am standing\n");}
-
-void ScavTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[36m" << msg << "\033[0m";
+	printMsg("\n");
+	printMsg(name);
+	printMsg(" attacked ");
+	printMsg(target);
+	printMsg("\n");
 }
 
-void ScavTrap::printInt(int num)
+void FragTrap::printMsg(std::string msg)
 {
-	std::cout << "\033[1m\033[36m" << num << "\033[0m";
+	std::cout << "\033[1m\033[35m" << msg << "\033[0m";
 }
 
-void	ScavTrap::takeDamage(unsigned int amount)
+void FragTrap::printInt(int num)
+{
+	std::cout << "\033[1m\033[35m" << num << "\033[0m";
+}
+
+void	FragTrap::takeDamage(unsigned int amount)
 {
 	int actual_damage;
 
@@ -131,7 +135,7 @@ void	ScavTrap::takeDamage(unsigned int amount)
 		actual_damage += this->hp;
 		this->hp = 0;
 	}
-	printMsg("Oh hohoho, that hurts! Yipes!\n");
+	printMsg("Why do I even feel pain?!\n");
 	printMsg(name);
 	printMsg(" got attacked, lost ");
 	printInt(actual_damage);
@@ -141,12 +145,12 @@ void	ScavTrap::takeDamage(unsigned int amount)
 	printMsg("\n");
 }
 
-void	ScavTrap::beRepaired(unsigned int amount)
+void	FragTrap::beRepaired(unsigned int amount)
 {
 	int actual_repaired;
 
-	actual_repaired = amount;	
-	printMsg("Healsies!\n");
+	actual_repaired = amount;
+	printMsg("I found health!\n");
 	if (hp >= max_hp)
 	{
 		printMsg("[SYSTEM] Full.\n");

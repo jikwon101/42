@@ -1,8 +1,8 @@
-#include "ScavTrap.hpp"
+#include "ClapTrap.hpp"
 
-ScavTrap::ScavTrap()
+ClapTrap::ClapTrap()
 {
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
+	printMsg("Let's get this party started!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -14,14 +14,14 @@ ScavTrap::ScavTrap()
 	armor_damage_reduction = 5;
 }
 
-ScavTrap::~ScavTrap()
+ClapTrap::~ClapTrap()
 {
-	printMsg("I'm too pretty to die!\n");
+	printMsg("No, nononono NO!\n");
 }
 
-ScavTrap::ScavTrap(const std::string src_name)
+ClapTrap::ClapTrap(const std::string src_name)
 {
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
+	printMsg("Let's get this party started!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -33,9 +33,9 @@ ScavTrap::ScavTrap(const std::string src_name)
 	armor_damage_reduction = 5;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& src)
+ClapTrap::ClapTrap(const ClapTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
+	printMsg("Let's get this party started!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -47,9 +47,9 @@ ScavTrap::ScavTrap(const ScavTrap& src)
 	this->armor_damage_reduction = src.armor_damage_reduction;
 }
 
-ScavTrap& ScavTrap::operator=(const ScavTrap& src)
+ClapTrap& ClapTrap::operator=(const ClapTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
+	printMsg("Look out everybody! Things are about to get awesome!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -65,9 +65,10 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& src)
 	return (*this);
 }
 
-void	ScavTrap::rangeAttack(std::string const& target)
-{	
-	printMsg("WOW! I hit 'em!\n");
+void	ClapTrap::rangeAttack(std::string const& target)
+{
+	printMsg("Present for you!\n");	
+	
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -76,9 +77,10 @@ void	ScavTrap::rangeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::meleeAttack(std::string const& target)
-{	
-	printMsg("Heyyah!\n");
+void	ClapTrap::meleeAttack(std::string const& target)
+{
+	printMsg("Bop!\n");	
+
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -87,36 +89,8 @@ void	ScavTrap::meleeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::challengeNewcomer(void)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::string list[] = {
-	"Find treasure map!",
-	"Survive scavenger attacks: 0/3",
-	"Don't hurt orphan rathyds!",
-	"Kill adult threshere: 0/6",
-	"Talk to Seymour.",
-	"Follow Dr.Minte.",
-	"Open Lab19 vault."
-	};
-	std::uniform_int_distribution<int> dis(0, 6);
-	printMsg(list[dis(gen)]);
-	printMsg(".");
-	printMsg(" Then, if you live, return to me here, where I am standing\n");}
-
-void ScavTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[36m" << msg << "\033[0m";
-}
-
-void ScavTrap::printInt(int num)
-{
-	std::cout << "\033[1m\033[36m" << num << "\033[0m";
-}
-
-void	ScavTrap::takeDamage(unsigned int amount)
-{
+void	ClapTrap::takeDamage(unsigned int amount)
+{	
 	int actual_damage;
 
 	actual_damage = amount - armor_damage_reduction;
@@ -131,7 +105,6 @@ void	ScavTrap::takeDamage(unsigned int amount)
 		actual_damage += this->hp;
 		this->hp = 0;
 	}
-	printMsg("Oh hohoho, that hurts! Yipes!\n");
 	printMsg(name);
 	printMsg(" got attacked, lost ");
 	printInt(actual_damage);
@@ -141,11 +114,11 @@ void	ScavTrap::takeDamage(unsigned int amount)
 	printMsg("\n");
 }
 
-void	ScavTrap::beRepaired(unsigned int amount)
+void	ClapTrap::beRepaired(unsigned int amount)
 {
 	int actual_repaired;
 
-	actual_repaired = amount;	
+	actual_repaired = amount;
 	printMsg("Healsies!\n");
 	if (hp >= max_hp)
 	{
@@ -157,7 +130,7 @@ void	ScavTrap::beRepaired(unsigned int amount)
 	{
 		actual_repaired += (max_hp - hp);
 		hp = max_hp;
-	}	
+	}
 	printMsg(name);
 	printMsg(" has repared, restored ");
 	printInt(actual_repaired);
@@ -166,3 +139,14 @@ void	ScavTrap::beRepaired(unsigned int amount)
 	printInt(hp);
 	printMsg("\n");
 }
+
+void ClapTrap::printMsg(std::string msg)
+{
+	std::cout << "\033[1m\033[33m" << msg << "\033[0m";
+}
+
+void ClapTrap::printInt(int num)
+{
+	std::cout << "\033[1m\033[33m" << num << "\033[0m";
+}
+
