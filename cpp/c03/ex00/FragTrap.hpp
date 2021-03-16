@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-
+#include <random>
 class FragTrap
 {
 private:
@@ -16,7 +16,6 @@ private:
 	int 		melee_attack_damage;
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
-	//void		(*attack[5])(std::string const& target);
 public:
 	FragTrap();
 	~FragTrap();
@@ -28,11 +27,6 @@ public:
 	void		takeDamage(unsigned int amount);
 	void		beRepaired(unsigned int amount);
 	void		vaulthunter_dot_exe(std::string const& target);
-	void		mechromagicianAttack(std::string const& target);
-	void		minionTrapAttack(std::string const& target);
-	void		meatUnicycleAttack(std::string const& target);
-	void		blightBotAttack(std::string const& target);
-	void		funzerkerAttack(std::string const &target);
 };
 
 #endif

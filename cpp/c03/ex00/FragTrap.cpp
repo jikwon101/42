@@ -16,7 +16,7 @@ FragTrap::FragTrap()
 
 FragTrap::~FragTrap()
 {
-	std::cout << "I'll stop talking when I'm dead!!" << std::endl;
+	std::cout << "Argh arghargh death gurgle gurglegurgle urgh... death" << std::endl;
 }
 
 FragTrap::FragTrap(const std::string src_name)
@@ -69,7 +69,7 @@ void	FragTrap::rangeAttack(std::string const& target)
 {
 	std::cout << "Pop pop!" << std::endl;
 	std::cout << "FR4G-TP " << name;
-	std::cout << " attcks " << target << " at range, ";
+	std::cout << " attcked " << target << " at range, ";
 	std::cout << "causing " << ranged_attack_damage << " points of damage";
 	std::cout << std::endl;
 
@@ -79,73 +79,139 @@ void	FragTrap::meleeAttack(std::string const& target)
 {
 	std::cout << "Take that!" << std::endl;
 	std::cout << "FR4G-TP " << name;
-	std::cout << " attcks " << target << " in melee, ";
+	std::cout << " attcked " << target << " in melee, ";
 	std::cout << "causing " << melee_attack_damage << " points of damage";
 	std::cout << std::endl;
 
 }
 
-//armor damaget 처리해주기.
 void	FragTrap::takeDamage(unsigned int amount)
 {
+	int actual_damage;
+
+	actual_damage = amount - armor_damage_reduction;
 	if (this->hp <= 0)
 	{
 		std::cout << "[SYSTEM] Already been crippled" << std::endl;;
 		return ;
 	}
+	this->hp -= actual_damage;
+	if (this->hp < 0)
+	{
+		actual_damage += this->hp;
+		this->hp = 0;
+	}
 	std::cout << "Why do I even feel pain?!" << std::endl;
 	std::cout << "FR4G-TP " << name;
 	std::cout << " got attcked, ";
-	std::cout << "lost " << amount << " points";
+	std::cout << "lost " << actual_damage << " points";
 	std::cout << std::endl;
-	this->hp -= amount;
-	if (this->hp < 0)
-		this->hp = 0;
+	std::cout << "HP left " << hp << std::endl;
 }
 
 void	FragTrap::beRepaired(unsigned int amount)
 {
+	int actual_repaired;
+
+	actual_repaired = amount;
 	std::cout << "I found health!" << std::endl;
-	if (this->hp >= max_hp)
+	if (hp >= max_hp)
 	{
 		std::cout << "[SYSTEM] Full." << std::endl;
 		return ;
 	}
+	hp += actual_repaired;
+	if (hp > max_hp)
+	{
+		actual_repaired += (max_hp - hp);
+		hp = max_hp;
+	}
 	std::cout << "FR4G-TP " << name;
-	std::cout << " has cured, ";
+	std::cout << " has repaired, ";
 	std::cout << "restored " << amount << " points";
 	std::cout << std::endl;
-		this->hp += amount;
-	if (this->hp > max_hp)
-		this->hp = max_hp;
+	std::cout << "HP left " << hp << std::endl;
 }
 
-// 어떻게 처리할까?
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	  void (FragTrap::*attack[])(std::string const &target) = { &FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
-	//void (FragTrap::*test)(std::string const& target) = &FragTrap::mechromagicianAttack;
-	(*attack[0])(target);
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::string list[] = {
+	"I have two robot arms!",
+	"Mini-trap on the field!",	
+	"I AM ON FIRE!! OH GOD, PUT ME OUT!!!",
+	"Tell me i'm the prettiest!!",
+	"Oh god I can't stop!",
+	"I am rubber, and you are so dead!",
+	"Love bullets!"
+	};
+	std::uniform_int_distribution<int> dis(0, 6);
+	
+	std::cout << list[dis(gen)] << std::endl;
+	std::cout << "FR4G-TP " << name;
+	std::cout << " attacked " << target << std::endl;
+
+}
+
+/*
+void	FragTrap::vaulthunter_dot_exe(std::string const& target)
+{
+	int random_number;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(1, 5);
+	if (ep < 25)
+	{
+		std::cout << "[SYSTEM] Out of energy." << std::endl;
+		return ;
+	}
+	ep -= 25;
+	random_number = dis(gen);
+	switch(random_number)
+	{
+		default:
+			mechromagicianAttack(target);
+			break;
+		case 2:
+			minionTrapAttack(target);
+			break;
+		case 3:
+			meatUnicycleAttack(target);
+			break;
+		case 4:
+			blightBotAttack(target);
+			break;
+		case 5:
+			funzerkerAttack(target);
+			break;
+	}
+	  //void (FragTrap::*attack[])(std::string const &target) = { &FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
+//	(*attack[0])(target);
 }
 
 void	FragTrap::mechromagicianAttack(std::string const& target)
 {
 	std::cout << "I have two robot arms!" << std::endl;
-
 }
+
 void	FragTrap::minionTrapAttack(std::string const& target)
 {
 	std::cout << "Mini-trap on the field!" << std::endl;
 }
+
 void	FragTrap::meatUnicycleAttack(std::string const& target)
 {
 	std::cout << "I AM ON FIRE!! OH GOD, PUT ME OUT!!!" << std::endl;
-}
-void	FragTrap::blightBotAttack(std::string const& target)
-{
 	std::cout << "Tell me i'm the prettiest!!" << std::endl;
-}
-void	FragTrap::funzerkerAttack(std::string const& target)
-{
 	std::cout << "Oh god I can't stop!" << std::endl;
 }
+
+void	FragTrap::blightBotAttack(std::string const& target)
+{
+}
+
+void	FragTrap::funzerkerAttack(std::string const& target)
+{
+}
+*/
