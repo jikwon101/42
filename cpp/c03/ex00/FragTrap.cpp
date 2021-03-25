@@ -2,12 +2,12 @@
 
 FragTrap::~FragTrap()
 {
-	std::cout << "Argh arghargh death gurgle gurglegurgle urgh... death" << std::endl;
+	printMsg("Argh arghargh death gurgle gurglegurgle urgh... death\n");
 }
 
 FragTrap::FragTrap(const std::string src_name)
 {
-	std::cout << "Recompiling my combat code!" << std::endl;
+	printMsg("Recompiling my combat code!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -21,7 +21,7 @@ FragTrap::FragTrap(const std::string src_name)
 
 FragTrap::FragTrap(const FragTrap& src)
 {
-	std::cout << "Look out everybody! Things are about to get awesome!" << std::endl;
+	printMsg("Look out everybody! Things are about to get awesome!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -35,7 +35,7 @@ FragTrap::FragTrap(const FragTrap& src)
 
 FragTrap& FragTrap::operator=(const FragTrap& src)
 {
-	std::cout << "Look out everybody! Things are about to get awesome!" << std::endl;
+	printMsg("Look out everybody! Things are about to get awesome!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -52,23 +52,25 @@ FragTrap& FragTrap::operator=(const FragTrap& src)
 }
 
 void	FragTrap::rangeAttack(std::string const& target)
-{
-	std::cout << "Pop pop!" << std::endl;
-	std::cout << "FR4G-TP " << name;
-	std::cout << " attcked " << target << " at range, ";
-	std::cout << "causing " << ranged_attack_damage << " points of damage";
-	std::cout << std::endl;
-
+{	
+	printMsg("Pop pop!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg(" at range, causing ");
+	printInt(ranged_attack_damage);
+	printMsg(" points of damage\n");
 }
 
 void	FragTrap::meleeAttack(std::string const& target)
-{
-	std::cout << "Take that!" << std::endl;
-	std::cout << "FR4G-TP " << name;
-	std::cout << " attcked " << target << " in melee, ";
-	std::cout << "causing " << melee_attack_damage << " points of damage";
-	std::cout << std::endl;
-
+{	
+	printMsg("Take that!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg(" in melee, causing ");
+	printInt(melee_attack_damage);
+	printMsg(" points of damage\n");
 }
 
 void	FragTrap::takeDamage(unsigned int amount)
@@ -78,7 +80,7 @@ void	FragTrap::takeDamage(unsigned int amount)
 	actual_damage = amount - armor_damage_reduction;
 	if (this->hp <= 0)
 	{
-		std::cout << "[SYSTEM] Already been crippled" << std::endl;;
+		printMsg("[SYSTEM] Already been crippled\n");
 		return ;
 	}
 	this->hp -= actual_damage;
@@ -87,12 +89,15 @@ void	FragTrap::takeDamage(unsigned int amount)
 		actual_damage += this->hp;
 		this->hp = 0;
 	}
-	std::cout << "Why do I even feel pain?!" << std::endl;
-	std::cout << "FR4G-TP " << name;
-	std::cout << " got attcked, ";
-	std::cout << "lost " << actual_damage << " points";
-	std::cout << std::endl;
-	std::cout << "HP left " << hp << std::endl;
+	printMsg("Why do I even feel pain?!\n");
+	printMsg(name);
+	printMsg(" got attacked, lost ");
+	printInt(actual_damage);
+	printMsg(" points\n");
+	printMsg("HP left ");
+	printInt(hp);
+	printMsg("\n");
+
 }
 
 void	FragTrap::beRepaired(unsigned int amount)
@@ -100,10 +105,10 @@ void	FragTrap::beRepaired(unsigned int amount)
 	int actual_repaired;
 
 	actual_repaired = amount;
-	std::cout << "I found health!" << std::endl;
+	printMsg("I found health!\n");
 	if (hp >= max_hp)
 	{
-		std::cout << "[SYSTEM] Full." << std::endl;
+		printMsg("[SYSTEM] Full.\n");
 		return ;
 	}
 	hp += actual_repaired;
@@ -111,30 +116,27 @@ void	FragTrap::beRepaired(unsigned int amount)
 	{
 		actual_repaired += (max_hp - hp);
 		hp = max_hp;
-	}
-	std::cout << "FR4G-TP " << name;
-	std::cout << " has repaired, ";
-	std::cout << "restored " << amount << " points";
-	std::cout << std::endl;
-	std::cout << "HP left " << hp << std::endl;
+	}	
+	printMsg(name);
+	printMsg(" has repared, restored ");
+	printInt(actual_repaired);
+	printMsg(" points\n");
+	printMsg("HP left ");
+	printInt(hp);
+	printMsg("\n");
 }
 
 typedef void (FragTrap::*ATTACK)(std::string const &target);
 
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	int random_number;
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> dis(0, 4);
-	/*
 	ATTACK attack[] = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
-	*/
-	
-	void (FragTrap::*attack[])(std::string const &target) = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
 	if (ep < 25)
 	{
-		std::cout << "[SYSTEM] Out of energy." << std::endl;
+		printMsg("[SYSTEM] Out of energy.\n");
 		return ;
 	}
 	ep -= 25;
@@ -144,26 +146,60 @@ void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 
 void	FragTrap::mechromagicianAttack(std::string const& target)
 {
-	std::cout << "I have two robot arms!" << std::endl;
+	printMsg("I have two robot arms!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg("\n");
 }
 
 void	FragTrap::minionTrapAttack(std::string const& target)
 {
-	std::cout << "Mini-trap on the field!" << std::endl;
+	printMsg("Mini-trap on the field!\n");	
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg("\n");
+
 }
 
 void	FragTrap::meatUnicycleAttack(std::string const& target)
 {
-	std::cout << "Oh god I can't stop!" << std::endl;
+	printMsg("Oh god I can't stop!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg("\n");
+
 }
 
 void	FragTrap::blightBotAttack(std::string const& target)
 {
-	std::cout << "I AM ON FIRE!! OH GOD, PUT ME OUT!!!" << std::endl;
+	printMsg("I AM ON FIRE!! OH GOD, PUT ME OUT!!!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg("\n");
+
 }
 
 void	FragTrap::funzerkerAttack(std::string const& target)
 {
-	std::cout << "Tell me i'm the prettiest!!" << std::endl;
+	printMsg("Tell me i'm the prettiest!!\n");
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(target);
+	printMsg("\n");
+
+}
+
+void FragTrap::printMsg(std::string msg)
+{
+	std::cout << "\033[35m" << msg << "\033[1m\033[0m";
+}
+
+void FragTrap::printInt(int num)
+{
+	std::cout << "\033[35m" << num << "\033[1m\033[0m";	
 }
 
