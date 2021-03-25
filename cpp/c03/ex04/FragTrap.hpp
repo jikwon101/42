@@ -4,7 +4,7 @@
 #include "ClapTrap.hpp"
 #include <random>
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
 public:
 	~FragTrap();

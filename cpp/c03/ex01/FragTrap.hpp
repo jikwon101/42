@@ -17,9 +17,8 @@ private:
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
 public:
-	FragTrap();
 	~FragTrap();
-	FragTrap(const std::string src_name);
+	FragTrap(const std::string src_name = "");
 	FragTrap(const FragTrap& src);
 	FragTrap& operator=(const FragTrap &src);
 	void		rangeAttack(std::string const& target);

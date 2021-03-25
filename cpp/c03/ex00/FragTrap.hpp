@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+
 class FragTrap
 {
 private:
@@ -17,9 +18,8 @@ private:
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
 public:
-	FragTrap();
 	~FragTrap();
-	FragTrap(const std::string src_name);
+	FragTrap(const std::string src_name = "");
 	FragTrap(const FragTrap& src);
 	FragTrap& operator=(const FragTrap &src);
 	void		rangeAttack(std::string const& target);
@@ -27,6 +27,11 @@ public:
 	void		takeDamage(unsigned int amount);
 	void		beRepaired(unsigned int amount);
 	void		vaulthunter_dot_exe(std::string const& target);
+	void		mechromagicianAttack(std::string const& target);
+	void		minionTrapAttack(std::string const& target);
+	void		meatUnicycleAttack(std::string const& target);
+	void		blightBotAttack(std::string const& target);
+	void		funzerkerAttack(std::string const& target);
 };
 
 #endif

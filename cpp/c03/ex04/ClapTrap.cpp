@@ -1,13 +1,13 @@
-#include "FragTrap.hpp"
+#include "ClapTrap.hpp"
 
-FragTrap::~FragTrap()
+ClapTrap::~ClapTrap()
 {
-	printMsg("Argh arghargh death gurgle gurglegurgle urgh... death\n");
+	printMsg("No, nononono NO!\n");
 }
 
-FragTrap::FragTrap(const std::string src_name)
+ClapTrap::ClapTrap(const std::string src_name)
 {
-	printMsg("Recompiling my combat code!\n");
+	printMsg("Let's get this party started!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -19,9 +19,9 @@ FragTrap::FragTrap(const std::string src_name)
 	armor_damage_reduction = 5;
 }
 
-FragTrap::FragTrap(const FragTrap& src)
+ClapTrap::ClapTrap(const ClapTrap& src)
 {
-	printMsg("Look out everybody! Things are about to get awesome!\n");
+	printMsg("Let's get this party started!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -33,7 +33,7 @@ FragTrap::FragTrap(const FragTrap& src)
 	this->armor_damage_reduction = src.armor_damage_reduction;
 }
 
-FragTrap& FragTrap::operator=(const FragTrap& src)
+ClapTrap& ClapTrap::operator=(const ClapTrap& src)
 {
 	printMsg("Look out everybody! Things are about to get awesome!\n");
 	if (this != &src)
@@ -51,9 +51,10 @@ FragTrap& FragTrap::operator=(const FragTrap& src)
 	return (*this);
 }
 
-void	FragTrap::rangeAttack(std::string const& target)
-{	
-	printMsg("Pop pop!\n");
+void	ClapTrap::rangeAttack(std::string const& target)
+{
+	printMsg("Present for you!\n");	
+	
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -62,9 +63,10 @@ void	FragTrap::rangeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	FragTrap::meleeAttack(std::string const& target)
-{	
-	printMsg("Take that!\n");
+void	ClapTrap::meleeAttack(std::string const& target)
+{
+	printMsg("Bop!\n");	
+
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -73,41 +75,8 @@ void	FragTrap::meleeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	FragTrap::vaulthunter_dot_exe(std::string const& target)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::string list[] = {
-	"I have two robot arms!",
-	"Mini-trap on the field!",	
-	"I AM ON FIRE!! OH GOD, PUT ME OUT!!!",
-	"Tell me i'm the prettiest!!",
-	"Oh god I can't stop!",
-	"I am rubber, and you are so dead!",
-	"Love bullets!"
-	};
-	std::uniform_int_distribution<int> dis(0, 6);
-	
-	printMsg(list[dis(gen)]);
-	printMsg("\n");
-	printMsg(name);
-	printMsg(" attacked ");
-	printMsg(target);
-	printMsg("\n");
-}
-
-void FragTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[35m" << msg << "\033[0m";
-}
-
-void FragTrap::printInt(int num)
-{
-	std::cout << "\033[1m\033[35m" << num << "\033[0m";
-}
-
-void	FragTrap::takeDamage(unsigned int amount)
-{
+void	ClapTrap::takeDamage(unsigned int amount)
+{	
 	int actual_damage;
 
 	actual_damage = amount - armor_damage_reduction;
@@ -122,7 +91,6 @@ void	FragTrap::takeDamage(unsigned int amount)
 		actual_damage += this->hp;
 		this->hp = 0;
 	}
-	printMsg("Why do I even feel pain?!\n");
 	printMsg(name);
 	printMsg(" got attacked, lost ");
 	printInt(actual_damage);
@@ -132,12 +100,12 @@ void	FragTrap::takeDamage(unsigned int amount)
 	printMsg("\n");
 }
 
-void	FragTrap::beRepaired(unsigned int amount)
+void	ClapTrap::beRepaired(unsigned int amount)
 {
 	int actual_repaired;
 
 	actual_repaired = amount;
-	printMsg("I found health!\n");
+	printMsg("Healsies!\n");
 	if (hp >= max_hp)
 	{
 		printMsg("[SYSTEM] Full.\n");
@@ -148,7 +116,7 @@ void	FragTrap::beRepaired(unsigned int amount)
 	{
 		actual_repaired += (max_hp - hp);
 		hp = max_hp;
-	}	
+	}
 	printMsg(name);
 	printMsg(" has repared, restored ");
 	printInt(actual_repaired);
@@ -157,3 +125,28 @@ void	FragTrap::beRepaired(unsigned int amount)
 	printInt(hp);
 	printMsg("\n");
 }
+std::string	ClapTrap::getName()
+{
+	return (this->name);
+}
+
+int		ClapTrap::getMeleeAttackDamage()
+{
+	return (this->melee_attack_damage);
+}
+
+int		ClapTrap::getRangedAttackDamage()
+{
+	return (this->ranged_attack_damage);
+}
+
+void ClapTrap::printMsg(std::string msg)
+{
+	std::cout << "\033[1m\033[33m" << msg << "\033[0m";
+}
+
+void ClapTrap::printInt(int num)
+{
+	std::cout << "\033[1m\033[33m" << num << "\033[0m";
+}
+

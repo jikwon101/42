@@ -1,19 +1,5 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap()
-{
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
-	hp = 100;
-	max_hp = 100;
-	ep = 100;
-	max_ep = 100;
-	level = 1;
-	name = "";
-	melee_attack_damage = 30;
-	ranged_attack_damage = 20;
-	armor_damage_reduction = 5;
-}
-
 ScavTrap::~ScavTrap()
 {
 	printMsg("I'm too pretty to die!\n");

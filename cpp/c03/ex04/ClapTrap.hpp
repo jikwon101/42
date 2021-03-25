@@ -28,6 +28,9 @@ public:
 	void		beRepaired(unsigned int amount);
 	void		printMsg(std::string msg);
 	void		printInt(int num);
+	std::string	getName();
+	int			getMeleeAttackDamage();
+	int			getRangedAttackDamage();
 };
 
 #endif

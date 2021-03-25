@@ -1,27 +1,27 @@
-#include "ScavTrap.hpp"
+#include "SuperTrap.hpp"
 
-ScavTrap::~ScavTrap()
+SuperTrap::~SuperTrap()
 {
-	printMsg("I'm too pretty to die!\n");
+	//printMsg("I'm too pretty to die!\n");
 }
 
-ScavTrap::ScavTrap(const std::string src_name)
+SuperTrap::SuperTrap(const std::string src_name)
 {
 	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
 	hp = 100;
 	max_hp = 100;
-	ep = 100;
-	max_ep = 100;
+	ep = 120;
+	max_ep = 120;
 	level = 1;
 	name = src_name;
-	melee_attack_damage = 30;
+	melee_attack_damage = 60;
 	ranged_attack_damage = 20;
 	armor_damage_reduction = 5;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& src)
+SuperTrap::SuperTrap(const SuperTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
+	//printMsg("I'm not to let ANYONE in through here!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -33,9 +33,9 @@ ScavTrap::ScavTrap(const ScavTrap& src)
 	this->armor_damage_reduction = src.armor_damage_reduction;
 }
 
-ScavTrap& ScavTrap::operator=(const ScavTrap& src)
+SuperTrap& SuperTrap::operator=(const SuperTrap& src)
 {
-	printMsg("I'm not to let ANYONE in through here!\n");
+	//printMsg("I'm not to let ANYONE in through here!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -51,9 +51,9 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& src)
 	return (*this);
 }
 
-void	ScavTrap::rangeAttack(std::string const& target)
+void	SuperTrap::rangeAttack(std::string const& target)
 {	
-	printMsg("WOW! I hit 'em!\n");
+	//printMsg("WOW! I hit 'em!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -62,9 +62,9 @@ void	ScavTrap::rangeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::meleeAttack(std::string const& target)
+void	SuperTrap::meleeAttack(std::string const& target)
 {	
-	printMsg("Heyyah!\n");
+	//printMsg("Heyyah!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -73,30 +73,12 @@ void	ScavTrap::meleeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ScavTrap::challengeNewcomer(void)
+void SuperTrap::printMsg(std::string msg)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::string list[] = {
-	"Find treasure map!",
-	"Survive scavenger attacks: 0/3",
-	"Don't hurt orphan rathyds!",
-	"Kill adult threshere: 0/6",
-	"Talk to Seymour.",
-	"Follow Dr.Minte.",
-	"Open Lab19 vault."
-	};
-	std::uniform_int_distribution<int> dis(0, 6);
-	printMsg(list[dis(gen)]);
-	printMsg(".");
-	printMsg(" Then, if you live, return to me here, where I am standing\n");}
-
-void ScavTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[36m" << msg << "\033[0m";
+	std::cout << "\033[1m\033[34m" << msg << "\033[0m";
 }
 
-void ScavTrap::printInt(int num)
+void SuperTrap::printInt(int num)
 {
-	std::cout << "\033[1m\033[36m" << num << "\033[0m";
+	std::cout << "\033[1m\033[34m" << num << "\033[0m";
 }

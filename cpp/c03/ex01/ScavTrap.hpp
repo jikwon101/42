@@ -18,9 +18,8 @@ private:
 	int			ranged_attack_damage;
 	int			armor_damage_reduction;
 public:
-	ScavTrap();
 	~ScavTrap();
-	ScavTrap(const std::string src_name);
+	ScavTrap(const std::string src_name = "");
 	ScavTrap(const ScavTrap& src);
 	ScavTrap& operator=(const ScavTrap &src);
 	void		rangeAttack(std::string const& target);

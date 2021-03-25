@@ -1,19 +1,5 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap()
-{
-	std::cout << "Recompiling my combat code!" << std::endl;
-	hp = 100;
-	max_hp = 100;
-	ep = 100;
-	max_ep = 100;
-	level = 1;
-	name = "";
-	melee_attack_damage = 30;
-	ranged_attack_damage = 20;
-	armor_damage_reduction = 5;
-}
-
 FragTrap::~FragTrap()
 {
 	std::cout << "Argh arghargh death gurgle gurglegurgle urgh... death" << std::endl;
@@ -133,62 +119,28 @@ void	FragTrap::beRepaired(unsigned int amount)
 	std::cout << "HP left " << hp << std::endl;
 }
 
-void	FragTrap::vaulthunter_dot_exe(std::string const& target)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::string list[] = {
-	"I have two robot arms!",
-	"Mini-trap on the field!",	
-	"I AM ON FIRE!! OH GOD, PUT ME OUT!!!",
-	"Tell me i'm the prettiest!!",
-	"Oh god I can't stop!",
-	"I am rubber, and you are so dead!",
-	"Love bullets!"
-	};
-	std::uniform_int_distribution<int> dis(0, 6);
-	
-	std::cout << list[dis(gen)] << std::endl;
-	std::cout << "FR4G-TP " << name;
-	std::cout << " attacked " << target << std::endl;
+typedef void (FragTrap::*ATTACK)(std::string const &target);
 
-}
-
-/*
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
 	int random_number;
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(1, 5);
+	std::uniform_int_distribution<int> dis(0, 4);
+	/*
+	ATTACK attack[] = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
+	*/
+	
+	void (FragTrap::*attack[])(std::string const &target) = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
 	if (ep < 25)
 	{
 		std::cout << "[SYSTEM] Out of energy." << std::endl;
 		return ;
 	}
 	ep -= 25;
-	random_number = dis(gen);
-	switch(random_number)
-	{
-		default:
-			mechromagicianAttack(target);
-			break;
-		case 2:
-			minionTrapAttack(target);
-			break;
-		case 3:
-			meatUnicycleAttack(target);
-			break;
-		case 4:
-			blightBotAttack(target);
-			break;
-		case 5:
-			funzerkerAttack(target);
-			break;
-	}
-	  //void (FragTrap::*attack[])(std::string const &target) = { &FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
-//	(*attack[0])(target);
+	(this->*attack[dis(gen)])(target);
 }
+
 
 void	FragTrap::mechromagicianAttack(std::string const& target)
 {
@@ -202,16 +154,16 @@ void	FragTrap::minionTrapAttack(std::string const& target)
 
 void	FragTrap::meatUnicycleAttack(std::string const& target)
 {
-	std::cout << "I AM ON FIRE!! OH GOD, PUT ME OUT!!!" << std::endl;
-	std::cout << "Tell me i'm the prettiest!!" << std::endl;
 	std::cout << "Oh god I can't stop!" << std::endl;
 }
 
 void	FragTrap::blightBotAttack(std::string const& target)
 {
+	std::cout << "I AM ON FIRE!! OH GOD, PUT ME OUT!!!" << std::endl;
 }
 
 void	FragTrap::funzerkerAttack(std::string const& target)
 {
+	std::cout << "Tell me i'm the prettiest!!" << std::endl;
 }
-*/
+

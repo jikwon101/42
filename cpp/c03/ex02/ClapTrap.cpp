@@ -1,19 +1,5 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap()
-{
-	printMsg("Let's get this party started!\n");
-	hp = 100;
-	max_hp = 100;
-	ep = 100;
-	max_ep = 100;
-	level = 1;
-	name = "";
-	melee_attack_damage = 30;
-	ranged_attack_damage = 20;
-	armor_damage_reduction = 5;
-}
-
 ClapTrap::~ClapTrap()
 {
 	printMsg("No, nononono NO!\n");
