@@ -7,7 +7,7 @@ ScavTrap::~ScavTrap()
 
 ScavTrap::ScavTrap(const std::string src_name)
 {
-	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
+	printMsg("I'm not to let ANYONE in through here!\n");
 	hp = 100;
 	max_hp = 100;
 	ep = 100;
@@ -88,18 +88,9 @@ void	ScavTrap::challengeNewcomer(void)
 	};
 	std::uniform_int_distribution<int> dis(0, 6);
 	printMsg(list[dis(gen)]);
-	printMsg(".");
-	printMsg(" Then, if you live, return to me here, where I am standing\n");}
+	printMsg("\n");
+	printMsg("Then, if you live, return to me here, where I am standing\n");}
 
-void ScavTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[36m" << msg << "\033[0m";
-}
-
-void ScavTrap::printInt(int num)
-{
-	std::cout << "\033[1m\033[36m" << num << "\033[0m";
-}
 
 void	ScavTrap::takeDamage(unsigned int amount)
 {
@@ -152,3 +143,14 @@ void	ScavTrap::beRepaired(unsigned int amount)
 	printInt(hp);
 	printMsg("\n");
 }
+
+void ScavTrap::printMsg(std::string msg)
+{
+	std::cout << "\033[36m" << msg << "\033[1m\033[0m";
+}
+
+void ScavTrap::printInt(int num)
+{
+	std::cout << "\033[36m" << num << "\033[1m\033[0m";
+}
+

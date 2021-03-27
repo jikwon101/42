@@ -35,7 +35,7 @@ ClapTrap::ClapTrap(const ClapTrap& src)
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& src)
 {
-	printMsg("Look out everybody! Things are about to get awesome!\n");
+	printMsg("Let's get this party started!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -51,7 +51,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& src)
 	return (*this);
 }
 
-void	ClapTrap::rangeAttack(std::string const& target)
+void		ClapTrap::rangeAttack(std::string const& target)
 {
 	printMsg("Present for you!\n");	
 	
@@ -63,7 +63,7 @@ void	ClapTrap::rangeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ClapTrap::meleeAttack(std::string const& target)
+void		ClapTrap::meleeAttack(std::string const& target)
 {
 	printMsg("Bop!\n");	
 
@@ -75,7 +75,7 @@ void	ClapTrap::meleeAttack(std::string const& target)
 	printMsg(" points of damage\n");
 }
 
-void	ClapTrap::takeDamage(unsigned int amount)
+void		ClapTrap::takeDamage(unsigned int amount)
 {	
 	int actual_damage;
 
@@ -100,7 +100,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 	printMsg("\n");
 }
 
-void	ClapTrap::beRepaired(unsigned int amount)
+void		ClapTrap::beRepaired(unsigned int amount)
 {
 	int actual_repaired;
 
@@ -125,28 +125,28 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	printInt(hp);
 	printMsg("\n");
 }
-std::string	ClapTrap::getName()
+
+void		ClapTrap::printMsg(std::string msg)
+{
+	std::cout << "\033[33m" << msg << "\033[1m\033[0m";
+}
+
+void		ClapTrap::printInt(int num)
+{
+	std::cout << "\033[33m" << num << "\033[1m\033[0m";
+}
+
+std::string ClapTrap::getName(void)
 {
 	return (this->name);
 }
 
-int		ClapTrap::getMeleeAttackDamage()
+int			ClapTrap::getMeleeAttackDamage(void)
 {
 	return (this->melee_attack_damage);
 }
 
-int		ClapTrap::getRangedAttackDamage()
+int			ClapTrap::getRangedAttackDamage(void)
 {
 	return (this->ranged_attack_damage);
 }
-
-void ClapTrap::printMsg(std::string msg)
-{
-	std::cout << "\033[1m\033[33m" << msg << "\033[0m";
-}
-
-void ClapTrap::printInt(int num)
-{
-	std::cout << "\033[1m\033[33m" << num << "\033[0m";
-}
-

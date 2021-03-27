@@ -35,7 +35,7 @@ ClapTrap::ClapTrap(const ClapTrap& src)
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& src)
 {
-	printMsg("Look out everybody! Things are about to get awesome!\n");
+	printMsg("Let's get this party started!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -128,11 +128,11 @@ void	ClapTrap::beRepaired(unsigned int amount)
 
 void ClapTrap::printMsg(std::string msg)
 {
-	std::cout << "\033[1m\033[33m" << msg << "\033[0m";
+	std::cout << "\033[33m" << msg << "\033[1m\033[0m";
 }
 
 void ClapTrap::printInt(int num)
 {
-	std::cout << "\033[1m\033[33m" << num << "\033[0m";
+	std::cout << "\033[33m" << num << "\033[1m\033[0m";
 }
 

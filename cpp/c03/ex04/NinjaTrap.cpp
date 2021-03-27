@@ -1,7 +1,6 @@
 #include "NinjaTrap.hpp"
 #include <thread>
 #include <chrono>
-
 NinjaTrap::~NinjaTrap()
 {
 	printMsg("What's happening t..o m....\n");
@@ -94,6 +93,7 @@ void	NinjaTrap::ninjaShoebox(NinjaTrap &object)
 	else
 	{
 		rangeAttack(object.getName());
+		object.takeDamage(ranged_attack_damage);
 		if (rd_num == 1)
 		{
 			rangeAttack(name);
@@ -104,23 +104,25 @@ void	NinjaTrap::ninjaShoebox(NinjaTrap &object)
 
 void	NinjaTrap::ninjaShoebox(FragTrap &object)
 {
-	for (int i = 0 ; i < 3 ; i++)
+	for (int i = 0 ; i < 2 ; i++)
 	{
+		rangeAttack(object.getName());
 		object.takeDamage(10);
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 void	NinjaTrap::ninjaShoebox(ScavTrap &object)
 {
+	meleeAttack(object.getName());
 	object.takeDamage(object.getMeleeAttackDamage() * 2);
 }
 
 void NinjaTrap::printMsg(std::string msg)
 {
-	std::cout << "\033[1m\033[32m" << msg << "\033[0m";
+	std::cout << "\033[32m" << msg << "\033[1m\033[0m";
 }
 
 void NinjaTrap::printInt(int num)
 {
-	std::cout << "\033[1m\033[32m" << num << "\033[0m";
+	std::cout << "\033[32m" << num << "\033[1m\033[0m";
 }

@@ -21,7 +21,7 @@ FragTrap::FragTrap(const std::string src_name)
 
 FragTrap::FragTrap(const FragTrap& src)
 {
-	printMsg("Look out everybody! Things are about to get awesome!\n");
+	printMsg("Recompiling my combat code!\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -35,7 +35,7 @@ FragTrap::FragTrap(const FragTrap& src)
 
 FragTrap& FragTrap::operator=(const FragTrap& src)
 {
-	printMsg("Look out everybody! Things are about to get awesome!\n");
+	printMsg("Recompiling my combat code!\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;

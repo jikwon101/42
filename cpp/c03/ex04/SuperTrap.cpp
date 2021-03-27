@@ -2,7 +2,7 @@
 
 SuperTrap::~SuperTrap()
 {
-	//printMsg("I'm too pretty to die!\n");
+	printMsg("Crap!!\n");
 }
 
 SuperTrap::SuperTrap(const std::string src_name)
@@ -21,7 +21,7 @@ SuperTrap::SuperTrap(const std::string src_name)
 
 SuperTrap::SuperTrap(const SuperTrap& src)
 {
-	//printMsg("I'm not to let ANYONE in through here!\n");
+	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
 	this->hp = src.hp;
 	this->max_hp = src.max_hp;
 	this->ep = src.ep;
@@ -35,7 +35,7 @@ SuperTrap::SuperTrap(const SuperTrap& src)
 
 SuperTrap& SuperTrap::operator=(const SuperTrap& src)
 {
-	//printMsg("I'm not to let ANYONE in through here!\n");
+	printMsg("Halt, citizen! I've been chosen to stand out here to guard the main gate.\n");
 	if (this != &src)
 	{
 		this->hp = src.hp;
@@ -53,7 +53,7 @@ SuperTrap& SuperTrap::operator=(const SuperTrap& src)
 
 void	SuperTrap::rangeAttack(std::string const& target)
 {	
-	//printMsg("WOW! I hit 'em!\n");
+	printMsg("Shwing!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -64,7 +64,7 @@ void	SuperTrap::rangeAttack(std::string const& target)
 
 void	SuperTrap::meleeAttack(std::string const& target)
 {	
-	//printMsg("Heyyah!\n");
+	printMsg("Hyah!\n");
 	printMsg(name);
 	printMsg(" attacks ");
 	printMsg(target);
@@ -75,10 +75,10 @@ void	SuperTrap::meleeAttack(std::string const& target)
 
 void SuperTrap::printMsg(std::string msg)
 {
-	std::cout << "\033[1m\033[34m" << msg << "\033[0m";
+	std::cout << "\033[34m" << msg << "\033[1m\033[0m";
 }
 
 void SuperTrap::printInt(int num)
 {
-	std::cout << "\033[1m\033[34m" << num << "\033[0m";
+	std::cout << "\033[34m" << num << "\033[1m\033[0m";
 }
