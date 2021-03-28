@@ -83,7 +83,7 @@ int main()
 	me->equip(t3);
 	me->equip(t4);
 	me->equip(t5);
-	me->equip(nullptr);
+	me->equip(0);
 	std::cout << "Character me has " << me->getNumOfMateria() << " materias\n";
 
 	std::cout << CL << "[4]____Unequip_________________\n" << RS;
@@ -110,8 +110,6 @@ int main()
 	delete t3;
 	delete t4;
 	delete t5;
-	while(1)
-			;
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 
 	#endif

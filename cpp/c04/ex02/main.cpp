@@ -45,10 +45,10 @@ int main()
 
 	std::cout << CL<< "[2]___getUnit_________________\n"<< RS ;
 	std::cout << "There are " << vlc->getCount() << " in squad vlc\n";
-	if (vlc->getUnit(vlc->getCount() + 1) == nullptr)
-		std::cout << "Returned nullptr\n";
-	if (vlc->getUnit(-1) == nullptr)
-		std::cout << "Returned nullptr\n";
+	if (!vlc->getUnit(vlc->getCount() + 1))
+		std::cout << "Returned null\n";
+	if (!vlc->getUnit(-1))
+		std::cout << "Returned null\n";
 
 	std::cout << CL<< "[3]___Assignment operator_____\n"<< RS ;
 	Squad *old = new Squad;

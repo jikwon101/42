@@ -11,7 +11,7 @@ Character::Character(std::string const & name)
 {
 	this->name = name;
 	this->ap = 40;
-	this->weapon = nullptr;
+	this->weapon = 0;
 }
 
 Character::Character(const Character& src)
@@ -64,14 +64,14 @@ void	Character::recoverAP(void)
 
 void	Character::equip(AWeapon *src)
 {
-	if (src == nullptr)
+	if (!src)
 		return ;
 	weapon = src;
 }
 
 void	Character::attack(Enemy *enemy)
 {
-	if (ap < 0 || weapon == nullptr || enemy == nullptr)
+	if (ap < 0 || !weapon || !enemy)
 		return ;
 	if (ap - weapon->getAPCost() < 0)
 		return ;
@@ -85,7 +85,7 @@ void	Character::attack(Enemy *enemy)
 
 bool	Character::isArmed(void) const
 {
-	if (this->weapon == nullptr)
+	if (!this->weapon)
 		return (false);
 	else
 		return (true);

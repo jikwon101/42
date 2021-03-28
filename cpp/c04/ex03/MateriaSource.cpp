@@ -8,7 +8,7 @@ MateriaSource::MateriaSource()
 	this->buffersize = 0;
 	for (int i = 0; i < 4 ; i++)
 	{
-		this->buffer[i] = nullptr;
+		this->buffer[i] = 0;
 	}
 }
 
@@ -48,7 +48,7 @@ int			MateriaSource::getBuffersize(void)
 */
 void		MateriaSource::learnMateria(AMateria *new_thing)
 {
-	if (this->buffersize == 4 || new_thing == nullptr )
+	if (this->buffersize == 4 || !new_thing )
 		return ;
 	this->buffer[this->buffersize] = new_thing;
 	this->buffersize += 1;
@@ -61,5 +61,5 @@ AMateria*	MateriaSource::createMateria(std::string const & type)
 		if (type.compare(buffer[i]->getType()) == 0)
 			return (buffer[i]->clone());
 	}
-	return (nullptr);
+	return (0);
 }

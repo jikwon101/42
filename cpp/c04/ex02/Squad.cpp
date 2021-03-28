@@ -6,7 +6,7 @@
 Squad::Squad()
 {
 	num_of_units = 0;
-	units = nullptr;
+	units = 0;
 }
 
 Squad::Squad(Squad const & src)
@@ -64,7 +64,7 @@ ISpaceMarine* Squad::getUnit(int idx) const
 {
 	if (idx < 0 || idx >= num_of_units)
 	{
-		return (nullptr);
+		return (0);
 	}
 	return (this->units[idx]);
 }
@@ -87,7 +87,7 @@ int Squad::push(ISpaceMarine *unit)
 	int i;
 	ISpaceMarine **temp;
 	
-	if (unit == nullptr)
+	if (!unit)
 		return (this->num_of_units);
 	if (isInUnits(unit) == true)
 		return (this->num_of_units);
@@ -97,7 +97,7 @@ int Squad::push(ISpaceMarine *unit)
 		temp[i] = this->units[i];
 	}
 	temp[i] = unit;
-	if (units != nullptr)
+	if (units)
 		delete [] units;
 	this->units = temp;
 	this->num_of_units++;

@@ -11,7 +11,7 @@ Character::Character(std::string const name)
 	this->num_of_materia = 0;
 	for (int i = 0; i < 4 ; i++)
 	{
-		this->_inventory[i] = nullptr;
+		this->_inventory[i] = 0;
 	}
 }
 
@@ -31,7 +31,7 @@ Character& Character::operator=(Character const & src)
 	{	
 		for (int i = 0 ; i < num_of_materia ; i++)
 		{
-			if (this->_inventory[i] != nullptr)
+			if (this->_inventory[i])
 				delete this->_inventory[i];
 		}
 		this->_name = src.getName();
@@ -48,7 +48,7 @@ Character::~Character()
 {
 	for (int i = 0 ; i < num_of_materia ; i++)
 	{
-		if (this->_inventory[i] != nullptr)
+		if (this->_inventory[i])
 			delete this->_inventory[i];
 	}
 }
@@ -71,7 +71,7 @@ int				Character::getNumOfMateria(void) const
 */
 void Character::equip(AMateria *m)
 {
-	if (this->num_of_materia == 4 || m == nullptr)
+	if (this->num_of_materia == 4 || !m)
 		return ;
 	if (isInInventory(m) == true)
 		return ;
@@ -88,7 +88,7 @@ void Character::unequip(int idx)
 		if (i != num_of_materia - 1)
 			this->_inventory[i] = this->_inventory[i + 1];
 		else
-			this->_inventory[i] = nullptr;
+			this->_inventory[i] = 0;
 	}
 	this->num_of_materia -= 1;
 }
