@@ -71,13 +71,13 @@ int main()
 	std::cout << " -------------------------------" << std::endl;
 	std::cout << "| ninjaShoebox                  |" << std::endl;
 	std::cout << " -------------------------------" << std::endl;
-	std::cout << "..........type claptrap : 대상이 대상의 meleeAttack\n";
+	std::cout << "..........type claptrap\n";
 	sp->ninjaShoebox(*c);
-	std::cout << "..........type FragTrap : 10 * 2times\n";
+	std::cout << "..........type FragTrap\n";
 	sp->ninjaShoebox(*f);
-	std::cout << "..........type Scavtrap : 대상의 meleeAttackDamage * 2\n";
+	std::cout << "..........type Scavtrap\n";
 	sp->ninjaShoebox(*s);
-	std::cout << "..........type Ninjatrap : rangeAttack & 0.2반사\n";
+	std::cout << "..........type Ninjatrap\n";
 	sp->ninjaShoebox(*n);
 
 	std::cout << std::endl;

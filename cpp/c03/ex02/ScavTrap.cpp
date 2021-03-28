@@ -10,13 +10,13 @@ ScavTrap::ScavTrap(const std::string src_name)
 	printMsg("I'm not to let ANYONE in through here!\n");
 	hp = 100;
 	max_hp = 100;
-	ep = 100;
-	max_ep = 100;
+	ep = 50;
+	max_ep = 50;
 	level = 1;
 	name = src_name;
-	melee_attack_damage = 30;
-	ranged_attack_damage = 20;
-	armor_damage_reduction = 5;
+	melee_attack_damage = 20;
+	ranged_attack_damage = 15;
+	armor_damage_reduction = 3;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& src)

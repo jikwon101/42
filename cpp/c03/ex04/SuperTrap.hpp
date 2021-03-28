@@ -4,7 +4,7 @@
 #include "NinjaTrap.hpp"
 #include "FragTrap.hpp"
 
-class SuperTrap : public FragTrap, public NinjaTrap
+class SuperTrap : public NinjaTrap, public FragTrap
 {
 public:
 	~SuperTrap();

@@ -17,6 +17,7 @@ ClapTrap::ClapTrap(const std::string src_name)
 	melee_attack_damage = 30;
 	ranged_attack_damage = 20;
 	armor_damage_reduction = 5;
+
 }
 
 ClapTrap::ClapTrap(const ClapTrap& src)

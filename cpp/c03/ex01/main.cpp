@@ -22,8 +22,8 @@ int main()
 	s->takeDamage(300);
 	std::cout << "..........TakeDamage : 100 (min_hp)" << std::endl;
 	s->takeDamage(100);
-	std::cout << "..........BeRepaired : 100 (.)" << std::endl;
-	s->beRepaired(100);
+	std::cout << "..........BeRepaired : 200 (.)" << std::endl;
+	s->beRepaired(200);
 	std::cout << "..........BeRepaired : 300 (max_hp)" << std::endl;
 	s->beRepaired(300);
 	std::cout << std::endl ;
@@ -37,8 +37,8 @@ int main()
 	f->takeDamage(300);
 	std::cout << "..........TakeDamage : 100 (min_hp)" << std::endl;
 	f->takeDamage(100);
-	std::cout << "..........BeRepaired : 100 (.)" << std::endl;
-	f->beRepaired(100);
+	std::cout << "..........BeRepaired : 200 (.)" << std::endl;
+	f->beRepaired(200);
 	std::cout << "..........BeRepaired : 300 (max_hp)" << std::endl;
 	f->beRepaired(300);
 	std::cout << std::endl ;

@@ -106,14 +106,20 @@ void	NinjaTrap::ninjaShoebox(FragTrap &object)
 {
 	for (int i = 0 ; i < 2 ; i++)
 	{
-		rangeAttack(object.getName());
+		printMsg(name);
+		printMsg(" attacks ");
+		printMsg(object.getName());
+		printMsg("\n");
 		object.takeDamage(10);
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 void	NinjaTrap::ninjaShoebox(ScavTrap &object)
 {
-	meleeAttack(object.getName());
+	printMsg(name);
+	printMsg(" attacks ");
+	printMsg(object.getName());
+	printMsg("\n");
 	object.takeDamage(object.getMeleeAttackDamage() * 2);
 }
 
