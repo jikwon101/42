@@ -77,17 +77,18 @@ typedef void (FragTrap::*ATTACK)(std::string const &target);
 
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(0, 4);
+	int num;
 	ATTACK attack[] = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
+	
 	if (ep < 25)
 	{
 		printMsg("[SYSTEM] Out of energy.\n");
 		return ;
 	}
 	ep -= 25;
-	(this->*attack[dis(gen)])(target);
+	num = (unsigned int)time(NULL) * rand();
+	srand(num);
+	(this->*attack[rand() % 5])(target);
 }
 
 void	FragTrap::mechromagicianAttack(std::string const& target)

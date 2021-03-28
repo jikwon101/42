@@ -2,7 +2,9 @@
 #define SCAVTRAP_HPP
 
 #include "ClapTrap.hpp"
-#include <random>
+#include <cstdlib>
+#include <ctime>
+
 
 class ScavTrap : public ClapTrap
 {

@@ -1,6 +1,5 @@
 #include "NinjaTrap.hpp"
-#include <thread>
-#include <chrono>
+
 NinjaTrap::~NinjaTrap()
 {
 	printMsg("What's happening t..o m....\n");
@@ -83,18 +82,17 @@ void	NinjaTrap::ninjaShoebox(ClapTrap &object)
 
 void	NinjaTrap::ninjaShoebox(NinjaTrap &object)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(1, 5);
-	int rd_num = dis(gen);
+	int num;
 
 	if (this == &object)
 		printMsg("I don't want to hurt myself!\n");
 	else
 	{
+		srand((unsigned int)time(NULL));
+		num = rand() % 5;
 		rangeAttack(object.getName());
 		object.takeDamage(ranged_attack_damage);
-		if (rd_num == 1)
+		if (num == 1)
 		{
 			rangeAttack(name);
 			takeDamage(ranged_attack_damage);
@@ -111,7 +109,7 @@ void	NinjaTrap::ninjaShoebox(FragTrap &object)
 		printMsg(object.getName());
 		printMsg("\n");
 		object.takeDamage(10);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		usleep(1 * 1000000);
 	}
 }
 void	NinjaTrap::ninjaShoebox(ScavTrap &object)

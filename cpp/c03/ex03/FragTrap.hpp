@@ -2,7 +2,8 @@
 #define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
-#include <random>
+#include <cstdlib>
+#include <ctime>
 
 class FragTrap : public ClapTrap
 {

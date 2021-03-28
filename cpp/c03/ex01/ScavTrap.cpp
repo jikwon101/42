@@ -75,8 +75,7 @@ void	ScavTrap::meleeAttack(std::string const& target)
 
 void	ScavTrap::challengeNewcomer(void)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
+	int num;
 	std::string list[] = {
 	"Find treasure map!",
 	"Survive scavenger attacks: 0/3",
@@ -86,8 +85,10 @@ void	ScavTrap::challengeNewcomer(void)
 	"Follow Dr.Minte.",
 	"Open Lab19 vault."
 	};
-	std::uniform_int_distribution<int> dis(0, 6);
-	printMsg(list[dis(gen)]);
+
+	num = (unsigned int)time(NULL) * rand();
+	srand(num);
+	printMsg(list[rand() % 5]);
 	printMsg("\n");
 	printMsg("Then, if you live, return to me here, where I am standing\n");}
 
