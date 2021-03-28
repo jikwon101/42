@@ -3,6 +3,7 @@
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	std::cout << "\033[1m\033[0m";
 	std::cout << " -------------------------------" << std::endl;
 	std::cout << "| Create Traps                  |" << std::endl;
@@ -68,6 +69,10 @@ int main()
 	s->challengeNewcomer();
 	std::cout << "..........Second\n";
 	s->challengeNewcomer();
+	std::cout << "..........3rd\n";
+	s->challengeNewcomer();
+	std::cout << "..........4h\n";
+	s->challengeNewcomer();
 	std::cout << std::endl;
 	
 	std::cout << " -------------------------------" << std::endl;
@@ -76,6 +81,10 @@ int main()
 	std::cout << "..........First\n";
 	f->vaulthunter_dot_exe("robot");
 	std::cout << "..........Second\n";
+	f->vaulthunter_dot_exe("robot");
+	std::cout << "..........3rd\n";
+	f->vaulthunter_dot_exe("robot");
+	std::cout << "..........4th\n";
 	f->vaulthunter_dot_exe("robot");
 	std::cout << std::endl;
 	

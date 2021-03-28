@@ -2,6 +2,7 @@
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	std::cout << "\033[1m\033[0m";
 	std::cout << " -------------------------------" << std::endl;
 	std::cout << "| Create Traps                  |" << std::endl;

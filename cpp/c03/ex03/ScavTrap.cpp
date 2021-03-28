@@ -75,7 +75,6 @@ void	ScavTrap::meleeAttack(std::string const& target)
 
 void	ScavTrap::challengeNewcomer(void)
 {
-	int num;
 	std::string list[] = {
 	"Find treasure map!",
 	"Survive scavenger attacks: 0/3",
@@ -86,9 +85,7 @@ void	ScavTrap::challengeNewcomer(void)
 	"Open Lab19 vault."
 	};
 
-	num = (unsigned int)time(NULL) * rand();
-	srand(num);
-	printMsg(list[rand() % 5]);
+	printMsg(list[rand() % 7]);
 	printMsg("\n");
 	printMsg("Then, if you live, return to me here, where I am standing\n");}
 

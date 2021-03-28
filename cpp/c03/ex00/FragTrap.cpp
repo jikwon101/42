@@ -130,7 +130,6 @@ typedef void (FragTrap::*ATTACK)(std::string const &target);
 
 void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 {
-	int num;
 	ATTACK attack[] = {&FragTrap::mechromagicianAttack, &FragTrap::minionTrapAttack, &FragTrap::meatUnicycleAttack, &FragTrap::blightBotAttack, &FragTrap::funzerkerAttack};
 	
 	if (ep < 25)
@@ -139,8 +138,6 @@ void	FragTrap::vaulthunter_dot_exe(std::string const& target)
 		return ;
 	}
 	ep -= 25;
-	num = (unsigned int)time(NULL) * rand();
-	srand(num);
 	(this->*attack[rand() % 5])(target);
 }
 

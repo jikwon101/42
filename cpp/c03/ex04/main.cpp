@@ -2,6 +2,7 @@
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	std::cout << "\033[1m\033[0m";
 	std::cout << " -------------------------------" << std::endl;
 	std::cout << "| Create Traps                  |" << std::endl;
@@ -64,6 +65,12 @@ int main()
 	std::cout << "..........First\n";
 	sp->vaulthunter_dot_exe("robot");
 	std::cout << "..........Second\n";
+	sp->vaulthunter_dot_exe("robot");
+	std::cout << "..........3rd\n";
+	sp->vaulthunter_dot_exe("robot");
+	std::cout << "..........4th\n";
+	sp->vaulthunter_dot_exe("robot");
+	std::cout << "..........5th\n";
 	sp->vaulthunter_dot_exe("robot");
 	std::cout << std::endl;
 	

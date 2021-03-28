@@ -4,6 +4,7 @@
 #include "ClapTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
+#include "unistd.h"
 
 class NinjaTrap : virtual public ClapTrap
 {
