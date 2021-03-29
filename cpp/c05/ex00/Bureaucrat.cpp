@@ -24,9 +24,9 @@ Bureaucrat::~Bureaucrat(){}
 
 Bureaucrat::Bureaucrat(std::string name , int grade)
 {
+	setName(name);
 	try
 	{
-		setName(name);
 		setGrade(grade);
 	}
 	catch (GradeTooLowException& err)
@@ -41,9 +41,9 @@ Bureaucrat::Bureaucrat(std::string name , int grade)
 
 Bureaucrat::Bureaucrat(Bureaucrat &src)
 {	
+	setName(src.getName());
 	try
 	{
-		setName(src.getName());
 		setGrade(src.getGrade());
 	}
 	catch (GradeTooLowException& err)
@@ -60,9 +60,9 @@ Bureaucrat& Bureaucrat::operator=(Bureaucrat &src)
 {
 	if (this != &src)
 	{
+		setName(src.getName());
 		try
 		{
-			setName(src.getName());
 			setGrade(src.getGrade());
 		}
 		catch (GradeTooLowException& err)
