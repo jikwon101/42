@@ -75,7 +75,7 @@ int Bureaucrat::getGrade(void) const
 /*
 ** Member Function
 */
-void Bureaucrat::upGrade(void)
+void	Bureaucrat::upGrade(void)
 {
 	try
 	{
@@ -96,7 +96,7 @@ void Bureaucrat::upGrade(void)
 	std::cout << name << " has successfully upgraded." << std::endl;
 }
 
-void Bureaucrat::downGrade(void)
+void	Bureaucrat::downGrade(void)
 {	
 	try
 	{
@@ -117,6 +117,48 @@ void Bureaucrat::downGrade(void)
 	std::cout << name << " has successfully downgraded." << std::endl;
 }
 
+void	Bureaucrat::signForm(Form& form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << name << " signs " << form.getName() << "." << std::endl;
+	}
+	catch (Form::GradeTooLowException &err)
+	{
+		std::cout << name << " can't sign " << form.getName() << " because " << err.what() << std::endl;
+		return ;
+	}
+}
+
+void	Bureaucrat::executeForm(Form const & form)
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch (Form::NotHighEnoughGrade &err)
+	{
+		std::cout << name << " can't execute " << form.getName();
+		std::cout << " because of ";
+		std::cout << err.what() << std::endl;
+		return ;
+	}
+	catch (Form::NotSigned &err)
+	{
+		std::cout << name << " can't execute " << form.getName();
+		std::cout << " because of ";
+		std::cout << err.what() << std::endl;
+		return ;
+	}
+	catch (Form::CantOpenFile &err)
+	{	
+		std::cout << name << " can't execute " << form.getName();
+		std::cout << " because of ";
+		std::cout << err.what() << std::endl;
+		return ;
+	}
+}
 
 /*
 ** Overload ostream operator 

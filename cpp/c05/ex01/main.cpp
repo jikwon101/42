@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 # define CL "\033[1m\033[36m"
 # define RS "\033[0m"
@@ -9,29 +10,30 @@ int main()
 	std::cout << CL << "|                    Create object                      |\n" << RS;
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 
-	Bureaucrat jone("Jone", 4);
-	Bureaucrat cathy("cathy", 149);
+	Bureaucrat jone("Jone", 6);
+	Form form("Commitment", 4, 3);
+	Form test(form);
 
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
-	std::cout << CL << "|                Create Bureaucrat error                |\n" << RS;
+	std::cout << CL << "|                Create form error                      |\n" << RS;
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 
 	try
 	{
-		std::cout << CL << "Trying to create (name, 0)\n" << RS;
-		Bureaucrat err1("high", 0);
+		std::cout << CL << "Trying to create form(name, 0, 4)\n" << RS;
+		Form err1 = Form("ErrForm", 0, 4);
 	}
-	catch (Bureaucrat::GradeTooHighException & err)
+	catch (Form::GradeTooHighException & err)
 	{
 		std::cout << "Cannot create because of ";
 		std::cout << err.what() << std::endl;
 	}
 	try
 	{
-		std::cout << CL << "Trying to create (name, 166)\n" << RS;
-		Bureaucrat err2("low", 166);
+		std::cout << CL << "Trying to create form(name, 4, 166)\n" << RS;
+		Form err2 = Form("ErrForm", 4, 166);
 	}
-	catch (Bureaucrat::GradeTooLowException & err)
+	catch (Form::GradeTooLowException & err)
 	{
 		std::cout << "Cannot create because of ";
 		std::cout << err.what() << std::endl;
@@ -42,15 +44,14 @@ int main()
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 
 	std::cout << jone;
-	std::cout << cathy;
+	std::cout << form;
+
 
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
-	std::cout << CL << "|             Downgrade Bureaucrat object               |\n" << RS;
+	std::cout << CL << "|       signForm & Form::GradeTooLowException           |\n" << RS;
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
-	
-	cathy.downGrade();
-	std::cout << cathy;
-	cathy.downGrade();
+
+	jone.signForm(form);
 
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 	std::cout << CL << "|             Upgrade Bureaucrat object                 |\n" << RS;
@@ -58,12 +59,12 @@ int main()
 	
 	jone.upGrade();
 	jone.upGrade();
-	std::cout << jone;
-	jone.upGrade();
-	std::cout << jone;
-	jone.upGrade();
-	jone.upGrade();
-	jone.upGrade();
-	
 
+	std::cout << CL << "---------------------------------------------------------\n" << RS;
+	std::cout << CL << "|                   signForm & beSigned                 |\n" << RS;
+	std::cout << CL << "---------------------------------------------------------\n" << RS;
+
+	std::cout << jone;
+	jone.signForm(form);
+	std::cout << form;
 }

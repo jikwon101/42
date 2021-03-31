@@ -75,7 +75,7 @@ int Bureaucrat::getGrade(void) const
 /*
 ** Member Function
 */
-void Bureaucrat::upGrade(void)
+void	Bureaucrat::upGrade(void)
 {
 	try
 	{
@@ -96,7 +96,7 @@ void Bureaucrat::upGrade(void)
 	std::cout << name << " has successfully upgraded." << std::endl;
 }
 
-void Bureaucrat::downGrade(void)
+void	Bureaucrat::downGrade(void)
 {	
 	try
 	{
@@ -115,6 +115,20 @@ void Bureaucrat::downGrade(void)
 		return ;
 	}
 	std::cout << name << " has successfully downgraded." << std::endl;
+}
+
+void	Bureaucrat::signForm(Form& form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << name << " signs " << form.getName() << "." << std::endl;
+	}
+	catch (Form::GradeTooLowException &err)
+	{
+		std::cout << name << " can't sign " << form.getName() << " because " << err.what() << std::endl;
+		return ;
+	}
 }
 
 

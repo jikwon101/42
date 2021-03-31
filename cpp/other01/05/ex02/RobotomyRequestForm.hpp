@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 19:41:16 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/12/23 14:56:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2021/03/30 21:33:42 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ public:
 	RobotomyRequestForm(std::string const &target);
 	RobotomyRequestForm(RobotomyRequestForm const &other);
 	virtual ~RobotomyRequestForm();
-
 	static std::string const &name;
-
 	RobotomyRequestForm &operator=(RobotomyRequestForm const &other);
-
 	void execute(Bureaucrat const &executor) const;
 };
 
