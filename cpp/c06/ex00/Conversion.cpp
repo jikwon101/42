@@ -52,25 +52,72 @@ std::string Conversion::printtype()
 
 int		Conversion::toIval()
 {
+	int			i = 0;
+	int			res = 0;
+	bool		minus = false;
+	const char	*val;
+
 	if (type != INT && type != CHAR)
 		return (0);
-	return (1);
+	val = raw.c_str();
+	if (type == CHAR)
+		return (val[0]);
+	if (val[0] == '-')
+	{
+		i++;
+		minus = true;
+	}
+	while (val[i])
+	{
+		res = res * 10 + (val[i] - '0');
+		i++;
+	}
+	if (minus == true)
+		return (-res);
+	return (res);
 }
 
 double	Conversion::toDval()
 {
+	int			i = 0;
+	int			count = 1;
+	bool		minus = false;
+	double		res = 0;
+	const char	*val;
+
 	if (type != FLOAT && type != DOUBLE)
 		return (0);
-	return (1.23);
+	val = raw.c_str();
+	if (val[0] == '-')
+	{
+		i++;
+		minus = true;
+	}
+	while (val[i] && val[i] != '.')
+	{
+		res = res * 10 + (val[i] - '0');
+		i++;
+	}
+	if (val[i] == '.')
+		i++;
+	while (val[i])
+	{
+		res = res + (val[i] - '0') / (pow(10, count));
+		count++;
+		i++;
+	}
+	if (minus == true)
+		return (-res);
+	return (res);
 }
 
 Conversion::Conversion(std::string raw)
 {
 	this->raw = raw;
 	type = detectType();
+	std::cout << CL << printtype() << std::endl << RS;
 	ival = toIval();
 	dval = toDval();
-	std::cout << CL << printtype() << std::endl << RS;
 }
 
 /* not in class*/
@@ -84,6 +131,7 @@ bool isNum(std::string str)
 	return (false);
 }
 
+/* not in class */
 bool	isInt(std::string str)
 {
 	const char *val;
@@ -135,6 +183,8 @@ void	Conversion::printAsInt() const
 {
 	if (type == N || type == IMPOSSIBLE || type == POSINF || type == NEGINF)
 		std::cout << "impossible";
+	else
+		std::cout << static_cast<int>(ival) ;
 }
 
 void	Conversion::printAsDouble() const
@@ -148,7 +198,10 @@ void	Conversion::printAsDouble() const
 	else if (type == N)
 		std::cout << "nan";
 	else if (type == INT || type == CHAR)
+	{
 		std::cout << static_cast<double>(ival);
+		std::cout << ".0";
+	}
 	else
 		std::cout << static_cast<double>(dval);
 }
@@ -166,7 +219,7 @@ void	Conversion::printAsFloat() const
 	else if (type == INT || type == CHAR)
 	{
 		std::cout << static_cast<float>(ival);
-		std::cout << "f";
+		std::cout << ".0f";
 	}
 	else
 	{
@@ -179,7 +232,16 @@ void	Conversion::printAsFloat() const
 void	Conversion::printAsChar() const
 {
 	if (type == N || type == IMPOSSIBLE || type == POSINF || type == NEGINF)
+	{
 		std::cout << "impossible";
+		return ;
+	}
+	if (ival > 127)
+		std::cout << "impossible";
+	else if (ival < 32)
+		std::cout << "Not displayable";
+	else
+		std::cout << "'" << static_cast<char>(ival) << "'";
 }
 
 int		Conversion::getType() const

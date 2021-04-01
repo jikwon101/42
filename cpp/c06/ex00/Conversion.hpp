@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-
+#include <math.h>
 # define CL "\033[1m\033[36m"
 # define RS "\033[0m"
 

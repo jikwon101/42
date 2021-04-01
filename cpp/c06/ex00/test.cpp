@@ -5,7 +5,7 @@
 
 int main()
 {
-	float x = 123456789023435;
+	float x = 1234;
 	std::ostringstream ss;
 	ss << std::fixed << std::setprecision(std::cout.precision()) << x;
 	std::string str = ss.str();
