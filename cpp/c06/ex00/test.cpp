@@ -6,6 +6,9 @@
 int main()
 {
 	float x = 1234;
+
+	std::cout.precision(1);
+	std::cout << std::fixed << x << std::endl;
 	std::ostringstream ss;
 	ss << std::fixed << std::setprecision(std::cout.precision()) << x;
 	std::string str = ss.str();
