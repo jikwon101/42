@@ -6,7 +6,6 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include <exception>
-#include <algorithm>
 
 class Intern 
 {
