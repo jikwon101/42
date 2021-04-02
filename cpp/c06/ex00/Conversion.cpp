@@ -199,8 +199,8 @@ void	Conversion::printAsDouble() const
 		std::cout << "nan";
 	else if (type == INT || type == CHAR)
 	{
-		std::cout << static_cast<double>(ival);
-		std::cout << ".0";
+		std::cout.precision(1);
+		std::cout << std::fixed << static_cast<double>(ival);
 	}
 	else
 		std::cout << static_cast<double>(dval);
@@ -218,8 +218,9 @@ void	Conversion::printAsFloat() const
 		std::cout << "nanf";
 	else if (type == INT || type == CHAR)
 	{
-		std::cout << static_cast<float>(ival);
-		std::cout << ".0f";
+		std::cout.precision(1);
+		std::cout << std::fixed << static_cast<float>(ival);
+		std::cout << "f";
 	}
 	else
 	{
