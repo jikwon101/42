@@ -54,7 +54,6 @@ int		Conversion::toIval()
 {
 	int			i = 0;
 	int			res = 0;
-	bool		minus = false;
 	const char	*val;
 
 	if (type != INT && type != CHAR)
@@ -65,14 +64,14 @@ int		Conversion::toIval()
 	if (val[0] == '-')
 	{
 		i++;
-		minus = true;
+		this->sign = -1;
 	}
 	while (val[i])
 	{
 		res = res * 10 + (val[i] - '0');
 		i++;
 	}
-	if (minus == true)
+	if (this->sign < 0)
 		return (-res);
 	return (res);
 }
@@ -81,7 +80,6 @@ double	Conversion::toDval()
 {
 	int			i = 0;
 	int			count = 1;
-	bool		minus = false;
 	double		res = 0;
 	const char	*val;
 
@@ -91,22 +89,23 @@ double	Conversion::toDval()
 	if (val[0] == '-')
 	{
 		i++;
-		minus = true;
+		this->sign = -1;
 	}
-	while (val[i] && val[i] != '.')
+	while (val[i] && val[i] != '.' && val[i] != 'f')
 	{
 		res = res * 10 + (val[i] - '0');
 		i++;
 	}
 	if (val[i] == '.')
 		i++;
-	while (val[i])
+	while (val[i] && val[i] != 'f')
 	{
 		res = res + (val[i] - '0') / (pow(10, count));
 		count++;
 		i++;
 	}
-	if (minus == true)
+	this->fraction = (5 < count - 1) ? 5 : count - 1;
+	if (this->sign < 0)
 		return (-res);
 	return (res);
 }
@@ -114,6 +113,8 @@ double	Conversion::toDval()
 Conversion::Conversion(std::string raw)
 {
 	this->raw = raw;
+	this->fraction = 1;
+	this->sign = 1;
 	type = detectType();
 	std::cout << CL << printtype() << std::endl << RS;
 	ival = toIval();
@@ -183,8 +184,24 @@ void	Conversion::printAsInt() const
 {
 	if (type == N || type == IMPOSSIBLE || type == POSINF || type == NEGINF)
 		std::cout << "impossible";
+	else if (type == INT || type == CHAR)
+	{
+		if ((ival ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
+		std::cout << static_cast<int>(ival);
+	}
 	else
-		std::cout << static_cast<int>(ival) ;
+	{
+		if (((int)dval ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
+		std::cout << static_cast<int>(dval);
+	}
 }
 
 void	Conversion::printAsDouble() const
@@ -198,16 +215,29 @@ void	Conversion::printAsDouble() const
 	else if (type == N)
 		std::cout << "nan";
 	else if (type == INT || type == CHAR)
-	{
-		std::cout.precision(1);
+	{	
+		if ((ival ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
+		std::cout.precision(fraction);
 		std::cout << std::fixed << static_cast<double>(ival);
 	}
 	else
+	{
+		if (((int)dval ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
 		std::cout << static_cast<double>(dval);
+	}
 }
 
 void	Conversion::printAsFloat() const
 {
+
 	if (type == IMPOSSIBLE)
 		std::cout << "impossible";
 	else if (type == POSINF)
@@ -218,13 +248,24 @@ void	Conversion::printAsFloat() const
 		std::cout << "nanf";
 	else if (type == INT || type == CHAR)
 	{
-		std::cout.precision(1);
+		if ((ival ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
+		std::cout.precision(fraction);
 		std::cout << std::fixed << static_cast<float>(ival);
 		std::cout << "f";
 	}
 	else
 	{
-		std::cout << static_cast<float>(dval);
+		if (((int)dval ^ sign) < 0)
+		{
+			std::cout << "impossible";
+			return ;
+		}
+		std::cout.precision(fraction);
+		std::cout << std::fixed << static_cast<float>(dval);
 		std::cout << "f";
 	}
 
@@ -237,7 +278,9 @@ void	Conversion::printAsChar() const
 		std::cout << "impossible";
 		return ;
 	}
-	if (ival > 127)
+	if ((ival ^ sign) < 0)
+		std::cout << "impossible";
+	else if (ival > 127)
 		std::cout << "impossible";
 	else if (ival < 32)
 		std::cout << "Not displayable";

@@ -1,6 +1,7 @@
 #ifndef CONVERSION_HPP
 # define CONVERSION_HPP
 
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <math.h>
@@ -11,9 +12,11 @@ class Conversion
 {
 private:
 	std::string raw;
-	int		ival;
-	double	dval;
-	int		type;
+	int			ival;
+	double		dval;
+	int			type;
+	int			fraction;
+	int			sign;
 public:
 	enum	literal
 	{
