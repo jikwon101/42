@@ -12,7 +12,7 @@ class Conversion
 {
 private:
 	std::string raw;
-	int			ival;
+	int64_t		ival;
 	double		dval;
 	int			type;
 	int			fraction;
