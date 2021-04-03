@@ -18,7 +18,7 @@ private:
 	int			fraction;
 	int			sign;
 public:
-	enum	literal
+	enum	Type
 	{
 		N,
 		INT,
@@ -30,14 +30,17 @@ public:
 		IMPOSSIBLE
 	};
 	Conversion(std::string src);
-	void		printAsInt() const;
-	void		printAsDouble() const;
-	void		printAsFloat() const;
-	void		printAsChar() const;
+//	~Conversion();
+//	Conversion(Conversion & const src);
+//	Conversion& operator=(Conversion & const src);
+	void		printAsInt(std::ostream & os) const;
+	void		printAsDouble(std::ostream & os) const;
+	void		printAsFloat(std::ostream & os) const;
+	void		printAsChar(std::ostream & os) const;
 	int			getType() const;
 	int			detectType();
-	std::string printtype();
-	int			toIval();
+	//std::string printtype();
+	//int			toIval();
 	double		toDval();
 };
 

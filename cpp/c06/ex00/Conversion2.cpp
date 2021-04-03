@@ -1,14 +1,4 @@
 #include "Conversion.hpp"
-/* not in class*/
-bool isNum(std::string str)
-{
-	const char *val;
-
-	val = str.c_str();
-	if ('0' <= *val && *val <= '9')
-		return (true);
-	return (false);
-}
 
 /* not in class */
 bool	isInt(std::string str)
@@ -30,20 +20,18 @@ bool	isInt(std::string str)
 
 std::ostream& operator<<(std::ostream & os, Conversion const & src)
 {
-	
-	os << "char: ";
-	src.printAsChar();
-	os << "\nint: ";
-	src.printAsInt();
-	os << "\nfloat: ";
-	src.printAsFloat();
-	os << "\ndouble: ";
-	src.printAsDouble();
-	os << std::endl;
+//	os << "char: ";
+	src.printAsChar(os);
+//	os << "\nint: ";
+	src.printAsInt(os);
+//	os << "\nfloat: ";
+	src.printAsFloat(os);
+//	os << "\ndouble: ";
+	src.printAsDouble(os);
+//	os << std::endl;
 	return (os);
 }
-
-/* temp */
+/*
 std::string Conversion::printtype()
 {
 	switch(type)
@@ -77,34 +65,7 @@ std::string Conversion::printtype()
 			break;
 	}
 }
-
-int		Conversion::toIval()
-{
-	int			i = 0;
-	int			res = 0;
-	const char	*val;
-
-	if (type != INT && type != CHAR)
-		return (0);
-	val = raw.c_str();
-	if (type == CHAR)
-		return (val[0]);
-	if (val[0] == '-')
-	{
-		i++;
-		this->sign = -1;
-	}
-	while (val[i])
-	{
-		res = res * 10 + (val[i] - '0');
-		i++;
-	}
-	if (this->sign < 0)
-		return (-res);
-	return (res);
-}
-
-
+*/
 bool isDecimalNbr(std::string src, size_t pos_dot, size_t pos_eplus)
 {
 	size_t length;
@@ -156,6 +117,7 @@ int	Conversion::detectType()
 	pos_dot = src.find(".");
 	pos_f = src.find("f");
 	pos_eplus = src.find("e+");
+
 	if (pos_dot != std::string::npos || pos_eplus != std::string::npos)
 	{
 		if (isDecimalNbr(src, pos_dot, pos_eplus) == false)
