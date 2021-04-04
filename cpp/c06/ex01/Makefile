@@ -1,8 +1,8 @@
-NAME=convert
+NAME=ex01
 
-SRCS=Conversion.cpp main.cpp
+SRCS=main.cpp
 
-OBJT=Conversion.o main.o
+OBJT=main.o
 
 FLAG=-Wall -Wextra -Werror -std=c++98
 

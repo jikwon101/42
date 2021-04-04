@@ -1,7 +1,7 @@
 #include "Conversion.hpp"
 
 /* not in class */
-bool	isInt(std::string str)
+bool	Conversion::isInt(std::string const & str)
 {
 	const char *val;
 	val = str.c_str();
@@ -20,53 +20,14 @@ bool	isInt(std::string str)
 
 std::ostream& operator<<(std::ostream & os, Conversion const & src)
 {
-//	os << "char: ";
 	src.printAsChar(os);
-//	os << "\nint: ";
 	src.printAsInt(os);
-//	os << "\nfloat: ";
 	src.printAsFloat(os);
-//	os << "\ndouble: ";
 	src.printAsDouble(os);
-//	os << std::endl;
 	return (os);
 }
-/*
-std::string Conversion::printtype()
-{
-	switch(type)
-	{
-		case N:
-			return "N";
-			break;
-		case INT:
-			return "INT";
-			break;
-		case CHAR:
-			return "CHAR";
-			break;
-		case FLOAT:
-			return "FLOAT";
-			break;
-		case DOUBLE:
-			return "DOUBLE";
-			break;
-		case POSINF:
-			return "POSINF";
-			break;
-		case NEGINF:
-			return "NEGINF";
-			break;
-		case IMPOSSIBLE:
-			return "IMPOSSIBLE";
-			break;
-		default:
-			return "";
-			break;
-	}
-}
-*/
-bool isDecimalNbr(std::string src, size_t pos_dot, size_t pos_eplus)
+
+bool Conversion::isDecimalNbr(std::string const & src, size_t pos_dot, size_t pos_eplus)
 {
 	size_t length;
 
@@ -106,11 +67,11 @@ bool isDecimalNbr(std::string src, size_t pos_dot, size_t pos_eplus)
 
 int	Conversion::detectType()
 {
-	std::string src;
-	size_t pos_dot;
-	size_t pos_minus;
-	size_t pos_f;
-	size_t pos_eplus;
+	std::string	src;
+	size_t 		pos_dot;
+	size_t		pos_minus;
+	size_t		pos_f;
+	size_t		pos_eplus;
 
 	pos_minus = raw.find("-");
 	src = (pos_minus == std::string::npos) ? raw : raw.substr(1, raw.length() - 1);

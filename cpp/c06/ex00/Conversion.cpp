@@ -6,7 +6,7 @@
 Conversion::Conversion(std::string raw)
 {
 	this->raw = raw;
-	this->fraction = (raw.find(".") == std::string::npos) ? 1 : 2;
+	this->fraction = 1;
 	this->sign = (raw.find("-") == std::string::npos) ? 1 : -1;
 	type = detectType();
 	if (type == CHAR)

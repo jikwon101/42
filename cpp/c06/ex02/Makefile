@@ -1,8 +1,10 @@
-NAME=convert
+NAME=ex02
 
-SRCS=Conversion.cpp main.cpp
+SRCS=main.cpp Base.cpp A.cpp B.cpp C.cpp \
+	 Generator.cpp Identify.cpp
 
-OBJT=Conversion.o main.o
+OBJT=main.o Base.o A.o B.o C.o \
+	 Generator.o Identify.o
 
 FLAG=-Wall -Wextra -Werror -std=c++98
 
