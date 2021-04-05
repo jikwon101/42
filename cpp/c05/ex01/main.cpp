@@ -11,7 +11,7 @@ int main()
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
 
 	Bureaucrat jone("Jone", 6);
-	Form form("Commitment", 4, 3);
+	Form form("form1", 4, 3);
 	Form test(form);
 
 	std::cout << CL << "---------------------------------------------------------\n" << RS;
