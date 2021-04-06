@@ -1,39 +1,93 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
-#include <exception>
-/*
+#include <algorithm>
+#include <deque>
+#include <list>
+
 template <typename T>
-T  easyfind(T first, int n)
+typename T::iterator easyfind(T &container, int value)
 {
-	for (int i = 0; i < first.size(); i++)
+	typename T::iterator it;
+	it = std::find(container.begin(), container.end(), value);
+	if  (it == container.end())
 	{
-		if (first[i] == n)
-			return (first + i);
+		throw (std::exception());
 	}
-	return (first + first.size());
+	return (it);
 }
-*/
-int main()
+
+template <typename T>
+void	printContainer(T &container)
 {
-	size_t idx;
-	std::vector<int> v(5, 3);
-	std::vector<int>::iterator it = v.begin();
-	std::cout << &it << std::endl;
-	std::cout << &v << std::endl;
-	v.push_back(23);
-	for (size_t i = 0 ; i < v.size() ; i++)
+	std::cout << "PRINT CONTAINER ----------------\n";
+	typename T::iterator it;
+	it = container.begin();
+	for  (it = container.begin() ; it != container.end() ; ++it)
 	{
-		std::cout << v[i] << " ";
+		std::cout << *it << " ";
 	}
-	std::cout << "\n----------------------\n";
+	std::cout << std::endl << std::endl;
+}
+
+template <typename T>
+void	testFind(T &container, int value)
+{
+	std::cout << "TEST FIND -----------------------\n";
 	try
 	{
-		//it  = easyfind(v,3);
-		//std::cout << *p << std::endl;
+		std::cout << "Trying to find " << value << std::endl;
+		typename T::iterator res = easyfind(container, value);
+		std::cout << *res << std::endl;
 	}
-	catch(...)
+	catch (std::exception & err)
 	{
-		std::cout << "Can't found\n";
+		std::cout << "Not Found\n";
 	}
+	std::cout << std::endl;
+}
+
+int main()
+{
+	// vector
+	std::cout << "-----------------------\n";
+	std::cout << "|    Vector           |\n";
+	std::cout << "-----------------------\n";
+
+	std::vector<int> v(1);
+	v.push_back(2);
+	v.push_back(8);
+	v.push_back(23);
+
+	printContainer(v);
+	testFind(v, 2);
+	testFind(v, 3);
+
+	//deque : double ended queue
+	std::cout << "-----------------------\n";
+	std::cout << "|    Deque            |\n";
+	std::cout << "-----------------------\n";
+	std::deque<int> dq(1);
+	dq.push_front(4);
+	dq.push_back(10);
+	dq.push_front(7);
+
+	printContainer(dq);
+	testFind(dq, 3);
+	testFind(dq, 10);
+
+	//list
+	std::cout << "-----------------------\n";
+	std::cout << "|    list             |\n";
+	std::cout << "-----------------------\n";
+	std::list<int> lst(1);
+	lst.push_front(3);
+	lst.push_back(10);
+	lst.push_back(23);
+	lst.push_back(2);
+	
+	printContainer(lst);
+	testFind(lst, 5);
+	testFind(lst, 4);
+
 }
