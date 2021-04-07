@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 16:41:29 by ncolomer          #+#    #+#             */
-/*   Updated: 2020/01/09 16:08:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:18:45 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void displaySpan(std::string const &name, Span &span)
 
 int main(void)
 {
+	Span sp= Span(5);
+	sp.addNumber(2);
+	sp.addNumber(2);
+	displaySpan("simple", sp);
+
+	/*
 	srand(time(NULL));
 
 	Span sp = Span(5);
@@ -129,5 +135,5 @@ int main(void)
 		std::cerr << e.what() << '\n';
 	}
 
-	return (0);
+	return (0);*/
 }
