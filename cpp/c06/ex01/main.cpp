@@ -7,7 +7,7 @@ struct Data
 	std::string s2;
 };
 
-void* serialize(void)
+void*	serialize(void)
 {
 	int			i;
 	size_t		length;
@@ -31,7 +31,7 @@ void* serialize(void)
 	return (result);
 }
 
-Data* deserialize(void *raw)
+Data*	deserialize(void *raw)
 {
 	Data	*ptr = new Data;
 	char	*temp_raw;

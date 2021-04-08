@@ -87,7 +87,7 @@ void	Conversion::printAsDouble(std::ostream & os) const
 		os << "-inf\n";
 	else if (type == N)
 		os << "nan\n";
-	else if (((int64_t)dval ^ sign) < 0)
+	else if ((static_cast<int64_t>(dval) ^ sign) < 0)
 		os << "impossible\n";
 	else
 	{
@@ -107,7 +107,7 @@ void	Conversion::printAsFloat(std::ostream & os) const
 		os << "-inff\n";
 	else if (type == N)
 		os << "nanf\n";
-	else if (((int64_t)dval ^ (int64_t)sign) < 0)
+	else if ((static_cast<int64_t>(dval) ^ sign) < 0)
 		os << "impossible\n";
 	else
 	{
