@@ -13,7 +13,7 @@ private:
 	std::string	const	name;
 	int	const			sign_grade;
 	int const			execute_grade;
-	int					is_signed;
+	bool				is_signed;
 	std::string			target;
 
 public:	
