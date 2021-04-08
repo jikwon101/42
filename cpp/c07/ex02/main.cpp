@@ -48,7 +48,6 @@ Array<T>::Array(unsigned int n)
 template <typename T>
 Array<T>::Array(Array<T> const & src)
 {
-	std::cout << "const by copy\n";
 	this->arr_size = src.arr_size;
 	this->arr = 0;
 	if (src.arr_size > 0)
@@ -64,7 +63,6 @@ Array<T>::Array(Array<T> const & src)
 template <typename T>
 Array<T>& Array<T>::operator=(Array<T> const & src)
 {
-	std::cout << "operator=\n";
 	if (this != &src)
 	{
 		if (this->arr_size > 0)
@@ -102,5 +100,6 @@ int  main()
 		std::cout << strR[i] << " ";
 	}
 	std::cout << std::endl;
+
 
 }
