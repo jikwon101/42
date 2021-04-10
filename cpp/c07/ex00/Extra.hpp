@@ -3,37 +3,24 @@
 
 #include <iostream>
 
-class A
+class My
 {
-public:
+private:
 	int nbr;
-	A(){}
-	A(int nbr)
-	{
-		this->nbr = nbr;
-	}
-	A& operator=(A const & a1)
-	{
-		if (this != &a1)
-			this->nbr = a1.nbr;
-		return (*this);
-	}
+public:
+	My(int nbr = 0);
+	My(My const & src);
+	My& operator=(My const & src);
+	~My();
+	int	getNbr(void) const;
+	bool operator>(My const & other) const;
+	bool operator<(My const & other) const;
+	bool operator==(My const & other) const;
+	bool operator!=(My const & other) const;
+	bool operator>=(My const & other) const;
+	bool operator<=(My const & other) const;
 };
 
-bool operator>(A const & a1, A const & a2)
-{
-	return a1.nbr > a2.nbr;
-}
-
-bool operator<(A const & a1, A const & a2)
-{
-	return a1.nbr < a2.nbr;
-}
-
-std::ostream& operator << (std::ostream &os, A const & a1)
-{
-	os << a1.nbr;
-	return (os);
-}
+std::ostream& operator << (std::ostream &os, My const & src);
 
 #endif

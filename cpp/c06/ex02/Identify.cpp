@@ -4,6 +4,7 @@ void	identify_from_pointer(Base *p)
 {
 	void *ptr;
 
+	std::cout << "Identify from pointer : ";
 	if ((ptr = dynamic_cast<A *>(p)) != 0)
 		std::cout << "A\n";
 	else if ((ptr = dynamic_cast<B *>(p)) != 0)
@@ -16,6 +17,7 @@ void 	identify_from_reference(Base & p)
 {
 	void *ptr;
 
+	std::cout << "Identify from reference : ";
 	if ((ptr = dynamic_cast<A *>(&p)) != 0)
 		std::cout << "A\n";
 	else if ((ptr = dynamic_cast<B *>(&p)) != 0)

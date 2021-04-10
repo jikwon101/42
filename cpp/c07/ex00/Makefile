@@ -8,13 +8,13 @@ all : $(NAME)
 $(NAME) : 
 	clang++ $(FLAG) -o $(NAME) $(SRCS1)
 
-extra: $(NAME)
-	clang++ $(FLAG) -o $(NAME) $(SRCS2)
+extra: fclean
+	clang++ $(FLAG) -o $(NAME) $(SRCS2) -D TEST
 
 clean:
 	rm -rf $(SRCS:.c=.c)
 
-fclan: clean
+fclean: clean
 	rm -rf $(NAME)
 	
 re : fclean all

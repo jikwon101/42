@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <string>
-
+#include <stdlib.h>
+#include <cmath>
 class Conversion
 {
 private:
 	enum	Type
 	{
+		YET = -1,
 		N,
 		INT,
 		CHAR,
@@ -19,24 +21,23 @@ private:
 		IMPOSSIBLE
 	};
 	std::string raw;
-	int64_t		ival;
+	long		lval;
 	double		dval;
 	int			type;
 	int			fraction;
-	int			sign;
-	bool		isDecimalNbr(std::string const & src, size_t pos_dot, size_t pos_eplus);
 	bool		isInt(std::string const & str);
 	int			detectType();
+	void		printMsg(std::string str) const;
 
 public:
 	Conversion(std::string src);
 	~Conversion();
 	Conversion(Conversion const & src);
 	Conversion& operator=(Conversion const & src);
-	void		printAsInt(std::ostream & os) const;
-	void		printAsDouble(std::ostream & os) const;
-	void		printAsFloat(std::ostream & os) const;
-	void		printAsChar(std::ostream & os) const;
+	void		printAsInt() const;
+	void		printAsDouble() const;
+	void		printAsFloat() const;
+	void		printAsChar() const;
 };
 
 std::ostream& operator<<(std::ostream & os, Conversion const & src);

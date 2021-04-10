@@ -1,17 +1,63 @@
 #include "Extra.hpp"
 
-bool operator>(A const & a1, A const & a2)
+My::My(int nbr)
 {
-	return a1.nbr > a2.nbr;
+	this->nbr = nbr;
 }
 
-bool operator<(A const & a1, A const & a2)
+My::My(My const & src)
 {
-	return a1.nbr < a2.nbr;
+	this->nbr = src.nbr;
 }
 
-std::ostream& operator << (std::ostream &os, A const & a1)
+My& My::operator=(My const &src)
 {
-	os << a1.nbr;
+	if (this != &src)
+	{
+		this->nbr = src.nbr;
+	}
+	return (*this);
+}
+
+My::~My(){}
+
+bool My::operator>(My const & src) const
+{
+	return (this->nbr > src.nbr);
+}
+
+bool My::operator<(My const & src) const
+{
+	return (this->nbr < src.nbr);
+}
+
+bool My::operator==(My const & src) const
+{
+	return (this->nbr == src.nbr);
+}
+
+bool My::operator!=(My const & src) const
+{
+	return (this->nbr != src.nbr);
+}
+
+bool My::operator>=(My const & src) const
+{
+	return (this->nbr >= src.nbr);
+}
+
+bool My::operator<=(My const & src) const
+{
+	return (this->nbr <= src.nbr);
+}
+
+int My::getNbr(void) const
+{
+	return (this->nbr);
+}
+std::ostream& operator << (std::ostream &os, My const & src)
+{
+	os << src.getNbr();
 	return (os);
 }
+

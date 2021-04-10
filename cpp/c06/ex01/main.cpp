@@ -1,6 +1,6 @@
 #include <iostream>
 
-struct Data
+struct	Data
 {
 	std::string s1;
 	int			n;
@@ -12,20 +12,16 @@ void*	serialize(void)
 	int			i;
 	size_t		length;
 	char 		*result = new char[20];
-	std::string	alphanumeric = "0123456789";
-	alphanumeric += "abcdefghijklmnopqrstuvwxyz";
-	alphanumeric += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	static std::string	alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	length = alphanumeric.length();
 	for (i = 0 ; i < 8 ; i++)
 	{
-		result[i] = 'a';
 		result[i] = alphanumeric[rand() % length];
 	}
 	*(reinterpret_cast<int *>(result + 8)) = rand() % 2021;
 	for (i = 8 + 4 ; i < 20 ; i++)
 	{
-		result[i] = 'c';
 		result[i] = alphanumeric[rand() % length];
 	}
 	return (result);
@@ -37,6 +33,8 @@ Data*	deserialize(void *raw)
 	char	*temp_raw;
 	int		*temp_int;
 
+	if (!raw)
+		return (0);
 	temp_raw = reinterpret_cast<char *>(raw);
 	for (int i = 0; i < 8 ; i++)
 	{
@@ -55,7 +53,11 @@ int main()
 {
 	srand(time(NULL));
 	Data *res = deserialize(serialize());
-	std::cout << res->s1 << std::endl;
-	std::cout << res->n << std::endl;
-	std::cout << res->s2 << std::endl;
+	
+	if (res)
+	{
+		std::cout << res->s1 << std::endl;
+		std::cout << res->n << std::endl;
+		std::cout << res->s2 << std::endl;
+	}
 }
