@@ -16,6 +16,7 @@ public:
 	~Array();
 	Array(Array<T> const  & src);
 	T& operator[](int idx);
+	const T& operator[](int idx) const;
 	Array<T>& operator=(Array<T> const & src);
 	size_t size() const;
 };
@@ -42,6 +43,14 @@ T& Array<T>::operator[](int idx)
 }
 
 template <typename T>
+const T& Array<T>::operator[](int idx) const
+{
+	if (idx < 0 || idx > static_cast<int>(this->arr_size) - 1)
+		throw (std::exception());
+	return (this->arr[idx]);
+}
+
+template <typename T>
 Array<T>::Array(unsigned int n)
 {
 	this->arr_size = n;
@@ -56,7 +65,7 @@ Array<T>::Array(Array<T> const & src)
 	if (src.arr_size > 0)
 	{
 		this->arr = new T[src.arr_size];
-		for (unsigned int i = 0 ; i < static_cast<int>(src.arr_size) ; i++)
+		for (int i = 0 ; i < static_cast<int>(src.arr_size) ; i++)
 		{
 			this->arr[i] = src.arr[i];
 		}
@@ -72,7 +81,7 @@ Array<T>& Array<T>::operator=(Array<T> const & src)
 			delete [] arr;
 		this->arr_size = src.arr_size;
 		this->arr = new T[src.arr_size];
-		for (unsigned int i = 0; i < src.arr_size ; i++)
+		for (int i = 0; i < static_cast<int>(src.arr_size) ; i++)
 		{
 			this->arr[i] = src.arr[i];
 		}
