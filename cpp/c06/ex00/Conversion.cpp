@@ -73,7 +73,7 @@ void	Conversion::printAsChar() const
 	if (dval > 127 || dval < 0)
 		return (printMsg("impossible\n"));
 	else if (dval < 32)
-		return (printMsg("Not displayable\n"));
+		return (printMsg("Non displayable\n"));
 	std::cout << "'" << static_cast<char>(lval) << "'" << std::endl;
 }
 

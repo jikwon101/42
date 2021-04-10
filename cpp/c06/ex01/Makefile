@@ -1,8 +1,8 @@
 NAME=ex01
 
-SRCS=main.cpp
+SRCS=main.cpp Data.cpp
 
-OBJT=main.o
+OBJT=main.o Data.o
 
 FLAG=-Wall -Wextra -Werror -std=c++98
 
