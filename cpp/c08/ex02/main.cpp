@@ -1,45 +1,81 @@
-#include <iostream>
-#include <stack>
+#include "mutantstack.hpp"
 
-template <typename T>
-class MutantStack :  public std::stack<T>
-{
-public:
-	MutantStack();
-	virtual ~MutantStack();
-	MutantStack(MutantStack<T> const & src);
-	MutantStack<T>& operator=(MutantStack<T> const & src);
-
-	typedef typename std::stack<T>::container_type::iterator iterator;
-	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
-	typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
-	typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
-	iterator begin(void);
-	const_iterator begin(void) const;
-	reverse_iterator rbegin(void);
-	const_reverse_iterator rbegin(void) const;
-	iterator end(void);
-	const_iterator end(void) const;
-	reverse_iterator rend(void);
-	const_reverse_iterator rend(void) const;
-	
-};
-
-template <typename T>
-MutantStack<T>::MutantStack(){}
-template <typename T>
-MutantStack<T>::~MutantStack(){}
-template <typename T>
-MutantStack<T>::MutantStack(MutantStack<T> const & src){}
-template <typename T>
-MutantStack<T>& MutantStack<T>::operator=(MutantStack<T> const & src){}
+# define CL "\033[1m\033[36m"
+# define RS "\033[0m"
 
 int main()
 {
-	MutantStack<int> my;
+	const MutantStack<int> cstack;
 
-	my.push(20);
-	my.push(2);
-	std::cout << my.top() << std::endl;
-	MutantStack<int>::iterator it;
+	MutantStack<int>::const_iterator t1;
+	t1 = cstack.begin();
+	//MutantStack<int>::iterator t1 = cstack.begin();
+
+	MutantStack<int> mstack;
+
+	mstack.push(5);
+	mstack.push(17);
+	std::cout << CL << "mstack.top()\n" << RS;
+	std::cout << mstack.top() << std::endl;
+	std::cout << "----------------\n";
+
+
+	mstack.pop();
+	std::cout << CL << "mstack.size()\n" << RS;
+	std::cout << mstack.size() << std::endl;
+	std::cout << "----------------\n";
+
+
+	mstack.push(3);
+	mstack.push(9);
+	mstack.push(73);
+	mstack.push(0);
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+
+	++it;
+	--it;
+	std::cout << CL << "mstack print\n" << RS;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+	std::cout << "----------------\n";
+
+	MutantStack<int>::reverse_iterator rit = mstack.rbegin();
+	MutantStack<int>::reverse_iterator rite = mstack.rend();
+	std::cout << CL << "mstack print reverse \n" << RS;
+	while (rit != rite)
+	{
+		std::cout << *rit << std::endl;
+		++rit;
+	}
+	std::cout << "----------------\n";
+	
+	
+	std::stack<int> s1(mstack);
+	std::cout << CL << "Stack top \n" << RS;
+	while (s1.size())
+	{
+		std::cout << (s1.top()) << std::endl;
+		s1.pop();
+	}
+	std::cout << "----------------\n";
+	
+
+	std::cout << CL << "operator=\n" << RS;
+	MutantStack<int> s;
+	s = mstack;
+	MutantStack<int>::iterator it1 = s.begin();
+	MutantStack<int>::iterator ite1 = s.end();
+	while (it1 != ite1)
+	{
+		std::cout << *it1 << std::endl;
+		++it1;
+	}
+
+
+	return 0;
+
 }
