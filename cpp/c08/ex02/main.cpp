@@ -19,7 +19,7 @@ public:
 	reverse_iterator rbegin(void);
 	const_reverse_iterator rbegin(void) const;
 	iterator end(void);
-	const_iterator end(void);
+	const_iterator end(void) const;
 	reverse_iterator rend(void);
 	const_reverse_iterator rend(void) const;
 	
