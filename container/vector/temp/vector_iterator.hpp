@@ -8,69 +8,102 @@
 #include <memory>
 #include "../iterator/iterator.hpp"
 #include "../iterator/iter_category.hpp"
-#include "../iterator/random_access_iterator.hpp"
 
 namespace ft
 {
+template <typename T, typename Alloc = std::allocator<T> >
+class vector
+{
+private:
+	T *_arr;
+	size_t _size;
+	size_t _capacity;
 
-	template <typename T, typename Alloc = std::allocator<T> >
-	class vector
+public:
+	typedef T								value_type;
+	typedef std::allocator<value_type>		allocator_type;
+	typedef size_t 							size_type;
+	typedef ptrdiff_t						difference_type;
+	typedef value_type* 					pointer;
+	typedef const value_type*				const_pointer;
+	typedef value_type&						reference;
+	typedef const value_type&				const_reference;
+	typedef ft::random_access_iterator_tag	iterator_type;
+
+	class iterator : ft::iterator<iterator_type, value_type>
 	{
 		private:
-			T *_arr;
-			size_t _size;
-			size_t _capacity;
-
+			pointer _ptr;
 		public:
-			typedef T								value_type;
-			typedef std::allocator<value_type>		allocator_type;
-			typedef size_t 							size_type;
-			typedef ptrdiff_t						difference_type;
-			typedef value_type* 					pointer;
-			typedef const value_type*				const_pointer;
-			typedef value_type&						reference;
-			typedef const value_type&				const_reference;
-			typedef typename ft::random_access_iterator_tag					iterator_type;
-			typedef typename ft::vector_iterator<iterator_type, value_type> iterator;
-			explicit vector(allocator_type const &aloc = allocator_type() );
-			explicit vector(size_type n, const value_type & val = value_type(),allocator_type const& alloc = allocator_type());
-			template <typename InputIterator>
-			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type());
-			vector (vector const & x);
-			vector& operator= (vector const & x);
-			~vector() throw();
-	
-			//iterator
-			iterator begin();
-			//	const_iterator begin() const;
-			iterator end();
-			//	const_iterator end() const;
+			iterator() : _ptr(0) { }
+			~iterator(){}
+			iterator(reference src){ _ptr = &src;}
+			iterator(pointer src){_ptr = src;}
+			iterator(iterator & rhs){ this->_ptr = rhs._ptr; }
+			reference operator*(){return (*_ptr);}
+			iterator& operator=(iterator const & rhs){this->_ptr = rhs._ptr; return (*this);}
+			iterator& operator++(){++_ptr; return (*this);}
+			iterator operator++(int){iterator ret = *this; ++ret; return (*this);};
+			iterator& operator--(){--_ptr; return (*this);};
+			iterator operator--(int){iterator ret = *this; --ret; return (*this);};
 
+			//operator->;
+			bool operator==(iterator const & rhs){return (this->_ptr == rhs->_ptr);};
+			bool operator!=(iterator const &rhs){return (this->_ptr != rhs->_ptr);};
+			iterator& operator+=(int n)
+			{
+				this->_ptr += n;
+				return (*this);
+			}
+			iterator &operator-=(int n)
+			{
+				this->_ptr -= n;
+				return (*this);
+			}
+			reference operator[](int n)
+			{
+				return (*(_ptr += n));
+			}
+			/*operator>;
+			operator<;
+			operator<=;
+			operator>=;*/
 
-			// element access
-			reference operator[] (size_type n);
-			const_reference operator[] (size_type n) const;
-			reference at(size_type n);
-			const_reference at(size_type n) const;
-			reference front();
-			const_reference front() const;
-			reference back();
-			const_reference back() const;
-
-			// capacity
-			size_type size() const;
-			size_type capacity() const;
-			size_type max_size() const;
-			bool	empty() const;
-			void	reserve(size_type n);
-			void	resize(size_type n, value_type val = value_type());
-			
-			// modifier
-			void push_back(value_type const & val);
-			void	pop_back(void);
-			iterator erase(iterator position);
-			void	clear();
+			pointer operator+(int n)
+			{
+				return (this->_ptr + n);
+			}
+			pointer operator-(int n)
+			{
+				return (this->_ptr - n);
+			}
 	};
+	explicit vector(allocator_type const &aloc = allocator_type() );
+	explicit vector(size_type n, const value_type & val = value_type(),allocator_type const& alloc = allocator_type());
+	vector (vector const & x);
+	vector& operator= (vector const & x);
+	~vector() throw();
+	
+	reference operator[] (size_type n);
+	const_reference operator[] (size_type n) const;
+	reference at(size_type n);
+	const_reference at(size_type n) const;
+	reference front();
+	const_reference front() const;
+	reference back();
+	const_reference back() const;
+
+	size_type size() const;
+	size_type capacity() const;
+	size_type max_size() const;
+	void	reserve(size_type n);
+	void	resize(size_type n, value_type val = value_type());
+
+	iterator begin();
+//	const_iterator begin() const;
+	iterator end();
+//	const_iterator end() const;
+};
 
 // 소멸자
 template <typename T, typename Alloc>
@@ -82,13 +115,12 @@ vector<T,Alloc>::~vector() throw()
 
 // default 생성자
 template <typename T, typename Alloc>
-vector<T,Alloc>::vector(allocator_type const & aloc) : _arr(0), _size(0), _capacity(0) {(void)aloc;}
+vector<T,Alloc>::vector(allocator_type const & aloc) : _arr(0), _size(0), _capacity(0) {}
 
-// fill 생성자
+// fille 생성자
 template <typename T, typename Alloc>
-vector<T,Alloc>::vector(size_type n, value_type const& val, allocator_type const &alloc)
+vector<T,Alloc>::vector(size_type n, const value_type & val, allocator_type const &alloc)
 {
-	//_arr = alloc.allocate(n);
 	_arr = new value_type[n];
 	_size = n;
 	_capacity = n;
@@ -96,18 +128,12 @@ vector<T,Alloc>::vector(size_type n, value_type const& val, allocator_type const
 	{
 		_arr[i] = val;
 	}
-}
-
-// range constructor
-template <typename T, typename Alloc>
-template <typename InputIterator>
-vector<T, Alloc>::vector (InputIterator first, InputIterator last, allocator_type const &alloc)
-{
-	//difference_type diff;
-
-//	diff = ft::distance(first, last);
-	//_arr = alloc.allocate(4);
-//	std::cout << "distance : " << diff << std::endl;
+	/*
+	for (size_type i = 0; i  < n ; i++)
+	{
+		std::cout << _arr[i] << std::endl;
+	}
+	*/
 }
 
 // copy 생성자
@@ -221,25 +247,16 @@ typename vector<T,Alloc>::size_type vector<T,Alloc>::max_size() const
 	return (static_cast<size_type>((pow(2, pointerBitWidth) / sizeof(value_type))) - 1);
 }
 
-// empty
-template <typename T, typename Alloc>
-bool	vector<T, Alloc>::empty() const
-{
-	if (_size == 0)
-		return (true);
-	return (false);
-}
-
 //reserve
 template <typename T, typename Alloc>
 void	vector<T,Alloc>::reserve(size_type n)
 {
 	value_type *temp;
 
-//	 max_size 정의 후에 수정.
-//	if (n > max_size)
-//		throw (std::exception ()); // length_error 로 바꾸기 
-	
+	/* max_size 정의 후에 수정.
+	if (n > max_size)
+		throw (std::exception ()); // length_error 로 바꾸기 
+	*/
 	if (this->_capacity >= n)
 		return ;
 	temp = new value_type[n];
@@ -265,8 +282,7 @@ void	vector<T,Alloc>::resize(size_type n, value_type val)
 	}
 	else if (this->_size < n && n <= this->_capacity)
 	{
-		for (size_t i = 0 ; i < (n - _size) ; i++)
-			push_back(val);
+		// insert
 	}
 	else if (this->_capacity < n)
 	{
@@ -284,75 +300,18 @@ void	vector<T,Alloc>::resize(size_type n, value_type val)
 	}
 }
 
-template <typename T, typename Alloc>
-typename vector<T,Alloc>::iterator vector<T,Alloc>::erase(iterator position)
-{
-	iterator res;
-
-	while (position != this->end())
-	{
-		*position = *(position + 1);
-		++position;
-	}
-	this->_size--;
-	return (_arr[0]);
-}
-
-
-template <typename T, typename Alloc>
-void	vector<T, Alloc>::clear(void)
-{
-	this->_size = 0;
-}
-
 //begin
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator vector<T, Alloc>::begin()
 {
-	return ((_arr[0]));
+	iterator res(this->_arr[0]);
+	return (res);
 }
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator vector<T, Alloc>::end()
 {
-	return ((_arr[_size]));
-}
-
-template <typename T, typename Alloc>
-void vector<T, Alloc>::push_back(value_type const & val)
-{
-	allocator_type alloc;
-	pointer temp;
-
-	if (_size < _capacity)
-	{
-		_arr[_size] = val;
-		_size++;
-		return ;
-	}
-	try
-	{
-		temp = alloc.allocate(_capacity * 2);
-	}
-	catch (std::exception &err)
-	{
-		std::cout << "Error : " << err.what() <<std::endl;
-		return ;
-	}
-	for (size_type i = 0 ; i < _size ; i++)
-	{
-		temp[i] = _arr[i];
-	}
-	temp[_size] = val;
-	alloc.deallocate(_arr, this->capacity());
-	_arr = temp;
-	_size++;
-	_capacity *= 2;
-}
-
-template <typename T, typename Alloc>
-void	vector<T, Alloc>::pop_back(void)
-{
-	_size--;
+	iterator res(this->_arr[this->_size]);
+	return (res);
 }
 
 }

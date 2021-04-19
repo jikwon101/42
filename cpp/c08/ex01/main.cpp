@@ -66,6 +66,10 @@ int main()
 	v_Span test(7);
 	try
 	{
+		int arr[] = {1,2,3,4,5};
+		test.addNumber(arr, arr+ 5);
+		test.printStored();
+		/*
 		std::vector<int> v(1, 9);
 		v.push_back(2);
 		v.push_back(10);
@@ -77,7 +81,7 @@ int main()
 		v.push_back(10);
 		v.push_back(19);
 		test.addNumber(v.begin(), v.end());
-		test.printStored();
+		test.printStored();*/
 	}
 	catch(std::exception &err)
 	{
