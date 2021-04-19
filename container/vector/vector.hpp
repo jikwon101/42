@@ -35,7 +35,10 @@ namespace ft
 			explicit vector(allocator_type const &aloc = allocator_type() );
 			explicit vector(size_type n, const value_type & val = value_type(),allocator_type const& alloc = allocator_type());
 			template <typename InputIterator>
-			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type(), typename ft::enable_if<ft::is_iterator<InputIterator>::value>::type isIter = InputIterator());
+			vector (InputIterator first, 
+					InputIterator last, 
+					allocator_type const & alloc = allocator_type(), 
+					typename ft::enable_if<ft::is_iterator<InputIterator, typename ft::iterator_traits<InputIterator>::value_type>::value, typename ft::iterator_traits<InputIterator>::value_type>::type = typename ft::iterator_traits<InputIterator>::value_type());
 			vector (vector const & x);
 			vector& operator= (vector const & x);
 			~vector() throw();
@@ -82,12 +85,16 @@ vector<T,Alloc>::~vector() throw()
 
 // default 생성자
 template <typename T, typename Alloc>
-vector<T,Alloc>::vector(allocator_type const & aloc) : _arr(0), _size(0), _capacity(0) {(void)aloc;}
+vector<T,Alloc>::vector(allocator_type const & aloc) : _arr(0), _size(0), _capacity(0) 
+{
+	std::cout << "default\n";
+		(void)aloc;}
 
 // fill 생성자
 template <typename T, typename Alloc>
 vector<T,Alloc>::vector(size_type n, value_type const& val, allocator_type const &alloc)
 {
+	std::cout << "size\n";
 	//_arr = alloc.allocate(n);
 	_arr = new value_type[n];
 	_size = n;
@@ -98,12 +105,17 @@ vector<T,Alloc>::vector(size_type n, value_type const& val, allocator_type const
 	}
 }
 
+
 // range constructor
 template <typename T, typename Alloc>
 template <typename InputIterator>
-vector<T, Alloc>::vector (InputIterator first, InputIterator last, allocator_type const &alloc, typename ft::enable_if<ft::is_iterator<InputIterator>::value>::type isIter )
+vector<T, Alloc>::vector (InputIterator first, 
+					InputIterator last, 
+					allocator_type const & alloc, 
+					typename ft::enable_if<ft::is_iterator<InputIterator, typename ft::iterator_traits<InputIterator>::value_type>::value, typename ft::iterator_traits<InputIterator>::value_type>::type)
 {
-	(void)isIter;
+	std::cout << "Iterator\n";
+	_arr = new value_type[10];
 	//difference_type diff;
 
 //	diff = ft::distance(first, last);
@@ -115,6 +127,7 @@ vector<T, Alloc>::vector (InputIterator first, InputIterator last, allocator_typ
 template <typename T, typename Alloc>
 vector<T,Alloc>::vector(vector const & x)
 {
+	std::cout << "copy\n";
 	*this = x;
 }
 
@@ -122,6 +135,7 @@ vector<T,Alloc>::vector(vector const & x)
 template <typename T, typename Alloc>
 vector<T,Alloc>& vector<T,Alloc>::operator=(vector const & x)
 {
+		std::cout << "operotr=\n";
 	if (this != &x)
 	{
 		if (this->_size > 0)
