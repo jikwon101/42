@@ -35,7 +35,7 @@ namespace ft
 			explicit vector(allocator_type const &aloc = allocator_type() );
 			explicit vector(size_type n, const value_type & val = value_type(),allocator_type const& alloc = allocator_type());
 			template <typename InputIterator>
-			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type());
+			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type(), typename ft::enable_if<ft::is_iterator<InputIterator>::value>::type isIter = InputIterator());
 			vector (vector const & x);
 			vector& operator= (vector const & x);
 			~vector() throw();
@@ -101,8 +101,9 @@ vector<T,Alloc>::vector(size_type n, value_type const& val, allocator_type const
 // range constructor
 template <typename T, typename Alloc>
 template <typename InputIterator>
-vector<T, Alloc>::vector (InputIterator first, InputIterator last, allocator_type const &alloc)
+vector<T, Alloc>::vector (InputIterator first, InputIterator last, allocator_type const &alloc, typename ft::enable_if<ft::is_iterator<InputIterator>::value>::type isIter )
 {
+	(void)isIter;
 	//difference_type diff;
 
 //	diff = ft::distance(first, last);
@@ -287,7 +288,7 @@ void	vector<T,Alloc>::resize(size_type n, value_type val)
 template <typename T, typename Alloc>
 typename vector<T,Alloc>::iterator vector<T,Alloc>::erase(iterator position)
 {
-	iterator res;
+	iterator res(position);
 
 	while (position != this->end())
 	{
@@ -295,7 +296,7 @@ typename vector<T,Alloc>::iterator vector<T,Alloc>::erase(iterator position)
 		++position;
 	}
 	this->_size--;
-	return (_arr[0]);
+	return (res);
 }
 
 

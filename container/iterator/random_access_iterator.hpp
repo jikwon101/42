@@ -16,9 +16,9 @@ namespace ft
 			typedef _VAL_TYPE value_type;
 			typedef value_type& reference;
 			typedef value_type* pointer;
-			value_type * _ptr;
 		
 		public:
+			value_type * _ptr;				//temp;
 			vector_iterator() : _ptr(0) { }
 			~vector_iterator(){}
 			vector_iterator(reference src)
@@ -80,6 +80,14 @@ namespace ft
 				return (this->_ptr - n);
 			}
 	};
+
+	//temp 나중에 삭제 하기
+	template <typename _ITER_TAG, typename _VAL_TYPE>
+	std::ostream & operator<<(std::ostream & os, vector_iterator<_ITER_TAG, _VAL_TYPE> const & it)
+	{
+		os << it._ptr;
+		return (os);
+	}
 
 
 }

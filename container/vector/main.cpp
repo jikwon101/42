@@ -5,14 +5,15 @@
 
 int main()
 {
-	ft::vector<int> v(4);
-	ft::vector<int>::iterator it = v.begin();
-	v.erase(it);
-	for (it = v.begin() ; it != v.end() ; ++it)
-	{
-		std::cout << *it << std::endl;
-	}
+	//ft::vector<int> v3(3, 2);
+	//std::cout << v3.size() << std::endl;
+
+	//int arr[] = {1,2,3,4,5};
 	//ft::vector<int> v(arr, arr+5);
+	ft::vector<int> v1(1);
+	v1.push_back(3);
+	ft::vector<int> v2(v1.begin(), v1.end());
+
 	//ft::vector<int>::iterator it5  = vv1.begin();
 	
 	//std::cout << typeid(it3).name() <<std::endl;
