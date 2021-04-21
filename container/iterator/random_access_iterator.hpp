@@ -46,7 +46,7 @@ namespace ft
 			iterator& operator--(){--_ptr; return (*this);};
 			iterator operator--(int){iterator ret = *this; --ret; return (*this);};
 	
-			//operator->;
+			//operator->
 			bool operator==(iterator const & rhs){return (this->_ptr == rhs._ptr);};
 			bool operator!=(iterator const &rhs){return (this->_ptr != rhs._ptr);};
 			iterator& operator+=(int n)

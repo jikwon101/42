@@ -48,7 +48,7 @@ namespace ft
 			}
 			
 			template <typename InputIt>
-			vector (InputIt f, InputIt l, alloc_type const& alloc=alloc_type(), typename is_iterator<InputIt>::value = bool())
+			vector (InputIt f, InputIt l, alloc_type const& alloc=alloc_type(), typename is_iterator<InputIt, iterator_type>::type* = NULL)
 			{
 				std::cout << "iterator\n";
 			}
@@ -57,7 +57,7 @@ namespace ft
 
 			vector& operator= (vector const & x) {std::cout << "=\n";}
 
-			~vector() throw() 	{delete[] _arr;}
+			~vector() throw() 	{/*delete[] _arr;*/}
 			iterator begin()
 			{
 				return (_arr[0]);

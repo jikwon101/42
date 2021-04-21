@@ -30,38 +30,15 @@ namespace ft
 			typedef const value_type*				const_pointer;
 			typedef value_type&						reference;
 			typedef const value_type&				const_reference;
-			typedef typename ft::random_access_iterator_tag					iterator_type;
-			typedef typename ft::vector_iterator<iterator_type, value_type> iterator;
+			typedef typename ft::random_access_iterator_tag					iterator_category;
+			typedef typename ft::vector_iterator<iterator_category, value_type> iterator;
 			explicit vector(allocator_type const &alloc = allocator_type() );
-			explicit vector(size_type n, const value_type & val = value_type(), allocator_type const& alloc = allocator_type()) {
-	std::cout << "size\n";
-	//_arr = alloc.allocate(n);
-	_arr = new value_type[n];
-	_size = n;
-	_capacity = n;
-	for (size_type i = 0; i < n ; i++)
-	{
-		_arr[i] = val;
-	}
-}
-			template <typename InputIterator>
-			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type(), typename ft::enable_if<false, value_type>::type = value_type())
-			{
-				std::cout << "iterator\n";
-				}
-			template <typename InputIterator>
-			vector (InputIterator first, InputIterator last, allocator_type const & alloc = allocator_type(),
-							typename ft::enable_if<ft::is_iterator<InputIterator, typename ft::iterator_traits<InputIterator>::value_type>::value, typename ft::iterator_traits<InputIterator>::value_type>::type = typename ft::iterator_traits<InputIterator>::value_type())
-/*
-							typename ft::enable_if<ft::is_iterator<InputIterator, typename ft::iterator_traits<InputIterator>::value_type>::value, typename ft::iterator_traits<InputIterator>::value_type>::type = typename ft::iterator_traits<InputIterator>::value_type())
-*/
-{
-					alloc.allocate();
-				std::cout << "it\n";
-			}
+			explicit vector(size_type n, const value_type & val = value_type(), allocator_type const& alloc = allocator_type());
+			template <typename InputIt>
+			vector(InputIt first, InputIt last, allocator_type const& alloc = allocator_type(), typename is_iterator<InputIt, iterator_category>::type * = NULL);
 			vector(vector const & x);
 			vector& operator= (vector const & x);
-			~vector() throw();
+			~vector();
 	
 			//iterator
 			iterator begin();
@@ -98,7 +75,7 @@ namespace ft
 
 // 소멸자
 template <typename T, typename Alloc>
-vector<T,Alloc>::~vector() throw()
+vector<T,Alloc>::~vector()
 {
 	if (_arr)
 		delete [] _arr;
@@ -112,9 +89,9 @@ vector<T,Alloc>::vector(allocator_type const & alloc) : _arr(0), _size(0), _capa
 }
 
 // fill 생성자
-// template <typename T, typename Alloc>
-// vector<T, Alloc>::vector(size_type n, const value_type & val, allocator_type const& alloc)
-/*{
+template <typename T, typename Alloc>
+vector<T, Alloc>::vector(size_type n, const value_type & val, allocator_type const& alloc)
+{
 	std::cout << "size\n";
 	//_arr = alloc.allocate(n);
 	_arr = new value_type[n];
@@ -124,14 +101,13 @@ vector<T,Alloc>::vector(allocator_type const & alloc) : _arr(0), _size(0), _capa
 	{
 		_arr[i] = val;
 	}
-}*/
-//typename ft::enable_if<ft::is_iterator<InputIterator, typename ft::iterator_traits<InputIterator>::value_type>::value, typename ft::iterator_traits<InputIterator>::value_type>::type)
-// range constructor
-/*
+}
+
+// range 생성자
 template <typename T, typename Alloc>
-template <typename InputIterator>
-vector<T, Alloc>::vector (InputIterator first, InputIterator last, 
-				allocator_type const & alloc, typename ft::enable_if<true, typename ft::iterator_traits<InputIterator>::value_type>::type)
+template <typename InputIt>
+vector<T, Alloc>::vector (InputIt first, InputIt last, 
+				allocator_type const & alloc, typename is_iterator<InputIt, typename vector<T, Alloc>::iterator_category>::type *)
 {
 	std::cout << "Iterator\n";
 	_arr = new value_type[10];
@@ -140,7 +116,7 @@ vector<T, Alloc>::vector (InputIterator first, InputIterator last,
 	diff = ft::distance(first, last);
 	//_arr = alloc.allocate(4);
 	std::cout << "distance : " << diff << std::endl;
-}*/
+}
 
 // copy 생성자
 template <typename T, typename Alloc>

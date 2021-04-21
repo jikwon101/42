@@ -5,15 +5,6 @@
 
 namespace ft
 {
-	template <bool B, typename T = void>
-	struct enable_if 
-	{};
-
-	template <typename T>
-	struct enable_if<true, T>
-	{
-		typedef  T type;
-	};
 	
 	template <typename Category, typename T, typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T& >
 	struct iterator
@@ -27,7 +18,7 @@ namespace ft
 
 	// 컴파일 도중에 주어진 타입의 정보를 얻을 수 있게 하는 객체
 	template <typename Iterator>
-	struct iterator_traits
+	struct iterator_traits	
 	{
 		typedef typename Iterator::difference_type		difference_type;
 		typedef typename Iterator::value_type			value_type;
@@ -55,26 +46,20 @@ namespace ft
 		typedef random_access_iterator_tag	iterator_category;
 	};
 
+	template <typename T, typename U>
+	struct is_iterator 	{};
+
 	template <typename T>
-	struct is_iterator {};
+	struct is_iterator<T, typename T::iterator_category>
+	{
+		typedef T type;
+	};
 	
 	template <typename T>
-	struct is_iterator<ft::iterator_traits<T> >
+	struct is_iterator<T *, typename iterator_traits<T *>::iterator_category>
 	{
-		typedef bool value;
+		typedef T type;
 	};
-
-	template <typename T>
-	struct is_iterator<T *>
-	{
-		typedef bool value;
-	};
-	template <typename T>
-	struct is_iterator<const T *>
-	{
-		typedef bool value;
-	};
-
 
 	template <typename _Iter>
 	typename iterator_traits<_Iter>::iterator_category iterCategory(const _Iter&)
