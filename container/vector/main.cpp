@@ -1,10 +1,13 @@
-#include "vector.hpp"
+#include "testvector.hpp"
 #include <vector>
 #include "operator.hpp"
 
 
 int main()
 {
+	ft::is_iterator<std::vector<int>::iterator>::value a;
+	//ft::vector<int>::iterator::value_type a;
+	//std::cout << typeid(a).name() << std::endl;
 	/*
 	bool a = ft::is_iterator<ft::vector<int>::iterator, ft::iterator_traits<ft::vector<int>::iterator>::value_type>::value;
 	if (a == false)
@@ -16,9 +19,26 @@ int main()
 //	std::cout << typeid(b).name() << std::endl;
 	
 	
-	int arr[] = {1,2,3,4,5};
-	ft::vector<int> v1(1);
-	ft::vector<int> v(v1.begin(), v1.end());
+	//char arr[] = {'1','2','3','4','5'};
+	//ft::vector<int> v1(arr, arr + 5);
+	//ft::vector<char> v2(3, 10);
+	//ft::vector<int> v1(1);
+	//ft::vector<int> v2(v1.begin(), v2.end());
+	//ft::vector<int>::iterator it;
+	/*
+	for (it = v1.begin() ; it != v1.end() ; ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n";
+	swap(v1, v2);
+	for (it = v1.begin() ; it != v1.end() ; ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n";
+	//ft::vector<int> v(v1.begin(), v1.end());
+	*/
 	/*
 	std::cout << *it3 << std::endl;
 	int arr[] = {1,2,3,4,5, 6, 7};

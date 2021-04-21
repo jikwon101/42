@@ -13,34 +13,30 @@ namespace ft
 	{
 		private:
 			typedef vector_iterator<_ITER_TAG, _VAL_TYPE> iterator;
-			typedef _VAL_TYPE value_type;
-			typedef value_type& reference;
-			typedef value_type* pointer;
-		
 		public:
+			typedef typename ft::iterator<_ITER_TAG, _VAL_TYPE>::value_type value_type;
+			typedef typename ft::iterator<_ITER_TAG, _VAL_TYPE>::pointer pointer;
+			typedef typename ft::iterator<_ITER_TAG, _VAL_TYPE>::reference reference;
+		
 			value_type * _ptr;				//temp;
 			vector_iterator() : _ptr(0) { }
 			~vector_iterator(){}
 			vector_iterator(reference src)
 			{
-				//std::cout << "ITer : referece \n";
 				_ptr = &src;
 			}
 			vector_iterator(pointer src)
 			{
-				//std::cout << "ITer : pointer\n";
 				_ptr = src;
 			}
 			vector_iterator(iterator const& rhs)
 			{
-				//std::cout << "ITer : iterator\n";
 				this->_ptr = rhs._ptr; 
 			}
 	
 			reference operator*(){return (*_ptr);}
 			iterator& operator=(iterator const & rhs)
 			{
-				//std::cout << "Iter : oper=\n";
 				this->_ptr = rhs._ptr; 
 				return (*this);
 			}

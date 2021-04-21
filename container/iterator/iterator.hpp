@@ -5,33 +5,22 @@
 
 namespace ft
 {
-	template <bool B, class T = void>
-	struct enable_if  {};
-
-	template <class T>
-	struct enable_if<true, T>
-	{
-		typedef T type;
-	};
-	
-	template <typename T, typename = void>
-	struct is_iterator
-	{
-		static const bool value = false;
-	};
+	template <bool B, typename T = void>
+	struct enable_if 
+	{};
 
 	template <typename T>
-	struct is_iterator<T, typename ft::iterator_traits<T>::value_type>
+	struct enable_if<true, T>
 	{
-		static const bool value = true;
+		typedef  T type;
 	};
-
+	
 	template <typename Category, typename T, typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T& >
 	struct iterator
 	{
 		typedef T			value_type;
 		typedef Category	iterator_category;
-		typedef Distance	differenct_type;
+		typedef Distance	difference_type;
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	};
@@ -56,7 +45,6 @@ namespace ft
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
 	};
-
 	template <typename T>
 	struct iterator_traits<const T *>
 	{	
@@ -67,6 +55,25 @@ namespace ft
 		typedef random_access_iterator_tag	iterator_category;
 	};
 
+	template <typename T>
+	struct is_iterator {};
+	
+	template <typename T>
+	struct is_iterator<ft::iterator_traits<T> >
+	{
+		typedef bool value;
+	};
+
+	template <typename T>
+	struct is_iterator<T *>
+	{
+		typedef bool value;
+	};
+	template <typename T>
+	struct is_iterator<const T *>
+	{
+		typedef bool value;
+	};
 
 
 	template <typename _Iter>

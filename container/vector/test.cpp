@@ -1,28 +1,40 @@
 #include <iostream>
-template <typename T>
-struct my
-{
-	typedef T value_type;
-};
-
-template <typename T, typename = void>
-struct test
-{
-	static const bool value = false;
-};
-
+#include "../iterator/iterator.hpp"
 
 template <typename T>
-struct test<T, typename my<T>::value_type>
+struct A
 {
-	static const bool value = true;
+	typedef T type;
+	A(){}
 };
+template <typename T>
+struct B
+{
+};
+
+
+template <typename T>
+class test
+{
+public:
+	T tmp;
+	explicit test(size_t a, int const &b = int()) {std::cout << "size_t\n";}
+	template <typename U>
+	test(U tmp, U tmp2, int a = int(), typename ft::enable_if<false, typename U::type>::type = U::type())
+	{
+		std::cout << "iter\n";
+	}
+	template <typename I>
+	test(I temp, I tmp2, int b  = int(), typename ft::enable_if<false, int >::type = int())
+	{
+		std::cout << "test\n";
+	}
+};
+
 
 int main()
 {
-	bool a = test<int,my<int>::value_type>::value;
-	if (a == true)
-		std::cout << "true\n";
-	else
-		std::cout << "false\n";
+	A<char> t;
+	B<char> k;
+	test<char> a(3, 4);
 }
