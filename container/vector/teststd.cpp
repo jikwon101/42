@@ -5,8 +5,8 @@
 #include <list>
 int main()
 {
-	ft::vector<int> v(2, 3);
-	ft::vector<int>::iterator it;
+	std::vector<int> v(2, 3);
+	std::vector<int>::iterator it;
 
 	std::cout << v.capacity() << std::endl;
 	v.reserve(5);
@@ -17,24 +17,24 @@ int main()
 	}
 	/*
 	char arr[] = {'1','2','3','4','5'};
-	ft::vector<float> v1(arr, arr + 5);
+	std::vector<float> v1(arr, arr + 5);
 	std::cout << "error : arrya\n";
 	std::cout << "------------\n";
-	ft::vector<int> v2(3, 10);
+	std::vector<int> v2(3, 10);
 	std::cout << "------------\n";
-	ft::vector<int> v3(1);
+	std::vector<int> v3(1);
 	std::cout << "------------\n";
-	ft::vector<int> v5(v3.begin(), v3.end());
+	std::vector<int> v5(v3.begin(), v3.end());
 	std::cout << "------------\n";
 
-	ft::vector<int>::const_iterator it;
+	std::vector<int>::const_iterator it;
 	for (it = v2.cbegin() ; it != v2.cend() ; ++it)
 	{
 		it[0] = 3;
 		std::cout << it[0] << std::endl;
 	}
 */
-	//ft::vector<int>::iterator it;
+	//std::vector<int>::iterator it;
 	/*
 	for (it = v1.begin() ; it != v1.end() ; ++it)
 	{
@@ -47,7 +47,7 @@ int main()
 		std::cout << *it << " ";
 	}
 	std::cout << "\n";
-	//ft::vector<int> v(v1.begin(), v1.end());
+	//std::vector<int> v(v1.begin(), v1.end());
 	*/
 	/*
 	std::cout << *it3 << std::endl;
@@ -77,8 +77,8 @@ int main()
 		std::cout << ">=\n";
 	std::cout << "-------------------\n";
 	std::cout << "-------------------\n";
-	ft::vector<int> t1(1, 6);
-	ft::vector<int> t2(2, 1);
+	std::vector<int> t1(1, 6);
+	std::vector<int> t2(2, 1);
 	if (t1 == t2)
 		std::cout << "==\n";
 	if (t1 != t2)
