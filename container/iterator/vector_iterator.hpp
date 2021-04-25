@@ -1,5 +1,5 @@
-#ifndef RANDOM_ACCESS_ITERATOR_HPP
-# define RANDOM_ACCESS_ITERATOR_HPP
+#ifndef VECTOR_ITERATOR_HPP
+# define VECTOR_ITERATOR_HPP
 
 #include <exception>
 #include "./iterator.hpp"
@@ -21,11 +21,11 @@ namespace ft
 			value_type * _ptr;				//temp;
 			vector_iterator() : _ptr(0) { }
 			~vector_iterator(){}
-			vector_iterator(reference src)
+			vector_iterator(const reference src)
 			{
 				_ptr = &src;
 			}
-			vector_iterator(pointer src)
+			vector_iterator(const pointer src)
 			{
 				_ptr = src;
 			}
@@ -42,13 +42,16 @@ namespace ft
 			}
 			
 			iterator& operator++(){++_ptr; return (*this);}
-			iterator operator++(int){iterator ret = *this; ++ret; return (*this);};
+			iterator operator++(int){iterator ret = *this; ++ret; return (*this);}
 			iterator& operator--(){--_ptr; return (*this);};
-			iterator operator--(int){iterator ret = *this; --ret; return (*this);};
+			iterator operator--(int){iterator ret = *this; --ret; return (*this);}
 	
-			//operator->
-			bool operator==(iterator const & rhs){return (this->_ptr == rhs._ptr);};
-			bool operator!=(iterator const &rhs){return (this->_ptr != rhs._ptr);};
+			pointer operator->()
+			{
+				return (_ptr);
+			}
+			bool operator==(iterator const & rhs){return (this->_ptr == rhs._ptr);}
+			bool operator!=(iterator const &rhs){return (this->_ptr != rhs._ptr);}
 			iterator& operator+=(int n)
 			{
 				this->_ptr += n;
@@ -63,15 +66,29 @@ namespace ft
 			{
 				return (*(_ptr += n));
 			}
-	//		operator>;
-	//		operator<;
-	//		operator<=;
-	//		operator>=;
-			pointer operator+(int n)
+
+			bool operator>(iterator const& other) const
+			{
+				return (this->_ptr > other._ptr);
+			}
+			bool operator<(iterator const& other) const
+			{
+				return (this->_ptr < other._ptr);
+			}
+			bool operator<=(iterator const& other) const
+			{
+				return (this->_ptr <= other._ptr);
+			}
+			bool operator>=(iterator const& other) const
+			{
+				return (this->_ptr >= other._ptr);
+			}
+			// return type == iterator or pointer? 
+			iterator operator+(int n)
 			{
 				return (this->_ptr + n);
 			}
-			pointer operator-(int n)
+			iterator operator-(int n)
 			{
 				return (this->_ptr - n);
 			}

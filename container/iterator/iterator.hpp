@@ -1,6 +1,7 @@
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
+#include "./utils.hpp"
 #include "iter_category.hpp"
 
 namespace ft
@@ -46,21 +47,17 @@ namespace ft
 		typedef random_access_iterator_tag	iterator_category;
 	};
 
-	template <typename T, typename U>
-	struct is_iterator 	{};
-
-	template <typename T>
-	struct is_iterator<T, typename T::iterator_category>
+	template <bool B, typename U>
+	struct is_iterator
 	{
-		typedef T type;
+	};
+
+	template <typename U>
+	struct is_iterator<true, U>
+	{
+		typedef typename ft::iterator_traits<U>::value_type type;
 	};
 	
-	template <typename T>
-	struct is_iterator<T *, typename iterator_traits<T *>::iterator_category>
-	{
-		typedef T type;
-	};
-
 	template <typename _Iter>
 	typename iterator_traits<_Iter>::iterator_category iterCategory(const _Iter&)
 	{

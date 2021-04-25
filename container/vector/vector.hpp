@@ -80,8 +80,8 @@ namespace ft
 			void		swap(vector &x);
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
-			template <typename InputIt>
-			void		insert(iterator position, InputIt first, InputIt last);
+			//template <typename InputIt>
+			//void		insert(iterator position, InputIt first, InputIt last);
 	};
 
 // 소멸자
@@ -121,13 +121,21 @@ template <typename InputIt>
 vector<T, Alloc>::vector (InputIt first, InputIt last, allocator_type const & alloc, 
 		typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type *)
 {
-	std::cout << "Iterator\n";
-	_arr = new value_type[10];
-	difference_type diff;
+	allocator_type	new_alloc(alloc);
+	difference_type	diff;
+	InputIt			it;
+	int				i;
 
+	std::cout << "Iterator\n";
 	diff = ft::distance(first, last);
-	//_arr = alloc.allocate(4);
-	std::cout << "distance : " << diff << std::endl;
+	_arr = new_alloc.allocate(diff);
+	i = 0;
+	for (it = first ; it != last ; ++it)
+	{
+		*(_arr + ft::distance(first, it)) = *it;
+	}
+	this->_size = diff;
+	this->_capacity = diff;
 }
 
 // copy 생성자
@@ -149,7 +157,7 @@ vector<T,Alloc>& vector<T,Alloc>::operator=(vector const & x)
 			delete [] this->_arr;
 		this->_size = x._size;
 		this->_capacity = x._size;
-		this->_arr = new value_type[this->_size];
+		this->_arr = get_allocator().allocate(this->_size);
 		for (size_type i = 0 ; i < this->_size ; i++)
 		{
 			this->_arr[i] = x._arr[i];
@@ -269,14 +277,12 @@ void	vector<T,Alloc>::reserve(size_type n)
 	if (this->_capacity >= n)
 		return ;
 	temp = get_allocator().allocate(n);
-	//temp = new value_type[n];
 	for (size_type i = 0 ; i < this->_size ; i++)
 	{
 		temp[i] = this->_arr[i];
 	}
 	get_allocator().deallocate(this->_arr, this->_capacity);
 	this->_capacity = n;
-	//delete [] this->_arr;
 	this->_arr = temp;
 	return ;
 }
@@ -286,6 +292,7 @@ template <typename T, typename Alloc>
 void	vector<T,Alloc>::resize(size_type n, value_type val)
 {
 	value_type *temp;
+
 	if (this->_size > n)
 	{
 		this->_size = n;
@@ -298,7 +305,7 @@ void	vector<T,Alloc>::resize(size_type n, value_type val)
 	}
 	else if (this->_capacity < n)
 	{
-		temp = new value_type[n];
+		temp = get_allocator().allocate(n);
 		for (size_type i = 0 ; i < this->_size ; i++)
 		{
 			temp[i] = this->_arr[i];
@@ -307,6 +314,7 @@ void	vector<T,Alloc>::resize(size_type n, value_type val)
 		{
 			temp[i] = val;
 		}
+		get_allocator().deallocate(this->_arr, this->_capacity);
 		this->_size = n;
 		this->_capacity = n;
 	}
@@ -453,26 +461,77 @@ void	swap(vector<T, Alloc> &x, vector<T, Alloc>& y)
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, const value_type& val)
 {
-	iterator it;
-	if (this->_size == this->_capacity)
+	pointer		temp;
+	iterator	cur;
+	iterator	prev;
+
+	if (this->_size < this->_capacity)
 	{
-		allocator_type alloc;
-
-
+		for (cur = end() - 1; cur != position ; --cur)
+		{
+			prev = cur - 1;
+			*cur = *prev;
+		}
+		*cur = val;
+		this->_size++;
 	}
-	return (it);
+	else if (this->_size == this->_capacity)
+	{
+		int i;
+
+		i = this->_size;
+		temp = get_allocator().allocate(this->_capacity * 2);
+		for  (cur = end() - 1; cur >= position ; --cur)
+		{
+			temp[i] = *cur;
+			i--;
+		}
+		cur = &temp[i];
+		temp[i] = val;
+		for (--i ; i >= 0 ; --i)
+		{
+			temp[i] = this->_arr[i];
+		}
+		this->_size++;
+		this->_capacity *= 2;
+		this->_arr = temp;
+	}
+	return (cur);
 }
 
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
 {
+	iterator cur;
+	iterator prev;
+	iterator last;
+
+	if (this->_size + n <= this->_capacity)
+	{
+		last = position + (n - 1);
+		for (cur = last + n  + 1; cur != last ; --cur)
+		{
+			prev = cur - n;
+			*cur = *prev;
+		}
+		for (cur = position - 1; cur <= last ; ++cur)
+		{
+			*cur = val;
+		}
+	}
+	else if (this->_size + n > this->_capacity)
+	{
+			//temp
+	}
 }
 
+/*
 template <typename T, typename Alloc>
 template <typename InputIt>
 void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last)
 {
+	std::cout << "hello\n";
 }
-
+*/
 }
 #endif

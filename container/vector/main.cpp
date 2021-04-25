@@ -5,16 +5,17 @@
 #include <list>
 int main()
 {
-	ft::vector<int> v(2, 3);
-	ft::vector<int>::iterator it;
-
-	std::cout << v.capacity() << std::endl;
+	ft::vector<int> v(1, 1);
 	v.reserve(5);
-	std::cout << v.capacity() << std::endl;
+	v.insert(v.begin(), 2, 9);
+	std::cout << "size : " << v.size() << std::endl;
+	std::cout << "capacity : " << v.capacity() << std::endl;
+	ft::vector<int>::iterator it;
 	for (it = v.begin() ; it != v.end() ; ++it)
 	{
-		std::cout << *it << std::endl;
+		std::cout << *it << " " ;
 	}
+	std::cout << std::endl;
 	/*
 	char arr[] = {'1','2','3','4','5'};
 	ft::vector<float> v1(arr, arr + 5);
