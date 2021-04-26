@@ -5,9 +5,8 @@
 #include <list>
 int main()
 {
-	ft::vector<int> v(1, 1);
-	v.reserve(5);
-	v.insert(v.begin(), 2, 9);
+	int arr[] = {1,2,3,4,5,6};
+	ft::vector<int> v(arr, arr + 6);
 	std::cout << "size : " << v.size() << std::endl;
 	std::cout << "capacity : " << v.capacity() << std::endl;
 	ft::vector<int>::iterator it;
@@ -16,6 +15,25 @@ int main()
 		std::cout << *it << " " ;
 	}
 	std::cout << std::endl;
+
+	v.erase((v.begin() +1), (v.begin() + 3));
+	std::cout << "size : " << v.size() << std::endl;
+	std::cout << "capacity : " << v.capacity() << std::endl;
+	for (it = v.begin() ; it != v.end() ; ++it)
+	{
+		std::cout << *it << " " ;
+	}
+	std::cout << std::endl;
+	
+	v.clear();
+	std::cout << "size : " << v.size() << std::endl;
+	std::cout << "capacity : " << v.capacity() << std::endl;
+	for (it = v.begin() ; it != v.end() ; ++it)
+	{
+		std::cout << *it << " " ;
+	}
+	std::cout << std::endl;
+
 	/*
 	char arr[] = {'1','2','3','4','5'};
 	ft::vector<float> v1(arr, arr + 5);
