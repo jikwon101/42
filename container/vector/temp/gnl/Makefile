@@ -22,6 +22,7 @@ fclean: clean
 test : 
 	rm -rf printdiff
 	$(CC) $(SRCS) main.c -D BUFFER_SIZE=1  -o printdiff
+	cp printdiff ../
 
 
 re: fclean all

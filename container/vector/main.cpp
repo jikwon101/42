@@ -1,39 +1,58 @@
 #include "vector.hpp"
 #include <vector>
 #include "operator.hpp"
-
+#include <iostream>
 #include <list>
+#include <deque>
+#include <map>
+template <typename T>
+void print(T)
+{
+	std::cout << typeid(T).name() << std::endl;
+}
 int main()
 {
-	int arr[] = {1,2,3,4,5,6};
-	ft::vector<int> v(arr, arr + 6);
-	std::cout << "size : " << v.size() << std::endl;
-	std::cout << "capacity : " << v.capacity() << std::endl;
-	ft::vector<int>::iterator it;
+	std::cout << sizeof(ft::vector<int>) <<std::endl;
+	int arr[] = {0,1,2,3};
+	ft::vector<int> v(arr, arr + 4);
+	ft::vector<int>::iterator it2 ;
+	ft::vector<int>::const_iterator it;
+	print(it2);
+	print(it);
+	std::vector<int>::iterator it3 ;
+	std::vector<int>::const_iterator it4;
+	print(it3);
+	print(it4);
+	print(it3.base());
+	//it = v.begin();
+	/*
 	for (it = v.begin() ; it != v.end() ; ++it)
 	{
 		std::cout << *it << " " ;
-	}
-	std::cout << std::endl;
-
-	v.erase((v.begin() +1), (v.begin() + 3));
-	std::cout << "size : " << v.size() << std::endl;
-	std::cout << "capacity : " << v.capacity() << std::endl;
-	for (it = v.begin() ; it != v.end() ; ++it)
-	{
-		std::cout << *it << " " ;
-	}
+	}*/
 	std::cout << std::endl;
 	
-	v.clear();
+	/*
+	int arr[] = {0,1,2,3};
+	ft::vector<int> v(arr, arr+4);
 	std::cout << "size : " << v.size() << std::endl;
 	std::cout << "capacity : " << v.capacity() << std::endl;
-	for (it = v.begin() ; it != v.end() ; ++it)
+	ft::vector<int>::const_iterator it;
+	ft::vector<int>::iterator it2;
+	std::cout << typeid(it).name() << std::endl;
+	std::cout << typeid(it2).name() << std::endl;
+
+	std::vector<int>::const_iterator it3;
+	std::vector<int>::iterator it4;
+	std::cout << typeid(it3).name() << std::endl;
+	std::cout << typeid(it4).name() << std::endl;
+
+	//for (it = v.begin() ; it != v.end() ; ++it)
 	{
-		std::cout << *it << " " ;
+		//std::cout << *it << " " ;
 	}
 	std::cout << std::endl;
-
+	*/
 	/*
 	char arr[] = {'1','2','3','4','5'};
 	ft::vector<float> v1(arr, arr + 5);

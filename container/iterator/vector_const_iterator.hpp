@@ -12,7 +12,8 @@ namespace ft
 	class vector_const_iterator : public ft::iterator<_ITER_TAG, _VAL_TYPE>
 	{
 		private:
-			typedef vector_const_iterator<_ITER_TAG, _VAL_TYPE> iterator;
+			typedef vector_iterator<_ITER_TAG, _VAL_TYPE> iterator;
+			typedef vector_const_iterator<_ITER_TAG, _VAL_TYPE> const_iterator;
 		public:
 			typedef typename ft::iterator<_ITER_TAG, _VAL_TYPE>::value_type value_type;
 			typedef typename ft::iterator<_ITER_TAG, _VAL_TYPE>::pointer pointer;
@@ -33,6 +34,10 @@ namespace ft
 			{
 				this->_ptr = rhs._ptr; 
 			}
+			vector_const_iterator(const_iterator const& rhs)
+			{
+				this->_ptr = rhs._ptr;
+			}
 	
 			// const reference?? 왜 안되지?
 			value_type const&operator*() const
@@ -40,22 +45,22 @@ namespace ft
 				return (*_ptr);
 			}
 					
-			iterator& operator++()
+			const_iterator& operator++()
 			{
 				++_ptr; return (*this);
 			}
-			iterator operator++(int)
+			const_iterator operator++(int)
 			{
 				iterator ret = *this; 
 				++ret; 
 				return (*this);
 			}
-			iterator& operator--()
+			const_iterator& operator--()
 			{
 				--_ptr; 
 				return (*this);
 			}
-			iterator operator--(int)
+			const_iterator operator--(int)
 			{
 				iterator ret = *this; 
 				--ret; 
@@ -75,12 +80,12 @@ namespace ft
 			{
 				return (this->_ptr != rhs._ptr);
 			}
-			iterator& operator+=(int n)
+			const_iterator& operator+=(int n)
 			{
 				this->_ptr += n;
 				return (*this);
 			}
-			iterator &operator-=(int n)
+			const_iterator &operator-=(int n)
 			{
 				this->_ptr -= n;
 				return (*this);
@@ -108,11 +113,11 @@ namespace ft
 			{
 				return (this->_ptr >= other._ptr);
 			}
-			iterator operator+(int n) const
+			const_iterator operator+(int n) const
 			{
 				return (this->_ptr + n);
 			}
-			iterator operator-(int n) const
+			const_iterator operator-(int n) const
 			{
 				return (this->_ptr - n);
 			}
