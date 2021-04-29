@@ -7,140 +7,61 @@
 
 namespace ft
 {
-	template <typename _VAL_TYPE>
-	class vector_iterator {};
-	
-	template <typename _VAL_TYPE>
-	class vector_iterator<_VAL_TYPE *> : public ft::iterator<ft::random_access_iterator_tag, _VAL_TYPE>
+	template <typename _Iters>
+	class vector_iterator
 	{
-		private:
-			_VAL_TYPE* _ptr;
-
 		public:
-			vector_iterator() : _ptr(0) { }
-			~vector_iterator(){}
-			vector_iterator(_VAL_TYPE *const src) { _ptr = src; }
-			vector_iterator(vector_iterator const& rhs) { _ptr = rhs._ptr; }
-			_VAL_TYPE& operator*() { return (*_ptr); }
-		
-			vector_iterator& operator=(vector_iterator const& rhs)
-			{
-				this->_ptr = rhs._ptr; 
-				return (*this);
-			}
-
-			//temp
-			vector_iterator& operator++(){++_ptr; return (*this);}
-			vector_iterator operator++(int){vector_iterator ret = *this; ++ret; return (*this);}
-			vector_iterator& operator--(){--_ptr; return (*this);};
-			vector_iterator operator--(int){vector_iterator ret = *this; --ret; return (*this);}
-	
-			_VAL_TYPE* operator->()	{ return (_ptr); }
-			bool operator==(vector_iterator const & rhs){return (this->_ptr == rhs._ptr);}
-			bool operator!=(vector_iterator const &rhs){return (this->_ptr != rhs._ptr);}
-			vector_iterator& operator+=(int n) 
-			{
-				this->_ptr += n;
-				return (*this);
-			}
-			vector_iterator& operator-=(int n)
-			{
-				this->_ptr -= n;
-				return (*this);
-			}
-			_VAL_TYPE& operator[](int n) { return (*(_ptr += n)); }
-
-			bool operator>(vector_iterator const& other) const {
-				return (this->_ptr > other._ptr); }
-			bool operator<(vector_iterator const& other) const {
-				return (this->_ptr < other._ptr); }
-			bool operator<=(vector_iterator const& other) const {
-				return (this->_ptr <= other._ptr); }
-			bool operator>=(vector_iterator const& other) const {
-				return (this->_ptr >= other._ptr); }
-			vector_iterator operator+(int n) { 
-				return (this->_ptr + n); }
-			vector_iterator operator-(int n) {
-				return (this->_ptr - n); }
-
-	};
-
-	template <typename _VAL_TYPE>
-	class vector_iterator<const _VAL_TYPE *> : public ft::iterator<ft::random_access_iterator_tag, _VAL_TYPE>
-	{	
+			typedef _Iters			iterator_type;
+			typedef typename iterator_traits<iterator_type>::iterator_category  iterator_category;
+			typedef typename iterator_traits<iterator_type>::value_type value_type;
+			typedef typename iterator_traits<iterator_type>::difference_type difference_type;
+			typedef typename iterator_traits<iterator_type>::pointer pointer;
+			typedef typename iterator_traits<iterator_type>::reference reference;
 		private:
-			_VAL_TYPE* _ptr;
+			iterator_type _ptr;
 		public:
-			vector_iterator() : _ptr(0) { }
-			~vector_iterator(){}
-			vector_iterator(_VAL_TYPE *const src) { _ptr = src; }
-			vector_iterator(vector_iterator const& rhs) { _ptr = rhs._ptr; }
-			vector_iterator(vector_iterator<_VAL_TYPE *> const& rhs) 
-			{
-				//std::cout << *rhs << std::endl;
-				_ptr = 0;
-				//_ptr = &(*rhs); 
-			}
+			vector_iterator();
+			~vector_iterator();
+			vector_iterator(iterator_type const src);
+			vector_iterator(vector_iterator const& rhs);			
+			template <typename U>  //only work on const;
+			vector_iterator(vector_iterator<U> const& rhs, typename ft::enable_if<!ft::is_const<U>::value, U>::type = NULL );
+			reference operator*() const;		
+			vector_iterator& operator=(vector_iterator const& rhs);
+			iterator_type base() const;	
+			vector_iterator& operator++();
+			vector_iterator operator++(int);
+			vector_iterator& operator--() ;
+			vector_iterator operator--(int);
+			pointer operator->() ;
+
+			template <typename U>
+			bool operator==(vector_iterator<U> const& rhs) const;
 			
-			const _VAL_TYPE& operator*() { return (*_ptr); }
+			template <typename U>
+			bool operator!=(vector_iterator<U> const &rhs) const;
+
+			vector_iterator& operator+=(difference_type n);
+			vector_iterator& operator-=(difference_type n);
+			reference operator[](int n) const ;
+
+			template <typename U>
+			bool operator>(vector_iterator<U> const& other) const;
+
+			template <typename U>
+			bool operator<(vector_iterator<U> const& other) const;
+
+			template <typename U>
+			bool operator<=(vector_iterator<U> const& other) const;
 		
-			vector_iterator& operator=(vector_iterator const& rhs)
-			{
-				this->_ptr = rhs._ptr; 
-				return (*this);
-			}
-			vector_iterator& operator=(vector_iterator<_VAL_TYPE *> const& rhs)
-			{
-				//this->_ptr = rhs._ptr;
-				return (*this);
-			}
-
-			//temp
-			vector_iterator& operator++(){++_ptr; return (*this);}
-			vector_iterator operator++(int){vector_iterator ret = *this; ++ret; return (*this);}
-			vector_iterator& operator--(){--_ptr; return (*this);};
-			vector_iterator operator--(int){vector_iterator ret = *this; --ret; return (*this);}
-	
-			const _VAL_TYPE* operator->()	{ return (_ptr); }
-			bool operator==(vector_iterator const & rhs){return (this->_ptr == rhs._ptr);}
-			bool operator==(vector_iterator<_VAL_TYPE *> const & rhs){return (this->_ptr == rhs._ptr);}
-			bool operator!=(vector_iterator const &rhs){return (this->_ptr != rhs._ptr);}
-			bool operator!=(vector_iterator<_VAL_TYPE *> const &rhs){return (this->_ptr != rhs._ptr);}
-			vector_iterator& operator+=(int n) 
-			{
-				this->_ptr += n;
-				return (*this);
-			}
-			vector_iterator& operator-=(int n)
-			{
-				this->_ptr -= n;
-				return (*this);
-			}
-			const _VAL_TYPE& operator[](int n) { return (*(_ptr += n)); }
-
-			bool operator>(vector_iterator const& other) const {
-				return (this->_ptr > other._ptr); }
-			bool operator<(vector_iterator const& other) const {
-				return (this->_ptr < other._ptr); }
-			bool operator<=(vector_iterator const& other) const {
-				return (this->_ptr <= other._ptr); }
-			bool operator>=(vector_iterator const& other) const {
-				return (this->_ptr >= other._ptr); }
-			vector_iterator operator+(int n) { 
-				return (this->_ptr + n); }
-			vector_iterator operator-(int n) {
-				return (this->_ptr - n); }
+			template <typename U>
+			bool operator>=(vector_iterator<U> const& other) const;
+			vector_iterator operator+(difference_type n);
+			vector_iterator operator-(difference_type n);
 
 	};
+#include "vector_iterator2.hpp"
 
-	//temp 나중에 삭제 하기
-	/*template <typename _VAL_TYPE>
-	std::ostream & operator<<(std::ostream & os, vector_iterator<_VAL_TYPE> const & it)
-	{
-		os << it._ptr;
-		return (os);
-	}
-	*/
 }
 
 #endif

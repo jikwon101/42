@@ -10,28 +10,29 @@ void print(T)
 {
 	std::cout << typeid(T).name() << std::endl;
 }
+
 int main()
 {
-	std::cout << sizeof(ft::vector<int>) <<std::endl;
-	int arr[] = {0,1,2,3};
-	ft::vector<int> v(arr, arr + 4);
-	ft::vector<int>::iterator it2 ;
-	ft::vector<int>::const_iterator it;
-	print(it2);
-	print(it);
-	std::vector<int>::iterator it3 ;
-	std::vector<int>::const_iterator it4;
-	print(it3);
-	print(it4);
-	print(it3.base());
-	//it = v.begin();
+	int arr[]= {0,1,2,3,4};
+	ft::vector<int> v(arr, arr + 5);
+	const ft::vector<int>::const_iterator it = v.cbegin();
+	ft::vector<int>::iterator itt= v.begin();
+	
+	if (itt < it)
+		;
+	//itt+=3;
+	/*	if ( it < itt)
+		;
+	if (itt < it)
+		;
+		*/
 	/*
 	for (it = v.begin() ; it != v.end() ; ++it)
 	{
 		std::cout << *it << " " ;
-	}*/
+	}
 	std::cout << std::endl;
-	
+	*/
 	/*
 	int arr[] = {0,1,2,3};
 	ft::vector<int> v(arr, arr+4);

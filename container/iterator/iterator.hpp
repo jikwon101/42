@@ -37,7 +37,7 @@ namespace ft
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
 	};
-
+/*
 	template <typename T>
 	struct iterator_traits<const T *>
 	{	
@@ -47,6 +47,7 @@ namespace ft
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
 	};
+	*/
 	template <bool B, typename U>
 	struct is_iterator
 	{
@@ -78,19 +79,6 @@ namespace ft
 		}
 		return (diff);
 	}
-
-	template <typename T>
-	struct is_const
-	{
-		static const bool value = false;
-	};
-
-	template <typename T>
-	struct is_const<const T>
-	{
-		static const bool value = true;
-	};
-	
 
 }
 #endif

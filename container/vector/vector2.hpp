@@ -1,4 +1,5 @@
 //util
+/*
 template <typename T>
 T	max(T a, T b)
 {
@@ -6,6 +7,7 @@ T	max(T a, T b)
 		return (a);
 	return (b);
 }
+*/
 // 소멸자
 template <typename T, typename Alloc>
 vector<T,Alloc>::~vector()
