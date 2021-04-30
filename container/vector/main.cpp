@@ -2,9 +2,7 @@
 #include <vector>
 #include "operator.hpp"
 #include <iostream>
-#include <list>
-#include <deque>
-#include <map>
+
 template <typename T>
 void print(T)
 {
@@ -13,25 +11,47 @@ void print(T)
 
 int main()
 {
-	int arr[]= {0,1,2,3,4};
-	ft::vector<int> v(arr, arr + 5);
-	const ft::vector<int>::const_iterator it = v.cbegin();
-	ft::vector<int>::iterator itt= v.begin();
+	ft::vector<int> test(3,4);
+	ft::vector<int>::iterator i3 = test.begin();
+	ft::vector<int>::iterator i5 = i3;
+	i5 = i3;
+	ft::vector<int>::const_iterator i4 =  test.end();
+	ft::vector<int>::const_iterator i6 = i4;
+	ft::vector<int>::const_iterator i7 = i3;
+	i6 = i4;
+	i7 = i3;
+	ft::vector<int>::reverse_iterator rit1 = test.rbegin();
+	ft::vector<int>::reverse_iterator rit2(rit1);
+	ft::vector<int>::reverse_iterator rit3 = rit2;
+	rit1 = rit2;
 	
-	if (itt < it)
-		;
-	//itt+=3;
-	/*	if ( it < itt)
-		;
-	if (itt < it)
-		;
-		*/
-	/*
-	for (it = v.begin() ; it != v.end() ; ++it)
+	ft::vector<int>::const_reverse_iterator rr1 = rit1;
+	ft::vector<int>::const_reverse_iterator rr2(rr1);
+	ft::vector<int>::const_reverse_iterator rr3 = rr2;
+	ft::vector<int>::const_reverse_iterator rr4;
+	rr4 = rr3;
+	print(rit1);
+	print(rr4);
+	std::cout << "len : " << (rit1 - rr4) << std::endl;
+
+	int arr[] = {0,1,2,3,4};
+	ft::vector<int> v(arr, arr + 5);
+	ft::vector<int>::reverse_iterator it2 = v.rbegin();
+	ft::vector<int>::reverse_iterator it3 = v.rend();
+	std::cout << (it2 - it3) << std::endl;
+
+	for (; it2 != it3 ; ++it2)
 	{
-		std::cout << *it << " " ;
+			std::cout << *it2 << " " ;
 	}
-	std::cout << std::endl;
+	std::cout << "\n";
+	
+	/*
+	ft::vector<int>::iterator it;
+	it = rit.base();
+	std::cout << *rit << std::endl;
+	if (it == v.end())
+		std::cout << "erwl\n";
 	*/
 	/*
 	int arr[] = {0,1,2,3};

@@ -4,12 +4,12 @@
 #include <cstddef>
 #include <iostream>
 #include <exception>
-#include <cmath>
 #include <memory>
 #include "../iterator/iterator.hpp"
-#include "../iterator/iter_category.hpp"
 #include "../iterator/vector_iterator.hpp"
-
+#include "../iterator/utils.hpp"
+#include "../iterator/function.hpp"
+#include "../iterator/reverse_iterator.hpp"
 namespace ft
 {
 
@@ -32,6 +32,8 @@ namespace ft
 			typedef const value_type&				const_reference;
 			typedef typename ft::vector_iterator<pointer>	iterator;
 			typedef typename ft::vector_iterator<const_pointer> const_iterator;
+			typedef typename ft::reverse_iterator<iterator> reverse_iterator;
+			typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
 			explicit vector(allocator_type const &alloc = allocator_type() );
 			explicit vector(size_type n, const value_type & val = value_type(), allocator_type const& alloc = allocator_type());
 			template <typename InputIt>
@@ -47,10 +49,13 @@ namespace ft
 			iterator begin();
 			const_iterator begin() const;
 			const_iterator cbegin() const throw();
+			reverse_iterator rbegin();
+			const_reverse_iterator rbegin() const;
 			iterator end();
 			const_iterator end() const;
 			const_iterator cend() const throw();
-
+			reverse_iterator rend();
+			const_reverse_iterator rend() const;
 
 			// element access
 			reference operator[] (size_type n);
@@ -88,9 +93,34 @@ namespace ft
 	};
 
 #include "vector2.hpp"
+/*
+template <typename t, typename alloc>
+typename vector<t, alloc>::reverse_iterator vector<t,alloc>::rbegin()
+{
+	reverse_iterator ret(end());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::const_reverse_iterator vector<t,alloc>::rbegin() const
+{
+	reverse_iterator ret(end());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::reverse_iterator vector<t,alloc>::rend()
+{
+	reverse_iterator ret(begin());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::const_reverse_iterator vector<t,alloc>::rend() const
+{
+	reverse_iterator ret(begin());
+	return (ret);
+}
 
-template <typename T, typename Alloc>
-typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, const value_type& val)
+template <typename t, typename alloc>
+typename vector<t, alloc>::iterator	vector<t, alloc>::insert(iterator position, const value_type& val)
 {
 	iterator	cur;
 	iterator	prev;
@@ -121,7 +151,7 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 		}
 		catch (std::exception &err)
 		{
-			std::cout << "Error : " << err.what() << std::endl;
+			std::cout << "error : " << err.what() << std::endl;
 		}
 		// 대입하려는 값의 위치가 기준.(cur)
 		for  (cur = end() - 1; _size && cur >= position ; --cur)
@@ -143,8 +173,8 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 	return (cur);
 }
 
-template <typename T, typename Alloc>
-void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
+template <typename t, typename alloc>
+void	vector<t, alloc>::insert(iterator position, size_type n, const value_type& val)
 {
 	iterator cur;
 	iterator last;
@@ -176,7 +206,7 @@ void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& 
 		}
 		catch (std::exception &err)
 		{
-			std::cout << "Error : " << err.what() << std::endl;
+			std::cout << "error : " << err.what() << std::endl;
 		}
 		i = (this->_size - 1 + n);
 		for  (cur = end() - 1; _size && cur >= position ; --cur)
@@ -199,14 +229,14 @@ void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& 
 	}
 }
 
-template <typename T, typename Alloc>
-template <typename InputIt>
-void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type*)
+template <typename t, typename alloc>
+template <typename inputit>
+void	vector<t, alloc>::insert(iterator position, inputit first, inputit last, typename ft::is_iterator<!ft::is_arithmetic<inputit>::value, inputit>::type*)
 {
 	difference_type n;
 	iterator cur;
 	iterator last_target;
-	InputIt cur_value;
+	inputit cur_value;
 
 	n = ft::distance(first, last);
 	if (this->_size + n <= this->_capacity)
@@ -264,8 +294,8 @@ void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last, ty
 }
 
 // assign
-template <typename T, typename Alloc>
-void	vector<T, Alloc>::assign(size_type n, value_type const& val)
+template <typename t, typename alloc>
+void	vector<t, alloc>::assign(size_type n, value_type const& val)
 {
 	if (n <= this->_capacity)
 	{
@@ -283,7 +313,7 @@ void	vector<T, Alloc>::assign(size_type n, value_type const& val)
 	}
 	catch (std::exception &err)
 	{
-		std::cout << "Error : " << err.what() << std::endl;
+		std::cout << "error : " << err.what() << std::endl;
 	}
 	for (int i = 0; i < n ; i++)
 	{
@@ -294,9 +324,9 @@ void	vector<T, Alloc>::assign(size_type n, value_type const& val)
 	return ;
 }
 
-template <typename T, typename Alloc>
-template <typename InputIt>
-void	vector<T, Alloc>::assign(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type *)
+template <typename t, typename alloc>
+template <typename inputit>
+void	vector<t, alloc>::assign(inputit first, inputit last, typename ft::is_iterator<!ft::is_arithmetic<inputit>::value, inputit>::type *)
 {
 	int i = 0;
 	difference_type n;
@@ -318,7 +348,7 @@ void	vector<T, Alloc>::assign(InputIt first, InputIt last, typename ft::is_itera
 	}
 	catch(std::exception &err)
 	{
-		std::cout << "Error : " << err.what() << std::endl;
+		std::cout << "error : " << err.what() << std::endl;
 	}
 	for (; first != last ; ++first)
 	{
@@ -332,18 +362,18 @@ void	vector<T, Alloc>::assign(InputIt first, InputIt last, typename ft::is_itera
 }
 
 //swap
-template <typename T, typename Alloc>
-void	vector<T, Alloc>::swap(vector &x)
+template <typename t, typename alloc>
+void	vector<t, alloc>::swap(vector &x)
 {
 	swap(*this, x);
 }
 
-template <typename T, typename Alloc>
-void	swap(vector<T, Alloc> &x, vector<T, Alloc>& y)
+template <typename t, typename alloc>
+void	swap(vector<t, alloc> &x, vector<t, alloc>& y)
 {
-	typename vector<T, Alloc>::pointer temp_ptr;
-	typename vector<T, Alloc>::size_type temp_size;
-	typename vector<T, Alloc>::size_type temp_capacity;
+	typename vector<t, alloc>::pointer temp_ptr;
+	typename vector<t, alloc>::size_type temp_size;
+	typename vector<t, alloc>::size_type temp_capacity;
 
 	temp_ptr = x._arr;
 	temp_size = x._size;
@@ -357,6 +387,6 @@ void	swap(vector<T, Alloc> &x, vector<T, Alloc>& y)
 	y._size = temp_size;
 	y._capacity = temp_capacity;
 }
-
+*/
 }
 #endif

@@ -1,13 +1,3 @@
-//util
-/*
-template <typename T>
-T	max(T a, T b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-*/
 // 소멸자
 template <typename T, typename Alloc>
 vector<T,Alloc>::~vector()
@@ -109,6 +99,7 @@ typename vector<T, Alloc>::const_iterator vector<T, Alloc>::cbegin() const throw
 {
 	return (&(_arr[0]));
 }
+
 //end
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator vector<T, Alloc>::end()
@@ -360,3 +351,30 @@ void	vector<T, Alloc>::pop_back(void)
 {
 	_size--;
 }
+
+template <typename t, typename alloc>
+typename vector<t, alloc>::reverse_iterator vector<t,alloc>::rbegin()
+{
+	reverse_iterator ret(end());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::const_reverse_iterator vector<t,alloc>::rbegin() const
+{
+	reverse_iterator ret(end());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::reverse_iterator vector<t,alloc>::rend()
+{
+	reverse_iterator ret(begin());
+	return (ret);
+}
+template <typename t, typename alloc>
+typename vector<t, alloc>::const_reverse_iterator vector<t,alloc>::rend() const
+{
+	reverse_iterator ret(begin());
+	return (ret);
+}
+
+
