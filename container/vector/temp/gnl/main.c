@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include "./get_next_line.h"
 
+
 int main()
 {
 	int fd_ft = open("/Users/jieunkwon/Desktop/42seoul/private_git/container/vector/temp/result_ft.txt", O_RDONLY);
@@ -18,21 +19,21 @@ int main()
 		printf("%s", "Error open files\n");
 		return (1);
 	}
-	printf("%20.20s%10s|%20.20s\n", "< FT >","", "< STD >");
-	for (int i = 0 ; i < 13 ; i++)
-		printf("-----");
+	printf("%30.30s%10s|%30.30s\n", "< FT >","", "< STD >");
+	for (int i = 0 ; i < 16 ; i++)	
+		printf("-----");			// 5
 	printf("\n");
 	while (1)
 	{
 		if (res_ft > 0)
 			res_ft = get_next_line(fd_ft, &line_ft);
-		printf("%2s","");
-		printf("%20.20s", line_ft);
-		printf("%8s|", "");
+		printf("%2s","");				// [1]
+		printf("%30.30s", line_ft);		//
+		printf("%8s|", "");				// [2] : [1] + [2] = 10
 		if (res_std > 0)
 			res_std = get_next_line(fd_std, &line_std);
-		printf("%5s","");
-		printf("%20.20s\n",line_std);
+		printf("%5s","");				// [3] : random
+		printf("%30.30s\n",line_std);	//
 		if (res_ft == 0 && res_std == 0)
 			break;
 		if (res_ft == -1 || res_std == -1)
