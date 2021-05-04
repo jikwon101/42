@@ -138,26 +138,13 @@ namespace ft
 									typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
 
 		private:
-			alloc_type& alloc()
-			{
-				return (_end_cap.second());
-			}
-			const alloc_type& alloc() const
-			{
-				return (_end_cap.second());
-			}
+			alloc_type& alloc();
+			const alloc_type& alloc() const;
+			pointer& end_cap();
+			const pointer& end_cap() const;
 
-			pointer& end_cap()
-			{
-				return (_end_cap.first());
-			}
-
-			const pointer& end_cap() const
-			{
-				return (_end_cap.first());
-			}
-
-			void destruct_by(pointer _new_end)
+			void destruct_by(pointer _new_end);
+			/*
 			{
 				pointer _pos(_end);
 				for (--_pos; _pos != _new_end; --_pos)
@@ -166,13 +153,15 @@ namespace ft
 				}
 				_end = _new_end;
 				return ;
-			}
-			void destruct_range(pointer _start, pointer _last)
+			}*/
+			void destruct_range(pointer _start, pointer _last);
+			/*
 			{
 				for (; _start != _last ; ++_start)
 					alloc().destroy(_start);
-			}
-			void	construct_at_end(size_type n, const_reference rhs)
+			}*/
+			void	construct_at_end(size_type n, const_reference rhs);
+			/*
 			{
 				pointer new_end;
 
@@ -180,8 +169,9 @@ namespace ft
 				for (; _end != new_end ; ++_end)
 					alloc().construct(_end, rhs);
 				_end = new_end;
-			}
-			void	construct_at_end(size_type n)
+			}*/
+			void	construct_at_end(size_type n);
+			/*
 			{
 				pointer new_end;
 
@@ -190,13 +180,9 @@ namespace ft
 					alloc().construct(_end, value_type());
 				_end = new_end;
 
-			}
-			void append(size_type n)
-			{
-			}
-			void append(size_type n, const_reference rhs)
-			{
-			}
+			}*/
+			void append(size_type n);
+			void append(size_type n, const_reference rhs);
 		
 
 	};
@@ -215,6 +201,7 @@ namespace ft
 	template <typename T, typename Alloc>
 	bool	operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
 	#include "vector2.hpp"
+	#include "vector3.ipp"
 
 
 }

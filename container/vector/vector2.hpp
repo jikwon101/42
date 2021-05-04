@@ -259,6 +259,9 @@ template <typename T, typename Alloc>
 void vector<T, Alloc>::push_back(value_type const & val)
 {
 	//write
+	if (_end < _end_cap())
+	{
+	}
 	return ;
 }
 
