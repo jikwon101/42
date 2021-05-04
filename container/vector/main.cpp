@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/05/05 00:10:46 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/05/05 00:14:44 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int main()
 		int arr1[] = {1,2,3,4};
 		ft::vector<int> v1(arr1, arr1 + 4);
 		print_vector(v1);
-		v1.erase(v1.begin(), v1.begin() + 1);
+		print_it(v1.erase(v1.begin(), v1.begin() + 1));
 		print_vector(v1);
 		ft::vector<ft::vector<int> > v2(2, v1);
 	}
