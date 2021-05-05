@@ -45,7 +45,7 @@ vector<T, Alloc>::vector(vector const & x)  :_begin(NULL),_end(NULL), _end_cap(N
 	//std::cout << "copy\n";
 	_begin = _end = this->alloc().allocate(x.capacity());
 	end_cap() = _begin + x.capacity();
-	assign(x.begin(), x.end());
+	construct_at_end(x.begin(), x.end());
 
 	//for (size_type i = 0 ; i < x.size() ; ++i)
 	//	construct_at_end
