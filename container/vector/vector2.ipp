@@ -162,7 +162,7 @@ template <typename T, typename Alloc>
 typename vector<T, Alloc>::reference vector<T, Alloc>::at(size_type n)
 {
 	if (n < 0 || n >= size())
-		throw (std::out_of_range("Out of range"));
+		throw (std::out_of_range("ft::vector"));
 	return (*(_begin + n));
 }
 
@@ -170,7 +170,7 @@ template <typename T, typename Alloc>
 typename vector<T, Alloc>::const_reference vector<T, Alloc>::at(size_type n) const
 {
 	if (n < 0 || n >= size())
-		throw (std::out_of_range("Out of range"));
+		throw (std::out_of_range("ft::vector"));
 	return (*(_begin + n));
 }
 
@@ -230,7 +230,7 @@ template <typename T, typename Alloc>
 void	vector<T, Alloc>::reserve(size_type n)
 {
 	if (n > max_size())
-		throw (std::length_error("Length Error"));
+		throw (std::length_error("ft::vector"));
 	if (capacity() < n)
 	{
 		vector new_vec(alloc());
