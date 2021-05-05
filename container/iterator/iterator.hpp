@@ -1,12 +1,24 @@
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
-#include "./utils.hpp"
-#include "iter_category.hpp"
-
 namespace ft
 {
-	
+	/*
+   Empty class to identify the category of an iterator
+	*/
+	struct input_iterator_tag {};
+
+	struct output_iterator_tag {};
+
+	struct forward_iterator_tag : public input_iterator_tag {};
+
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+
+	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+
+	/*
+	** Base class
+	*/
 	template <typename Category, typename T, typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T& >
 	struct iterator
 	{
@@ -31,54 +43,24 @@ namespace ft
 	template <typename T>
 	struct iterator_traits<T *>
 	{
-		typedef ptrdiff_t 					difference_type;
-		typedef T							value_type;
-		typedef T*							pointer;
-		typedef T&							reference;
-		typedef random_access_iterator_tag	iterator_category;
+		typedef ptrdiff_t 						difference_type;
+		typedef T								value_type;
+		typedef T*								pointer;
+		typedef T&								reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
-/*
+	
 	template <typename T>
 	struct iterator_traits<const T *>
-	{	
-		typedef ptrdiff_t 					difference_type;
-		typedef T							value_type;
-		typedef T*							pointer;
-		typedef T&							reference;
-		typedef random_access_iterator_tag	iterator_category;
-	};
-	*/
-	template <bool B, typename U>
-	struct is_iterator
 	{
+		typedef ptrdiff_t 						difference_type;
+		typedef T								value_type;
+		typedef const T*						pointer;
+		typedef const T&						reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
-	template <typename U>
-	struct is_iterator<true, U>
-	{
-		typedef typename ft::iterator_traits<U>::value_type type;
-	};
-	
-	template <typename _Iter>
-	typename iterator_traits<_Iter>::iterator_category iterCategory(const _Iter&)
-	{
-		typename iterator_traits<_Iter>::iterator_categoty _category;
-		return (_category);
-	}
-
-	template <typename InputIterator>
-	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last)
-	{
-		ptrdiff_t diff;
-	
-		diff = 0;
-		while (first != last)
-		{
-			++diff;
-			++first;
-		}
-		return (diff);
-	}
 
 }
+
 #endif
