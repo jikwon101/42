@@ -4,15 +4,12 @@
 /* Default Constructor */
 template <typename T, typename Alloc>
 vector<T, Alloc>::vector(alloc_type const & alloc) : _begin(NULL), _end(NULL), _end_cap(NULL, alloc)
-{
-	//std::cout << "defalult\n";	
-}
+{}
 
 /* Fill Constructor */
 template <typename T, typename Alloc>
 vector<T, Alloc>::vector(size_type n, const value_type & val, alloc_type const& alloc) : _begin(NULL), _end(NULL), _end_cap(NULL, alloc)
 {
-	//std::cout << "size\n";
 	_begin = _end = this->alloc().allocate(n);
 	construct_at_end(n, val);
 	end_cap() = _begin + n;
@@ -25,7 +22,6 @@ template <typename InputIt>
 vector<T, Alloc>::vector (InputIt first, InputIt last, alloc_type const & alloc, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type *)
 		: _begin(NULL), _end(NULL),_end_cap(NULL, alloc)
 {
-	//std::cout << "iter\n";
 	difference_type diff;
 	
 	diff = ft::distance(first, last);
@@ -42,14 +38,9 @@ vector<T, Alloc>::vector (InputIt first, InputIt last, alloc_type const & alloc,
 template <typename T, typename Alloc>
 vector<T, Alloc>::vector(vector const & x)  :_begin(NULL),_end(NULL), _end_cap(NULL, x.get_allocator())
 {
-	//std::cout << "copy\n";
 	_begin = _end = this->alloc().allocate(x.capacity());
 	end_cap() = _begin + x.capacity();
 	construct_at_end(x.begin(), x.end());
-
-	//for (size_type i = 0 ; i < x.size() ; ++i)
-	//	construct_at_end
-			//construct_at_end(1, x[i]);
 }
 
 /* Operator= */
@@ -354,12 +345,14 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 	if (_end < end_cap())
 	{
 		if (position == end())
-			construct_at_end(1, val);
+			construct_one_at_end(val);
+			//construct_at_end(1, val);
 		else
 		{
 			pointer pos = _end;
 			
-			construct_at_end(1, back());
+			construct_one_at_end(back());
+			//construct_at_end(1, back());
 			while (pos != position.base() && pos > _begin )
 			{
 				*pos = *(pos - 1);
