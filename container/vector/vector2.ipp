@@ -346,13 +346,11 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 	{
 		if (position == end())
 			construct_one_at_end(val);
-			//construct_at_end(1, val);
 		else
 		{
 			pointer pos = _end;
 			
 			construct_one_at_end(back());
-			//construct_at_end(1, back());
 			while (pos != position.base() && pos > _begin )
 			{
 				*pos = *(pos - 1);
@@ -370,7 +368,6 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 		new_vec.vector_allocate(_new_n);
 		new_vec.construct_at_end(begin(), position);
 		new_vec.construct_one_at_end(val);
-		//new_vec.construct_at_end(1, val);
 		new_vec.construct_at_end(position, end());
 		swap(new_vec);
 	}
@@ -392,7 +389,6 @@ void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& 
 			for (size_type i = 0 ; (i < n && (_end - n) >= _begin) ; i++)
 			{
 				construct_one_at_end(*(_end - n));
-				//construct_at_end(1, *(_end - n));
 			}
 			pos = position.base();
 			for (size_type i = 0 ; i < n ; i++)
@@ -436,7 +432,6 @@ void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last, ty
 			for (size_type i = 0 ; (i < n && (_end - n) >= _begin) ; i++)
 			{
 				construct_one_at_end(*(_end - n));
-				//construct_at_end(1, *(_end - n));
 			}
 			vector_pos = position.base();
 			for (InputIt pos = first ; pos != last ; ++pos)

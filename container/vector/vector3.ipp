@@ -83,23 +83,6 @@ void	vector<T, Alloc>::construct_at_end(InputIt _first, InputIt _last,
 }
 
 template <typename T, typename Alloc>
-void	vector<T, Alloc>::append(size_type n)
-{
-	if (static_cast<size_type>(end_cap() - _end)  >= n)
-		construct_at_end(n, value_type());
-	else
-	{
-		vector new_vec(alloc());
-		size_type _new_n;
-
-		_new_n = (capacity() * 2 > size() + n) ? (capacity() * 2) : (size() + n);
-		new_vec.vector_allocate(_new_n);
-		new_vec.construct_at_end(begin(), end());
-		new_vec.construct_at_end(n, value_type());
-	}
-}
-
-template <typename T, typename Alloc>
 void	vector<T, Alloc>::append(size_type n, const_reference rhs)
 {	
 	if (static_cast<size_type>(end_cap() - _end)  >= n)

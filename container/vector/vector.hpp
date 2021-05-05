@@ -35,12 +35,11 @@ namespace ft
 		public:
 			explicit vector(alloc_type const &alloc = alloc_type() );
 			explicit vector(size_type n, const value_type & val = value_type(), alloc_type const& alloc = alloc_type());
-			template <typename InputIt>
-			vector(InputIt first, InputIt last, alloc_type const& alloc = alloc_type(), 
-					typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
 			vector(vector const & x);
+			template <typename InputIt>
+			vector(InputIt first, InputIt last, alloc_type const& alloc = alloc_type(), typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
 			vector&			operator= (vector const & x);
-			virtual ~vector();
+			~vector();
 			
 			alloc_type	get_allocator() const;
 			
@@ -80,12 +79,10 @@ namespace ft
 			iterator		insert(iterator position, const value_type& val);
 			void			insert(iterator position, size_type n, const value_type& val);
 			template <typename InputIt>
-			void			insert(iterator position, InputIt first, InputIt last, 
-									typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
+			void			insert(iterator position, InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
 			void			assign(size_type n, value_type const& val);
 			template <typename InputIt>
-			void			assign(InputIt first, InputIt last, 
-									typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
+			void			assign(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
 
 		private:
 			alloc_type&			alloc();
@@ -96,11 +93,10 @@ namespace ft
 			void	destruct_by(pointer _new_end);
 			void	destruct_range(pointer _start, pointer _last);
 			void	destruct_at(pointer _pos);
-			void	construct_at_end(size_type n, const_reference rhs);
 			void	construct_one_at_end(const_reference rhs);
+			void	construct_at_end(size_type n, const_reference rhs);
 			template <typename InputIt>
 			void	construct_at_end(InputIt _first, InputIt _last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
-			void	append(size_type n);
 			void	append(size_type n, const_reference rhs);	
 			void	vector_allocate(size_type n);
 	};

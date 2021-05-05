@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/05/05 21:24:37 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/05/05 21:55:31 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void print_it(T const & src)
 
 int main()
 {
+	ft::vector<int> v1(1, 1);
+	ft::vector<int> v2(1, 1);
+	v2.push_back(3);
+	if (v1 > v2)
+		print("v1 > v2");
+	else
+		print("v1 <= v2");
 	print("---------------------");
 	print("Constructor\n");
 	{
