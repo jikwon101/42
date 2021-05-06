@@ -1,102 +1,15 @@
-v1 <= v2
----------------------
-Constructor
-
-[ ]
-[ 0 0 0 ]
-[ 5 5 5 ]
-[ 0 1 2 3 4 ]
-[ 0 0 0 ]
-[ 0 1 2 3 4 ]
-[ 5 5 5 ]
-[ 0 0 0 ]
-[ 97 98 99 ]
----------------------
-Iterator
-
-[ -1 0 1 2 3 ]
-It contains : -1
-rbegin() == end()
-It contains : 3
-It contains : 2
-rend() == begin()
----------------------
-Element Access : at, [], front, back
-
-[ -1 0 1 2 3 ]
--1 ->  3
-3 -> 10
-front : 3, back : 10
-front : -1, back : 3
-[ -1 0 1 ]
--1 & -1
-0 & 0
-1 & 1
-front : -1, back : 1
----------------------
-Cap 1 : size, capacity, max_size, empty
-
-[ 97 98 99 100 ]
-size : 4
-capacity : 4
-max_size : 4611686018427387903
-max_size : 9223372036854775807
-Is v1 empty ? : 0
-Is v3 empty ? : 1
----------------------
-Cap 2 : reserve, resize
-
-v3 : reserve (2)
-size [0], cap [2]
-v3 : reserve (1)
-size [0], cap [2]
-size [4], cap [4]
-[ 97 98 99 100 ]
-v1 : resize (3)
-size [3], cap [4]
-[ 97 98 99 ]
-v1 : resize (5)
-size [5], cap [8]
-[ 97 98 99 0 0 ]
----------------------
-Mod1 : erase, clear, swap, push_back, pop_back
-
-[ 1 2 3 4 5 6 ]
-It contains : 2
-[ 3 4 5 6 ]
-size [0], cap [6]
-[ 3 3 3 ]
-[ 4 4 4 4 ]
-v3 : swap (v4)
-[ 4 4 4 4 ]
- + [ 4 4 4 4 ]
- + [ 1 2 ]
- + [ 4 5 6 ]
- + [ 4 4 4 4 ]
----------------------
-Mod 2 : insert, assign
-
-size [3], cap [3]
- + [ 1 ]
- + [ 2 2 ]
- + [ 2 2 ]
-size [0], cap [0]
-v2 : insert
-size [1], cap [1]
- + [ 1 ]
-v2 : insert
- + [ 1 ]
- + [ 2 2 ]
- + [ 2 2 ]
-size [0], cap [0]
-v3 : reserve (4)
-v3 : assign
- + [ 1 ]
- + [ 2 2 ]
-v3 : resize (0)
-v3 : assign
- + [ 1 ]
- + [ 2 2 ]
- + [ 2 2 ]
----------------------
+o
+--------
+o
+o
+o
+o
+--------
+o
+e
 RETURN
+o
+o
+o
+o
+o

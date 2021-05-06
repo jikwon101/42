@@ -283,7 +283,6 @@ typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator position)
 	for (pointer it = first ; it != _end - 1 ; ++it)
 	{
 		*it = *(it + 1);
-		destruct_range(it + 1, it + 2);
 	}
 	_end -= 1;
 	return (first);
@@ -301,7 +300,6 @@ typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator first, iter
 	for (pointer it = first.base() ; it != _end -n; ++it)
 	{
 		*it = *(it + n);
-		destruct_range(it + n, it + n + 1);
 	}
 	_end -= n;
 	return (res);

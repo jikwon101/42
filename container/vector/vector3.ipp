@@ -46,7 +46,6 @@ void	vector<T, Alloc>::destruct_at(pointer _pos)
 template <typename T, typename Alloc>
 void	vector<T,Alloc>::destruct_range(pointer _start, pointer _last)
 {
-	
 	for (; _start != _last ; ++_start)
 	{
 		if (_begin <= _start && _start < _end)
