@@ -6,13 +6,14 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/05/06 09:52:35 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/05/06 23:36:49 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #include <vector>
 #include <iostream>
+#include <list>
 
 # define CL "\033[0m\033[36m"
 # define RS "\033[0m"
@@ -67,6 +68,7 @@ void print_it(T const & src)
 
 int main()
 {
+	/*
 	print("---------------------");
 	print("Constructor\n");
 	{
@@ -248,6 +250,7 @@ int main()
 		print("v3 : assign");
 		print_vector(v3);
 	}
+	*/
 
 	print("---------------------");
 	print("RETURN");

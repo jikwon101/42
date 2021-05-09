@@ -1,7 +1,7 @@
 #ifndef VECTOR_ITERATOR_HPP
 # define VECTOR_ITERATOR_HPP
 
-#include "./traits.hpp"
+#include "../utils/traits.hpp"
 #include "./iterator.hpp"
 
 namespace ft
@@ -54,7 +54,7 @@ namespace ft
 	template <typename T, typename U>
 	typename iterator_traits<T>::difference_type	operator-(const vector_iterator<T>& lhs, const vector_iterator<U>& rhs);
 
-#include "vector_iterator2.hpp"
+	#include "vector_iterator2.ipp"
 
 }
 

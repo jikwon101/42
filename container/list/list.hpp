@@ -1,101 +1,103 @@
 #ifndef LIST_HPP
 # define LIST_HPP
 
-#include "../iterator/list_iterator.hpp"
-#include "../utils/node.hpp"
-#include "../utils/pair.hpp"
+#include "./list_base.hpp"
 
 namespace ft
 {
-	template <typename T, typename Alloc>
-	class list_base
-	{
-		protected:
-			typedef Alloc			alloc_type;
-			typedef T& reference;
-			typedef const T& const_reference;
-			typedef typename std::allocator_traits<alloc_type>	alloc_traits;
-			typedef ft::node<T>			node;
-			typedef node*			node_pointer;
-			typedef	const node*		const_node_pointer;
-			typedef node& 			node_reference;
-			typedef const node&		const_node_reference;
-			typedef typename alloc_traits::size_type size_type;
-			typedef typename alloc_traits::difference_type difference_type;
-			typedef T	value_type;
-		private:
-			typedef typename alloc_traits::pointer pointer;
-			typedef typename alloc_traits::const_pointer const_pointer;
-			typedef typename alloc_type::template rebind<node>::other node_alloc_type;
-			
-		protected:
-			Pair<node_pointer, node_pointer> _end;	//(_prev, _next), (_tail, _head)
-			size_type _size;
-			
-			list_base();
-			list_base(size_type n);
-			list_base(const list_base& src);
-			~list_base();
-			size_type	_max_size() const;
-			size_type	size(node_pointer& head, node_pointer& tail);
-			node_pointer& to_head(node_pointer& nd);
-			node_pointer& to_tail(node_pointer& nd);
-			bool	isHead(node_pointer& nd) const;
-			bool	isTail(node_pointer& nd) const;
-			node_pointer& head();
-			node_pointer& tail();
-			void	append_node_back(size_type n, const value_type& val);
-			void	append_node_back(node_pointer const& first, node_pointer const& last);
-			void	insert_node_back(node_pointer& prev_node, node_pointer& new_node);
-			node_pointer	make_one_node(const value_type& val);
-			node_pointer	make_nodes(size_type n, const value_type& val);
-			node_pointer	make_nodes(node_pointer const&first, node_pointer const& last);
-			void	link_node(node_pointer& prev_node, node_pointer& next_node);
-	};
 	template <typename T, typename Alloc = std::allocator<T> >
 	class list : private list_base<T, Alloc>
 	{
 		public:
 			typedef T						value_type;
-			typedef Alloc				alloc_type;
+			typedef Alloc					alloc_type;
 			typedef ft::list_iterator<T>	iterator;
-			typedef typename list_base<T, Alloc>::node			node;
-			/*
-			typedef typename  list_base<T, Alloc>::node_pointer	node_pointer;
-			typedef typename list_base<T, Alloc>::const_node_pointer	const_node_pointer;
-			typedef typename  list_base<T, Alloc>::node_reference reference;
-			typedef typename list_base<T, Alloc>::const_node_reference	const_reference;
-			*/
-			typedef T& reference;
-			typedef const T& const_reference;
-			typedef T* pointer;
-			typedef const T* const_pointer;
-			typedef typename list_base<T, Alloc>::size_type		size_type;
-
+			typedef ft::list_const_iterator<T> const_iterator;
+			typedef list_base<T, Alloc>		base;
+			typedef typename base::node		node;
+			typedef T&			reference;
+			typedef const T&	const_reference;
+			typedef T* 			pointer;
+			typedef const T* 	const_pointer;
+			typedef typename list_base<T, Alloc>::size_type			size_type;
 			typedef typename list_base<T, Alloc>::difference_type	difference_type;
 		private:
-			typedef typename list_base<T, Alloc>::node_pointer node_pointer;
+			typedef typename list_base<T, Alloc>::node_pointer		node_pointer;
 		public:
 			explicit list(const alloc_type& alloc = alloc_type());
 			explicit list(size_type n, const value_type& val = value_type(), const alloc_type& alloc = alloc_type());
 			list(const list& src);
+			template <typename InputIt>
+			list(InputIt first, InputIt last, const alloc_type& alloc = alloc_type(), typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
 			~list();
-			alloc_type get_allocator() const;
+			list& operator=(const list& src);
+			alloc_type	get_allocator() const;
 			/* iterator */
-			iterator begin();
-			iterator end();
+			iterator		begin();
+			const_iterator	begin() const;
+			iterator		end();
+			const_iterator	end() const;
 			/* access element */
-			reference front();
+			reference		front();
 			const_reference front() const;
-			reference	back();
+			reference		back();
 			const_reference back() const;
 			/* capacity */
-			bool	empty() const;
-			size_type size() const;
-			size_type max_size() const;
-
-		private:
+			bool		empty() const;
+			size_type	size() const;
+			size_type	max_size() const;
+			/* modify */
+			void		assign(size_type n, const value_type& val);
+			template <typename InputIt>
+			void		assign(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
+			void		clear();
+			iterator	erase(iterator position);
+			iterator	erase(iterator first, iterator last);
+			void		push_front(const value_type& val);
+			void		push_back(const value_type& val);
+			void		pop_front();
+			void		pop_back();
+			void		swap(list& x);
+			void		resize(size_type n, value_type val = value_type());
+			iterator	insert(iterator position, const value_type& val);
+			void		insert(iterator position, size_type n, const value_type& val);
+			template <typename InputIt>
+			void		insert(iterator position, InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
+			/* operation */
+			void		reverse();
+			void		splice(iterator position, list& x);
+			void		splice(iterator position, list& x, iterator i);
+			void		splice(iterator position, list& x, iterator first, iterator second);
+			void		remove(const value_type& val);
+			template <typename Predicate>
+			void		remove_if(Predicate pred);
+			void		unique();
+			template <typename BinaryPredicate>
+			void		unique(BinaryPredicate binary_pred);
+			void		merge(list& x);
+			template <typename Compare>
+			void		merge(list& x, Compare comp);
+			void		sort();
+			template <typename Compare>
+			void		sort(Compare comp);
 	};
+	template <typename T, typename Alloc>
+	void	swap(list<T, Alloc> &x, list<T, Alloc> &y);
+	template <typename T, typename Alloc>
+	void	swap(list<T, Alloc> &x, list<T, Alloc> &y);
+	template <typename T, typename Alloc>
+	bool	operator==(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	template <typename T, typename Alloc>
+	bool	operator!=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	template <typename T, typename Alloc>
+	bool	operator<(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	template <typename T, typename Alloc>
+	bool	operator<=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	template <typename T, typename Alloc>
+	bool	operator>(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	template <typename T, typename Alloc>
+	bool	operator>=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+
 	#include "list2.ipp"
 }
 

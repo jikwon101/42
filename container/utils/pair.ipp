@@ -1,5 +1,5 @@
 template <typename T, typename U>
-Pair<T, U>::Pair() : _m1(NULL) {}
+Pair<T, U>::Pair() {}
 
 template <typename T, typename U>
 Pair<T, U>::Pair(const Pair& src) : _m1(src.m1), _m2(src.m2)

@@ -5,9 +5,9 @@
 #include <exception>
 #include <memory>
 #include "../iterator/vector_iterator.hpp"
-#include "../iterator/function.hpp"
+#include "../utils/function.hpp"
 #include "../iterator/reverse_iterator.hpp"
-#include "../iterator/pair.hpp"
+#include "../utils/pair.hpp"
 namespace ft
 {
 	template <typename T, typename Alloc = std::allocator<T> >

@@ -1,7 +1,7 @@
 #ifndef FUNCTION_HPP
 # define FUNCTION_HPP
 
-#include "./iterator.hpp"
+#include "../iterator/iterator.hpp"
 #include "./traits.hpp"
 
 namespace ft
@@ -42,6 +42,17 @@ namespace ft
 	}
 	*/
 	template <typename T>
+	struct remove_const
+	{
+		typedef T type;
+	};
+	template <typename T>
+	struct remove_const<const T>
+	{
+		typedef T type;
+	};
+
+	template <typename T>
 	T	max(T a, T b)
 	{
 		if (a > b)
@@ -63,22 +74,29 @@ namespace ft
 		return (_category);
 	}
 
-	template <typename InputIterator>
-	typename iterator_traits<InputIterator>::difference_type	distance(InputIterator first, InputIterator last)
+	template <typename It>
+	typename ft::iterator_traits<It>::difference_type do_distance(It first, It last, ft::random_access_iterator_tag)
 	{
-	
-		if (ft::is_same_category<InputIterator, ft::random_access_iterator_tag>::value)
-		{
-			return (last - first);
-		}
-		typename iterator_traits<InputIterator>::difference_type diff;
-		diff = 0;
+		return (last - first);
+	}
+	template <typename It>
+	typename ft::iterator_traits<It>::difference_type do_distance(It first, It last, ft::input_iterator_tag)
+	{
+		typename ft::iterator_traits<It>::difference_type result;
+
+		result = 0;
 		while (first != last)
 		{
-			++diff;
 			++first;
+			++result;
 		}
-		return (diff);
+		return (result);
+	}
+
+	template <typename It>
+	typename ft::iterator_traits<It>::difference_type	distance(It first, It last)
+	{
+		return (do_distance(first, last, typename ft::iterator_traits<It>::iterator_category()));
 	}
 
 

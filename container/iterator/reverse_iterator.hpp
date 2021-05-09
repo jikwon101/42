@@ -2,8 +2,8 @@
 # define REVERSE_ITERATOR_HPP
 
 #include "./iterator.hpp"
-#include "./traits.hpp"
-#include "./function.hpp"
+#include "../utils/traits.hpp"
+#include "../utils/function.hpp"
 
 namespace ft
 {
