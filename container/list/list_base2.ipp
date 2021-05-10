@@ -108,6 +108,9 @@ void list_base<T, Alloc>::append_node_back(InputIt first, InputIt last, typename
 {
 	node_pointer new_node;
 	node_pointer tail_node;
+
+	if (first == last)
+		return ;
 	new_node = make_nodes(first, last);
 	tail_node = _tail();
 	insert_node_back(tail_node, new_node);
@@ -252,9 +255,9 @@ void	list_base<T, Alloc>::swap_base(list_base& x)
 	new_node_x = x.splice_node(x._head(), x._end());
 	new_node_this = x.splice_node(_head(), _end());
 	head_node = _head();
-	insert_node_back(head_node, new_node_x);
+	insert_node_front(head_node, new_node_x);
 	head_node = x._head();
-	x.insert_node_back(head_node, new_node_this);
+	x.insert_node_front(head_node, new_node_this);
 }
 
 template <typename T, typename Alloc>

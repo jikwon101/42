@@ -11,7 +11,7 @@ list<T, Alloc>::list(size_type n, const value_type& val, const alloc_type& alloc
 
 // copy
 template <typename T, typename Alloc>
-list<T, Alloc>::list(const list& src) : base(src)
+list<T, Alloc>::list(const list& src)
 {
 	this->append_node_back(src.begin(), src.end());
 }
@@ -88,12 +88,12 @@ typename list<T, Alloc>::const_reference	list<T, Alloc>::front() const
 template <typename T, typename Alloc>
 typename list<T, Alloc>::reference	list<T, Alloc>::back()
 {
-	return (this->tail()->_val);
+	return (this->_tail()->_val);
 }
 template <typename T, typename Alloc>
 typename list<T, Alloc>::const_reference	list<T, Alloc>::back() const
 {
-	return (this->tail()->_val);
+	return (this->_tail()->_val);
 }
 
 /* capacity */
@@ -212,7 +212,7 @@ typename list<T, Alloc>::iterator	list<T, Alloc>::insert(iterator position, cons
 	node_pointer new_node;
 
 	new_node = this->make_one_node(val);
-	this->insert_node_back(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node);
 	return (new_node);
 }
 
@@ -222,7 +222,7 @@ void	list<T, Alloc>::insert(iterator position, size_type n,const value_type& val
 	node_pointer new_node;
 	
 	new_node = this->make_nodes(n, val);
-	this->insert_node_back(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node);
 	this->_size += n;
 }
 
@@ -232,8 +232,10 @@ void	list<T, Alloc>::insert(iterator position, InputIt first, InputIt last, type
 {
 	node_pointer new_node;
 
+	if (first == last)
+		return ;
 	new_node = this->make_nodes(first, last);
-	this->insert_node_back(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node);
 	this->_size += ft::distance(first, last);
 }
 
