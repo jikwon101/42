@@ -42,6 +42,18 @@ void print_it(T const & src);
 int main()
 {
 	{
+		int arr[] = {1,2,3,4,5,6};
+		std::list<int> t1(arr, arr +6);
+		std::list<int>::iterator it1 = t1.end();
+		std::list<int>::reverse_iterator it2(it1);
+		for (it2 = t1.rbegin() ; it2 != t1.rend() ; ++it2)
+		{
+			std::cout << *it2 << " " ;
+		}
+		std::cout << "\n";
+	}
+	/*
+	{
 		std::list<int> t1;					//default
 		print_list(t1);
 		const std::list<int> t2(4, 10);		//size
@@ -203,6 +215,7 @@ int main()
 		print("t3:\n"); print_list(t3);
 		print("t4:"); print_list(t4);
 	}
+	*/
 }
 
 

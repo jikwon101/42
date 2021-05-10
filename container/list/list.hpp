@@ -23,6 +23,8 @@ namespace ft
 			typedef typename base::difference_type	difference_type;
 			typedef ft::list_iterator<T>			iterator;
 			typedef ft::list_const_iterator<T>		const_iterator;
+			typedef ft::reverse_iterator<iterator>	reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		public:
 			explicit list(const alloc_type& alloc = alloc_type());
 			explicit list(size_type n, const value_type& val = value_type(), const alloc_type& alloc = alloc_type());
@@ -35,8 +37,13 @@ namespace ft
 			/* iterator */
 			iterator		begin();
 			const_iterator	begin() const;
+			reverse_iterator	rbegin();
+			const_reverse_iterator	rbegin() const;
+
 			iterator		end();
 			const_iterator	end() const;
+			reverse_iterator	rend();
+			const_reverse_iterator	rend() const;
 			/* access element */
 			reference		front();
 			const_reference front() const;

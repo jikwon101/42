@@ -62,6 +62,20 @@ typename list<T, Alloc>::const_iterator list<T, Alloc>::begin() const
 }
 
 template <typename T, typename Alloc>
+typename list<T, Alloc>::reverse_iterator list<T, Alloc>::rbegin()
+{
+	return (reverse_iterator(end()));
+	//return (this->_end());
+}
+
+template <typename T, typename Alloc>
+typename list<T, Alloc>::const_reverse_iterator list<T, Alloc>::rbegin() const
+{
+	return (reverse_iterator(end()));
+	//return (this->_end());
+}
+
+template <typename T, typename Alloc>
 typename list<T, Alloc>::iterator list<T, Alloc>::end()
 {
 	return (this->_end());
@@ -71,6 +85,19 @@ template <typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::end() const
 {
 	return (this->_end());
+}
+template <typename T, typename Alloc>
+typename list<T, Alloc>::reverse_iterator list<T, Alloc>::rend()
+{
+	return (reverse_iterator(begin()));
+	//return (this->_head());
+}
+
+template <typename T, typename Alloc>
+typename list<T, Alloc>::const_reverse_iterator list<T, Alloc>::rend() const
+{
+	return (reverse_iterator(begin()));
+	//return (this->_head());
 }
 
 /* access element */

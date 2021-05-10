@@ -39,7 +39,10 @@ typename reverse_iterator<_Iter>::iterator_type		reverse_iterator<_Iter>::base()
 template <typename _Iter>
 typename reverse_iterator<_Iter>::reference			reverse_iterator<_Iter>::operator*() const
 {
-	return (*(_base - 1));
+	iterator_type res = _base;
+	--res;
+	return (*res);
+	//return (*(_base - 1));
 }
 
 

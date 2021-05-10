@@ -7,6 +7,7 @@
 #include "../iterator/list_const_iterator.hpp"
 #include "../utils/node.hpp"
 #include "../utils/pair.hpp"
+#include "../iterator/reverse_iterator.hpp"
 
 namespace ft
 {
