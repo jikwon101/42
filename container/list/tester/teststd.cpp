@@ -26,7 +26,7 @@ bool same_integral_part(double first, double second)
 
 int main()
 {
-	std::cout << "ft::list hello\n";
+	std::cout << "std::list hello\n";
 }
 
 class Test

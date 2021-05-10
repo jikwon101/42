@@ -7,8 +7,8 @@
 //# define PATH "./test.txt"
 int main()
 {
-	char* path_ft = ft_strjoin(PATH, "/tester/result_ft.txt");
-	char* path_std = ft_strjoin(PATH, "/tester/result_std.txt");
+	char* path_ft = ft_strjoin(PATH, "/result_ft.txt");
+	char* path_std = ft_strjoin(PATH, "/result_std.txt");
 	int fd_ft = open(path_ft, O_RDONLY);
 	int fd_std = open(path_std, O_RDONLY);
 	if (path_ft)

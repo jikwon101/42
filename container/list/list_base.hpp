@@ -1,6 +1,8 @@
 #ifndef LIST_BASE_HPP
 # define LIST_BASE_HPP
 
+#include <memory>
+#include <limits>
 #include "../iterator/list_iterator.hpp"
 #include "../iterator/list_const_iterator.hpp"
 #include "../utils/node.hpp"
