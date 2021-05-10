@@ -8,7 +8,24 @@ namespace ft
 	template <typename T, typename Alloc = std::allocator<T> >
 	class list : private list_base<T, Alloc>
 	{
+		private:
+			typedef list_base<T, Alloc>				base;
+			typedef typename base::node				node;
+			typedef typename base::node_pointer		node_pointer;
 		public:
+			typedef Alloc							alloc_type;
+			typedef typename base::value_type		value_type;
+			typedef typename base::reference		reference;
+			typedef typename base::const_reference	const_reference;
+			typedef typename base::pointer			pointer;
+			typedef typename base::const_pointer	coonst_pointer;
+			typedef typename base::size_type		size_type;
+			typedef typename base::difference_type	difference_type;
+			typedef ft::list_iterator<T>			iterator;
+			typedef ft::list_const_iterator<T>		const_iterator;
+/*
+		public:
+			typedef 
 			typedef T						value_type;
 			typedef Alloc					alloc_type;
 			typedef ft::list_iterator<T>	iterator;
@@ -21,8 +38,10 @@ namespace ft
 			typedef const T* 	const_pointer;
 			typedef typename list_base<T, Alloc>::size_type			size_type;
 			typedef typename list_base<T, Alloc>::difference_type	difference_type;
+
 		private:
 			typedef typename list_base<T, Alloc>::node_pointer		node_pointer;
+*/
 		public:
 			explicit list(const alloc_type& alloc = alloc_type());
 			explicit list(size_type n, const value_type& val = value_type(), const alloc_type& alloc = alloc_type());

@@ -13,23 +13,20 @@ namespace ft
 	template <typename T, typename Alloc>
 	class list_base
 	{
-		protected:
-			typedef Alloc			alloc_type;
-			typedef T				value_type;
-			typedef T&				reference;
-			typedef const T&		const_reference;
-			typedef ft::node<T>		node;
-			typedef node*			node_pointer;
-			typedef	const node*		const_node_pointer;
-			typedef node& 			node_reference;
-			typedef const node&		const_node_reference;
-			typedef typename std::allocator_traits<alloc_type>	alloc_traits;
-			typedef typename alloc_traits::size_type			size_type;
-			typedef typename alloc_traits::difference_type		difference_type;
 		private:
-			typedef typename alloc_traits::pointer				pointer;
-			typedef typename alloc_traits::const_pointer		const_pointer;
-			typedef typename alloc_type::template rebind<node>::other	node_alloc_type;
+			typedef Alloc	alloc_type;
+			typedef typename alloc_type::template rebind<ft::node<T> >::other	node_alloc_type;
+		protected:
+			typedef typename node_alloc_type::value_type	node;
+			typedef	typename node_alloc_type::pointer		node_pointer;
+			typedef typename node_alloc_type::const_pointer	node_const_pointer;
+			typedef typename alloc_type::difference_type	difference_type;
+			typedef typename alloc_type::size_type			size_type;
+			typedef typename alloc_type::value_type			value_type;
+			typedef typename alloc_type::pointer			pointer;
+			typedef typename alloc_type::const_pointer		const_pointer;
+			typedef typename alloc_type::reference			reference;
+			typedef typename alloc_type::const_reference	const_reference;
 		protected:
 			Pair<node_pointer, node_pointer> _end_node;	//(_prev, _next), (_tail, _head)
 			size_type _size;

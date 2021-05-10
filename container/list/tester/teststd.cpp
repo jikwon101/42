@@ -202,7 +202,6 @@ int main()
 		print("t3: merge(t4, mycomparison)\n"); t3.merge(t4, mycomparison);
 		print("t3:\n"); print_list(t3);
 		print("t4:"); print_list(t4);
-
 	}
 }
 
