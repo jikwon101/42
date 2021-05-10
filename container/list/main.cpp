@@ -1,6 +1,9 @@
+#ifndef TEST
+#include "list.hpp"
+#endif
+
 #include <iostream>
 #include <list>
-#include "list.hpp"
 #include <memory>
 
 class Test;
@@ -93,8 +96,31 @@ void testprint(ft::list_const_iterator<int> const& it)
 	(void)it;
 	std::cout << "here\n";
 }
+template <typename T>
+void print_it(ft::list_const_iterator<T> const& it1, ft::list_const_iterator<T> const& it2)
+{
+	std::cout << "halo\n";
+}
+template <typename T>
+void temp_it(ft::list_const_iterator<T> const& it2)
+{
+	std::cout << "halo_iter\n";
+}
+
 int main()
 {	
+	ft::list<int> t1(1);
+	ft::list<int>::iterator it1 = t1.begin();
+	ft::list<int>::const_iterator it2 = t1.begin();
+	ft::list<char>::const_iterator it3;
+	if (it1 == it3)
+		std::cout << "helloooooo\n";
+	//temp_it(it1);
+	//ft::list_iterator<int> temp1;
+	//ft::list_const_iterator<int> temp2;
+	//temp2 = temp1;
+	//print_it(it1, it2);
+	/*
 	ft::list<int> t1(1);
 	t1.push_back(10);
 	print(t1);
@@ -297,4 +323,5 @@ int main()
 		std::cout << "RETURN\n";
 	}
 	std::cout << "----------------\n";
+	*/
 }
