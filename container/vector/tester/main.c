@@ -2,13 +2,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "./get_next_line.h"
+#include "./gnl/get_next_line.h"
 
-
+//# define PATH "./test.txt"
 int main()
 {
-	int fd_ft = open("/Users/jieunkwon/Desktop/42seoul/private_git/container/vector/temp/result_ft.txt", O_RDONLY);
-	int fd_std = open("/Users/jieunkwon/Desktop/42seoul/private_git/container/vector/temp/result_std.txt", O_RDONLY);
+	char* path_ft = ft_strjoin(PATH, "/result_ft.txt");
+	char* path_std = ft_strjoin(PATH, "/result_std.txt");
+	int fd_ft = open(path_ft, O_RDONLY);
+	int fd_std = open(path_std, O_RDONLY);
+	if (path_ft)
+		free(path_ft);
+	if (path_std)
+		free(path_std);
 	char *line_ft;
 	char *line_std;
 	int res_ft = 10;

@@ -23,25 +23,6 @@ namespace ft
 			typedef typename base::difference_type	difference_type;
 			typedef ft::list_iterator<T>			iterator;
 			typedef ft::list_const_iterator<T>		const_iterator;
-/*
-		public:
-			typedef 
-			typedef T						value_type;
-			typedef Alloc					alloc_type;
-			typedef ft::list_iterator<T>	iterator;
-			typedef ft::list_const_iterator<T> const_iterator;
-			typedef list_base<T, Alloc>		base;
-			typedef typename base::node		node;
-			typedef T&			reference;
-			typedef const T&	const_reference;
-			typedef T* 			pointer;
-			typedef const T* 	const_pointer;
-			typedef typename list_base<T, Alloc>::size_type			size_type;
-			typedef typename list_base<T, Alloc>::difference_type	difference_type;
-
-		private:
-			typedef typename list_base<T, Alloc>::node_pointer		node_pointer;
-*/
 		public:
 			explicit list(const alloc_type& alloc = alloc_type());
 			explicit list(size_type n, const value_type& val = value_type(), const alloc_type& alloc = alloc_type());
@@ -50,7 +31,7 @@ namespace ft
 			list(InputIt first, InputIt last, const alloc_type& alloc = alloc_type(), typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
 			~list();
 			list& operator=(const list& src);
-			alloc_type	get_allocator() const;
+			alloc_type		get_allocator() const;
 			/* iterator */
 			iterator		begin();
 			const_iterator	begin() const;
@@ -62,9 +43,9 @@ namespace ft
 			reference		back();
 			const_reference back() const;
 			/* capacity */
-			bool		empty() const;
-			size_type	size() const;
-			size_type	max_size() const;
+			bool			empty() const;
+			size_type		size() const;
+			size_type		max_size() const;
 			/* modify */
 			void		assign(size_type n, const value_type& val);
 			template <typename InputIt>

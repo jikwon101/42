@@ -29,25 +29,25 @@ namespace ft
 			typedef typename alloc_type::const_reference	const_reference;
 		protected:
 			Pair<node_pointer, node_pointer> _end_node;	//(_prev, _next), (_tail, _head)
-			size_type _size;
+			size_type	_size;
 			list_base(const alloc_type& alloc = alloc_type());
 			list_base(const list_base& src);
 			list_base& operator=(const list_base& src);
 			~list_base();
-			size_type	_max_size() const;
-			size_type	length(node_pointer& head, node_pointer& tail);
+			bool			isEnd(node_pointer& nd) const;
+			size_type		_max_size() const;
+			size_type		length(node_pointer& head, node_pointer& tail);
 			node_pointer&	to_tail(node_pointer& nd);
-			bool	isEnd(node_pointer& nd) const;
 			node_pointer	_head() const;
 			node_pointer	_tail() const;
 			node_pointer	_end() const;
-			void	swap_base(list_base& x);
-			void	append_node_back(size_type n,const value_type& val);
+			void			swap_base(list_base& x);
+			void			append_node_back(size_type n,const value_type& val);
 			template <typename InputIt>
-			void	append_node_back(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
-			void	append_node_front(size_type n, const value_type& val);
-			void	insert_node_front(node_pointer& next_node, node_pointer& new_node);
-			void	insert_node_back(node_pointer& prev_node, node_pointer& new_node);
+			void			append_node_back(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
+			void			append_node_front(size_type n, const value_type& val);
+			void			insert_node_front(node_pointer& next_node, node_pointer& new_node);
+			void			insert_node_back(node_pointer& prev_node, node_pointer& new_node);
 			node_pointer	make_one_node(const value_type& val);
 			node_pointer	make_nodes(size_type n, const value_type& val);
 			template <typename InputIt>
