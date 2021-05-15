@@ -7,6 +7,7 @@
 #include "../utils/traits.hpp"
 #include "./node_map.hpp"
 #include "./ft_map_base.hpp"
+#include "../iterator/map_iterator.hpp"
 namespace ft
 {
 	template <typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::Pair<const Key, T> > >
@@ -41,7 +42,7 @@ namespace ft
 			typedef typename allocator_type::const_reference const_reference;
 			typedef typename allocator_type::pointer pointer;
 			typedef typename allocator_type::const_pointer const_pointer;
-
+			typedef ft::map_iterator<value_type> iterator;
 
 		private:
 			typedef ft::map_base<Key, T, Compare, Alloc> base;
@@ -51,6 +52,8 @@ namespace ft
 		public:
 			map(const key_compare& comp = key_compare(),const allocator_type& = allocator_type());
 			mapped_type& operator[] (const key_type& k);
+			/* iterator */
+			iterator begin();
 			/* capacity */
 			bool	empty() const;
 			size_type	size() const;
@@ -72,6 +75,7 @@ namespace ft
 			//const_iterator		upper_bound(const key_type& k) const;
 			//pair<iterator, iterator>	equal_range(const key_type& k);
 			//pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
+			void	printinfo();	//temp
 
 
 	};
