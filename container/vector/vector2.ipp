@@ -3,16 +3,17 @@
 */
 /* Default Constructor */
 template <typename T, typename Alloc>
-vector<T, Alloc>::vector(alloc_type const & alloc) : _begin(NULL), _end(NULL), _end_cap(NULL, alloc)
+vector<T, Alloc>::vector(alloc_type const & alloc) : _begin(NULL), _end(NULL), _end_cap(NULL)
 {}
 
 /* Fill Constructor */
 template <typename T, typename Alloc>
-vector<T, Alloc>::vector(size_type n, const value_type & val, alloc_type const& alloc) : _begin(NULL), _end(NULL), _end_cap(NULL, alloc)
+vector<T, Alloc>::vector(size_type n, const value_type & val, alloc_type const& alloc) : _begin(NULL), _end(NULL), _end_cap(NULL)
 {
-	_begin = _end = this->alloc().allocate(n);
+	_begin = _end = alloc_type().allocate(n);
 	construct_at_end(n, val);
-	end_cap() = _begin + n;
+	_end_cap = _begin + n; //new
+//	end_cap() = _begin + n;
 	return ;
 }
 
@@ -20,13 +21,14 @@ vector<T, Alloc>::vector(size_type n, const value_type & val, alloc_type const& 
 template <typename T, typename Alloc>
 template <typename InputIt>
 vector<T, Alloc>::vector (InputIt first, InputIt last, alloc_type const & alloc, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type *)
-		: _begin(NULL), _end(NULL),_end_cap(NULL, alloc)
+		: _begin(NULL), _end(NULL),_end_cap(NULL)
 {
 	difference_type diff;
 	
 	diff = ft::distance(first, last);
-	_begin = _end = this->alloc().allocate(diff);
-	end_cap() = _begin + diff;
+	_begin = _end = alloc_type().allocate(diff);
+	_end_cap = _begin + diff;
+//	end_cap() = _begin + diff;
 	for (InputIt it = first ; it != last ; ++it)
 	{
 		push_back(*it);
@@ -36,10 +38,11 @@ vector<T, Alloc>::vector (InputIt first, InputIt last, alloc_type const & alloc,
 
 /* Copy Constructor */
 template <typename T, typename Alloc>
-vector<T, Alloc>::vector(vector const & x)  :_begin(NULL),_end(NULL), _end_cap(NULL, x.get_allocator())
+vector<T, Alloc>::vector(vector const & x)  :_begin(NULL),_end(NULL), _end_cap(NULL)
 {
-	_begin = _end = this->alloc().allocate(x.capacity());
-	end_cap() = _begin + x.capacity();
+	_begin = _end = alloc_type().allocate(x.capacity());
+	_end_cap = _begin + x.capacity(); //new
+//	end_cap() = _begin + x.capacity();
 	construct_at_end(x.begin(), x.end());
 }
 
@@ -62,7 +65,7 @@ vector<T, Alloc>::~vector()
 	if (_begin != NULL)
 	{
 		clear();
-		this->alloc().deallocate(_begin, capacity());
+		alloc_type().deallocate(_begin, capacity());
 		_begin = NULL;
 		_end = NULL;
 	}
@@ -77,7 +80,7 @@ vector<T, Alloc>::~vector()
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::alloc_type	vector<T, Alloc>::get_allocator() const
 {
-	return (alloc());
+	return ((alloc_type()));
 }
 
 
@@ -211,12 +214,13 @@ typename vector<T, Alloc>::size_type vector<T, Alloc>::size() const
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::size_type vector<T, Alloc>::capacity() const
 {
-	return (static_cast<size_type>(end_cap() - _begin));	
+	//return (static_cast<size_type>(end_cap() - _begin));	
+	return (static_cast<size_type>(_end_cap - _begin));	//new
 }
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::size_type vector<T, Alloc>::max_size() const
 {
-	return (ft::min<size_type>(std::numeric_limits<difference_type>::max(), alloc().max_size()));
+	return (ft::min<size_type>(std::numeric_limits<difference_type>::max(), alloc_type().max_size()));
 }
 
 template <typename T, typename Alloc>
@@ -233,7 +237,7 @@ void	vector<T, Alloc>::reserve(size_type n)
 		throw (std::length_error("ft::vector"));
 	if (capacity() < n)
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		new_vec.vector_allocate(n);
 		new_vec.construct_at_end(begin(), end());
 		swap(new_vec);
@@ -320,19 +324,23 @@ void	vector<T, Alloc>::swap(vector &x)
 {
 	pointer temp_begin;
 	pointer temp_end;
-	Pair<pointer, alloc_type> temp_end_cap;
+//	Pair<pointer, alloc_type> tempold_cap;
+	pointer temp_end_cap;  //new
 
 	temp_begin = x._begin;
 	temp_end = x._end;
-	temp_end_cap = x._end_cap;
+	temp_end_cap = x._end_cap; //new
+//	tempold_cap = x.old_cap;
 
 	x._begin = this->_begin;
 	x._end = this->_end;
-	x._end_cap = this->_end_cap;
+	x._end_cap = this->_end_cap; //new
+//	x.old_cap = this->old_cap;
 
 	this->_begin = temp_begin;
 	this->_end = temp_end;
-	this->_end_cap = temp_end_cap;
+	this->_end_cap = temp_end_cap; //new
+//	this->old_cap = tempold_cap;
 }
 
 
@@ -340,7 +348,8 @@ void	vector<T, Alloc>::swap(vector &x)
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, const value_type& val)
 {
-	if (_end < end_cap())
+	//if (_end < end_cap())
+	if (_end < _end_cap)	//new
 	{
 		if (position == end())
 			construct_one_at_end(val);
@@ -359,7 +368,7 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 	}
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = (capacity() * 2 > size() + 1) ? (capacity() * 2) : (size() + 1);
@@ -376,7 +385,8 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, 
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
 {
-	if (_end + n <= end_cap())
+//	if (_end + n <= end_cap())
+	if (_end + n <= _end_cap)	//new
 	{
 		if (position == end())
 			construct_at_end(n, val);
@@ -397,7 +407,7 @@ void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type& 
 	}
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = (capacity() * 2 > size() + n) ? (capacity() * 2) : (size() + n);
@@ -419,7 +429,8 @@ void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last, ty
 
 	n = static_cast<size_type>(ft::distance(first, last));
 
-	if (_end + n <= end_cap())
+	//if (_end + n <= end_cap())
+	if (_end + n <= _end_cap) //new
 	{
 		if (position == end())
 			construct_at_end(first, last);
@@ -440,7 +451,7 @@ void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last, ty
 	}
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = (capacity() * 2 > size() + n) ? (capacity() * 2) : (size() + n);
@@ -458,11 +469,12 @@ template <typename T, typename Alloc>
 void	vector<T, Alloc>::assign(size_type n, value_type const& val)
 {
 	clear();
-	if (static_cast<size_type>(end_cap() - _end) >= n)
+	//if (static_cast<size_type>(end_cap() - _end) >= n)
+	if (static_cast<size_type>(_end_cap - _end) >= n) 	//new
 		construct_at_end(n, val);
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = n;
@@ -482,11 +494,12 @@ void	vector<T, Alloc>::assign(InputIt first, InputIt last, typename ft::is_itera
 
 	clear();
 	n = ft::distance(first, last);
-	if ( (end_cap() - _end) >= n)
+//	if ( (end_cap() - _end) >= n)
+	if ( (_end_cap - _end) >= n)
 		construct_at_end(first, last);
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = static_cast<size_type>(n);

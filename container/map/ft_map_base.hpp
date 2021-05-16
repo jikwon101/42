@@ -37,11 +37,12 @@ namespace ft
 			node_pointer	Sibling(node_pointer const& src);
 			node_pointer	Uncle(node_pointer const& src);
 			node_pointer	Parent(node_pointer const& src);
-			pointer		find_key(key_type const& k) const;
+			node_pointer	find_key(key_type const& k) const;
+			node_pointer	find_key(key_type const& k, node_pointer const& hint) const;
 			void	insert_node(node_pointer& new_node);
 			void	set_to_head(node_pointer& new_node);
-			void	add_node(value_type const& val);
-			void	add_node(key_type const& key);
+			node_pointer	add_node(value_type const& val);
+			node_pointer	add_node(key_type const& key);
 			void	check_node(node_pointer const& x);
 			val_maker	get_val_maker();
 			bool	isLchild(node_pointer const& x);

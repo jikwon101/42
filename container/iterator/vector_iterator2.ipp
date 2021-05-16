@@ -88,7 +88,7 @@ vector_iterator<_Iters>		vector_iterator<_Iters>::operator--(int)
 {
 	vector_iterator ret(*this);
 	--_ptr; 
-	return (*this);
+	return (ret);
 }
 
 template <typename _Iters>

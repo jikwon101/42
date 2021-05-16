@@ -6,6 +6,6 @@ void print(int nbr = 0)
 }
 int main()
 {
-	print();
-	print(3);
+	std::pair<int, int> mt(1,3);
+	std::pair<const int, int> t(mt);
 }

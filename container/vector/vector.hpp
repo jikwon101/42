@@ -7,7 +7,6 @@
 #include "../iterator/vector_iterator.hpp"
 #include "../utils/function.hpp"
 #include "../iterator/reverse_iterator.hpp"
-#include "../utils/pair.hpp"
 namespace ft
 {
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -30,7 +29,7 @@ namespace ft
 		private:
 			pointer _begin;
 			pointer _end;
-			Pair<pointer, alloc_type> _end_cap;
+			pointer	_end_cap;
 
 		public:
 			explicit vector(alloc_type const &alloc = alloc_type() );
@@ -85,11 +84,6 @@ namespace ft
 			void			assign(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
 
 		private:
-			alloc_type&			alloc();
-			const alloc_type&	alloc() const;
-			pointer&			end_cap();
-			const pointer&		end_cap() const;
-
 			void	destruct_by(pointer _new_end);
 			void	destruct_range(pointer _start, pointer _last);
 			void	destruct_at(pointer _pos);

@@ -14,9 +14,9 @@ namespace ft
 	{
 		typedef node_map*	pointer;
 		typedef T	value_type;
-		pointer		Parent;
 		pointer		Lchild;
 		pointer		Rchild;
+		pointer		Parent;
 		value_type	data;
 		Color		color;
 		node_map() : Parent(NULL), Lchild(NULL), Rchild(NULL), color(RED)

@@ -127,13 +127,14 @@ typename list<T, Alloc>::const_reference	list<T, Alloc>::back() const
 template <typename T, typename Alloc>
 bool	list<T, Alloc>::empty() const
 {
-	return (this->_size == 0);
+	return (size() == 0);
 }
 template <typename T, typename Alloc>
 typename list<T, Alloc>::size_type list<T, Alloc>::size() const
 {
-	return (this->_size);
+	return (this->get_size());
 }
+
 template <typename T, typename Alloc>
 typename list<T, Alloc>::size_type list<T, Alloc>::max_size() const
 {
@@ -147,7 +148,7 @@ void	list<T, Alloc>::clear()
 	node_pointer end_node;
 	node_pointer head_node;
 
-	if (!this->_size)
+	if (!size())
 		return ;
 	head_node = this->_head();
 	end_node = this->_end();
@@ -202,16 +203,16 @@ void	list<T, Alloc>::pop_back()
 template <typename T, typename Alloc>
 void	list<T, Alloc>::resize(size_type n, value_type val)
 {
-	if (this->_size == n)
+	if (size() == n)
 		return ;
-	if (this->_size > n)
+	if (size() > n)
 	{
-		while (this->_size > n)
+		while (size() > n)
 			pop_back();
 	}
 	else
 	{
-		while (this->_size < n)
+		while (size() < n)
 			push_back(val);
 	}
 }
@@ -239,7 +240,7 @@ typename list<T, Alloc>::iterator	list<T, Alloc>::insert(iterator position, cons
 	node_pointer new_node;
 
 	new_node = this->make_one_node(val);
-	this->insert_node_front(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node, 1);
 	return (new_node);
 }
 
@@ -249,8 +250,7 @@ void	list<T, Alloc>::insert(iterator position, size_type n,const value_type& val
 	node_pointer new_node;
 	
 	new_node = this->make_nodes(n, val);
-	this->insert_node_front(position._ptr, new_node);
-	this->_size += n;
+	this->insert_node_front(position._ptr, new_node, n);
 }
 
 template <typename T, typename Alloc>
@@ -258,12 +258,13 @@ template <typename InputIt>
 void	list<T, Alloc>::insert(iterator position, InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* )
 {
 	node_pointer new_node;
+	size_type n;
 
 	if (first == last)
 		return ;
+	n = ft::distance(first, last);
 	new_node = this->make_nodes(first, last);
-	this->insert_node_front(position._ptr, new_node);
-	this->_size += ft::distance(first, last);
+	this->insert_node_front(position._ptr, new_node, n);
 }
 
 
@@ -280,18 +281,19 @@ template <typename T, typename Alloc>
 void	list<T, Alloc>::reverse()
 {
 	node_pointer	temp_node;
-	
+	node_pointer	pos;
+
 	if (!size())
 		return ;
-	for (node_pointer pos = this->_head() ; !this->isEnd(pos) ; pos = temp_node)
+	for (pos = this->_head() ; !this->isEnd(pos) ; pos = temp_node)
 	{
 		temp_node = pos->_next;
 		pos->_next = pos->_prev;
 		pos->_prev = temp_node;
 	}
-	temp_node = this->_end_node.first();
-	this->_end_node.first() = this->_end_node.second();
-	this->_end_node.second() = temp_node;
+	temp_node = pos->_next;
+	pos->_next = pos->_prev;
+	pos->_prev = temp_node;
 }
 
 /* splice */
@@ -299,26 +301,33 @@ template <typename T, typename Alloc>
 void	list<T, Alloc>::splice(iterator position, list& x)
 {
 	node_pointer new_node;
+	size_type n;
 
+	n = x.size();
 	new_node = x.splice_node(x._head(), x._end());
-	this->insert_node_front(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node, n);
 }
 
 template <typename T, typename Alloc>
 void	list<T, Alloc>::splice(iterator position, list& x, iterator i)
 {
 	node_pointer new_node;
-
+	size_type n;
+	
+	n = x.size() - 1;
 	new_node = x.splice_node(i._ptr, i._ptr->_next);
-	this->insert_node_front(position._ptr, new_node);
+	this->insert_node_front(position._ptr, new_node, n);
 }
 template <typename T, typename Alloc>
 void	list<T, Alloc>::splice(iterator position, list& x, iterator first, iterator last)
 {
 	node_pointer new_node;
+	size_type n;
 
+	n = x.size();
 	new_node = x.splice_node(first._ptr, last._ptr);
-	this->insert_node_front(position._ptr, new_node);
+	n -= x.size();
+	this->insert_node_front(position._ptr, new_node, n);
 }
 
 
@@ -395,9 +404,10 @@ void	list<T, Alloc>::unique(BinaryPredicate binary_pred)
 template <typename T, typename Alloc>
 void	list<T, Alloc>::merge(list& x)
 {
-	node_pointer pos;
-	node_pointer new_node;
-	node_pointer pos_x;
+	node_pointer	pos;
+	node_pointer	new_node;
+	node_pointer	pos_x;
+	size_type		n;
 
 	if (this == &x)
 		return ;
@@ -407,15 +417,19 @@ void	list<T, Alloc>::merge(list& x)
 	{
 		if (this->isEnd(pos))
 		{
+			n = x.size();
 			new_node = x.splice_node(pos_x, x._end());
-			this->insert_node_front(pos, new_node);
+			n -= x.size();
+			this->insert_node_front(pos, new_node, n);
 			return ;
 		}
 		while (!x.isEnd(pos_x) && (pos_x->_val < pos->_val))
 		{
 			pos_x = pos_x->_next;
+			n = x.size();
 			new_node = x.splice_node(pos_x->_prev, pos_x);
-			this->insert_node_front(pos, new_node);
+			n -= x.size();
+			this->insert_node_front(pos, new_node, n);
 		}
 		pos = pos->_next;
 	}
@@ -426,9 +440,10 @@ template <typename T, typename Alloc>
 template <typename Compare>
 void	list<T, Alloc>::merge(list& x, Compare comp)
 {
-	node_pointer pos;
-	node_pointer new_node;
-	node_pointer pos_x;
+	node_pointer	pos;
+	node_pointer	new_node;
+	node_pointer	pos_x;
+	size_type		n;
 
 	if (this == &x)
 		return ;
@@ -438,15 +453,19 @@ void	list<T, Alloc>::merge(list& x, Compare comp)
 	{
 		if (this->isEnd(pos))
 		{
+			n = x.size();
 			new_node = x.splice_node(pos_x, x._end());
-			this->insert_node_front(pos, new_node);
+			n -= x.size();
+			this->insert_node_front(pos, new_node, n);
 			return ;
 		}
 		while (!x.isEnd(pos_x) && comp(pos_x->_val,pos->_val))
 		{
+			n = x.size();
 			pos_x = pos_x->_next;
 			new_node = x.splice_node(pos_x->_prev, pos_x);
-			this->insert_node_front(pos, new_node);
+			n -= x.size();
+			this->insert_node_front(pos, new_node, n);
 		}
 		pos = pos->_next;
 	}
@@ -456,10 +475,10 @@ void	list<T, Alloc>::merge(list& x, Compare comp)
 template <typename T, typename Alloc>
 void	list<T, Alloc>::sort()
 {
-	node_pointer pos;
-	node_pointer new_node;
-	node_pointer search_pos;
-	
+	node_pointer	pos;
+	node_pointer	new_node;
+	node_pointer	search_pos;
+
 	pos = this->_head()->_next;
 	while (!this->isEnd(pos))
 	{
@@ -472,7 +491,7 @@ void	list<T, Alloc>::sort()
 				search_pos = search_pos->_prev;
 			pos = pos->_prev;
 			new_node = this->splice_node(pos->_next, pos->_next->_next);
-			this->insert_node_back(search_pos, new_node);
+			this->insert_node_back(search_pos, new_node, 1);
 		}
 		pos = pos->_next;
 	}
@@ -482,9 +501,9 @@ template <typename T, typename Alloc>
 template <typename Compare>
 void	list<T, Alloc>::sort(Compare comp)
 {	
-	node_pointer pos;
-	node_pointer new_node;
-	node_pointer search_pos;
+	node_pointer	pos;
+	node_pointer	new_node;
+	node_pointer	search_pos;
 	
 	pos = this->_head()->_next;
 	while (!this->isEnd(pos))
@@ -498,7 +517,7 @@ void	list<T, Alloc>::sort(Compare comp)
 				search_pos = search_pos->_prev;
 			pos = pos->_prev;
 			new_node = this->splice_node(pos->_next, pos->_next->_next);
-			this->insert_node_back(search_pos, new_node);
+			this->insert_node_back(search_pos, new_node, 1);
 		}
 		pos = pos->_next;
 	}

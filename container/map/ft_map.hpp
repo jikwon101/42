@@ -60,8 +60,8 @@ namespace ft
 			size_type	max_size() const;
 			/* modify */
 			//ft::pair<iterator, bool> insert (Const value_type& val);
-			void	insert (const value_type& val); //temp
-
+			Pair<iterator, bool>	insert (const value_type& val);
+			iterator	insert(iterator position, const value_type& val);
 			/*observers */
 			//key_compare	key_comp() const;
 			//value_compare	value_comp() const;

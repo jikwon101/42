@@ -74,7 +74,7 @@ list_const_iterator<_Iters>		list_const_iterator<_Iters>::operator--(int)
 {
 	list_const_iterator ret(*this);
 	_ptr = _ptr->_prev;
-	return (*this);
+	return (ret);
 }
 
 template <typename _Iters>

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/05/10 20:22:08 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/05/11 14:26:05 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void print_it(T const & src)
 
 int main()
 {
+	std::vector<int> t1;
+	std::vector<int> t2;
+	std::cout << sizeof(t1) << std::endl;
+	std::cout << sizeof(t2) << std::endl;
+
 	print("---------------------");
 	print("Constructor\n");
 	{

@@ -3,6 +3,7 @@
 
 #include "../iterator/iterator.hpp"
 #include "./traits.hpp"
+#include "./pair.hpp"
 
 namespace ft
 {
@@ -41,6 +42,29 @@ namespace ft
 		return (other);
 	}
 	*/
+	template <typename Arg1, typename Arg2, class Result>
+	struct binary_function
+	{
+		typedef Arg1 first_argument_type;
+		typedef Arg2 second_argument_type;
+		typedef Result result_type;
+	};
+
+	template <typename T>
+	struct less : binary_function<T, T, bool>
+	{
+
+		bool operator() (const T& x, const T& y)
+		{
+			return (x < y);
+		}
+	};
+	template <typename T, typename U>
+	ft::Pair<T, U>	make_pair(T x, U y)
+	{
+		return (ft::Pair<T, U>(x, y));
+	}
+
 	template <typename T>
 	struct remove_const
 	{

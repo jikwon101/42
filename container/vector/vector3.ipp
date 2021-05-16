@@ -1,27 +1,4 @@
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::alloc_type&			vector<T, Alloc>::alloc() 
-{
-	return (_end_cap.second());
-}
-template <typename T, typename Alloc>
-const typename vector<T, Alloc>::alloc_type&	vector<T, Alloc>::alloc() const
-{
-	return (_end_cap.second());
-}
-
-template <typename T, typename Alloc>
-typename vector<T, Alloc>::pointer&				vector<T, Alloc>::end_cap() 
-{
-	return (_end_cap.first());
-}
-
-template <typename T, typename Alloc>
-const typename vector<T, Alloc>::pointer&		vector<T, Alloc>::end_cap() const
-{
-	return (_end_cap.first());
-}
-
-template <typename T, typename Alloc>
 void	vector<T,Alloc>::destruct_by(pointer _new_end)
 {
 	pointer _pos(_end);
@@ -31,7 +8,7 @@ void	vector<T,Alloc>::destruct_by(pointer _new_end)
 	for (--_pos; _pos >= _new_end; --_pos)
 	{
 		if (_begin <= _pos && _pos < _end)
-			alloc().destroy(_pos);
+			alloc_type().destroy(_pos);
 	}
 	_end = _new_end;
 	return ;
@@ -40,7 +17,7 @@ template <typename T, typename Alloc>
 void	vector<T, Alloc>::destruct_at(pointer _pos)
 {
 	if (_begin <= _pos && _pos < _end)
-		alloc().destroy(_pos);
+		alloc_type().destroy(_pos);
 }
 
 template <typename T, typename Alloc>
@@ -49,14 +26,14 @@ void	vector<T,Alloc>::destruct_range(pointer _start, pointer _last)
 	for (; _start != _last ; ++_start)
 	{
 		if (_begin <= _start && _start < _end)
-			alloc().destroy(_start);
+			alloc_type().destroy(_start);
 	}
 }
 
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::construct_one_at_end(const_reference rhs)
 {
-	alloc().construct(_end++, rhs);
+	alloc_type().construct(_end++, rhs);
 }
 
 template <typename T, typename Alloc>
@@ -66,7 +43,7 @@ void	vector<T, Alloc>::construct_at_end(size_type n, const_reference rhs)
 
 	new_end = _end + n;
 	for (; _end != new_end ; ++_end)
-		alloc().construct(_end, rhs);
+		alloc_type().construct(_end, rhs);
 	_end = new_end;
 }
 
@@ -77,20 +54,21 @@ void	vector<T, Alloc>::construct_at_end(InputIt _first, InputIt _last,
 {
 	for (; _first != _last ; ++_first)
 	{
-		alloc().construct(_end++, *_first);
+		alloc_type().construct(_end++, *_first);
 	}
 }
 
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::append(size_type n, const_reference rhs)
 {	
-	if (static_cast<size_type>(end_cap() - _end)  >= n)
+	//if (static_cast<size_type>(end_cap() - _end)  >= n)
+	if (static_cast<size_type>(_end_cap - _end)  >= n)	//new
 	{
 		construct_at_end(n, rhs);
 	}
 	else
 	{
-		vector new_vec(alloc());
+		vector new_vec((alloc_type()));
 		size_type _new_n;
 
 		_new_n = (capacity() * 2 > size() + n) ? (capacity() * 2) : (size() + n);
@@ -107,6 +85,7 @@ void	vector<T, Alloc>::vector_allocate(size_type n)
 {
 	if (n > max_size())
 		throw (std::length_error("Length Error"));
-	_begin = _end = alloc().allocate(n);
-	end_cap() = _begin + n;
+	_begin = _end = alloc_type().allocate(n);
+	_end_cap = _begin + n;	//new
+	//end_cap() = _begin + n;
 }

@@ -39,6 +39,12 @@ void print_list<std::list<int> >(const std::list<std::list<int> >& src );
 template <typename T>
 void print_it(T const & src);
 
+template <typename T>
+void printsize(T src)
+{
+	std::cout << sizeof(src) << std::endl;
+}
+
 int main()
 {
 	{
@@ -52,7 +58,6 @@ int main()
 		}
 		std::cout << "\n";
 	}
-	/*
 	{
 		std::list<int> t1;					//default
 		print_list(t1);
@@ -98,9 +103,9 @@ int main()
 		print("t1<int> max: "); print(t1.max_size()); print("\n");
 		print("t2<char> max: "); print(t2.max_size()); print("\n");
 	}
-
 	std::cout << "----------------------------\n";
 	{
+
 		int arr[] = {1,2,3,4,5};
 		std::list<int> t1;
 		std::list<int> t2(arr, arr + 5);
@@ -215,9 +220,7 @@ int main()
 		print("t3:\n"); print_list(t3);
 		print("t4:"); print_list(t4);
 	}
-	*/
 }
-
 
 
 
