@@ -26,6 +26,7 @@ namespace ft
 			typedef typename node_allocator_type::const_pointer node_const_pointer;
 			typedef ft::Pair<const key_type, mapped_type> (*val_maker)(const key_type, mapped_type);
 			node_pointer	_head;
+			node_pointer	_headnext;
 			size_type		_size;
 			map_base();
 			//~map_base();
@@ -59,7 +60,8 @@ namespace ft
 			void	rotate_to_right(node_pointer const& x);
 			void	rotate_to_left(node_pointer const& x);
 			void	node_info(node_pointer const& pos);	//temp
-
+			void	attach_to_right(node_pointer const& x, node_pointer const& new_right);
+			void	attach_to_left(node_pointer const& x, node_pointer const& new_left);
 
 			
 	};
