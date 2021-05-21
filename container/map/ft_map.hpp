@@ -60,16 +60,17 @@ namespace ft
 			size_type	size() const;
 			size_type	max_size() const;
 			/* modify */
-			//ft::pair<iterator, bool> insert (Const value_type& val);
-			Pair<iterator, bool>	insert (const value_type& val);
+			ft::Pair<iterator, bool>	insert (const value_type& val);
 			iterator	insert(iterator position, const value_type& val);
+			template <typename InputIt>
+			void		insert(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
 			/*observers */
 			//key_compare	key_comp() const;
 			//value_compare	value_comp() const;
 			/* operation */
-			//iterator	find(const key_type &k);
+			iterator	find(const key_type &k);
 			//const_iterator	find(const key_type& k) const;
-			//size_type		count(const key_type& k) const;
+			size_type		count(const key_type& k) const;
 			//iterator		lower_bound(const key_type& k);
 			//const_iterator		lower_bound(const key_type& k) const;
 			//iterator		upper_bound(const key_type& k);

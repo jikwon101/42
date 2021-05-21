@@ -39,10 +39,13 @@ namespace ft
 			node_pointer	Uncle(node_pointer const& src);
 			node_pointer	Parent(node_pointer const& src);
 			node_pointer	find_key(key_type const& k) const;
-			node_pointer	find_key(key_type const& k, node_pointer const& hint) const;
+			node_pointer	find_key(key_type const& k, node_pointer const& start) const;
+			ft::Pair<bool, node_pointer>	dist_type(key_type const&k, node_pointer const& hint) const;
 			void	insert_node(node_pointer& new_node);
+			void	insert_node(node_pointer& new_node, node_pointer const& start);
 			void	set_to_head(node_pointer& new_node);
 			node_pointer	add_node(value_type const& val);
+			node_pointer	add_node(value_type const& val, node_pointer const& position);
 			node_pointer	add_node(key_type const& key);
 			void	check_node(node_pointer const& x);
 			val_maker	get_val_maker();
@@ -54,6 +57,7 @@ namespace ft
 			void	restructuring4(node_pointer const& x);
 			node_pointer	left();
 			node_pointer	left(node_pointer const& hint);
+
 			void	printcolor();	//temp
 		private:
 			void	swap_color(node_pointer const& x, node_pointer const& y);

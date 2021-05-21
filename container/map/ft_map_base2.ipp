@@ -90,31 +90,18 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 			pos = pos->Rchild;
 	}
 	return (NULL);
-	/*
-	node_pointer	pos;
-	key_compare		comp;
-
-	pos = _head;
-	while (pos && pos->data.first != k)
-	{
-		if (comp(k, pos->data.first))
-			pos = pos->Lchild;
-		else
-			pos = pos->Rchild;
-	}
-	if (!pos)
-		return (NULL);
-	return (pos);
-	*/
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::find_key(key_type const& k, node_pointer const& hint) const
+	map_base<Key, T, Compare, Alloc>::find_key(key_type const& k, node_pointer const& start) const
 {
 	node_pointer	pos;
 	key_compare		comp;
 
-	pos = hint;
+	if (!_size)
+		return (NULL);
+	pos = start;
 	while (pos)
 	{
 		if (k == pos->data.first)
@@ -125,6 +112,36 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 			pos = pos->Rchild;
 	}
 	return (NULL);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+ft::Pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
+	map_base<Key, T, Compare, Alloc>::dist_type(key_type const& k, node_pointer const& hint) const
+{
+	node_pointer	pos;
+	key_compare		comp;
+
+	pos = hint;
+	if (comp(pos->data.first, _head->data.first))
+	{
+		// find larger : pos > k
+		while (comp(pos->data.first, k) && pos != _head)
+			pos = pos->Parent;
+		if (pos == _head)
+			return (ft::Pair<bool, node_pointer>(false, pos));
+		else
+			return (ft::Pair<bool, node_pointer>(true, pos));
+	}
+	else
+	{
+		// find smaller : pos < k
+		while (comp(k, pos->data.first) && pos != _head)
+			pos = pos->Parent;
+		if (pos == _head)
+			return (ft::Pair<bool, node_pointer>(false, pos));
+		else
+			return (ft::Pair<bool, node_pointer>(true, pos));
+	}
 }
 
 
@@ -148,6 +165,38 @@ void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
 	bool			isRchild;
 
 	pos = _head;
+	if (!_size)
+	{
+		new_node->Parent = _head;
+		_head = _headnext = new_node;
+		_head->color = BLACK;
+		_size++;
+		return ;
+	}
+	while (pos)
+	{
+		parent = pos;
+		if ((isRchild = comp(pos->data.first, new_node->data.first)))
+			pos = pos->Rchild;
+		else
+			pos = pos->Lchild;
+	}
+	new_node->Parent = parent;
+	if (isRchild)
+		parent->Rchild = new_node;
+	else
+		parent->Lchild = new_node;
+	_size++;
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node, node_pointer const& start)
+{
+	node_pointer	parent;
+	node_pointer	pos;
+	key_compare		comp;
+	bool			isRchild;
+
+	pos = start;
 	if (!_size)
 	{
 		new_node->Parent = _head;
@@ -328,6 +377,18 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
+	map_base<Key, T, Compare, Alloc>::add_node(value_type const& val, node_pointer const& position)
+{
+	node_pointer new_node;
+//position
+	new_node = construct_node(val);
+	insert_node(new_node, position);
+	check_node(new_node);
+	return (new_node);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::add_node(key_type const& key)
 {
 	node_pointer new_node;
@@ -360,6 +421,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		pos = pos->Lchild;
 	return (pos);
 }
+
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos)

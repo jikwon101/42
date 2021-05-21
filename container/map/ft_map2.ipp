@@ -45,7 +45,8 @@ Pair<typename map<Key, T, Compare, Alloc>::iterator, bool>
 	map<Key, T, Compare, Alloc>::insert(const value_type& val)
 {	
 	iterator res;
-
+	
+	std::cout << "single\n";
 	res = this->find_key(val.first);
 	if (res._ptr == NULL)
 	{
@@ -56,23 +57,44 @@ Pair<typename map<Key, T, Compare, Alloc>::iterator, bool>
 	//std::cout << "Already have\n"; //temp
 	return  (Pair<iterator, bool>(res, false));
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::iterator
 	map<Key, T, Compare, Alloc>::insert(iterator position, const value_type& val)
 {	
+	ft::Pair<bool, node_pointer> type;
 	iterator res;
-
-	res = this->find_key(val.first, position->_ptr);
+	
+	type = this->dist_type(val.first, position._ptr);
+	if (type.first == false)
+		res = this->find_key(val.first);
+	else
+		res = this->find_key(val.first, type.second);
 	if (res._ptr == NULL)
 	{
 		//std::cout << "Not in this containers\n"; //temp
-		res = this->add_node(val);
-		return (Pair<iterator, bool>(res, true));
+		if (type.first == false)
+			res = this->add_node(val);
+		else
+			res = this->add_node(val, type.second);
+			//res = this->add_node(val, position._ptr);
+		return (res);
 	}
 	//std::cout << "Already have\n"; //temp
-	return  (Pair<iterator, bool>(res, false));
+	return (res);
 }
 
+template <typename Key, typename T, typename Compare, typename Alloc>
+template <typename InputIt>
+void
+	map<Key, T, Compare, Alloc>::insert(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type*)
+{
+	std::cout << "HERE\n";
+	for (InputIt pos = first ; pos != last ; ++pos)
+	{
+		insert(*pos);
+	}
+}
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::begin()
 {
@@ -83,6 +105,36 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::end()
 {
 	return (this->_head->Parent);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::find(key_type const& k)
+{
+	iterator res;
+
+	res = this->find_key(k);
+	return (res);
+}
+
+/*
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map<Key, T, Compare, Alloc>::const_iterator	map<Key, T, Compare, Alloc>::find(key_type const& k) const
+{
+	const_iterator res;
+
+	res = this->find_key(k);
+	return (res);
+}
+*/
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map<Key, T, Compare, Alloc>::size_type	map<Key, T, Compare, Alloc>::count(key_type const& k) const
+{
+	iterator res;
+
+	res = this->find_key(k);
+	if (!res._ptr)
+		return (0);
+	return (1);
 }
 
 //temp
