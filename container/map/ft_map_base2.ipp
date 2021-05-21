@@ -131,7 +131,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::set_to_head(node_pointer& new_node)
 {
-	new_node->Parent = _head;
+	new_node->Parent = _head->Parent;
 	_head = new_node;
 	//new_node->color = BLACK;
 	_headnext = new_node->Rchild ? new_node->Rchild : new_node;
@@ -150,7 +150,8 @@ void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
 	pos = _head;
 	if (!_size)
 	{
-		set_to_head(new_node);
+		new_node->Parent = _head;
+		_head = _headnext = new_node;
 		_head->color = BLACK;
 		_size++;
 		return ;
@@ -185,54 +186,8 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 bool	map_base<Key, T, Compare, Alloc>::isLchild(node_pointer const& x)
 {
 	return (x == x->Parent->Lchild);
-	/*
-	node_pointer lchild;
-	
-	if (!x->Parent)
-		return (false);
-	lchild = x->Parent->Lchild;
-	return (lchild == x);
-	*/
 }
 
-template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const& x)
-{
-	/*
-	node_pointer parent = x->Parent;
-	node_pointer rchild = x->Rchild;
-	
-	if (isLchild(x))
-		parent->Lchild = rchild;
-	else if (parent)
-	ihead->color = BLACK;
-		parent->Rchild = rchild;
-	rchild->Parent = parent;
-	x->Parent = rchild;
-	x->Rchild = rchild->Lchild;
-	if (rchild->Lchild)
-		rchild->Lchild->Parent = x;
-	rchild->Lchild = x;
-	if (!parent)
-		_head = rchild;
-
-	//parent->Rchild = rchild;
-	*/
-	node_pointer parent = x->Parent;
-	node_pointer rchild = x->Rchild;
-
-	if (x == _head)
-	{
-		attach_to_left(_head, rchild);
-		set_to_head(rchild);
-	}
-	else if (isLchild(x))
-		attach_to_left(parent, rchild);
-	else	
-		attach_to_right(parent, rchild);
-	attach_to_right(x, rchild->Lchild);
-	attach_to_left(rchild, x);
-}
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::attach_to_right(node_pointer const& x, node_pointer const& new_right)
@@ -250,40 +205,35 @@ void	map_base<Key, T, Compare, Alloc>::attach_to_left(node_pointer const& x, nod
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const& x)
+{
+	node_pointer parent = x->Parent;
+	node_pointer rchild = x->Rchild;
+
+	if (x == _head)
+		set_to_head(rchild);
+	else if (isLchild(x))
+		attach_to_left(parent, rchild);
+	else	
+		attach_to_right(parent, rchild);
+	attach_to_right(x, rchild->Lchild);
+	attach_to_left(rchild, x);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const& x)
 {
-	/*
 	node_pointer parent = x->Parent;
 	node_pointer lchild = x->Lchild;
-		
-	if (isLchild(x))
-		parent->Lchild = lchild;
-	else if (parent)
-		parent->Rchild = lchild;
-	lchild->Parent = parent;
-	x->Parent = lchild;
-	x->Lchild = lchild->Rchild;
-	if (lchild->Rchild)
-		lchild->Rchild->Parent = x;
-	lchild->Rchild = x;
-	if (!parent)
-	{
-		_head = lchild;
-	}
-	*/
-	node_pointer parent = x->Parent;
-	node_pointer lchild = x->Lchild;
-	if (parent && isLchild(x))
-		attach_to_left(parent, lchild);
-	else if (parent)
-		attach_to_right(parent, lchild);
-	else
-	{
+
+	if (x == _head)
 		set_to_head(lchild);
-	}
+	else if (isLchild(x))	
+		attach_to_left(parent, lchild);
+	else
+		attach_to_right(parent, lchild);
 	attach_to_left(x, lchild->Rchild);
 	attach_to_right(lchild, x);
-
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -345,7 +295,7 @@ void	map_base<Key, T, Compare, Alloc>::check_node(node_pointer const& x)
 	if (Uncle(x) && Uncle(x)->color == RED)
 	{
 		recoloring(x);
-		check_node(GrandParent(x));	//if grandparent null ?
+		check_node(GrandParent(x));
 	}
 	else
 	{

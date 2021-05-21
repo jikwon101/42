@@ -54,6 +54,7 @@ namespace ft
 			mapped_type& operator[] (const key_type& k);
 			/* iterator */
 			iterator begin();
+			iterator end();
 			/* capacity */
 			bool	empty() const;
 			size_type	size() const;

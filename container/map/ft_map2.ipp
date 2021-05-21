@@ -79,6 +79,12 @@ typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::begi
 	return (this->left());
 }
 
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::end()
+{
+	return (this->_head->Parent);
+}
+
 //temp
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map<Key, T, Compare, Alloc>::printinfo()
