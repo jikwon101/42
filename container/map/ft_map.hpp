@@ -36,7 +36,7 @@ namespace ft
 			typedef Compare	key_compare;
 			typedef ft::Pair<const key_type, mapped_type> value_type;
 			typedef Alloc	allocator_type;
-			typedef size_t size_type;
+			typedef size_t	size_type;
 			typedef ptrdiff_t difference_type;	//iterator::difference
 			typedef typename allocator_type::reference reference;
 			typedef typename allocator_type::const_reference const_reference;
@@ -64,16 +64,21 @@ namespace ft
 			iterator	insert(iterator position, const value_type& val);
 			template <typename InputIt>
 			void		insert(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
+			void		erase(iterator position);
+			size_type	erase(const key_type& k);
+			void		erase(iterator first, iterator last);
+			void		swap(map& x);
+			void		clear();
 			/*observers */
-			//key_compare	key_comp() const;
-			//value_compare	value_comp() const;
+			//key_compare			key_comp() const;
+			//value_compare			value_comp() const;
 			/* operation */
-			iterator	find(const key_type &k);
-			//const_iterator	find(const key_type& k) const;
-			size_type		count(const key_type& k) const;
-			//iterator		lower_bound(const key_type& k);
+			iterator				find(const key_type &k);
+			//const_iterator		find(const key_type& k) const;
+			size_type				count(const key_type& k) const;
+			//iterator				lower_bound(const key_type& k);
 			//const_iterator		lower_bound(const key_type& k) const;
-			//iterator		upper_bound(const key_type& k);
+			//iterator				upper_bound(const key_type& k);
 			//const_iterator		upper_bound(const key_type& k) const;
 			//pair<iterator, iterator>	equal_range(const key_type& k);
 			//pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;

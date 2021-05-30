@@ -254,7 +254,7 @@ void	map_base<Key, T, Compare, Alloc>::attach_to_left(node_pointer const& x, nod
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const& x)
+void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const x)
 {
 	node_pointer parent = x->Parent;
 	node_pointer rchild = x->Rchild;
@@ -270,7 +270,7 @@ void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const& x)
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const& x)
+void	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const x)
 {
 	node_pointer parent = x->Parent;
 	node_pointer lchild = x->Lchild;
@@ -290,8 +290,8 @@ void	map_base<Key, T, Compare, Alloc>::swap_color(node_pointer const& x, node_po
 {
 	Color temp;
 
-	temp = x->color;
-	x->color = y->color;
+	temp = getColor(x);
+	x->color = getColor(y);
 	y->color = temp;
 	if (_head == x)
 		x->color = BLACK;
@@ -314,7 +314,7 @@ void	map_base<Key, T, Compare, Alloc>::restructuring2(node_pointer const& x)
 	//std::cout << "LR\n";
 	rotate_to_left(Parent(x));
 	restructuring1(x->Lchild);
-	_head->color = BLACK;
+	//_head->color = BLACK;
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -323,7 +323,7 @@ void	map_base<Key, T, Compare, Alloc>::restructuring3(node_pointer const& x)
 	//std::cout << "RL\n";
 	rotate_to_right(Parent(x));
 	restructuring4(x->Rchild);
-	_head->color = BLACK;
+	//_head->color = BLACK;
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::restructuring4(node_pointer const& x)
@@ -334,17 +334,17 @@ void	map_base<Key, T, Compare, Alloc>::restructuring4(node_pointer const& x)
 	_head->color = BLACK;
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::check_node(node_pointer const& x)
+void	map_base<Key, T, Compare, Alloc>::check_double_red(node_pointer const& x)
 {
 	bool	status_parent;
 	bool	status_x;
 
-	if ((_head == x) || (x->Parent->color == BLACK))
+	if ((_head == x) || (getColor(x->Parent) == BLACK))
 		return ;
-	if (Uncle(x) && Uncle(x)->color == RED)
+	if (Uncle(x) && getColor(Uncle(x)) == RED)
 	{
 		recoloring(x);
-		check_node(GrandParent(x));
+		check_double_red(GrandParent(x));
 	}
 	else
 	{
@@ -371,7 +371,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 	new_node = construct_node(val);
 	insert_node(new_node);
-	check_node(new_node);
+	check_double_red(new_node);
 	return (new_node);
 }
 
@@ -383,7 +383,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 //position
 	new_node = construct_node(val);
 	insert_node(new_node, position);
-	check_node(new_node);
+	check_double_red(new_node);
 	return (new_node);
 }
 
@@ -395,27 +395,15 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 	new_node = construct_node(key);
 	insert_node(new_node);
-	check_node(new_node);
+	check_double_red(new_node);
 	return (new_node);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::left()
+	map_base<Key, T, Compare, Alloc>::Farleft_after(node_pointer const& parent)
 {
-	node_pointer pos;
-
-	pos = _head;
-	while (pos->Lchild)
-		pos = pos->Lchild;
-	return (pos);
-}
-
-template <typename Key, typename T, typename Compare, typename Alloc>
-typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::left(node_pointer const& hint)
-{
-	node_pointer pos = hint;
+	node_pointer pos = parent;
 
 	while (pos->Lchild)
 		pos = pos->Lchild;
@@ -426,12 +414,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos)
 {	
-	std::cout << "key : " << pos->data.first << ", value : " << pos->data.second <<", color: ";
-	if (pos->color == BLACK)
-		std::cout << "Blak";
-	else
-		std::cout << "Redd";
-
+	std::cout << "key : " << pos->data.first << ", value : " << pos->data.second << "  ";
 	std::cout << "L : ";
 	if (pos->Lchild)
 		std::cout << pos->Lchild->data.first << " " ;
@@ -445,17 +428,18 @@ void	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos)
 
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::printcolor()
+void	map_base<Key, T, Compare, Alloc>::count_color()
 {
 	node_pointer pos;
 	
-	std::cout << "head : "<< _head->data.first << std::endl;
-	pos = left();
+	pos = Farleft_after(_head);
+	std::cout << "BLACK : " ;
 	while (pos)
 	{
-		node_info(pos);
+		if (pos->color == BLACK)
+			std::cout << pos->data.first << " ";
 		if (pos->Rchild)
-			pos = left(pos->Rchild);
+			pos = Farleft_after(pos->Rchild);
 		else
 		{
 			node_pointer temp = pos;
@@ -469,6 +453,256 @@ void	map_base<Key, T, Compare, Alloc>::printcolor()
 				pos = temp;
 		}
 	}
+	std::cout << "\n";
+	pos = Farleft_after(_head);
+	std::cout << "RED : " ;
+	while (pos)
+	{
+		if (pos->color == RED)
+			std::cout << pos->data.first << " ";
+		if (pos->Rchild)
+			pos = Farleft_after(pos->Rchild);
+		else
+		{
+			node_pointer temp = pos;
+			while (temp && temp->Parent && !isLchild(temp))
+				temp = temp->Parent;
+			if (temp == _head)
+				break;
+			else if (temp)
+				pos = temp->Parent;
+			else
+				pos = temp;
+		}
+	}
+	std::cout << "\n";
+
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::printcolor()
+{
+	node_pointer pos;
+	
+	if (!_size)
+	{
+		std::cout << "NO ELEMENT\n";
+		return ;
+	}
+	std::cout << "head : "<< _head->data.first << std::endl;
+	count_color();
+	pos = Farleft_after(_head);
+	while (pos)
+	{
+		node_info(pos);
+		if (pos->Rchild)
+			pos = Farleft_after(pos->Rchild);
+		else
+		{
+			node_pointer temp = pos;
+			while (temp && temp->Parent && !isLchild(temp))
+				temp = temp->Parent;
+			if (temp == _head)
+				break;
+			else if (temp)
+				pos = temp->Parent;
+			else
+				pos = temp;
+		}
+	}
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void
+	map_base<Key, T, Compare, Alloc>::destroy_node(node_pointer const& node)
+{
+	node_allocator_type destructor;
+
+	destructor.destroy(node);
+	_size--;
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void
+	map_base<Key, T, Compare, Alloc>::relink(node_pointer const& p, node_pointer const& c, bool isLchild)
+{
+	if (isLchild)
+		p->Lchild = c;
+	else
+		p->Rchild = c;
+	if (c)
+		c->Parent = p;
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+Color
+	map_base<Key, T, Compare, Alloc>::getColor(node_pointer const& node)
+{
+	if (!node)
+		return (BLACK);
+	return (node->color);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void
+	map_base<Key, T, Compare, Alloc>::erase_node(node_pointer const& x)
+{
+	node_pointer	target;
+	node_pointer	temp;
+	node_pointer	sibling;
+	bool			isDoubleBlack;
+
+	target = x;
+	if (target->Rchild && target->Lchild)
+	{
+		temp = Farleft_after(target->Rchild);
+		switch_node(target, temp);
+	}
+	sibling = Sibling(target);
+	temp = target->Rchild ? target->Rchild : target->Lchild;
+	isDoubleBlack = (getColor(target) == getColor(temp));
+	relink(target->Parent, temp, isLchild(target));
+	destroy_node(target);
+	if (temp && !isDoubleBlack)
+		temp->color = BLACK;
+	else if (isDoubleBlack)
+		check_double_black(temp, sibling);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void
+	map_base<Key, T, Compare, Alloc>::check_double_black(node_pointer const& x, node_pointer const& sibling)
+{
+	node_pointer pos;
+
+	pos = x;
+	if (getColor(sibling) == RED)
+		case_change(sibling);
+	if (getColor(sibling->Rchild) == RED)
+		caseA(sibling);
+	else if (getColor(sibling->Lchild) == RED)
+		caseB(sibling);
+	else
+		caseC(sibling);
+	return ;
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::case_change(node_pointer const& sibling)
+{
+	std::cout << "case_change\n";
+
+	sibling->color = BLACK;
+	sibling->Parent->color = RED;
+	rotate_to_left(sibling->Parent);
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::caseA(node_pointer const& sibling)
+{
+	std::cout << "caseA\n";
+	
+	sibling->color = sibling->Parent->color;
+	sibling->Parent->color = BLACK;
+	sibling->Rchild->color = BLACK;
+	rotate_to_left(sibling->Parent);
+
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::caseB(node_pointer const& sibling)
+{
+	std::cout << "caseB\n";
+
+	sibling->color = RED;
+	sibling->Lchild->color = BLACK;
+	rotate_to_right(sibling);
+}
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::caseC(node_pointer const& sibling)
+{
+	std::cout << "caseC\n";
+	
+	sibling->color = RED;
+	if (sibling->Parent->color == RED)
+		sibling->Parent->color = BLACK;
+	else if (sibling->Parent == _head)
+		return ;
+	else
+		check_double_black(sibling->Parent, Sibling(sibling->Parent));
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map_base<Key, T, Compare, Alloc>::switch_node(node_pointer const& x, node_pointer const& y)
+{
+	node_pointer temp;
+	Color			temp_color;
+	
+	if (x == y->Parent)
+	{
+		relink(x->Parent, y, isLchild(x));
+		if (isLchild(x))
+		{
+			temp = y->Lchild;
+			relink(y, x, true);
+			relink(x, temp, true);
+			temp = y->Rchild;
+			relink(y, x->Rchild, false);
+			relink(x, temp, false);
+		}
+		else
+		{
+			temp = y->Rchild;
+			relink(y, x, false);
+			relink(x, temp, false);
+			temp = y->Lchild;
+			relink(y, x->Lchild, true);
+			relink(x, temp, true);
+		}
+		temp_color = x->color;
+		x->color = y->color;
+		y->color = temp_color;
+		return ;
+	}
+
+	
+
+
+
+	if (x->Parent && isLchild(x))
+		x->Parent->Lchild = y;
+	else if (x->Parent)
+		x->Parent->Rchild = y;
+	else
+		_head = x;
+
+	if (x->Lchild)
+		x->Lchild->Parent = y;
+	if (x->Rchild)
+		x->Rchild->Parent = y;
+
+	if (y->Parent && isLchild(y))
+		y->Parent->Lchild = x;
+	else if (y->Parent)
+		y->Parent->Rchild = x;
+	else
+		_head = x;
+	
+	if (y->Rchild)
+		y->Rchild->Parent = x;
+	if (y->Lchild)
+		y->Lchild->Parent = x;
+
+	temp = x->Parent;
+	x->Parent = y->Parent;
+	y->Parent = temp;
+
+	temp = x->Rchild;
+	x->Rchild = y->Rchild;
+	y->Rchild = temp;
+	temp = x->Lchild;
+	x->Lchild = y->Lchild;
+	y->Lchild = temp;
+	temp_color = x->color;
+	x->color = y->color;
+	y->color = temp_color;
+	return ;
 }
 /*
 template <typename Key, typename T, typename Compare, typename Alloc>

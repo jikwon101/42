@@ -89,16 +89,28 @@ template <typename InputIt>
 void
 	map<Key, T, Compare, Alloc>::insert(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type*)
 {
-	std::cout << "HERE\n";
 	for (InputIt pos = first ; pos != last ; ++pos)
 	{
 		insert(*pos);
 	}
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
+void	map<Key, T, Compare, Alloc>::swap(map& x)
+{
+	// write;
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map<Key, T, Compare, Alloc>::clear()
+{
+	// write;
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::begin()
 {
-	return (this->left());
+//	return (this->left());
+	return (this->Farleft_after(this->_head));
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -142,6 +154,37 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 void	map<Key, T, Compare, Alloc>::printinfo()
 {
 	this->printcolor();
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map<Key, T, Compare, Alloc>::erase(iterator position)
+{
+	this->erase_node(position._ptr);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map<Key, T, Compare, Alloc>::size_type		map<Key, T, Compare, Alloc>::erase(const key_type& k)
+{
+	iterator position;
+
+	position = find(k);
+	if (!position._ptr)
+		return (0);
+	this->erase_node(position._ptr);
+	return (1);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	map<Key, T, Compare, Alloc>::erase(iterator first, iterator last)
+{
+	iterator target;
+	iterator pos;
+
+	for (pos = first; pos != last ; )
+	{
+		target = pos++;
+		this->erase_node(target._ptr);
+	}
 }
 
 /*
