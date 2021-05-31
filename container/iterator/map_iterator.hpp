@@ -11,15 +11,17 @@ namespace ft
 	template <typename Key, typename T, typename Compare, typename Alloc>
 	class map;
 
-	
+	template <typename U>
+	class map_const_iterator;
+
 	template <typename Pair>
 	class map_iterator : public iterator<ft::bidirectional_iterator_tag, Pair>
 	{
 		template <typename Key, typename T, typename Compare, typename Alloc>
 		friend class ft::map;
 		template <typename U>
-		friend class ft::map_iterator;
-	//T : pair<key, mappedval>
+		friend class ft::map_const_iterator;
+		
 		public:
 			typedef Pair							value_type;
 			typedef typename value_type::first_type			key_type;
@@ -32,7 +34,7 @@ namespace ft
 			iterator_type _ptr;
 			bool	isRchild(iterator_type const& node);
 			bool	isLchild(iterator_type const& node);
-			iterator_type left(iterator_type const& hint);
+			iterator_type Farleft_after(iterator_type const& parent);
 		public:
 			map_iterator();
 			~map_iterator();

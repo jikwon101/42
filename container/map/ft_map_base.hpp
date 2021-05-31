@@ -40,26 +40,34 @@ namespace ft
 			node_pointer	Parent(node_pointer const& src);
 			node_pointer	find_key(key_type const& k) const;
 			node_pointer	find_key(key_type const& k, node_pointer const& start) const;
+			node_pointer	find_key_lower_bound(key_type const& k, node_pointer const& start) const;
+			node_pointer	find_lower_bound(const key_type& k) const;
+			node_pointer	find_upper_bound(const key_type& k) const;
 			ft::Pair<bool, node_pointer>	dist_type(key_type const&k, node_pointer const& hint) const;
 			void	insert_node(node_pointer& new_node);
 			void	insert_node(node_pointer& new_node, node_pointer const& start);
-			void	set_to_head(node_pointer& new_node);
+			void	set_to_head(node_pointer const& new_node);
 			node_pointer	add_node(value_type const& val);
 			node_pointer	add_node(value_type const& val, node_pointer const& position);
 			node_pointer	add_node(key_type const& key);
 			void	check_double_red(node_pointer const& x);
 			void	check_double_black(node_pointer const& x, node_pointer const& sibling);
 			val_maker	get_val_maker();
-			bool	isLchild(node_pointer const& x);
+			bool	isLchild(node_pointer const& x) const;
 			void	recoloring(node_pointer const& x);
 			void	restructuring1(node_pointer const& x);
 			void	restructuring2(node_pointer const& x);
 			void	restructuring3(node_pointer const& x);
 			void	restructuring4(node_pointer const& x);
-			node_pointer	Farleft_after(node_pointer const& parent);
-			void	erase_node(node_pointer const& target);
-			void	printcolor();	//temp
-			void	count_color(); //temp
+			node_pointer	Farleft_after(node_pointer const& parent) const;
+			node_pointer	Farright_after(node_pointer const& parent) const;
+			void	erase_node(node_pointer const& target, bool check);
+			void	printcolor() const;	//temp
+			void	count_color() const; //temp
+			node_pointer least_leaf();
+			node_pointer	next_node(node_pointer const& x) const;
+			node_pointer	prev_node(node_pointer const& x) const;
+			size_type		maxsize() const;
 		private:
 			Color	getColor(node_pointer const& node);
 			void	swap_color(node_pointer const& x, node_pointer const& y);
@@ -67,7 +75,7 @@ namespace ft
 			void	rotate_to_left(node_pointer const x);
 			void	relink(node_pointer const& p, node_pointer const& c, bool isChild);
 			void	destroy_node(node_pointer const& node);
-			void	node_info(node_pointer const& pos);	//temp
+			void	node_info(node_pointer const& pos) const;	//temp
 			void	attach_to_right(node_pointer const& x, node_pointer const& new_right);
 			void	attach_to_left(node_pointer const& x, node_pointer const& new_left);
 			void	case_change(node_pointer const& x);
