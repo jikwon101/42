@@ -1,0 +1,15 @@
+isEmpty : 1
+size: 0
+40
+30
+20
+10
+0
+----------------
+t1 == t2  ?  true
+t1 != t2 ?  false
+t1 < t2  ?  false
+t1 <= t2  ?  true
+t1 > t2  ?  false
+t1 >= t2  ?  true
+----------------

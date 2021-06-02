@@ -52,8 +52,8 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{
-		ft::pair<int, int> t1(3, 10);
-		ft::pair<std::map<int, int>::iterator, bool> res;
+		std::pair<int, int> t1(3, 10);
+		std::pair<std::map<int, int>::iterator, bool> res;
 		std::map<int, int> m1;
 		res = m1.insert(t1);
 		std::cout << "pair : (" << (*(res.first)).first << " , " << (*(res.first)).second << ")" << ", res : " << res.second << "\n";
@@ -62,7 +62,7 @@ int main(int ac, char *av[])
 
 		m1[4]; m1[10]; m1[1]; m1[0]; m1[8];
 		std::map<int, int>::iterator it;
-		ft::pair<int, int> t2(2, 22);
+		std::pair<int, int> t2(2, 22);
 		it = m1.insert(m1.find(10), t2);
 		std::cout << "pair : (" << (*it).first << " , " << (*it).second << ")\n";
 		std::map<int, int> m2;
@@ -173,7 +173,7 @@ int main(int ac, char *av[])
 
 	std::cout << "-------------\n";
 	{
-		ft::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> res;
+		std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> res;
 		std::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)

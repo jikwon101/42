@@ -1,6 +1,6 @@
 
 #ifndef TEST
-#include "list.hpp"
+#include "ft_list.hpp"
 #endif
 
 #include <iostream>
