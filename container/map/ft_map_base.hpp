@@ -52,7 +52,6 @@ namespace ft
 			node_pointer	GrandParent(node_pointer const& src);
 			node_pointer	Sibling(node_pointer const& src);
 			node_pointer	Uncle(node_pointer const& src);
-			//node_pointer	Parent(node_pointer const& src);
 			node_pointer	next_node(node_pointer const& x) const;
 			node_pointer	prev_node(node_pointer const& x) const;
 			node_pointer	construct_node(value_type const& val);
@@ -82,6 +81,6 @@ namespace ft
 			void	insert_node(node_pointer& new_node, node_pointer const& start);
 			bool	isLchild(node_pointer const& x) const;
 	};
-	#include "ft_map_base2.ipp"
+	#include "./src/ft_map_base2.ipp"
 }
 #endif

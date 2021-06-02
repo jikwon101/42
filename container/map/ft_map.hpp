@@ -5,10 +5,10 @@
 #include "../utils/function.hpp"
 #include "../utils/pair.hpp"
 #include "../utils/traits.hpp"
-#include "./node_map.hpp"
+#include "./ft_node_map.hpp"
 #include "./ft_map_base.hpp"
-#include "../iterator/map_iterator.hpp"
-#include "../iterator/map_const_iterator.hpp"
+#include "./ft_map_iterator.hpp"
+#include "./ft_map_const_iterator.hpp"
 #include "../iterator/reverse_iterator.hpp"
 
 namespace ft
@@ -97,6 +97,6 @@ namespace ft
 			ft::pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
 			void	printinfo() const;	//temp
 	};
-	#include "ft_map2.ipp"
+	#include "./src/ft_map2.ipp"
 }
 #endif

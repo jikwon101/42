@@ -52,8 +52,8 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{
-		std::pair<int, int> t1(3, 10);
-		std::pair<std::map<int, int>::iterator, bool> res;
+		ft::pair<int, int> t1(3, 10);
+		ft::pair<std::map<int, int>::iterator, bool> res;
 		std::map<int, int> m1;
 		res = m1.insert(t1);
 		std::cout << "pair : (" << (*(res.first)).first << " , " << (*(res.first)).second << ")" << ", res : " << res.second << "\n";
@@ -62,7 +62,7 @@ int main(int ac, char *av[])
 
 		m1[4]; m1[10]; m1[1]; m1[0]; m1[8];
 		std::map<int, int>::iterator it;
-		std::pair<int, int> t2(2, 22);
+		ft::pair<int, int> t2(2, 22);
 		it = m1.insert(m1.find(10), t2);
 		std::cout << "pair : (" << (*it).first << " , " << (*it).second << ")\n";
 		std::map<int, int> m2;
@@ -173,7 +173,7 @@ int main(int ac, char *av[])
 
 	std::cout << "-------------\n";
 	{
-		std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> res;
+		ft::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> res;
 		std::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)
@@ -255,21 +255,13 @@ void	print_itpair(T val, U end)
 {
 	print("( ");
 	if (val.first == end)
-	{
 		print("end");
-	}
 	else
-	{
 		print((*(val.first)).first);
-	}
 	print(" , ");
 	if (val.second == end)
-	{
 		print("end");
-	}
 	else
-	{
 		print((*(val.first)).second);
-	}
 	std::cout << ")\n";
 }
