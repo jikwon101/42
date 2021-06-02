@@ -19,16 +19,10 @@ namespace ft
 	** is_same 
 	*/
 	template <typename T, typename U>
-	struct	is_same : ft::false_type
-	{
-		//static const bool value = false;
-	};
+	struct	is_same : ft::false_type {};
 
 	template <typename T>
-	struct	is_same<T, T> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct	is_same<T, T> : ft::true_type {};
 
 	/*
 	** is_same_category
@@ -38,7 +32,7 @@ namespace ft
 	{
 		static const bool value = ft::is_same<typename iterator_traits<T>::iterator_category, U>::value;
 	};
-
+	
 	/*
 	** is_iterator
 	*/
@@ -67,109 +61,58 @@ namespace ft
 	** is_const
 	*/
 	template <typename T>
-	struct is_const : ft::false_type
-	{
-		//static const bool value = false;
-	};
+	struct is_const : ft::false_type {};
 
 	template <typename T>
-	struct is_const<const T> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_const<const T> : ft::true_type {};
 
 	/*
 	** is_arithmetic
 	*/
 	template <typename T>
-	struct is_arithmetic : ft::false_type
-	{
-		//static const bool value = false;
-	};
+	struct is_arithmetic : ft::false_type {};
 
 	template <>
-	struct is_arithmetic<bool> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<bool> : ft::true_type {};
 	
 	template <>
-	struct is_arithmetic<char> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<char> : ft::true_type {};
 	
 	template <>
-	struct is_arithmetic<signed char> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<signed char> : ft::true_type {};
 	
 	template <>
-	struct is_arithmetic<unsigned char> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<unsigned char> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<wchar_t> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<wchar_t> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<short> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<short> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<unsigned short> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<unsigned short> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<int> : ft::true_type
-	{
-	//	static const bool value = true;
-	};
+	struct is_arithmetic<int> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<unsigned int> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<unsigned int> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<long> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<long> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<unsigned long> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<unsigned long> : ft::true_type {};
 			
 	template <>
-	struct is_arithmetic<float> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<float> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<double> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<double> : ft::true_type {};
 
 	template <>
-	struct is_arithmetic<long double> : ft::true_type
-	{
-		//static const bool value = true;
-	};
+	struct is_arithmetic<long double> : ft::true_type {};
 
 }
 #endif

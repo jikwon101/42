@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/02 18:36:19 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/02 23:34:22 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,22 @@
 #include <vector>
 #include <iostream>
 
-# define CL "\033[0m\033[36m"
-# define RS "\033[0m"
+template <typename T>
+void print_info(T const& src);
 
 template <typename T>
-void print_info(T const& src)
-{
-	std::cout << "size [" << src.size() << "], cap [" << src.capacity() << "]\n";
-}
+void print_type(T);
+
+void print(std::string const& src);
 
 template <typename T>
-void print_type(T)
-{
-	std::cout << typeid(T).name() << std::endl;
-}
-
-void print(std::string const& src)
-{
-	std::cout << src << std::endl;
-}
-
-template <typename T>
-void print_vector(const ft::vector<T>& src)
-{
-	typename ft::vector<T>::const_iterator it;
-	
-	std::cout << "[ ";
-	for (it = src.begin() ; it != src.end() ; ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << "]" << std::endl;
-}
+void print_vector(const ft::vector<T>& src);
 
 template <>
-void print_vector<ft::vector<int> >(const ft::vector<ft::vector<int> >& src )
-{
-	for (size_t i = 0 ; i < src.size() ; i++)
-	{
-		std::cout << " + " ;
-		print_vector(src[i]);
-	}
-}
-
+void print_vector<ft::vector<int> >(const ft::vector<ft::vector<int> >& src );
 
 template <typename T>
-void print_it(T const & src)
-{
-	std::cout << "It contains : " << *src << std::endl;
-}
+void print_it(T const & src);
 
 int main()
 {
@@ -257,5 +224,52 @@ int main()
 	}
 	print("---------------------");
 	print("RETURN");
+}
+
+template <typename T>
+void print_info(T const& src)
+{
+	std::cout << "size [" << src.size() << "], cap [" << src.capacity() << "]\n";
+}
+
+template <typename T>
+void print_type(T)
+{
+	std::cout << typeid(T).name() << std::endl;
+}
+
+void print(std::string const& src)
+{
+	std::cout << src << std::endl;
+}
+
+template <typename T>
+void print_vector(const ft::vector<T>& src)
+{
+	typename ft::vector<T>::const_iterator it;
+	
+	std::cout << "[ ";
+	for (it = src.begin() ; it != src.end() ; ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "]" << std::endl;
+}
+
+template <>
+void print_vector<ft::vector<int> >(const ft::vector<ft::vector<int> >& src )
+{
+	for (size_t i = 0 ; i < src.size() ; i++)
+	{
+		std::cout << " + " ;
+		print_vector(src[i]);
+	}
+}
+
+
+template <typename T>
+void print_it(T const & src)
+{
+	std::cout << "It contains : " << *src << std::endl;
 }
 

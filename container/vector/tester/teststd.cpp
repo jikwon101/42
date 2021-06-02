@@ -6,12 +6,12 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/05/11 14:26:05 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/02 18:36:19 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST
-#include "vector.hpp"
+#include "ft_vector.hpp"
 #endif
 
 #include <vector>
