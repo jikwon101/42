@@ -38,48 +38,28 @@ template <typename _Iters>
 bool	map_const_iterator<_Iters>::isRchild(iterator_type const& node)
 {
 	return (node == node->Parent->Rchild);
-/*
-	iterator_type rchild;
-
-	rchild = node->Parent->Rchild;
-	if (rchild)
-	{
-		if (rchild == node)
-			return (true);
-	}
-	return (false);
-*/
 }
 template <typename _Iters>
 bool	map_const_iterator<_Iters>::isLchild(iterator_type const& node)
 {
-//	iterator_type lchild;
-
-//	lchild = node->Parent->Lchild;
 	return (node == node->Parent->Lchild);
-/*	if (lchild)
-	{
-		if (lchild == node)
-			return (true);
-	}
-	return (false);
-*/
 }
 
 template <typename _Iters>
 map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator--()
-{
+{	
 	iterator_type pos;
 
 	if (_ptr->Lchild)
-		_ptr = _ptr->Lchild;
+		_ptr = Farright_after(_ptr->Lchild);
 	else
 	{
-		for (pos = _ptr ; pos && !isRchild(pos) ; )
-		{
+		pos = _ptr;
+		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
 			pos = pos->Parent;
-		}
-		if (pos)
+		if (pos->Parent->Rchild == pos->Rchild)
+			_ptr = pos->Rchild;
+		else
 			_ptr = pos->Parent;
 	}
 	return (*this);
@@ -88,9 +68,32 @@ map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator--()
 template <typename _Iters>
 map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator--(int) 
 {
+	iterator_type pos;
 	map_const_iterator ret(*this);
-	_ptr = _ptr->_next;
+
+	if (_ptr->Lchild)
+		_ptr = Farright_after(_ptr->Lchild);
+	else
+	{
+		pos = _ptr;
+		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
+			pos = pos->Parent;
+		if (pos->Parent->Rchild == pos->Rchild)
+			_ptr = pos->Rchild;
+		else
+			_ptr = pos->Parent;
+	}
 	return (ret);
+
+}
+template <typename _Iters>
+typename map_const_iterator<_Iters>::iterator_type map_const_iterator<_Iters>::Farright_after(iterator_type const& hint)
+{
+	iterator_type pos = hint;
+
+	while (pos->Rchild)
+		pos = pos->Rchild;
+	return (pos);
 }
 
 
@@ -114,10 +117,9 @@ map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator++()
 	else
 	{
 		pos = _ptr;
-		while (pos && pos->Parent && !isLchild(pos))
+		while (pos && !isLchild(pos))
 			pos = pos->Parent;
-		if (pos)
-			_ptr = pos->Parent;
+		_ptr = pos->Parent;
 	}
 	return (*this);
 
@@ -134,10 +136,9 @@ map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator++(int)
 	else
 	{
 		pos = _ptr;
-		while (pos && pos->Parent && !isLchild(pos))
+		while (pos && !isLchild(pos))
 			pos = pos->Parent;
-		if (pos)
-			_ptr = pos->Parent;
+		_ptr = pos->Parent;
 	}
 	return (ret);
 }
@@ -147,20 +148,4 @@ typename map_const_iterator<_Iters>::const_pointer		map_const_iterator<_Iters>::
 {
 	return (&(_ptr->_val)); 
 }
-/*
-** Mon member function : operator
-*/
 
-/*
-template <typename T, typename U>
-bool	operator==(map_const_iterator<T> const& lhs, map_const_iterator<U> const& rhs)
-{
-	return (lhs._ptr == rhs_ptr);
-}
-
-template <typename T, typename U>
-bool	operator!=(map_const_iterator<T> const& lhs, map_const_iterator<U> const& rhs)
-{
-	return (lhs._ptr != rhs._ptr);
-}
-*/

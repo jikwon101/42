@@ -4,7 +4,7 @@
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
 #include "./iterator.hpp"
-#include "../utils/node.hpp"
+#include "../list/node_list.hpp"
 
 namespace ft
 {
@@ -29,7 +29,7 @@ namespace ft
 			typedef const value_type*	const_pointer;
 			typedef const value_type&	const_reference;
 			typedef ptrdiff_t			difference_type;
-			typedef ft::node<value_type>*	iterator_type;
+			typedef ft::node_list<value_type>*	iterator_type;
 			//typedef typename node<typename ft::remove_const<value_type>::type>::pointer iterator_type;
 			//typedef ft::bidirectional_iterator_tag	iterator_category;
 		private:

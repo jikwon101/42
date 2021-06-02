@@ -60,9 +60,9 @@ namespace ft
 		}
 	};
 	template <typename T, typename U>
-	ft::Pair<T, U>	make_pair(T x, U y)
+	ft::pair<T, U>	make_pair(T x, U y)
 	{
-		return (ft::Pair<T, U>(x, y));
+		return (ft::pair<T, U>(x, y));
 	}
 
 	template <typename T>

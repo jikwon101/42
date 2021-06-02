@@ -35,20 +35,19 @@ namespace ft
 			list& operator=(const list& src);
 			alloc_type		get_allocator() const;
 			/* iterator */
-			iterator		begin();
-			const_iterator	begin() const;
-			reverse_iterator	rbegin();
+			iterator				begin();
+			const_iterator			begin() const;
+			reverse_iterator		rbegin();
 			const_reverse_iterator	rbegin() const;
-
-			iterator		end();
-			const_iterator	end() const;
-			reverse_iterator	rend();
+			iterator				end();
+			const_iterator			end() const;
+			reverse_iterator		rend();
 			const_reverse_iterator	rend() const;
 			/* access element */
-			reference		front();
-			const_reference front() const;
-			reference		back();
-			const_reference back() const;
+			reference				front();
+			const_reference 		front() const;
+			reference				back();
+			const_reference 		back() const;
 			/* capacity */
 			bool			empty() const;
 			size_type		size() const;

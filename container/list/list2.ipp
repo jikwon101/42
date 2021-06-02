@@ -11,7 +11,7 @@ list<T, Alloc>::list(size_type n, const value_type& val, const alloc_type& alloc
 
 // copy
 template <typename T, typename Alloc>
-list<T, Alloc>::list(const list& src)
+list<T, Alloc>::list(const list& src) : base(src.get_allocator())
 {
 	this->append_node_back(src.begin(), src.end());
 }

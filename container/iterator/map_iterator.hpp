@@ -35,6 +35,7 @@ namespace ft
 			bool	isRchild(iterator_type const& node);
 			bool	isLchild(iterator_type const& node);
 			iterator_type Farleft_after(iterator_type const& parent);
+			iterator_type Farright_after(iterator_type const& parent);
 		public:
 			map_iterator();
 			~map_iterator();

@@ -5,7 +5,8 @@
 #include <limits>
 #include "../iterator/list_iterator.hpp"
 #include "../iterator/list_const_iterator.hpp"
-#include "../utils/node.hpp"
+#include "./node_list.hpp"
+//#include "../utils/node.hpp"
 #include "../utils/pair.hpp"
 #include "../iterator/reverse_iterator.hpp"
 
@@ -16,7 +17,7 @@ namespace ft
 	{
 		private:
 			typedef Alloc	alloc_type;
-			typedef typename alloc_type::template rebind<ft::node<T> >::other	node_alloc_type;
+			typedef typename alloc_type::template rebind<ft::node_list<T> >::other	node_alloc_type;
 		protected:
 			typedef typename node_alloc_type::value_type	node;
 			typedef	typename node_alloc_type::pointer		node_pointer;
@@ -29,7 +30,7 @@ namespace ft
 			typedef typename alloc_type::reference			reference;
 			typedef typename alloc_type::const_reference	const_reference;
 		private:
-			ft::Pair<node_pointer, node_pointer> _end_node;	//(tail, head)
+			ft::pair<node_pointer, node_pointer> _end_node;	//(tail, head)
 			size_type	_size;
 		protected:
 			list_base(const alloc_type& alloc = alloc_type());

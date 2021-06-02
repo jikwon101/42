@@ -5,7 +5,7 @@
 #include <map>
 
 template <typename T, typename U>
-void	print(ft::map<T, U> const& src);
+void	print(std::map<T, U> const& src);
 template <typename T>
 void	print(T src);
 template <typename T, typename U>
@@ -15,21 +15,21 @@ int main(int ac, char *av[])
 	{
 		int arr[] = {2,4,6,8,10,12,14};
 	
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		for (int i = 0; i < 7 ; i++)
 			m1[arr[i]];
 		print("m1 : "); print(m1);
-		ft::map<int, int> m2(m1);
-		ft::map<int, int> m3(m1.begin(), m1.begin());
-		ft::map<int, int> m4(m1.begin(), m1.end());
-		ft::map<int, int> m5;
+		std::map<int, int> m2(m1);
+		std::map<int, int> m3(m1.begin(), m1.begin());
+		std::map<int, int> m4(m1.begin(), m1.end());
+		std::map<int, int> m5;
 		m5 = m1;
 		print("m2 : "); print(m2);
 		print("m3 : "); print(m3);
 		print("m4 : "); print(m4);
 		print("m5 : "); print(m5);
 		std::cout << "m5 reverse print : \n";
-		for (ft::map<int, int>::reverse_iterator it = m1.rbegin() ; it != m1.rend() ; ++it)
+		for (std::map<int, int>::reverse_iterator it = m1.rbegin() ; it != m1.rend() ; ++it)
 		{
 			std::cout << (*it).first << " ";
 		}
@@ -37,7 +37,7 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		print("m1 is empty : "); print(m1.empty()); print("\n");
 		print("m1 size : "); print(m1.size()); print("\n");
 		m1[10];
@@ -52,20 +52,20 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{
-		ft::pair<int, int> t1(3, 10);
-		ft::pair<ft::map<int, int>::iterator, bool> res;
-		ft::map<int, int> m1;
+		std::pair<int, int> t1(3, 10);
+		std::pair<std::map<int, int>::iterator, bool> res;
+		std::map<int, int> m1;
 		res = m1.insert(t1);
 		std::cout << "pair : (" << (*(res.first)).first << " , " << (*(res.first)).second << ")" << ", res : " << res.second << "\n";
 		res = m1.insert(t1);
 		std::cout << "pair : (" << (*(res.first)).first << " , " << (*(res.first)).second << ")" << ", res : " << res.second << "\n";
 
 		m1[4]; m1[10]; m1[1]; m1[0]; m1[8];
-		ft::map<int, int>::iterator it;
-		ft::pair<int, int> t2(2, 22);
+		std::map<int, int>::iterator it;
+		std::pair<int, int> t2(2, 22);
 		it = m1.insert(m1.find(10), t2);
 		std::cout << "pair : (" << (*it).first << " , " << (*it).second << ")\n";
-		ft::map<int, int> m2;
+		std::map<int, int> m2;
 		print("m1"); print(m1);
 		print("m2: insert\n");m2.insert(m1.begin(), m1.end());
 		print("m2"); print(m2);
@@ -73,7 +73,7 @@ int main(int ac, char *av[])
 	std::cout << "-------------\n";
 	{
 		int arr[] = {1,9,4,6,7,8,2,4,0,10};
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		for ( int n = 0 ; n < 10 ; n++)
 			m1[arr[n]];
 		print(m1);
@@ -87,7 +87,7 @@ int main(int ac, char *av[])
 		m1.erase(m1.find(2), m1.find(8));
 		print(m1);
 	
-		ft::map<int, int> m2;
+		std::map<int, int> m2;
 		print("m1: "); print(m1);
 		print("m2: "); print(m2);
 		print("m2 swap m1\n"); m2.swap(m1);
@@ -98,11 +98,11 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		int arr[] = {1,9,4,6,7,8,2,4,0,10};
 		for ( int n = 0 ; n < 10 ; n++)
 			m1[arr[n]];
-		ft::map<int, int>::iterator res;
+		std::map<int, int>::iterator res;
 		print("count 4 : "); print(m1.count(4)); print("\n");
 		print("find 4\n");res = m1.find(4);
 		print("res : "); print((*res).first); print("\n");
@@ -114,11 +114,11 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{	
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)
 			m1[arr[n]];
-		ft::map<int, int>::iterator it;
+		std::map<int, int>::iterator it;
 		print(m1);
 		print("lower(0) :"); it = m1.lower_bound(0);
 		if (it != m1.end())
@@ -143,11 +143,11 @@ int main(int ac, char *av[])
 	}
 	std::cout << "-------------\n";
 	{	
-		ft::map<int, int> m1;
+		std::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)
 			m1[arr[n]];
-		ft::map<int, int>::iterator it;
+		std::map<int, int>::iterator it;
 		print(m1);
 		print("upper(0) :"); it = m1.upper_bound(0);
 		if (it != m1.end())
@@ -173,8 +173,8 @@ int main(int ac, char *av[])
 
 	std::cout << "-------------\n";
 	{
-		ft::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> res;
-		ft::map<int, int> m1;
+		std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> res;
+		std::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)
 			m1[arr[n]];
@@ -232,9 +232,9 @@ std::ostream& operator<<(std::ostream& os, test & x)
 	return (os);
 }
 template <typename T, typename U>
-void	print(ft::map<T, U> const& src)
+void	print(std::map<T, U> const& src)
 {
-	typename ft::map<T, U>::const_iterator it;
+	typename std::map<T, U>::const_iterator it;
 	
 	std::cout << "< ";
 	for (it = src.begin() ; it != src.end() ; ++it)
@@ -255,13 +255,21 @@ void	print_itpair(T val, U end)
 {
 	print("( ");
 	if (val.first == end)
+	{
 		print("end");
+	}
 	else
+	{
 		print((*(val.first)).first);
+	}
 	print(" , ");
 	if (val.second == end)
+	{
 		print("end");
+	}
 	else
+	{
 		print((*(val.first)).second);
+	}
 	std::cout << ")\n";
 }

@@ -1,10 +1,65 @@
 template <typename Key, typename T, typename Compare, typename Alloc>
-map_base<Key, T, Compare, Alloc>::map_base()
+map_base<Key, T, Compare, Alloc>::map_base(allocator_type const& alloc)
 		: _head(NULL), _size(0), _headnext(NULL)
 {
 	node_pointer _this = reinterpret_cast<node_pointer>(&_head);
-	_head = _this;
-	_headnext = _head;
+	_head = _headnext = _this;
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+map_base<Key, T, Compare, Alloc>::~map_base() 
+{
+	clear_node();
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+map_base<Key, T, Compare, Alloc>::map_base(map_base const& x) 
+{
+	node_pointer	_this;
+	node_pointer	pos;
+	
+	_this = reinterpret_cast<node_pointer>(&_head);
+	_head = _headnext = _this;
+	pos = x.Farleft_after(x._head);
+	while (pos != x._head->Parent)
+	{
+		add_node(pos);
+		x.next_node(pos);
+	}
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+map_base<Key, T, Compare, Alloc>&	map_base<Key, T, Compare, Alloc>::operator=(map_base const& x) 
+{
+	if (this != &x)
+	{
+		node_pointer	pos;
+
+		clear_node();
+		pos = x.Farleft_after(x._head);
+		while (pos != x._head->Parent)
+		{
+			add_node(pos);
+			x.next_node(pos);
+		}
+	}
+	return (*this);
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+void
+	map_base<Key, T, Compare, Alloc>::clear_node() 
+{
+	node_pointer	pos;
+	node_pointer	_this;
+
+	while (_size)
+	{
+		pos = least_leaf();
+		erase_node(pos, false);
+	}
+	_this = reinterpret_cast<node_pointer>(&_head);
+	_head = _headnext = _this;
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -20,22 +75,14 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-typename map_base<Key, T, Compare, Alloc>::val_maker	map_base<Key, T, Compare, Alloc>::get_val_maker()
-{
-	return (make_pair<const key_type, mapped_type>);
-}
-
-template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::construct_node(key_type const& key)
 {
 	node_allocator_type	alloc;
 	node_pointer		res;
-	val_maker			maker;
 
-	maker = get_val_maker();
 	res = alloc.allocate(1);
-	alloc.construct(res, maker(key, mapped_type()));
+	alloc.construct(res, ft::make_pair<const key_type, mapped_type>(key, mapped_type()));
 	return (res);
 }
 
@@ -56,12 +103,6 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		return (parent->Lchild);
 	return (parent->Rchild);
 }
-template <typename Key, typename T, typename Compare, typename Alloc>
-typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::Parent(node_pointer const& src)
-{
-	return (src->Parent);
-}
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
@@ -78,7 +119,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (NULL);
+		return (_head);
 	pos = _head;
 	while (pos)
 	{
@@ -89,7 +130,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
-	return (NULL);
+	return (_head->Parent);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -100,7 +141,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (NULL);
+		return (_head);
 	pos = start;
 	while (pos)
 	{
@@ -111,7 +152,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
-	return (NULL);
+	return (_head->Parent);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -155,8 +196,6 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 			pos = temp->Parent;
 	}
 	return (pos);
-
-
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -197,8 +236,8 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::find_upper_bound(key_type const& k) const
 {		
-	node_pointer pos;
-	node_pointer prev;
+	node_pointer	pos;
+	node_pointer	prev;
 	key_compare		comp;
 	
 	pos = Farleft_after(_head);
@@ -215,7 +254,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-ft::Pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
+ft::pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
 	map_base<Key, T, Compare, Alloc>::dist_type(key_type const& k, node_pointer const& hint) const
 {
 	node_pointer	pos;
@@ -228,9 +267,9 @@ ft::Pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
 		while (comp(pos->data.first, k) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
-			return (ft::Pair<bool, node_pointer>(false, pos));
+			return (ft::pair<bool, node_pointer>(false, pos));
 		else
-			return (ft::Pair<bool, node_pointer>(true, pos));
+			return (ft::pair<bool, node_pointer>(true, pos));
 	}
 	else
 	{
@@ -238,33 +277,34 @@ ft::Pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
 		while (comp(k, pos->data.first) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
-			return (ft::Pair<bool, node_pointer>(false, pos));
+			return (ft::pair<bool, node_pointer>(false, pos));
 		else
-			return (ft::Pair<bool, node_pointer>(true, pos));
+			return (ft::pair<bool, node_pointer>(true, pos));
 	}
 }
 
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::set_to_head(node_pointer const& new_node)
+void	
+	map_base<Key, T, Compare, Alloc>::set_to_head(node_pointer const& new_node)
 {
-	node_pointer _this = reinterpret_cast<node_pointer>(&_head);
-	if (!new_node)
+	node_pointer _this;
+
+	_this = reinterpret_cast<node_pointer>(&_head);
+	if (new_node)
 	{
-		_head = _headnext = _this;
-		return ;
+		new_node->Parent = _this;
+		_head = new_node;
+		_headnext = new_node->Rchild ? new_node->Rchild : new_node;
 	}
-	//new_node->Parent = _head->Parent;
-	new_node->Parent = _this;
-	_head = new_node;
-	//new_node->color = BLACK;
-	_headnext = new_node->Rchild ? new_node->Rchild : new_node;
-	//new_node->Parent = NULL;
-	// new_color->prev = this?	//write
+	else
+		_head = _headnext = _this;
+	return ;
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
+void
+	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
 {
 	node_pointer	parent;
 	node_pointer	pos;
@@ -295,8 +335,10 @@ void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
 		parent->Lchild = new_node;
 	_size++;
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node, node_pointer const& start)
+void	
+	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node, node_pointer const& start)
 {
 	node_pointer	parent;
 	node_pointer	pos;
@@ -329,9 +371,9 @@ void	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node, node_
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::recoloring(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::recoloring(node_pointer const& x)
 {
-	//std::cout << "Recoloring\n";
 	Uncle(x)->color = BLACK;
 	x->Parent->color = BLACK;
 	if (GrandParent(x) != _head)
@@ -339,21 +381,24 @@ void	map_base<Key, T, Compare, Alloc>::recoloring(node_pointer const& x)
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-bool	map_base<Key, T, Compare, Alloc>::isLchild(node_pointer const& x) const
+bool	
+	map_base<Key, T, Compare, Alloc>::isLchild(node_pointer const& x) const
 {
 	return (x == x->Parent->Lchild);
 }
 
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::attach_to_right(node_pointer const& x, node_pointer const& new_right)
+void	
+	map_base<Key, T, Compare, Alloc>::attach_to_right(node_pointer const& x, node_pointer const& new_right)
 {
 	x->Rchild = new_right;
 	if (new_right)
 		new_right->Parent = x;
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::attach_to_left(node_pointer const& x, node_pointer const& new_left)
+void	
+	map_base<Key, T, Compare, Alloc>::attach_to_left(node_pointer const& x, node_pointer const& new_left)
 {
 	x->Lchild = new_left;
 	if (new_left)
@@ -361,7 +406,8 @@ void	map_base<Key, T, Compare, Alloc>::attach_to_left(node_pointer const& x, nod
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const x)
+void	
+	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const x)
 {
 	node_pointer parent = x->Parent;
 	node_pointer rchild = x->Rchild;
@@ -377,7 +423,8 @@ void	map_base<Key, T, Compare, Alloc>::rotate_to_left(node_pointer const x)
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const x)
+void	
+	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const x)
 {
 	node_pointer parent = x->Parent;
 	node_pointer lchild = x->Lchild;
@@ -393,7 +440,8 @@ void	map_base<Key, T, Compare, Alloc>::rotate_to_right(node_pointer const x)
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::swap_color(node_pointer const& x, node_pointer const& y)
+void	
+	map_base<Key, T, Compare, Alloc>::swap_color(node_pointer const& x, node_pointer const& y)
 {
 	Color temp;
 
@@ -407,41 +455,44 @@ void	map_base<Key, T, Compare, Alloc>::swap_color(node_pointer const& x, node_po
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::restructuring1(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::restructuring1(node_pointer const& x)
 {
-	//std::cout << "LL\n";
 	rotate_to_right(GrandParent(x));
-	swap_color(Parent(x), Sibling(x));
+	swap_color(x->Parent, Sibling(x));
+	//swap_color(Parent(x), Sibling(x));
 	_head->color = BLACK;
 
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::restructuring2(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::restructuring2(node_pointer const& x)
 {
-	//std::cout << "LR\n";
-	rotate_to_left(Parent(x));
+	//rotate_to_left(Parent(x));
+	rotate_to_left(x->Parent);
 	restructuring1(x->Lchild);
-	//_head->color = BLACK;
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::restructuring3(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::restructuring3(node_pointer const& x)
 {
-	//std::cout << "RL\n";
-	rotate_to_right(Parent(x));
+	//rotate_to_right(Parent(x));
+	rotate_to_right(x->Parent);
 	restructuring4(x->Rchild);
-	//_head->color = BLACK;
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::restructuring4(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::restructuring4(node_pointer const& x)
 {
-	//std::cout << "RR\n";
 	rotate_to_left(GrandParent(x));
-	swap_color(Parent(x), Sibling(x));
+	//swap_color(Parent(x), Sibling(x));
+	swap_color(x->Parent, Sibling(x));
 	_head->color = BLACK;
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::check_double_red(node_pointer const& x)
+void	
+	map_base<Key, T, Compare, Alloc>::check_double_red(node_pointer const& x)
 {
 	bool	status_parent;
 	bool	status_x;
@@ -463,10 +514,8 @@ void	map_base<Key, T, Compare, Alloc>::check_double_red(node_pointer const& x)
 			restructuring2(x);
 		else if (!status_parent && status_x) //RL
 			restructuring3(x);
-		else if (!status_parent && !status_x) // RR
+		else								//RR
 			restructuring4(x);
-		else
-			std::cout << "no!!!!\n";	//temp
 	}
 }
 
@@ -487,7 +536,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::add_node(value_type const& val, node_pointer const& position)
 {
 	node_pointer new_node;
-//position
+	
 	new_node = construct_node(val);
 	insert_node(new_node, position);
 	check_double_red(new_node);
@@ -510,8 +559,11 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::Farleft_after(node_pointer const& parent) const
 {
-	node_pointer pos = parent;
+	node_pointer pos;
 
+	pos = parent;
+	if (!_size)
+		return (pos);
 	while (pos->Lchild)
 		pos = pos->Lchild;
 	return (pos);
@@ -520,8 +572,9 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::Farright_after(node_pointer const& parent) const
 {
-	node_pointer pos = parent;
+	node_pointer pos;
 
+	pos = parent;
 	while (pos->Rchild)
 		pos = pos->Rchild;
 	return (pos);
@@ -529,7 +582,8 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos) const
+void	
+	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos) const
 {	
 	std::cout << "key : " << pos->data.first << ", value : " << pos->data.second << "  ";
 	std::cout << "L : ";
@@ -545,7 +599,8 @@ void	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos) const
 
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::count_color() const
+void
+	map_base<Key, T, Compare, Alloc>::count_color() const
 {
 	node_pointer pos;
 	
@@ -596,7 +651,8 @@ void	map_base<Key, T, Compare, Alloc>::count_color() const
 
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::printcolor() const
+void
+	map_base<Key, T, Compare, Alloc>::printcolor() const
 {
 	node_pointer pos;
 	
@@ -710,20 +766,20 @@ void
 		caseC(sibling);
 	return ;
 }
-template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::case_change(node_pointer const& sibling)
-{
-	std::cout << "case_change\n";
 
+template <typename Key, typename T, typename Compare, typename Alloc>
+void	
+	map_base<Key, T, Compare, Alloc>::case_change(node_pointer const& sibling)
+{
 	sibling->color = BLACK;
 	sibling->Parent->color = RED;
 	rotate_to_left(sibling->Parent);
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::caseA(node_pointer const& sibling)
+void	
+	map_base<Key, T, Compare, Alloc>::caseA(node_pointer const& sibling)
 {
-	std::cout << "caseA\n";
-	
 	sibling->color = sibling->Parent->color;
 	sibling->Parent->color = BLACK;
 	sibling->Rchild->color = BLACK;
@@ -731,19 +787,17 @@ void	map_base<Key, T, Compare, Alloc>::caseA(node_pointer const& sibling)
 
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::caseB(node_pointer const& sibling)
+void
+	map_base<Key, T, Compare, Alloc>::caseB(node_pointer const& sibling)
 {
-	std::cout << "caseB\n";
-
 	sibling->color = RED;
 	sibling->Lchild->color = BLACK;
 	rotate_to_right(sibling);
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::caseC(node_pointer const& sibling)
+void
+	map_base<Key, T, Compare, Alloc>::caseC(node_pointer const& sibling)
 {
-	std::cout << "caseC\n";
-	
 	sibling->color = RED;
 	if (sibling->Parent->color == RED)
 		sibling->Parent->color = BLACK;
@@ -754,9 +808,10 @@ void	map_base<Key, T, Compare, Alloc>::caseC(node_pointer const& sibling)
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	map_base<Key, T, Compare, Alloc>::switch_node(node_pointer const& x, node_pointer const& y)
+void	
+	map_base<Key, T, Compare, Alloc>::switch_node(node_pointer const& x, node_pointer const& y)
 {
-	node_pointer temp;
+	node_pointer	temp;
 	Color			temp_color;
 	
 	if (x == y->Parent)
@@ -785,17 +840,12 @@ void	map_base<Key, T, Compare, Alloc>::switch_node(node_pointer const& x, node_p
 		y->color = temp_color;
 		return ;
 	}
-
-	
-
-
-
 	if (x->Parent && isLchild(x))
 		x->Parent->Lchild = y;
 	else if (x->Parent)
 		x->Parent->Rchild = y;
 	else
-		_head = x;
+		_head = y;	// x -> y edit
 
 	if (x->Lchild)
 		x->Lchild->Parent = y;
@@ -829,6 +879,7 @@ void	map_base<Key, T, Compare, Alloc>::switch_node(node_pointer const& x, node_p
 	y->color = temp_color;
 	return ;
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::least_leaf()
@@ -856,17 +907,11 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		}
 	}
 	return (pos);
-}template <typename Key, typename T, typename Compare, typename Alloc>
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::size_type
 	map_base<Key, T, Compare, Alloc>::maxsize() const
 {
 	return (node_allocator_type().max_size());
 }
-
-
-/*
-template <typename Key, typename T, typename Compare, typename Alloc>
-typename map_base<Key, T, Compare, Alloc>::
-	map_base<Key, T, Compare, Alloc>::
-{}
-*/
