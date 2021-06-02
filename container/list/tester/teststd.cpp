@@ -3,8 +3,11 @@
 #include "ft_list.hpp"
 #endif
 
-#include <iostream>
+#ifdef TEST
 #include <list>
+#endif
+
+#include <iostream>
 
 class Test;
 struct is_odd

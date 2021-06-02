@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/02 23:34:22 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/03 00:05:06 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include "ft_vector.hpp"
 #endif
 
+#ifdef TEST
 #include <vector>
+#endif
+
 #include <iostream>
 
 template <typename T>
@@ -36,11 +39,6 @@ void print_it(T const & src);
 
 int main()
 {
-	ft::vector<int> t1;
-	std::vector<int> t2;
-	std::cout << sizeof(t1) << std::endl;
-	std::cout << sizeof(t2) << std::endl;
-
 	print("---------------------");
 	print("Constructor\n");
 	{

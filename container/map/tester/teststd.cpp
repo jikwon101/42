@@ -2,7 +2,9 @@
 #ifndef TEST
 #include "ft_map.hpp"
 #endif
+#ifdef TEST
 #include <map>
+#endif
 
 template <typename T, typename U>
 void	print(std::map<T, U> const& src);
