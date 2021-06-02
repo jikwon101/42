@@ -5,7 +5,7 @@
 template <typename T, typename Alloc>
 list_base<T, Alloc>::list_base(const alloc_type& alloc)  : _size(0)
 {
-	(void)alloc; //temp
+	(void)alloc;
 	node_pointer _this = reinterpret_cast<node_pointer>(this);
 	_end_node.first = _end_node.second = _this;
 }

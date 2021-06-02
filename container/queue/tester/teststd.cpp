@@ -1,8 +1,12 @@
 #ifndef TEST
 #include "ft_queue.hpp"
 #endif
+
+#ifdef TEST
 #include <queue>
 #include <list>
+#endif 
+
 #include <iostream>
 
 

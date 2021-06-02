@@ -73,7 +73,8 @@ reverse_iterator<_Iter>
 	reverse_iterator<_Iter>::operator++(int n)
 {
 	reverse_iterator ret(*this);
-	--_base;
+	_base -= n;
+	//--_base;
 	return (ret);
 }
 
@@ -106,7 +107,8 @@ reverse_iterator<_Iter>
 	reverse_iterator<_Iter>::operator--(int n)
 {
 	reverse_iterator ret(*this);
-	++_base;
+	//++_base;
+	_base += n;
 	return (ret);
 }
 

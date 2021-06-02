@@ -25,7 +25,7 @@ namespace ft
 		node_map& operator=(node_map const& src);
 		~node_map();
 	};
-	#include "./src/node_map2.ipp"
+	#include "./src/ft_node_map2.ipp"
 
 }
 

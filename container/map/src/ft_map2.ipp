@@ -12,12 +12,15 @@ bool	map<Key, T, Compare, Alloc>::value_compare::operator() (const value_type& x
 // default construct
 template <typename Key, typename T, typename Compare, typename Alloc>
 map<Key, T, Compare, Alloc>::map(const key_compare& comp, const allocator_type& alloc)  : base(alloc)
-{}
+{
+	(void)comp;
+}
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 template <typename InputIt>
 map<Key, T, Compare, Alloc>::map(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc) : base(alloc)
 {
+	(void)comp;
 	insert(first, last);
 }
 
@@ -126,6 +129,7 @@ void
 		insert(*pos);
 	}
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	map<Key, T, Compare, Alloc>::swap(map& x)
 {

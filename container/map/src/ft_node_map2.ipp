@@ -1,11 +1,11 @@
 template <typename T>
 node_map<T>::node_map() 
-	: Parent(NULL), Lchild(NULL), Rchild(NULL), color(RED)
+	:  Lchild(NULL), Rchild(NULL), Parent(NULL), color(RED)
 {}
 
 template <typename T>
 node_map<T>::node_map(value_type const& src) 
-	: Parent(NULL), Lchild(NULL), Rchild(NULL), color(RED), data(src)
+	: Lchild(NULL), Rchild(NULL), Parent(NULL), data(src), color(RED)
 {}
 
 template <typename T>

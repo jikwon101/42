@@ -531,7 +531,7 @@ void	swap(list<T, Alloc> &x, list<T, Alloc>& y)
 }
 
 template <class T, class Alloc>
-bool operator== (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator== (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	typename ft::list<T, Alloc>::const_iterator lit;
 	typename ft::list<T, Alloc>::const_iterator rit;
@@ -551,13 +551,13 @@ bool operator== (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator!= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator!= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	return (!(lhs == rhs));
 }
 
 template <class T, class Alloc>
-bool operator< (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator< (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	typename ft::list<T, Alloc>::const_iterator lit;
 	typename ft::list<T, Alloc>::const_iterator rit;
@@ -577,13 +577,13 @@ bool operator< (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator<= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator<= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	return (!(lhs > rhs));
 }
 
 template <class T, class Alloc>
-bool operator> (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator> (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	typename ft::list<T, Alloc>::const_iterator lit;
 	typename ft::list<T, Alloc>::const_iterator rit;
@@ -603,7 +603,7 @@ bool operator> (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator>= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
+bool	operator>= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
 	return (!(lhs < rhs));
 }

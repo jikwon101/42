@@ -1,7 +1,8 @@
 template <typename Key, typename T, typename Compare, typename Alloc>
 map_base<Key, T, Compare, Alloc>::map_base(allocator_type const& alloc)
-		: _head(NULL), _size(0), _headnext(NULL)
+		: _head(NULL), _headnext(NULL), _size(0)
 {
+	(void)alloc;
 	node_pointer _this = reinterpret_cast<node_pointer>(&_head);
 	_head = _headnext = _this;
 }

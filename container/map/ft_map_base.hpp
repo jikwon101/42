@@ -1,6 +1,11 @@
 #ifndef FT_MAP_BASE_HPP
 # define FT_MAP_BASE_HPP
 
+#include <memory>
+#include "./ft_node_map.hpp"
+#include "../utils/pair.hpp"
+#include "../utils/function.hpp"
+
 namespace ft
 {
 	template <typename Key, typename T, typename Compare, typename Alloc>

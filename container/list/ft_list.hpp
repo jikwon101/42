@@ -88,21 +88,21 @@ namespace ft
 			void		sort(Compare comp);
 	};
 	template <typename T, typename Alloc>
-	void	swap(list<T, Alloc> &x, list<T, Alloc> &y);
+	void	swap(ft::list<T, Alloc> &x, ft::list<T, Alloc> &y);
 	template <typename T, typename Alloc>
-	void	swap(list<T, Alloc> &x, list<T, Alloc> &y);
+	void	swap(ft::list<T, Alloc> &x, ft::list<T, Alloc> &y);
 	template <typename T, typename Alloc>
-	bool	operator==(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator==(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 	template <typename T, typename Alloc>
-	bool	operator!=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator!=(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 	template <typename T, typename Alloc>
-	bool	operator<(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator<(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 	template <typename T, typename Alloc>
-	bool	operator<=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator<=(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 	template <typename T, typename Alloc>
-	bool	operator>(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator>(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 	template <typename T, typename Alloc>
-	bool	operator>=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs);
+	bool	operator>=(const ft::list<T, Alloc> &lhs, const ft::list<T, Alloc> &rhs);
 
 	#include "./src/ft_list2.ipp"
 }

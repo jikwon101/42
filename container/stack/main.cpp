@@ -1,8 +1,13 @@
 #ifndef TEST
 #include "ft_stack.hpp"
 #endif
+
+#ifdef TEST
 #include <stack>
 #include <list>
+#include <vector>
+#endif
+
 #include <iostream>
 
 

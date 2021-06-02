@@ -256,6 +256,7 @@ void print_list(const std::list<T>& src)
 template <>
 void print_list<std::list<int> >(const std::list<std::list<int> >& src )
 {
+	(void)src;
 	print("need to write\n");
 }
 

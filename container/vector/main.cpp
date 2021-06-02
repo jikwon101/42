@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/03 00:05:06 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/03 00:31:04 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int main()
 
 		const ft::vector<int> v2(arr, arr + 3);
 		print_vector(v2);
-		for (int i = 0; i < v2.size() ; i++)
+		for (ft::vector<int>::size_type i = 0; i < v2.size() ; i++)
 		{
 			std::cout << v2[i] << " & " << v2.at(i) << std::endl;
 			//v2[i] = 3;		// error : const vector

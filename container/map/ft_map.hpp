@@ -2,10 +2,7 @@
 # define FT_MAP_HPP
 
 #include <memory>
-#include "../utils/function.hpp"
-#include "../utils/pair.hpp"
 #include "../utils/traits.hpp"
-#include "./ft_node_map.hpp"
 #include "./ft_map_base.hpp"
 #include "./ft_map_iterator.hpp"
 #include "./ft_map_const_iterator.hpp"

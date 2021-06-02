@@ -12,7 +12,8 @@ template <typename T>
 void	print(T src);
 template <typename T, typename U>
 void	print_itpair(T val, U end);
-int main(int ac, char *av[])
+
+int main()
 {
 	{
 		int arr[] = {2,4,6,8,10,12,14};
