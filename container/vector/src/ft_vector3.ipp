@@ -13,6 +13,7 @@ void	vector<T,Alloc>::destruct_by(pointer _new_end)
 	_end = _new_end;
 	return ;
 }
+
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::destruct_at(pointer _pos)
 {
@@ -61,8 +62,7 @@ void	vector<T, Alloc>::construct_at_end(InputIt _first, InputIt _last,
 template <typename T, typename Alloc>
 void	vector<T, Alloc>::append(size_type n, const_reference rhs)
 {	
-	//if (static_cast<size_type>(end_cap() - _end)  >= n)
-	if (static_cast<size_type>(_end_cap - _end)  >= n)	//new
+	if (static_cast<size_type>(_end_cap - _end)  >= n)
 	{
 		construct_at_end(n, rhs);
 	}
@@ -86,6 +86,5 @@ void	vector<T, Alloc>::vector_allocate(size_type n)
 	if (n > max_size())
 		throw (std::length_error("Length Error"));
 	_begin = _end = alloc_type().allocate(n);
-	_end_cap = _begin + n;	//new
-	//end_cap() = _begin + n;
+	_end_cap = _begin + n;
 }

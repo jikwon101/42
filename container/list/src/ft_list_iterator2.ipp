@@ -2,7 +2,7 @@
 ** Member function : Coplien's form
 */
 template <typename _Iters>
-list_iterator<_Iters>::list_iterator() : _ptr(0) {}
+list_iterator<_Iters>::list_iterator() : _ptr(NULL) {}
 
 template <typename _Iters>
 list_iterator<_Iters>::~list_iterator(){}
@@ -70,20 +70,31 @@ typename list_iterator<_Iters>::pointer		list_iterator<_Iters>::operator->()
 {
 	return (&(_ptr->_val)); 
 }
+
+template <typename _Iters>
+bool	list_iterator<_Iters>::operator==(ft::list_const_iterator<value_type> const& x) const
+{
+	return (_ptr == x._ptr);
+}
+
+template <typename _Iters>
+bool	list_iterator<_Iters>::operator!=(ft::list_const_iterator<value_type> const& x) const
+{
+	return (_ptr != x._ptr);
+}
+
 /*
 ** Mon member function : operator
 */
 
-/*
-template <typename T, typename U>
-bool	operator==(list_iterator<T> const& lhs, list_iterator<U> const& rhs)
+template <typename T>
+bool	operator==(ft::list_iterator<T> const& lhs, ft::list_iterator<T> const& rhs)
 {
-	return (lhs._ptr == rhs_ptr);
+	return (&(*lhs) == &(*rhs));
 }
 
-template <typename T, typename U>
-bool	operator!=(list_iterator<T> const& lhs, list_iterator<U> const& rhs)
+template <typename T>
+bool	operator!=(ft::list_iterator<T> const& lhs, ft::list_iterator<T> const& rhs)
 {
-	return (lhs._ptr != rhs._ptr);
+	return (&(*lhs) != &(*rhs));
 }
-*/

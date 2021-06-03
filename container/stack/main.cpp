@@ -9,10 +9,16 @@
 #endif
 
 #include <iostream>
-
-
+class test
+{
+};
 int main()
 {
+	std::stack<test> t1;
+	std::stack<test> t2;
+	if (t1 == t2)
+		std::cout << "Er\n";
+	/*
 	{
 		ft::stack<int, ft::list<int> > t1;
 		std::cout << "isEmpty : " << t1.empty() << std::endl;
@@ -52,5 +58,6 @@ int main()
 		std::cout << "t1 >= t2  ?  ";
 		if (t1 >= t2) std::cout << "true\n"; else std::cout << "false\n";
 	}
+	*/
 	std::cout << "----------------\n";
 }

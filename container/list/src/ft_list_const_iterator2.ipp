@@ -82,20 +82,31 @@ typename list_const_iterator<_Iters>::const_pointer		list_const_iterator<_Iters>
 {
 	return (&(_ptr->_val)); 
 }
+
+template <typename _Iters>
+bool	list_const_iterator<_Iters>::operator==(ft::list_iterator<value_type> const& x) const
+{
+	return (_ptr == x._ptr);
+}
+
+template <typename _Iters>
+bool	list_const_iterator<_Iters>::operator!=(ft::list_iterator<value_type> const& x) const
+{
+	return (_ptr != x._ptr);
+}
+
+
 /*
 ** Mon member function : operator
 */
-
-/*
-template <typename T, typename U>
-bool	operator==(list_const_iterator<T> const& lhs, list_const_iterator<U> const& rhs)
+template <typename T>
+bool	operator==(ft::list_const_iterator<T> const& lhs, ft::list_const_iterator<T> const& rhs)
 {
-	return (lhs._ptr == rhs_ptr);
+	return (&(*lhs) == &(*rhs));
 }
 
-template <typename T, typename U>
-bool	operator!=(list_const_iterator<T> const& lhs, list_const_iterator<U> const& rhs)
+template <typename T>
+bool	operator!=(ft::list_const_iterator<T> const& lhs, ft::list_const_iterator<T> const& rhs)
 {
-	return (lhs._ptr != rhs._ptr);
+	return (&(*lhs) != &(*rhs));
 }
-*/

@@ -8,7 +8,7 @@
 #endif
 
 #include <iostream>
-
+#include <list>
 class Test;
 struct is_odd
 {
@@ -222,6 +222,22 @@ int main()
 		print("t3: merge(t4, mycomparison)\n"); t3.merge(t4, mycomparison);
 		print("t3:\n"); print_list(t3);
 		print("t4:"); print_list(t4);
+	}
+	std::cout << "----------------------------\n";
+	{
+		ft::list<int> t1;
+		ft::list<int> t2;
+		t1.push_back(3);
+		t2.push_back(1);
+		t2.push_back(3);
+		print("t1 : "); print_list(t1);
+		print("t2 : ");print_list(t2);
+		print("t1 == t2  ? ");
+		if (t1 == t2) print("true\n"); else print("false\n");
+		print("t1 < t2  ? ");
+		if (t1 < t2) print("true\n"); else print("false\n");
+		print("t1 >= t2  ? ");
+		if (t1 >= t2) print("true\n"); else print("false\n");
 	}
 }
 

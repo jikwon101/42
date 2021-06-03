@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/03 00:31:04 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/03 11:47:51 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,25 @@ int main()
 		v3.assign(v1.begin(), v1.begin() + 3);
 		print("v3 : assign");
 		print_vector(v3);
+	}
+	print("---------------------");
+	{
+		int arr[] = {1,2,3,4,5};
+		int rarr[] = {5,4,3,2,1};
+		ft::vector<int> v1(arr, arr + 4);
+		ft::vector<int> v2(arr, arr + 4);
+		ft::vector<int> v3(rarr, rarr + 2);
+		print("v1: ");print_vector(v1);
+		print("v2: ");print_vector(v2);
+		print("v3: ");print_vector(v3);
+		print("v1 == v2 ?  ");
+		if (v1 == v2) print("true"); else print("false");
+		print("v1 <= v2 ?  ");
+		if (v1 <= v2) print("true"); else print("false");
+		print("v1 <= v3 ?  ");
+		if (v1 <= v3) print("true"); else print("false");
+		print("v1 > v3 ?  ");
+		if (v1 > v3) print("true"); else print("false");
 	}
 	print("---------------------");
 	print("RETURN");

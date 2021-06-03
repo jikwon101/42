@@ -562,18 +562,18 @@ bool	operator< (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 	typename ft::list<T, Alloc>::const_iterator lit;
 	typename ft::list<T, Alloc>::const_iterator rit;
 		
-	if (lhs.size() != rhs.size())
-		return (lhs.size() < rhs.size());
 	lit = lhs.begin();
 	rit = rhs.begin();
 	for (; lit != lhs.end() && rit != rhs.end();)
 	{
-		if (*lit >= *rit)
+		if (*lit < *rit)
+			return (true);
+		else if (*lit > *rit)
 			return (false);
 		++lit;
 		++rit;
 	}
-	return (true);
+	return (lhs.size() < rhs.size());
 }
 
 template <class T, class Alloc>
@@ -585,21 +585,7 @@ bool	operator<= (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 template <class T, class Alloc>
 bool	operator> (const ft::list<T, Alloc>& lhs, const ft::list<T, Alloc>& rhs)
 {
-	typename ft::list<T, Alloc>::const_iterator lit;
-	typename ft::list<T, Alloc>::const_iterator rit;
-		
-	if (lhs.size() != rhs.size())
-		return (lhs.size() > rhs.size());
-	lit = lhs.begin();
-	rit = rhs.begin();
-	for (; lit != lhs.end() && rit != rhs.end();)
-	{
-		if (*lit <= *rit)
-			return (false);
-		++lit;
-		++rit;
-	}
-	return (true);
+	return (rhs < lhs);
 }
 
 template <class T, class Alloc>

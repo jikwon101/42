@@ -46,7 +46,9 @@ template <typename T, typename Alloc>
 vector<T, Alloc>::vector(vector const & x) 
 	:_begin(NULL),_end(NULL), _end_cap(NULL)
 {
-	_begin = _end = alloc_type().allocate(x.capacity());
+	alloc_type allocator(x.get_allocator());
+
+	_begin = _end = allocator.allocate(x.capacity());
 	_end_cap = _begin + x.capacity();
 	construct_at_end(x.begin(), x.end());
 }
@@ -553,25 +555,23 @@ template <class T, class Alloc>
 bool	operator== (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs)
 {
 	typename ft::vector<T, Alloc>::size_type i;
+	typename ft::vector<T, Alloc>::size_type _size;
 
-	i = 0;
-	while (i < lhs.size() && i < rhs.size())
+	if (lhs.size() != rhs.size())
+		return (false);
+	_size = lhs.size();
+	for (i = 0 ; i < _size ; i++)
 	{
 		if (lhs[i] != rhs[i])
 			return (false);
-		i++;
 	}
-	if (lhs.size() == rhs.size())
-		return (true);
-	return (false);
+	return (true);
 }
 
 template <class T, class Alloc>
 bool	operator!= (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs == rhs)
-		return (false);
-	return (true);
+	return (!(lhs == rhs));
 }
 
 template <class T, class Alloc>
@@ -588,32 +588,24 @@ bool	operator< (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs
 			return (false);
 		i++;
 	}
-	if (lhs.size() < rhs.size())
-		return (true);
-	return (false);
+	return (lhs.size() < rhs.size());
 }
 
 template <class T, class Alloc>
 bool	operator<= (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs)
 {
-	if ((lhs < rhs) || (lhs == rhs))
-		return (true);
-	return (false);
+	return (!(lhs > rhs));
 }
 
 
 template <class T, class Alloc>
 bool	operator> (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs <= rhs)
-		return (false);
-	return (true);
+	return (rhs < lhs);
 }
 
 template <class T, class Alloc>
 bool	operator>= (const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs < rhs)
-		return (false);
-	return (true);
+	return (!(lhs < rhs));
 }
