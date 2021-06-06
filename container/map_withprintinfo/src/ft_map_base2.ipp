@@ -525,6 +525,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	new_node = construct_node(val);
 	insert_node(new_node);
 	check_double_red(new_node);
+
 	return (new_node);
 }
 

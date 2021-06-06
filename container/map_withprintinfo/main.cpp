@@ -15,6 +15,12 @@ void	print_itpair(T val, U end);
 
 int main()
 {
+	int arr[] = {2,4,6,8,10,12,14};
+	ft::map<int, int> m1;
+	m1[1] = 10;
+	m1[2] = 20;
+
+	
 	{
 		int arr[] = {2,4,6,8,10,12,14};
 	

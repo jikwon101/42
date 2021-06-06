@@ -131,7 +131,7 @@ typename set<T, Compare, Alloc>::iterator
 	ft::pair<bool, node_pointer> type;
 	iterator res;
 	
-	type = this->dist_type(val, position._ptr);
+	type = this->check_position(val, position._ptr);
 	if (type.first == false)
 		res = this->find_key(val);
 	else

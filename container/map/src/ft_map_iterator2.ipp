@@ -61,13 +61,10 @@ map_iterator<_Iters>&
 		_ptr = Farright_after(_ptr->Lchild);
 	else
 	{
-		pos = _ptr;
-		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
+		pos = _ptr;	
+		while (pos && !isRchild(pos))
 			pos = pos->Parent;
-		if (pos->Parent->Rchild == pos->Rchild)
-			_ptr = pos->Rchild;
-		else
-			_ptr = pos->Parent;
+		_ptr = pos->Parent;
 	}
 	return (*this);
 }
@@ -83,13 +80,10 @@ map_iterator<_Iters>
 		_ptr = Farright_after(_ptr->Lchild);
 	else
 	{
-		pos = _ptr;
-		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
+		pos = _ptr;	
+		while (pos && !isRchild(pos))
 			pos = pos->Parent;
-		if (pos->Parent->Rchild == pos->Rchild)
-			_ptr = pos->Rchild;
-		else
-			_ptr = pos->Parent;
+		_ptr = pos->Parent;
 	}
 	return (ret);
 

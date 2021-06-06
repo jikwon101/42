@@ -62,12 +62,17 @@ set_iterator<_Iters>&
 	else
 	{
 		pos = _ptr;
+		while (pos && !isRchild(pos))
+			pos = pos->Parent;
+		_ptr = pos->Parent;
+/*
 		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
 			pos = pos->Parent;
 		if (pos->Parent->Rchild == pos->Rchild)
 			_ptr = pos->Rchild;
 		else
 			_ptr = pos->Parent;
+*/
 	}
 	return (*this);
 }
@@ -84,12 +89,17 @@ set_iterator<_Iters>
 	else
 	{
 		pos = _ptr;
+		while (pos && !isRchild(pos))
+			pos = pos->Parent;
+		_ptr = pos->Parent;
+/*
 		while (pos->Parent->Rchild != pos->Rchild && pos && !isRchild(pos))
 			pos = pos->Parent;
 		if (pos->Parent->Rchild == pos->Rchild)
 			_ptr = pos->Rchild;
 		else
 			_ptr = pos->Parent;
+*/
 	}
 	return (ret);
 

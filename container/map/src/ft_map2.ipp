@@ -156,7 +156,7 @@ typename map<Key, T, Compare, Alloc>::iterator
 	ft::pair<bool, node_pointer> type;
 	iterator res;
 	
-	type = this->dist_type(val.first, position._ptr);
+	type = this->check_position(val.first, position._ptr);
 	if (type.first == false)
 		res = this->find_key(val.first);
 	else
@@ -312,7 +312,7 @@ typename map<Key, T, Compare, Alloc>::const_iterator
 {
 	if (!size())
 		return (end());
-	return (this->find_lower_bound(k));
+	return (this->find_upper_bound(k));
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>

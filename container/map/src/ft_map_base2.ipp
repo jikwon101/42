@@ -153,6 +153,16 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
+	return (end_node());
+	//return (_head->Parent);	//try
+}
+
+template <typename Key, typename T, typename Compare, typename Alloc>
+typename map_base<Key, T, Compare, Alloc>::node_pointer
+	map_base<Key, T, Compare, Alloc>::end_node() const
+{
+	if (!_size)
+		return (_head);
 	return (_head->Parent);
 }
 
@@ -256,7 +266,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 ft::pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
-	map_base<Key, T, Compare, Alloc>::dist_type(key_type const& k, node_pointer const& hint) const
+	map_base<Key, T, Compare, Alloc>::check_position(key_type const& k, node_pointer const& hint) const
 {
 	node_pointer	pos;
 	key_compare		comp;
@@ -651,9 +661,13 @@ void
 	pos = x;
 	if (getColor(sibling) == RED)
 		case_change(sibling);
-	if (getColor(sibling->Rchild) == RED)
+	if (!isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseA(sibling);
-	else if (getColor(sibling->Lchild) == RED)
+	else if (!isLchild(sibling) && getColor(sibling->Lchild) == RED)
+		caseB(sibling);
+	else if (isLchild(sibling) && getColor(sibling->Lchild) == RED)
+		caseA(sibling);
+	else if (isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseB(sibling);
 	else
 		caseC(sibling);
@@ -666,7 +680,10 @@ void
 {
 	sibling->color = BLACK;
 	sibling->Parent->color = RED;
-	rotate_to_left(sibling->Parent);
+	if (isLchild(sibling))
+		rotate_to_right(sibling->Parent);
+	else
+		rotate_to_left(sibling->Parent);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -675,18 +692,34 @@ void
 {
 	sibling->color = sibling->Parent->color;
 	sibling->Parent->color = BLACK;
-	sibling->Rchild->color = BLACK;
-	rotate_to_left(sibling->Parent);
-
+	if (isLchild(sibling))
+	{
+		sibling->Lchild->color = BLACK;
+		rotate_to_right(sibling->Parent);
+	}
+	else
+	{
+		sibling->Rchild->color = BLACK;
+		rotate_to_left(sibling->Parent);
+	}
 }
 template <typename Key, typename T, typename Compare, typename Alloc>
 void
 	map_base<Key, T, Compare, Alloc>::caseB(node_pointer const& sibling)
 {
 	sibling->color = RED;
-	sibling->Lchild->color = BLACK;
-	rotate_to_right(sibling);
+	if (isLchild(sibling))
+	{
+		sibling->Rchild->color = BLACK;
+		rotate_to_left(sibling);
+	}
+	else
+	{
+		sibling->Lchild->color = BLACK;
+		rotate_to_right(sibling);
+	}
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 void
 	map_base<Key, T, Compare, Alloc>::caseC(node_pointer const& sibling)

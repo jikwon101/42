@@ -58,6 +58,7 @@ typename map<Key, T, Compare, Alloc>::mapped_type& map<Key, T, Compare, Alloc>::
 	}
 	return (res._ptr->data.second);
 }
+
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::allocator_type	map<Key, T, Compare, Alloc>::get_allocator() const
 {

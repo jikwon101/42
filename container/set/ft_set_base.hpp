@@ -43,7 +43,7 @@ namespace ft
 			node_pointer	add_node(value_type const& val, node_pointer const& position);
 			void			erase_node(node_pointer const& target, bool check);
 			size_type		maxsize() const;
-			ft::pair<bool, node_pointer>	dist_type(key_type const&k, node_pointer const& hint) const;
+			ft::pair<bool, node_pointer>	check_position(key_type const&k, node_pointer const& hint) const;
 		private:	
 			node_pointer	least_leaf();
 			node_pointer	GrandParent(node_pointer const& src) const;

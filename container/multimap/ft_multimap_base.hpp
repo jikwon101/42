@@ -1,15 +1,15 @@
-#ifndef FT_MAP_BASE_HPP
-# define FT_MAP_BASE_HPP
+#ifndef FT_MULTIMAP_BASE_HPP
+# define FT_MULTIMAP_BASE_HPP
 
 #include <memory>
-#include "./ft_node_map.hpp"
+#include "./ft_node_multimap.hpp"
 #include "../utils/pair.hpp"
 #include "../utils/function.hpp"
 
 namespace ft
 {
 	template <typename Key, typename T, typename Compare, typename Alloc>
-	class map_base
+	class multimap_base
 	{
 		protected:
 			typedef Key			key_type;
@@ -17,7 +17,7 @@ namespace ft
 			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
 			typedef ft::pair<const key_type, mapped_type> value_type;
-			typedef ft::node_map<value_type>	node;
+			typedef ft::node_multimap<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 			typedef typename allocator_type::size_type				size_type;
 			typedef typename node_allocator_type::reference			node_reference;
@@ -28,14 +28,13 @@ namespace ft
 			node_pointer	_head;
 			node_pointer	_headnext;
 			size_type		_size;
-			map_base(allocator_type const& alloc = allocator_type());
-			~map_base();
-			map_base(map_base const& src);
-			map_base& operator=(map_base const& src);
+			multimap_base(allocator_type const& alloc = allocator_type());
+			~multimap_base();
+			multimap_base(multimap_base const& src);
+			multimap_base& operator=(multimap_base const& src);
 			node_pointer	Farleft_after(node_pointer const& parent) const;
 			node_pointer	Farright_after(node_pointer const& parent) const;
 			node_pointer	find_key(key_type const& k) const;
-			node_pointer	find_key(key_type const& k, node_pointer const& start) const;
 			node_pointer	find_lower_bound(const key_type& k) const;
 			node_pointer	find_upper_bound(const key_type& k) const;
 			void			set_to_head(node_pointer const& new_node);
@@ -45,7 +44,9 @@ namespace ft
 			node_pointer	add_node(key_type const& key);
 			void			erase_node(node_pointer const& target, bool check);
 			size_type		maxsize() const;
-			ft::pair<bool, node_pointer>	dist_type(key_type const&k, node_pointer const& hint) const;
+			bool			check_position(key_type const&k, node_pointer const& hint) const;
+			node_pointer end_node() const;
+
 		private:	
 			node_pointer	least_leaf();
 			node_pointer	GrandParent(node_pointer const& src) const;
@@ -78,10 +79,9 @@ namespace ft
 			void	insert_node(node_pointer const& new_node);
 			void	insert_node(node_pointer const& new_node, node_pointer const& start);
 			bool	isLchild(node_pointer const& x) const;
-			void			printcolor() const;	//temp
-			void			count_color() const; //temp
-			void	node_info(node_pointer const& pos) const;	//temp
+			node_pointer least(node_pointer const& x) const;
+			node_pointer greatest(node_pointer const& x) const;
 	};
-	#include "./src/ft_map_base2.ipp"
+	#include "./src/ft_multimap_base2.ipp"
 }
 #endif

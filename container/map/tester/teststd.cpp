@@ -32,7 +32,7 @@ int main()
 		print("m4 : "); print(m4);
 		print("m5 : "); print(m5);
 		std::cout << "m5 reverse print : \n";
-		for (std::map<int, int>::reverse_iterator it = m1.rbegin() ; it != m1.rend() ; ++it)
+		for (std::map<int, int>::reverse_iterator it = m5.rbegin() ; it != m5.rend() ; ++it)
 		{
 			std::cout << (*it).first << " ";
 		}

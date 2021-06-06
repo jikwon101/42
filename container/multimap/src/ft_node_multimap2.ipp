@@ -1,15 +1,15 @@
 template <typename T>
-node_map<T>::node_map() 
+node_multimap<T>::node_multimap() 
 	:  Lchild(NULL), Rchild(NULL), Parent(NULL), color(RED)
 {}
 
 template <typename T>
-node_map<T>::node_map(value_type const& src) 
+node_multimap<T>::node_multimap(value_type const& src) 
 	: Lchild(NULL), Rchild(NULL), Parent(NULL), data(src), color(RED)
 {}
 
 template <typename T>
-node_map<T>::node_map(node_map const& src) 
+node_multimap<T>::node_multimap(node_multimap const& src) 
 	: color(src.color), data(src.data)
 {
 	Lchild = src.Lchild;
@@ -18,7 +18,7 @@ node_map<T>::node_map(node_map const& src)
 }
 
 template <typename T>
-node_map<T>&	node_map<T>::operator=(node_map const& src)
+node_multimap<T>&	node_multimap<T>::operator=(node_multimap const& src)
 {
 	if (this != &src)
 	{
@@ -32,5 +32,5 @@ node_map<T>&	node_map<T>::operator=(node_map const& src)
 }
 
 template <typename T>
-node_map<T>::~node_map()
+node_multimap<T>::~node_multimap()
 {}
