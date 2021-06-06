@@ -1,15 +1,15 @@
-#ifndef FT_MULTIMAP_BASE_HPP
-# define FT_MULTIMAP_BASE_HPP
+#ifndef FT_MULTISET_BASE_HPP
+# define FT_MULTISET_BASE_HPP
 
 #include <memory>
-#include "./ft_node_multimap.hpp"
+#include "./ft_node_multiset.hpp"
 #include "../utils/pair.hpp"
 #include "../utils/function.hpp"
 
 namespace ft
 {
 	template <typename Key, typename T, typename Compare, typename Alloc>
-	class multimap_base
+	class multiset_base
 	{
 		protected:
 			typedef Key			key_type;
@@ -17,7 +17,7 @@ namespace ft
 			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
 			typedef ft::pair<const key_type, mapped_type> value_type;
-			typedef ft::node_multimap<value_type>	node;
+			typedef ft::node_multiset<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 			typedef typename allocator_type::size_type				size_type;
 			typedef typename node_allocator_type::reference			node_reference;
@@ -28,10 +28,10 @@ namespace ft
 			node_pointer	_head;
 			node_pointer	_headnext;
 			size_type		_size;
-			multimap_base(allocator_type const& alloc = allocator_type());
-			~multimap_base();
-			multimap_base(multimap_base const& src);
-			multimap_base& operator=(multimap_base const& src);
+			multiset_base(allocator_type const& alloc = allocator_type());
+			~multiset_base();
+			multiset_base(multiset_base const& src);
+			multiset_base& operator=(multiset_base const& src);
 			node_pointer	Farleft_after(node_pointer const& parent) const;
 			node_pointer	Farright_after(node_pointer const& parent) const;
 			node_pointer	find_key(key_type const& k) const;
@@ -82,6 +82,6 @@ namespace ft
 			node_pointer least(node_pointer const& x) const;
 			node_pointer greatest(node_pointer const& x) const;
 	};
-	#include "./src/ft_multimap_base2.ipp"
+	#include "./src/ft_multiset_base2.ipp"
 }
 #endif

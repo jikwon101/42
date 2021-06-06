@@ -1,30 +1,30 @@
-#ifndef FT_MULTIMAP_ITERATOR_HPP
-# define FT_MULTIMAP_ITERATOR_HPP
+#ifndef FT_MULTISET_ITERATOR_HPP
+# define FT_MULTISET_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
 #include "../iterator/iterator.hpp"
-#include "./ft_node_multimap.hpp"
+#include "./ft_node_multiset.hpp"
 
 namespace ft
 {
 	template <typename Key, typename T, typename Compare, typename Alloc>
-	class multimap;
+	class multiset;
 
 	template <typename U>
-	class multimap_const_iterator;
+	class multiset_const_iterator;
 
 	template <typename Pair>
-	class multimap_iterator : public iterator<ft::bidirectional_iterator_tag, Pair>
+	class multiset_iterator : public iterator<ft::bidirectional_iterator_tag, Pair>
 	{
 		template <typename Key, typename T, typename Compare, typename Alloc>
-		friend class ft::multimap;
+		friend class ft::multiset;
 		template <typename U>
-		friend class ft::multimap_const_iterator;
+		friend class ft::multiset_const_iterator;
 		template <typename U>
-		friend bool operator==(multimap_iterator<U> const& lhs, multimap_iterator<U> const& rhs);
+		friend bool operator==(multiset_iterator<U> const& lhs, multiset_iterator<U> const& rhs);
 		template <typename U>
-		friend bool operator!=(multimap_iterator<U> const& lhs, multimap_iterator<U> const& rhs);
+		friend bool operator!=(multiset_iterator<U> const& lhs, multiset_iterator<U> const& rhs);
 		public:
 			typedef Pair								value_type;
 			typedef typename value_type::first_type		key_type;
@@ -32,7 +32,7 @@ namespace ft
 			typedef value_type*							pointer;
 			typedef value_type&							reference;
 			typedef ptrdiff_t							difference_type;
-			typedef ft::node_multimap<value_type>*			iterator_type;
+			typedef ft::node_multiset<value_type>*			iterator_type;
 		private:
 			iterator_type	_ptr;
 			bool	isRchild(iterator_type const& node);
@@ -40,25 +40,25 @@ namespace ft
 			iterator_type Farleft_after(iterator_type const& parent);
 			iterator_type Farright_after(iterator_type const& parent);
 		public:
-			multimap_iterator();
-			~multimap_iterator();
-			multimap_iterator(iterator_type const& src);
-			multimap_iterator(multimap_iterator const& rhs);
-			multimap_iterator&		operator=(multimap_iterator const& rhs);
+			multiset_iterator();
+			~multiset_iterator();
+			multiset_iterator(iterator_type const& src);
+			multiset_iterator(multiset_iterator const& rhs);
+			multiset_iterator&		operator=(multiset_iterator const& rhs);
 			reference			operator*() const;		
-			multimap_iterator&		operator++();
-			multimap_iterator		operator++(int);
-			multimap_iterator&		operator--() ;
-			multimap_iterator		operator--(int);
+			multiset_iterator&		operator++();
+			multiset_iterator		operator++(int);
+			multiset_iterator&		operator--() ;
+			multiset_iterator		operator--(int);
 			pointer				operator->() ;
-			bool				operator==(multimap_const_iterator<value_type> const& x) const;
-			bool				operator!=(multimap_const_iterator<value_type> const& x) const;
+			bool				operator==(multiset_const_iterator<value_type> const& x) const;
+			bool				operator!=(multiset_const_iterator<value_type> const& x) const;
 	};
 	template <typename U>
-	bool	operator==(multimap_iterator<U> const& lhs, multimap_iterator<U> const& rhs);
+	bool	operator==(multiset_iterator<U> const& lhs, multiset_iterator<U> const& rhs);
 	template <typename U>
-	bool	operator!=(multimap_iterator<U> const& lhs, multimap_iterator<U> const& rhs);
-	#include "./src/ft_multimap_iterator2.ipp"
+	bool	operator!=(multiset_iterator<U> const& lhs, multiset_iterator<U> const& rhs);
+	#include "./src/ft_multiset_iterator2.ipp"
 
 }
 

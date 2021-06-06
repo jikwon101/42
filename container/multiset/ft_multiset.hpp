@@ -1,5 +1,5 @@
-#ifndef FT_multiset_HPP
-# define FT_multiset_HPP
+#ifndef FT_MULTISET_HPP
+# define FT_MULTISET_HPP
 
 #include <memory>
 #include "../utils/traits.hpp"

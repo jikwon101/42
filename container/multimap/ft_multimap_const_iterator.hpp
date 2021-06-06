@@ -1,5 +1,5 @@
-#ifndef FT_multimap_CONST_ITERATOR_HPP
-# define FT_multimap_CONST_ITERATOR_HPP
+#ifndef FT_MULTIMAP_CONST_ITERATOR_HPP
+# define FT_MULTIMAP_CONST_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
