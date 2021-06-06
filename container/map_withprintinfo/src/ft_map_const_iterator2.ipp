@@ -2,13 +2,18 @@
 ** Member function : Coplien's form
 */
 template <typename _Iters>
-map_const_iterator<_Iters>::map_const_iterator() : _ptr(0) {}
+map_const_iterator<_Iters>::map_const_iterator() 
+	: _ptr(0) 
+{}
 
 template <typename _Iters>
-map_const_iterator<_Iters>::~map_const_iterator(){}
+map_const_iterator<_Iters>::~map_const_iterator()
+{}
 	
 template <typename _Iters>
-map_const_iterator<_Iters>::map_const_iterator(iterator_type const& src) : _ptr(src) {}
+map_const_iterator<_Iters>::map_const_iterator(iterator_type const& src) 
+	: _ptr(src) 
+{}
 
 
 template <typename _Iters>
@@ -18,7 +23,8 @@ map_const_iterator<_Iters>::map_const_iterator(map_const_iterator const& rhs)
 }
 
 template <typename _Iters>
-map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator=(map_const_iterator const& rhs)
+map_const_iterator<_Iters>&	
+	map_const_iterator<_Iters>::operator=(map_const_iterator const& rhs)
 {
 	if (this != &rhs)
 		this->_ptr = rhs._ptr;
@@ -29,7 +35,8 @@ map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator=(map_const_iter
 ** Member function
 */
 template <typename _Iters>
-typename map_const_iterator<_Iters>::const_reference			map_const_iterator<_Iters>::operator*() const 
+typename map_const_iterator<_Iters>::const_reference
+	map_const_iterator<_Iters>::operator*() const 
 {
 	return (_ptr->data);
 }
@@ -46,7 +53,8 @@ bool	map_const_iterator<_Iters>::isLchild(iterator_type const& node)
 }
 
 template <typename _Iters>
-map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator--()
+map_const_iterator<_Iters>&	
+	map_const_iterator<_Iters>::operator--()
 {	
 	iterator_type pos;
 
@@ -66,7 +74,8 @@ map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator--()
 }
 
 template <typename _Iters>
-map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator--(int) 
+map_const_iterator<_Iters>		
+	map_const_iterator<_Iters>::operator--(int) 
 {
 	iterator_type pos;
 	map_const_iterator ret(*this);
@@ -84,10 +93,11 @@ map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator--(int)
 			_ptr = pos->Parent;
 	}
 	return (ret);
-
 }
+
 template <typename _Iters>
-typename map_const_iterator<_Iters>::iterator_type map_const_iterator<_Iters>::Farright_after(iterator_type const& hint)
+typename map_const_iterator<_Iters>::iterator_type
+	map_const_iterator<_Iters>::Farright_after(iterator_type const& hint)
 {
 	iterator_type pos = hint;
 
@@ -98,7 +108,8 @@ typename map_const_iterator<_Iters>::iterator_type map_const_iterator<_Iters>::F
 
 
 template <typename _Iters>
-typename map_const_iterator<_Iters>::iterator_type map_const_iterator<_Iters>::Farleft_after(iterator_type const& hint)
+typename map_const_iterator<_Iters>::iterator_type
+	map_const_iterator<_Iters>::Farleft_after(iterator_type const& hint)
 {
 	iterator_type pos = hint;
 
@@ -108,7 +119,8 @@ typename map_const_iterator<_Iters>::iterator_type map_const_iterator<_Iters>::F
 }
 
 template <typename _Iters>
-map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator++() 
+map_const_iterator<_Iters>&	
+	map_const_iterator<_Iters>::operator++() 
 {
 	iterator_type pos;
 
@@ -122,11 +134,11 @@ map_const_iterator<_Iters>&	map_const_iterator<_Iters>::operator++()
 		_ptr = pos->Parent;
 	}
 	return (*this);
-
 }
 
 template <typename _Iters>
-map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator++(int) 
+map_const_iterator<_Iters>		
+	map_const_iterator<_Iters>::operator++(int) 
 {
 	map_const_iterator ret(*this);
 	iterator_type pos;
@@ -144,8 +156,33 @@ map_const_iterator<_Iters>		map_const_iterator<_Iters>::operator++(int)
 }
 
 template <typename _Iters>
-typename map_const_iterator<_Iters>::const_pointer		map_const_iterator<_Iters>::operator->()	
+typename map_const_iterator<_Iters>::const_pointer		
+	map_const_iterator<_Iters>::operator->()	
 {
 	return (&(_ptr->_val)); 
+}
+
+template <typename _iters>
+bool		map_const_iterator<_iters>::operator==(map_iterator<value_type> const& x) const
+{
+	return (_ptr == x._ptr);
+}
+
+template <typename _iters>
+bool		map_const_iterator<_iters>::operator!=(map_iterator<value_type> const& x) const
+{
+	return (_ptr == x._ptr);
+}
+
+template <typename u>
+bool	operator==(ft::map_const_iterator<u> const& lhs, ft::map_const_iterator<u> const& rhs)
+{
+	return (lhs._ptr == rhs._ptr);
+}
+
+template <typename u>
+bool	operator!=(ft::map_const_iterator<u> const& lhs, ft::map_const_iterator<u> const& rhs)
+{
+	return (lhs._ptr != rhs._ptr);
 }
 

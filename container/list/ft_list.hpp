@@ -21,9 +21,9 @@ namespace ft
 			typedef typename base::const_pointer	coonst_pointer;
 			typedef typename base::size_type		size_type;
 			typedef typename base::difference_type	difference_type;
-			typedef ft::list_iterator<T>			iterator;
-			typedef ft::list_const_iterator<T>		const_iterator;
-			typedef ft::reverse_iterator<iterator>	reverse_iterator;
+			typedef ft::list_iterator<value_type>	iterator;
+			typedef ft::list_const_iterator<value_type>		const_iterator;
+			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		public:
 			explicit list(const alloc_type& alloc = alloc_type());
@@ -34,7 +34,6 @@ namespace ft
 			~list();
 			list& operator=(const list& src);
 			alloc_type		get_allocator() const;
-			/* iterator */
 			iterator				begin();
 			const_iterator			begin() const;
 			reverse_iterator		rbegin();
@@ -43,34 +42,29 @@ namespace ft
 			const_iterator			end() const;
 			reverse_iterator		rend();
 			const_reverse_iterator	rend() const;
-			/* access element */
 			reference				front();
 			const_reference 		front() const;
 			reference				back();
 			const_reference 		back() const;
-			/* capacity */
 			bool			empty() const;
 			size_type		size() const;
 			size_type		max_size() const;
-			/* modify */
 			void		assign(size_type n, const value_type& val);
 			template <typename InputIt>
 			void		assign(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
-			void		clear();
-			iterator	erase(iterator position);
-			iterator	erase(iterator first, iterator last);
 			void		push_front(const value_type& val);
 			void		push_back(const value_type& val);
 			void		pop_front();
 			void		pop_back();
-			void		swap(list& x);
-			void		resize(size_type n, value_type val = value_type());
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
 			template <typename InputIt>
 			void		insert(iterator position, InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
-			/* operation */
-			void		reverse();
+			iterator	erase(iterator position);
+			iterator	erase(iterator first, iterator last);
+			void		swap(list& x);
+			void		resize(size_type n, value_type val = value_type());
+			void		clear();
 			void		splice(iterator position, list& x);
 			void		splice(iterator position, list& x, iterator i);
 			void		splice(iterator position, list& x, iterator first, iterator second);
@@ -86,6 +80,7 @@ namespace ft
 			void		sort();
 			template <typename Compare>
 			void		sort(Compare comp);
+			void		reverse();
 	};
 	template <typename T, typename Alloc>
 	void	swap(ft::list<T, Alloc> &x, ft::list<T, Alloc> &y);

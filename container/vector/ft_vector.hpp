@@ -30,24 +30,21 @@ namespace ft
 			pointer _begin;
 			pointer _end;
 			pointer	_end_cap;
-
 		public:
 			explicit vector(alloc_type const &alloc = alloc_type() );
 			explicit vector(size_type n, const value_type & val = value_type(), alloc_type const& alloc = alloc_type());
 			vector(vector const & x);
 			template <typename InputIt>
 			vector(InputIt first, InputIt last, alloc_type const& alloc = alloc_type(), typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type * = NULL);
-			vector&			operator= (vector const & x);
 			~vector();
+			vector&			operator= (vector const & x);
 			alloc_type	get_allocator() const;
 			iterator				begin();
 			const_iterator			begin() const;
-			const_iterator			cbegin() const throw();
-			reverse_iterator		rbegin();
-			const_reverse_iterator	rbegin() const;
 			iterator				end();
 			const_iterator			end() const;
-			const_iterator			cend() const throw();
+			reverse_iterator		rbegin();
+			const_reverse_iterator	rbegin() const;
 			reverse_iterator		rend();
 			const_reverse_iterator	rend() const;
 			reference				operator[] (size_type n);
@@ -64,7 +61,6 @@ namespace ft
 			bool			empty() const;
 			void			reserve(size_type n);
 			void			resize(size_type n, value_type val = value_type());
-			
 			void			push_back(value_type const & val);
 			void			pop_back(void);
 			iterator		erase(iterator position);

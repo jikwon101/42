@@ -90,14 +90,14 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::GrandParent(node_pointer const& src)
+	map_base<Key, T, Compare, Alloc>::GrandParent(node_pointer const& src) const
 {
 	return (src->Parent->Parent);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::Sibling(node_pointer const& src)
+	map_base<Key, T, Compare, Alloc>::Sibling(node_pointer const& src) const
 {
 	node_pointer& parent = src->Parent;
 	if (parent->Rchild == src)
@@ -107,7 +107,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map_base<Key, T, Compare, Alloc>::node_pointer
-	map_base<Key, T, Compare, Alloc>::Uncle(node_pointer const& src)
+	map_base<Key, T, Compare, Alloc>::Uncle(node_pointer const& src) const
 {
 	return (Sibling(src->Parent));
 }
@@ -305,7 +305,7 @@ void
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 void
-	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node)
+	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer const& new_node)
 {
 	node_pointer	parent;
 	node_pointer	pos;
@@ -339,7 +339,7 @@ void
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 void	
-	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer& new_node, node_pointer const& start)
+	map_base<Key, T, Compare, Alloc>::insert_node(node_pointer const& new_node, node_pointer const& start)
 {
 	node_pointer	parent;
 	node_pointer	pos;
@@ -505,13 +505,13 @@ void
 	{
 		status_parent = isLchild(x->Parent);
 		status_x = isLchild(x);
-		if (status_parent && status_x)	//LL
+		if (status_parent && status_x)			//LL
 			restructuring1(x);
 		else if (status_parent && !status_x)	//LR
 			restructuring2(x);
-		else if (!status_parent && status_x) //RL
+		else if (!status_parent && status_x)	//RL
 			restructuring3(x);
-		else								//RR
+		else									//RR
 			restructuring4(x);
 	}
 }
@@ -575,110 +575,6 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	while (pos->Rchild)
 		pos = pos->Rchild;
 	return (pos);
-}
-
-
-template <typename Key, typename T, typename Compare, typename Alloc>
-void	
-	map_base<Key, T, Compare, Alloc>::node_info(node_pointer const& pos) const
-{	
-	std::cout << "key : " << pos->data.first << ", value : " << pos->data.second << "  ";
-	std::cout << "L : ";
-	if (pos->Lchild)
-		std::cout << pos->Lchild->data.first << " " ;
-	else
-		std::cout << "nil";
-	std::cout << " R : " ;
-	if (pos->Rchild)
-		std::cout << pos->Rchild->data.first << "\n";
-	else
-		std::cout << "nil\n";
-
-}
-template <typename Key, typename T, typename Compare, typename Alloc>
-void
-	map_base<Key, T, Compare, Alloc>::count_color() const
-{
-	node_pointer pos;
-	
-	pos = Farleft_after(_head);
-	std::cout << "BLACK : " ;
-	while (pos)
-	{
-		if (pos->color == BLACK)
-			std::cout << pos->data.first << " ";
-		if (pos->Rchild)
-			pos = Farleft_after(pos->Rchild);
-		else
-		{
-			node_pointer temp = pos;
-			while (temp && temp->Parent && !isLchild(temp))
-				temp = temp->Parent;
-			if (temp == _head)
-				break;
-			else if (temp)
-				pos = temp->Parent;
-			else
-				pos = temp;
-		}
-	}
-	std::cout << "\n";
-	pos = Farleft_after(_head);
-	std::cout << "RED : " ;
-	while (pos)
-	{
-		if (pos->color == RED)
-			std::cout << pos->data.first << " ";
-		if (pos->Rchild)
-			pos = Farleft_after(pos->Rchild);
-		else
-		{
-			node_pointer temp = pos;
-			while (temp && temp->Parent && !isLchild(temp))
-				temp = temp->Parent;
-			if (temp == _head)
-				break;
-			else if (temp)
-				pos = temp->Parent;
-			else
-				pos = temp;
-		}
-	}
-	std::cout << "\n";
-
-}
-template <typename Key, typename T, typename Compare, typename Alloc>
-void
-	map_base<Key, T, Compare, Alloc>::printcolor() const
-{
-	node_pointer pos;
-	
-	if (!_size)
-	{
-		std::cout << "NO ELEMENT\n";
-		return ;
-	}
-	std::cout << "head : "<< _head->data.first << std::endl;
-	count_color();
-	pos = Farleft_after(_head);
-	while (pos)
-	{
-		node_info(pos);
-		if (pos->Rchild)
-			pos = Farleft_after(pos->Rchild);
-		else
-		{
-			node_pointer temp = pos;
-			while (temp && temp->Parent && !isLchild(temp))
-				temp = temp->Parent;
-			if (temp == _head)
-				break;
-			else if (temp)
-				pos = temp->Parent;
-			else
-				pos = temp;
-		}
-	}
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -842,7 +738,7 @@ void
 	else if (x->Parent)
 		x->Parent->Rchild = y;
 	else
-		_head = y;	// x -> y edit
+		_head = y;
 
 	if (x->Lchild)
 		x->Lchild->Parent = y;

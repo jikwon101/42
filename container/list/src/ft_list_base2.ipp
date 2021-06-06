@@ -1,7 +1,6 @@
 /* 
 ** list_base 
 */
-
 template <typename T, typename Alloc>
 list_base<T, Alloc>::list_base(const alloc_type& alloc)  : _size(0)
 {
@@ -35,7 +34,8 @@ list_base<T, Alloc>::~list_base()
 {}
 
 template <typename T, typename Alloc>
-typename list_base<T, Alloc>::size_type	list_base<T, Alloc>::length(node_pointer& first, node_pointer& last)
+typename list_base<T, Alloc>::size_type	
+	list_base<T, Alloc>::length(node_pointer const& first, node_pointer const& last) const
 {
 	size_type cnt = 0;
 	
@@ -84,22 +84,26 @@ void	list_base<T, Alloc>::insert_node_front(node_pointer& next_node, node_pointe
 }
 
 template <typename T, typename Alloc>
-void list_base<T, Alloc>::append_node_front(size_type n, const value_type& val)
+void	list_base<T, Alloc>::append_node_front(size_type n, const value_type& val)
 {
 	node_pointer new_node;
 	node_pointer head_node;
 
+	if (!n)
+		return ;
 	new_node = make_one_node(val);
 	head_node = _head();
 	insert_node_front(head_node, new_node, n);
 }
 
 template <typename T, typename Alloc>
-void list_base<T, Alloc>::append_node_back(size_type n, const value_type& val)
+void	list_base<T, Alloc>::append_node_back(size_type n, const value_type& val)
 {
 	node_pointer new_node;
 	node_pointer tail_node;
 
+	if (!n)
+		return ;
 	new_node = make_nodes(n, val);
 	tail_node = _tail();
 	insert_node_back(tail_node, new_node, n);
@@ -107,7 +111,7 @@ void list_base<T, Alloc>::append_node_back(size_type n, const value_type& val)
 
 template <typename T, typename Alloc>
 template <typename InputIt>
-void list_base<T, Alloc>::append_node_back(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type*)
+void	list_base<T, Alloc>::append_node_back(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type*)
 {
 	node_pointer	new_node;
 	node_pointer	tail_node;
@@ -122,7 +126,8 @@ void list_base<T, Alloc>::append_node_back(InputIt first, InputIt last, typename
 }
 
 template <typename T, typename Alloc>
-typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_one_node(const value_type& val)
+typename list_base<T, Alloc>::node_pointer 
+	list_base<T, Alloc>::make_one_node(const value_type& val)
 {
 	node_pointer new_node;
 
@@ -132,12 +137,13 @@ typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_one_node(co
 }
 
 template <typename T, typename Alloc>
-typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_nodes(size_type n, const value_type& val)
+typename list_base<T, Alloc>::node_pointer
+	list_base<T, Alloc>::make_nodes(size_type n, const value_type& val)
 {
 	node_pointer new_node;
 	node_pointer cur_node;
 	node_pointer prev_node;
-	
+
 	cur_node = node_alloc_type().allocate(1);
 	node_alloc_type().construct(cur_node, val);
 	new_node = cur_node;
@@ -154,7 +160,8 @@ typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_nodes(size_
 
 template <typename T, typename Alloc>
 template <typename InputIt>
-typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_nodes(InputIt first, InputIt last)
+typename list_base<T, Alloc>::node_pointer 
+	list_base<T, Alloc>::make_nodes(InputIt first, InputIt last)
 {	
 	node_pointer new_node = NULL;
 	node_pointer cur_node = NULL;
@@ -174,14 +181,14 @@ typename list_base<T, Alloc>::node_pointer list_base<T, Alloc>::make_nodes(Input
 }
 
 template <typename T, typename Alloc>
-void	list_base<T, Alloc>::link_node(node_pointer& prev_node, node_pointer& next_node)
+void	list_base<T, Alloc>::link_node(node_pointer const& prev_node, node_pointer const& next_node)
 {
 	prev_node->_next = next_node;
 	next_node->_prev = prev_node;
 }
 
 template <typename T, typename Alloc>
-bool	list_base<T, Alloc>::isEnd(node_pointer& nd) const
+bool	list_base<T, Alloc>::isEnd(node_pointer const& nd) const
 {
 	return (reinterpret_cast<list_base<T, Alloc>*>(nd) == this);
 }
@@ -230,7 +237,6 @@ typename list_base<T, Alloc>::node_pointer	list_base<T, Alloc>::delete_one_node(
 	return (_next);
 }
 
-// [first, last)
 template <typename T, typename Alloc>
 typename list_base<T, Alloc>::node_pointer&	list_base<T, Alloc>::delete_nodes(node_pointer& first, node_pointer& last)
 {
@@ -266,8 +272,8 @@ void	list_base<T, Alloc>::swap_base(list_base& x)
 		return ;
 	n_x = x._size;
 	n_this = this->_size;
-	new_node_x = x.splice_node(x._head(), x._end());
-	new_node_this = x.splice_node(_head(), _end());
+	new_node_x = x.extract_node(x._head(), x._end());
+	new_node_this = x.extract_node(_head(), _end());
 	head_node = _head();
 	insert_node_front(head_node, new_node_x, n_x);
 	head_node = x._head();
@@ -275,7 +281,8 @@ void	list_base<T, Alloc>::swap_base(list_base& x)
 }
 
 template <typename T, typename Alloc>
-typename list_base<T, Alloc>::node_pointer	list_base<T, Alloc>::splice_node(node_pointer first, node_pointer last)
+typename list_base<T, Alloc>::node_pointer	
+	list_base<T, Alloc>::extract_node(node_pointer first, node_pointer last)
 {
 	node_pointer prev_node_first = first->_prev;
 	node_pointer prev_node_last = last->_prev;

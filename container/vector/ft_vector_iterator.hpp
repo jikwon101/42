@@ -1,8 +1,9 @@
-#ifndef VECTOR_ITERATOR_HPP
-# define VECTOR_ITERATOR_HPP
+#ifndef FT_VECTOR_ITERATOR_HPP
+# define FT_VECTOR_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../iterator/iterator.hpp"
+#include <iterator>
 
 namespace ft
 {
@@ -11,7 +12,7 @@ namespace ft
 	{
 		public:
 			typedef _Iters			iterator_type;
-			typedef typename iterator_traits<iterator_type>::iterator_category 	iterator_category;
+			typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
 			typedef typename iterator_traits<iterator_type>::value_type			value_type;
 			typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
 			typedef typename iterator_traits<iterator_type>::pointer			pointer;
@@ -52,7 +53,7 @@ namespace ft
 	template <typename T, typename U>
 	bool	operator<=(vector_iterator<T> const& lhs, vector_iterator<U> const& rhs);
 	template <typename T, typename U>
-	typename iterator_traits<T>::difference_type	operator-(const vector_iterator<T>& lhs, const vector_iterator<U>& rhs);
+	typename ft::iterator_traits<T>::difference_type	operator-(const vector_iterator<T>& lhs, const vector_iterator<U>& rhs);
 
 	#include "./src/ft_vector_iterator2.ipp"
 

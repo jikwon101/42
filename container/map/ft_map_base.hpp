@@ -12,23 +12,19 @@ namespace ft
 	class map_base
 	{
 		protected:
-			typedef Key		key_type;
-			typedef T		mapped_type;
-			typedef Compare	key_compare;
-			typedef ft::pair<const key_type, mapped_type> value_type;
+			typedef Key			key_type;
+			typedef T			mapped_type;
+			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
-			typedef typename allocator_type::reference	reference;
-			typedef typename allocator_type::const_reference const_reference;
-			typedef typename allocator_type::pointer pointer;
-			typedef typename allocator_type::const_pointer const_pointer;
+			typedef ft::pair<const key_type, mapped_type> value_type;
 			typedef ft::node_map<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
-			typedef size_t		size_type;
-			typedef ptrdiff_t	difference_type;
-			typedef typename node_allocator_type::reference node_reference;
-			typedef typename node_allocator_type::const_reference node_const_reference;
-			typedef typename node_allocator_type::pointer node_pointer;
-			typedef typename node_allocator_type::const_pointer node_const_pointer;
+			typedef typename allocator_type::size_type				size_type;
+			typedef typename node_allocator_type::reference			node_reference;
+			typedef typename node_allocator_type::const_reference	node_const_reference;
+			typedef typename node_allocator_type::pointer			node_pointer;
+			typedef typename node_allocator_type::const_pointer		node_const_pointer;
+		
 			node_pointer	_head;
 			node_pointer	_headnext;
 			size_type		_size;
@@ -50,13 +46,11 @@ namespace ft
 			void			erase_node(node_pointer const& target, bool check);
 			size_type		maxsize() const;
 			ft::pair<bool, node_pointer>	dist_type(key_type const&k, node_pointer const& hint) const;
-			void			printcolor() const;	//temp
-			void			count_color() const; //temp
 		private:	
 			node_pointer	least_leaf();
-			node_pointer	GrandParent(node_pointer const& src);
-			node_pointer	Sibling(node_pointer const& src);
-			node_pointer	Uncle(node_pointer const& src);
+			node_pointer	GrandParent(node_pointer const& src) const;
+			node_pointer	Sibling(node_pointer const& src) const;
+			node_pointer	Uncle(node_pointer const& src) const;
 			node_pointer	next_node(node_pointer const& x) const;
 			node_pointer	prev_node(node_pointer const& x) const;
 			node_pointer	construct_node(value_type const& val);
@@ -67,7 +61,6 @@ namespace ft
 			void	rotate_to_left(node_pointer const x);
 			void	relink(node_pointer const& p, node_pointer const& c, bool isLchild);
 			void	destroy_node(node_pointer const& node);
-			void	node_info(node_pointer const& pos) const;	//temp
 			void	attach_to_right(node_pointer const& x, node_pointer const& new_right);
 			void	attach_to_left(node_pointer const& x, node_pointer const& new_left);
 			void	case_change(node_pointer const& x);
@@ -82,8 +75,8 @@ namespace ft
 			void	restructuring4(node_pointer const& x);
 			void	check_double_red(node_pointer const& x);
 			void	check_double_black(node_pointer const& x, node_pointer const& sibling);
-			void	insert_node(node_pointer& new_node);
-			void	insert_node(node_pointer& new_node, node_pointer const& start);
+			void	insert_node(node_pointer const& new_node);
+			void	insert_node(node_pointer const& new_node, node_pointer const& start);
 			bool	isLchild(node_pointer const& x) const;
 	};
 	#include "./src/ft_map_base2.ipp"

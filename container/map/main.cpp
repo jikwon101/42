@@ -38,7 +38,7 @@ int main()
 		}
 		std::cout << "\n";
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{
 		ft::map<int, int> m1;
 		print("m1 is empty : "); print(m1.empty()); print("\n");
@@ -53,7 +53,7 @@ int main()
 		print("m1 size : "); print(m1.size()); print("\n");
 		print("m1 max : "); print(m1.max_size()); print("\n");
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{
 		ft::pair<int, int> t1(3, 10);
 		ft::pair<ft::map<int, int>::iterator, bool> res;
@@ -69,11 +69,11 @@ int main()
 		it = m1.insert(m1.find(10), t2);
 		std::cout << "pair : (" << (*it).first << " , " << (*it).second << ")\n";
 		ft::map<int, int> m2;
-		print("m1"); print(m1);
+		print("m1"); print(m1); print("\n");
 		print("m2: insert\n");m2.insert(m1.begin(), m1.end());
 		print("m2"); print(m2);
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{
 		int arr[] = {1,9,4,6,7,8,2,4,0,10};
 		ft::map<int, int> m1;
@@ -99,7 +99,7 @@ int main()
 		print("m2 clear\n"); m2.clear();
 		print("m2: "); print(m2);
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{
 		ft::map<int, int> m1;
 		int arr[] = {1,9,4,6,7,8,2,4,0,10};
@@ -115,7 +115,7 @@ int main()
 		if (res == m1.end())
 			print("res is pointing end\n");
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{	
 		ft::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
@@ -144,7 +144,7 @@ int main()
 		else
 			print("end\n");
 	}
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{	
 		ft::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
@@ -173,14 +173,14 @@ int main()
 		else
 			print("end\n");
 	}
-
-	std::cout << "-------------\n";
+	print("-------------------------\n");
 	{
 		ft::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> res;
 		ft::map<int, int> m1;
 		int arr[] = {2,4,6,8,10,12, 14};
 		for ( int n = 0 ; n < 7 ; n++)
 			m1[arr[n]];
+		print("m1 :"); print(m1);
 		print("range(0)");
 		res = m1.equal_range(0);
 		print_itpair(res, m1.end());
@@ -195,6 +195,26 @@ int main()
 		print_itpair(res, m1.end());
 	}
 	std::cout << "-------------\n";
+	{
+		ft::map<int, int> t1;
+		t1[10] = 20;
+		ft::map<int, int> t2(t1);
+		ft::map<int, int> t3;
+		t3[10] = 30;
+		print("t1 : "); print(t1);
+		print("t2 : "); print(t2);
+		print("t3 : "); print(t3);
+		print("t1 == t2  ? ");
+		if (t1 == t2) print("True\n") ; else print( "False\n");
+		print("t1 == t3  ? ");
+		if (t1 == t3) print("True\n") ; else print( "False\n");
+		print("t1 <  t3  ? ");
+		if (t1 < t3) print("True\n") ; else print( "False\n");
+		print("t1 >  t3  ? ");
+		if (t1 > t3) print("True\n") ; else print( "False\n");
+	}
+	print("-------------------------\n");
+	print("RETURN\n");
 }
 
 class test
@@ -265,6 +285,6 @@ void	print_itpair(T val, U end)
 	if (val.second == end)
 		print("end");
 	else
-		print((*(val.first)).second);
-	std::cout << ")\n";
+		print((*(val.second)).first);
+	std::cout << " )\n";
 }

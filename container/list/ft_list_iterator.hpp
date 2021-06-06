@@ -1,10 +1,11 @@
-#ifndef LIST_ITERATOR_HPP
-# define LIST_ITERATOR_HPP
+#ifndef FT_LIST_ITERATOR_HPP
+# define FT_LIST_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
 #include "../iterator/iterator.hpp"
 #include "./ft_node_list.hpp"
+#include <iterator>
 
 namespace ft
 {
@@ -15,7 +16,7 @@ namespace ft
 	class list_const_iterator;
 	
 	template <typename T>
-	class list_iterator : public iterator<ft::bidirectional_iterator_tag, T>
+	class list_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
 		template <typename U, typename Alloc>
 		friend class ft::list;
@@ -28,6 +29,7 @@ namespace ft
 			typedef T								value_type;
 			typedef value_type*						pointer;
 			typedef value_type&						reference;
+			typedef const value_type&				const_reference;
 			typedef ptrdiff_t						difference_type;
 			typedef ft::node_list<value_type>*		iterator_type;
 		private:

@@ -8,7 +8,6 @@
 #endif
 
 #include <iostream>
-#include <list>
 class Test;
 struct is_odd
 {
@@ -59,8 +58,9 @@ int main()
 		{
 			std::cout << *it2 << " " ;
 		}
-		std::cout << "\n";
+		print("\n");
 	}
+	print("----------------------------\n");
 	{
 		ft::list<int> t1;					//default
 		print_list(t1);
@@ -76,7 +76,7 @@ int main()
 		print_list(t4);
 		std::cout << typeid(t1.get_allocator()).name() << std::endl;
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		int arr[] = {1,2,3,4,5};
 		ft::list<int> t1(arr, arr +5);
@@ -95,7 +95,7 @@ int main()
 		//it1 = t2.begin(); // error : t2 const list
 		it2 = t2.begin();
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		ft::list<int> t1;
 		ft::list<char> t2(1, 10);
@@ -106,7 +106,7 @@ int main()
 		print("t1<int> max: "); print(t1.max_size()); print("\n");
 		print("t2<char> max: "); print(t2.max_size()); print("\n");
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 
 		int arr[] = {1,2,3,4,5};
@@ -133,8 +133,8 @@ int main()
 		print("t1 swap with t2\n"); t1.swap(t2);
 		print("t1:"); print_list(t1);
 		print("t2:"); print_list(t2);
-			}
-	std::cout << "----------------------------\n";
+	}
+	print("----------------------------\n");
 	{
 		ft::list<int> t1;
 		ft::list<int> t2(1,99);
@@ -154,7 +154,7 @@ int main()
 		print("t2:"); print_list(t2);
 
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		int arr[] = {1,5,0,9,6,7,6, 13,4,6};
 		ft::list<int> t1(arr, arr + 10);
@@ -171,7 +171,7 @@ int main()
 		print("t1:"); print_list(t1);
 
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		float arr[] = {2.6, 2.3, 4.1, 2.4, 2.1, 1.8};
 		ft::list<float> t1(arr, arr+6);
@@ -183,7 +183,7 @@ int main()
 		print("t2: unique (pred)\n"); t2.unique(same_integral_part);
 		print("t2:"); print_list(t2);
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		int arr1[] = {1,2,3,4,5};
 		int arr2[] = {66,77,88,99};
@@ -201,7 +201,7 @@ int main()
 		print("t1:"); print_list(t1);
 		print("t2:"); print_list(t2);
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		int arr1[] = {1, 3, 5, 9, 11};
 		int arr2[] = {2, 4, 7,8, 9};
@@ -223,7 +223,7 @@ int main()
 		print("t3:\n"); print_list(t3);
 		print("t4:"); print_list(t4);
 	}
-	std::cout << "----------------------------\n";
+	print("----------------------------\n");
 	{
 		ft::list<int> t1;
 		ft::list<int> t2;
@@ -239,10 +239,9 @@ int main()
 		print("t1 >= t2  ? ");
 		if (t1 >= t2) print("true\n"); else print("false\n");
 	}
+	print("----------------------------\n");
+	print("RETURN\n");
 }
-
-
-
 
 template <typename T>
 void print_info(T const& src)

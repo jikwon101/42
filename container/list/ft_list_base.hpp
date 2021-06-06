@@ -29,23 +29,23 @@ namespace ft
 			typedef typename alloc_type::reference			reference;
 			typedef typename alloc_type::const_reference	const_reference;
 		private:
-			ft::pair<node_pointer, node_pointer> _end_node;	//(tail, head)
+			ft::pair<node_pointer, node_pointer> _end_node;
 			size_type	_size;
 		protected:
 			list_base(const alloc_type& alloc = alloc_type());
 			list_base(const list_base& src);
 			list_base& operator=(const list_base& src);
 			~list_base();
-			bool			isEnd(node_pointer& nd) const;
+			bool			isEnd(node_pointer const& nd) const;
 			size_type		_max_size() const;
-			size_type		length(node_pointer& head, node_pointer& tail);
+			size_type		length(node_pointer const& head, node_pointer const& tail) const;
 			size_type		to_tail(node_pointer& nd);
 			node_pointer	_head() const;
 			node_pointer	_tail() const;
 			node_pointer	_end() const;
 			size_type		get_size() const;
 			void			swap_base(list_base& x);
-			void			append_node_back(size_type n,const value_type& val);
+			void			append_node_back(size_type n, const value_type& val);
 			template <typename InputIt>
 			void			append_node_back(InputIt first, InputIt last, typename ft::is_iterator<!ft::is_arithmetic<InputIt>::value, InputIt>::type* = NULL);
 			void			append_node_front(size_type n, const value_type& val);
@@ -55,10 +55,10 @@ namespace ft
 			node_pointer	make_nodes(size_type n, const value_type& val);
 			template <typename InputIt>
 			node_pointer	make_nodes(InputIt first, InputIt last);
-			void			link_node(node_pointer& prev_node, node_pointer& next_node);
+			void			link_node(node_pointer const& prev_node, node_pointer const& next_node);
 			node_pointer&	delete_nodes(node_pointer& first, node_pointer& last);
 			node_pointer	delete_one_node(node_pointer& target);
-			node_pointer	splice_node(node_pointer first, node_pointer last);
+			node_pointer	extract_node(node_pointer first, node_pointer last);
 	};
 	#include "./src/ft_list_base2.ipp"
 }

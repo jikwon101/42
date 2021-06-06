@@ -1,5 +1,5 @@
-#ifndef LIST_CONST_ITERATOR_HPP
-# define LIST_CONST_ITERATOR_HPP
+#ifndef FT_LIST_CONST_ITERATOR_HPP
+# define FT_LIST_CONST_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"

@@ -1,5 +1,5 @@
-#ifndef NODE_LIST_HPP
-# define NODE_LIST_HPP
+#ifndef FT_NODE_LIST_HPP
+# define FT_NODE_LIST_HPP
 
 namespace ft
 {

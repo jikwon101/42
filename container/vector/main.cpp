@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/03 11:47:51 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/05 22:38:07 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #endif
 
 #include <iostream>
-
+#include <algorithm>
 template <typename T>
 void print_info(T const& src);
 
@@ -39,6 +39,16 @@ void print_it(T const & src);
 
 int main()
 {
+	int arr[] = {4,1,3};
+	ft::vector<int> t(arr, arr + 3);
+	ft::vector<int>::value_type k;
+	std::cout << typeid(k).name() << std::endl;
+	print_vector(t);
+	print("---------");
+	//std::sort(t.begin(), t.end());
+	print_vector(t);
+
+/*
 	print("---------------------");
 	print("Constructor\n");
 	{
@@ -239,6 +249,22 @@ int main()
 		print("v1 > v3 ?  ");
 		if (v1 > v3) print("true"); else print("false");
 	}
+	print("---------------------");
+	{
+		int arr[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+		ft::vector<int> v1(arr, arr + 18);
+		ft::vector<int>::reverse_iterator it1 = v1.rbegin();
+		ft::vector<int>::reverse_iterator it2 = v1.rend();
+		ft::vector<int>::reverse_iterator pos;
+		for (pos = it1 ; pos != it2 ; )
+		{
+			std::cout << (*pos) << " ";
+			pos = pos + 2;
+			++pos;
+		}
+		std::cout << "\n";
+	}
+	*/
 	print("---------------------");
 	print("RETURN");
 }

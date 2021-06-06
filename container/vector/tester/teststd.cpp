@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/03 11:47:51 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/05 19:09:14 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void print_it(T const & src);
 
 int main()
 {
+	std::vector<int> t;
+
 	print("---------------------");
 	print("Constructor\n");
 	{
@@ -238,6 +240,21 @@ int main()
 		if (v1 <= v3) print("true"); else print("false");
 		print("v1 > v3 ?  ");
 		if (v1 > v3) print("true"); else print("false");
+	}
+	print("---------------------");
+	{
+		int arr[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+		std::vector<int> v1(arr, arr + 18);
+		std::vector<int>::reverse_iterator it1 = v1.rbegin();
+		std::vector<int>::reverse_iterator it2 = v1.rend();
+		std::vector<int>::reverse_iterator pos;
+		for (pos = it1 ; pos != it2 ; )
+		{
+			std::cout << (*pos) << " ";
+			pos = pos + 2;
+			++pos;
+		}
+		std::cout << "\n";
 	}
 	print("---------------------");
 	print("RETURN");
