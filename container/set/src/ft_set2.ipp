@@ -54,17 +54,13 @@ typename set<T, Compare, Alloc>::const_iterator	set<T, Compare, Alloc>::begin() 
 template <typename T, typename Compare, typename Alloc>
 typename set<T, Compare, Alloc>::iterator	set<T, Compare, Alloc>::end()
 {
-	if (!size())
-		return (this->_head);
-	return (this->_head->Parent);
+	return (this->end_node());
 }
 
 template <typename T, typename Compare, typename Alloc>
 typename set<T, Compare, Alloc>::const_iterator	set<T, Compare, Alloc>::end() const
 {
-	if (!size())
-		return (this->_head);
-	return (this->_head->Parent);
+	return (this->end_node());
 }
 
 template <typename T, typename Compare, typename Alloc>

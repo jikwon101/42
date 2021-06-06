@@ -53,6 +53,7 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 void
 	multimap_base<Key, T, Compare, Alloc>::clear_node() 
 {
+	//try
 	node_pointer	pos;
 	node_pointer	_this;
 
@@ -61,8 +62,7 @@ void
 		pos = least_leaf();
 		erase_node(pos, false);
 	}
-	_this = reinterpret_cast<node_pointer>(&_head);
-	_head = _headnext = _this;
+	_head = _headnext = end_node();
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -282,14 +282,16 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 void	
 	multimap_base<Key, T, Compare, Alloc>::set_to_head(node_pointer const& new_node)
 {
+	node_pointer _this = reinterpret_cast<node_pointer>(&_head);
+	
 	if (new_node)
 	{
-		new_node->Parent = end_node();
+		new_node->Parent = _this;
 		_head = new_node;
 		_headnext = new_node->Rchild ? new_node->Rchild : new_node;
 	}
 	else
-		_head = _headnext = end_node();
+		_head = _headnext = _this;
 	return ;
 }
 

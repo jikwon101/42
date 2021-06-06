@@ -98,6 +98,8 @@ int main()
 		print("m2: "); print(m2);
 		print("m2 clear\n"); m2.clear();
 		print("m2: "); print(m2);
+		m2[10] = 100;
+		print("m2: "); print(m2);
 	}
 	print("-------------------------\n");
 	{

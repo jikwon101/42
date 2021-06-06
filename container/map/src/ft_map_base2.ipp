@@ -16,13 +16,18 @@ map_base<Key, T, Compare, Alloc>::~map_base()
 template <typename Key, typename T, typename Compare, typename Alloc>
 map_base<Key, T, Compare, Alloc>::map_base(map_base const& x) 
 {
-	node_pointer	_this;
 	node_pointer	pos;
 	
+	/* try
+	 node_pointer	_this;
 	_this = reinterpret_cast<node_pointer>(&_head);
 	_head = _headnext = _this;
+	*/
+	_head = _headnext = end_node();
+	if (x._size) //try
+		return ;    //try
 	pos = x.Farleft_after(x._head);
-	while (pos != x._head->Parent)
+	while (pos != x.end_node()) // while (pos != x._head->Parent) try
 	{
 		add_node(pos);
 		x.next_node(pos);
@@ -37,8 +42,10 @@ map_base<Key, T, Compare, Alloc>&	map_base<Key, T, Compare, Alloc>::operator=(ma
 		node_pointer	pos;
 
 		clear_node();
+		if (!x._size)  //try
+			return ;
 		pos = x.Farleft_after(x._head);
-		while (pos != x._head->Parent)
+		while (pos != x.end_node()) //while (pos != x._head->Parent) try
 		{
 			add_node(pos);
 			x.next_node(pos);
@@ -52,15 +59,18 @@ void
 	map_base<Key, T, Compare, Alloc>::clear_node() 
 {
 	node_pointer	pos;
-	node_pointer	_this;
 
 	while (_size)
 	{
 		pos = least_leaf();
 		erase_node(pos, false);
 	}
+	_head = _headnext = end_node();
+	/* try
+	node_pointer	_this;
 	_this = reinterpret_cast<node_pointer>(&_head);
 	_head = _headnext = _this;
+	*/
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -120,7 +130,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (_head);
+		return (end_node()); //return (_head); try
 	pos = _head;
 	while (pos)
 	{
@@ -131,7 +141,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
-	return (_head->Parent);
+	return (end_node()); //try  : return (_head->Parent);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -142,7 +152,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (_head);
+		return (end_node()); //return (_head); try
 	pos = start;
 	while (pos)
 	{
@@ -236,7 +246,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		if (res && prev == pos)
 			break;
 		else if (prev == pos)
-			return (_head->Parent);
+			return (end_node()); //try : return (_head->Parent);
 	}
 	if (begin)
 		return (pos);
@@ -257,7 +267,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		prev = pos;
 		pos = next_node(pos);
 		if (prev == pos)
-			return (_head->Parent);
+			return (end_node()); // try : return (_head->Parent);
 		if (k == prev->data.first)
 			break;
 	}
@@ -300,7 +310,7 @@ void
 	map_base<Key, T, Compare, Alloc>::set_to_head(node_pointer const& new_node)
 {
 	node_pointer _this;
-
+	
 	_this = reinterpret_cast<node_pointer>(&_head);
 	if (new_node)
 	{

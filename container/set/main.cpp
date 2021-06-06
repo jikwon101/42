@@ -91,6 +91,8 @@ int main()
 		print("m2: "); print(m2);
 		print("m2 clear\n"); m2.clear();
 		print("m2: "); print(m2);
+		m2.insert(10);
+		print("m2: "); print(m2);
 	}
 	print("-------------------------\n");
 	{

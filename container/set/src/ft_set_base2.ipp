@@ -16,13 +16,14 @@ set_base<T, Compare, Alloc>::~set_base()
 template <typename T, typename Compare, typename Alloc>
 set_base<T, Compare, Alloc>::set_base(set_base const& x) 
 {
-	node_pointer	_this;
+	//try 
 	node_pointer	pos;
 	
-	_this = reinterpret_cast<node_pointer>(&_head);
-	_head = _headnext = _this;
+	_head = _headnext = end_node();
+	if (!x._size)
+		return ;
 	pos = x.Farleft_after(x._head);
-	while (pos != x._head->Parent)
+	while (pos != x.end_node())
 	{
 		add_node(pos);
 		x.next_node(pos);
@@ -32,13 +33,16 @@ set_base<T, Compare, Alloc>::set_base(set_base const& x)
 template <typename T, typename Compare, typename Alloc>
 set_base<T, Compare, Alloc>&	set_base<T, Compare, Alloc>::operator=(set_base const& x) 
 {
+	//try
 	if (this != &x)
 	{
 		node_pointer	pos;
 
 		clear_node();
+		if (!x._size)
+			return ;
 		pos = x.Farleft_after(x._head);
-		while (pos != x._head->Parent)
+		while (pos != x.end_node())
 		{
 			add_node(pos);
 			x.next_node(pos);
@@ -51,16 +55,15 @@ template <typename T, typename Compare, typename Alloc>
 void
 	set_base<T, Compare, Alloc>::clear_node() 
 {
+	//try
 	node_pointer	pos;
-	node_pointer	_this;
 
 	while (_size)
 	{
 		pos = least_leaf();
 		erase_node(pos, false);
 	}
-	_this = reinterpret_cast<node_pointer>(&_head);
-	_head = _headnext = _this;
+	_head = _headnext = end_node();
 }
 
 template <typename T, typename Compare, typename Alloc>
@@ -103,11 +106,12 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_key(key_type const& k) const
 {
+	//try
 	node_pointer	pos;
 	key_compare		comp;
 
 	if (!_size)
-		return (_head);
+		return (end_node());
 	pos = _head;
 	while (pos)
 	{
@@ -118,18 +122,19 @@ typename set_base<T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
-	return (_head->Parent);
+	return (end_node());
 }
 
 template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_key(key_type const& k, node_pointer const& start) const
 {
+	//try
 	node_pointer	pos;
 	key_compare		comp;
 
 	if (!_size)
-		return (_head);
+		return (end_node());
 	pos = start;
 	while (pos)
 	{
@@ -140,6 +145,15 @@ typename set_base<T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
+	return (end_node());
+}
+
+template <typename T, typename Compare, typename Alloc>
+typename set_base<T, Compare, Alloc>::node_pointer
+	set_base<T, Compare, Alloc>::end_node() const
+{
+	if (!_size)
+		return (_head);
 	return (_head->Parent);
 }
 
@@ -190,6 +204,7 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_lower_bound(key_type const& k) const
 {	
+	//try
 	node_pointer	pos;
 	node_pointer	prev;
 	key_compare		comp;
@@ -213,7 +228,7 @@ typename set_base<T, Compare, Alloc>::node_pointer
 		if (res && prev == pos)
 			break;
 		else if (prev == pos)
-			return (_head->Parent);
+			return (end_node());
 	}
 	if (begin)
 		return (pos);
@@ -224,6 +239,7 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_upper_bound(key_type const& k) const
 {		
+	//try
 	node_pointer	pos;
 	node_pointer	prev;
 	key_compare		comp;
@@ -234,7 +250,7 @@ typename set_base<T, Compare, Alloc>::node_pointer
 		prev = pos;
 		pos = next_node(pos);
 		if (prev == pos)
-			return (_head->Parent);
+			return (end_node());
 		if (k == prev->data)
 			break;
 	}

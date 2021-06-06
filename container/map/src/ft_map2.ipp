@@ -65,17 +65,13 @@ typename map<Key, T, Compare, Alloc>::const_iterator	map<Key, T, Compare, Alloc>
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::iterator	map<Key, T, Compare, Alloc>::end()
 {
-	if (!size())
-		return (this->_head);
-	return (this->_head->Parent);
+	return (this->end_node());
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
 typename map<Key, T, Compare, Alloc>::const_iterator	map<Key, T, Compare, Alloc>::end() const
 {
-	if (!size())
-		return (this->_head);
-	return (this->_head->Parent);
+	return (this->end_node());
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
