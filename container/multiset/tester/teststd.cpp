@@ -7,6 +7,7 @@
 #endif
 
 # define NL print("\n")
+
 template <typename X, typename T>
 void	print(X const& name, std::multiset<T> const& src);
 template <typename T, typename U>

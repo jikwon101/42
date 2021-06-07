@@ -23,10 +23,10 @@ int main()
 	print("CONSTRUCTOR/ITERATOR\n");
 	print("-------------------------\n");
 	{
-		int arr[] = {2,4,4,8,10,3,14};
+		int arr[] = {2,6,4,4,8,10,3,14};
 	
 		std::set<int> m1;
-		m1.insert(arr, arr+7);
+		m1.insert(arr, arr+8);
 		print("m1", m1);
 		std::set<int> m2(m1);
 		std::set<int> m3(m1.begin(), m1.begin());

@@ -56,7 +56,7 @@ int main()
 	}
 	NL;
 	print("-----------------------\n");
-	print("REALATIONAL OPERATOR\n");
+	print("REALATIONAL OPERATORS\n");
 	print("-----------------------\n");
 	{
 		std::pair<int, int> k1(1, 0);

@@ -637,6 +637,7 @@ void
 	node_pointer	temp;
 	node_pointer	sibling;
 	bool			isDoubleBlack;
+	bool			isHead;
 
 	target = x;
 	if (_size == 1)
@@ -647,8 +648,11 @@ void
 	}
 	if (target->Rchild && target->Lchild)
 	{
+		isHead = (target == _head);
 		temp = Farleft_after(target->Rchild);
 		switch_node(target, temp);
+		if (isHead)
+			set_to_head(temp);
 	}
 	sibling = Sibling(target);
 	temp = target->Rchild ? target->Rchild : target->Lchild;
@@ -660,7 +664,11 @@ void
 	if (temp && !isDoubleBlack)
 		temp->color = BLACK;
 	else if (isDoubleBlack)
+	{
+		if (getColor(sibling) == RED)			//try
+			sibling = case_change(sibling);
 		check_double_black(temp, sibling);
+	}
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -670,8 +678,10 @@ void
 	node_pointer pos;
 
 	pos = x;
+	/* try  : return (void)->node_poineter
 	if (getColor(sibling) == RED)
 		case_change(sibling);
+	*/
 	if (!isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseA(sibling);
 	else if (!isLchild(sibling) && getColor(sibling->Lchild) == RED)
@@ -686,15 +696,24 @@ void
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
-void	
+typename map_base<Key, T, Compare, Alloc>::node_pointer
 	map_base<Key, T, Compare, Alloc>::case_change(node_pointer const& sibling)
 {
+	node_pointer new_sibling;
+
 	sibling->color = BLACK;
 	sibling->Parent->color = RED;
 	if (isLchild(sibling))
+	{
+		new_sibling = sibling->Rchild; //try
 		rotate_to_right(sibling->Parent);
+	}
 	else
+	{
+		new_sibling = sibling->Lchild; //try
 		rotate_to_left(sibling->Parent);
+	}
+	return (new_sibling);
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>

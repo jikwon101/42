@@ -608,6 +608,7 @@ void
 	node_pointer	temp;
 	node_pointer	sibling;
 	bool			isDoubleBlack;
+	bool			isHead;
 
 	target = x;
 	if (_size == 1)
@@ -618,8 +619,11 @@ void
 	}
 	if (target->Rchild && target->Lchild)
 	{
+		isHead = (target == _head);
 		temp = Farleft_after(target->Rchild);
 		switch_node(target, temp);
+		if (isHead)
+			set_to_head(temp);
 	}
 	sibling = Sibling(target);
 	temp = target->Rchild ? target->Rchild : target->Lchild;
@@ -645,8 +649,6 @@ void
 	node_pointer pos;
 
 	pos = x;
-	//if (getColor(sibling) == RED)
-	//	case_change(sibling);
 	if (!isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseA(sibling);
 	else if (!isLchild(sibling) && getColor(sibling->Lchild) == RED)

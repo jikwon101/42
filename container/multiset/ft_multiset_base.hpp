@@ -63,7 +63,7 @@ namespace ft
 			void	destroy_node(node_pointer const& node);
 			void	attach_to_right(node_pointer const& x, node_pointer const& new_right);
 			void	attach_to_left(node_pointer const& x, node_pointer const& new_left);
-			void	case_change(node_pointer const& x);
+			node_pointer	case_change(node_pointer const& x);
 			void	caseA(node_pointer const& x);
 			void	caseB(node_pointer const& x);
 			void	caseC(node_pointer const& x);

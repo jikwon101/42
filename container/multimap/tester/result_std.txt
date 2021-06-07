@@ -30,7 +30,7 @@ m5 reverse: ( 2 , 2 )
 cit == it
 
 -----------------------
-REALATIONAL OPERATOR
+REALATIONAL OPERATORS
 -----------------------
 m1: ( 1 , 1 )
 m2: ( 1 , 0 )
