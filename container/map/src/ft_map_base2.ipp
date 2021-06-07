@@ -18,16 +18,11 @@ map_base<Key, T, Compare, Alloc>::map_base(map_base const& x)
 {
 	node_pointer	pos;
 	
-	/* try
-	 node_pointer	_this;
-	_this = reinterpret_cast<node_pointer>(&_head);
-	_head = _headnext = _this;
-	*/
 	_head = _headnext = end_node();
-	if (x._size) //try
-		return ;    //try
+	if (x._size)
+		return ; 
 	pos = x.Farleft_after(x._head);
-	while (pos != x.end_node()) // while (pos != x._head->Parent) try
+	while (pos != x.end_node())
 	{
 		add_node(pos);
 		x.next_node(pos);
@@ -42,10 +37,10 @@ map_base<Key, T, Compare, Alloc>&	map_base<Key, T, Compare, Alloc>::operator=(ma
 		node_pointer	pos;
 
 		clear_node();
-		if (!x._size)  //try
+		if (!x._size) 
 			return ;
 		pos = x.Farleft_after(x._head);
-		while (pos != x.end_node()) //while (pos != x._head->Parent) try
+		while (pos != x.end_node())
 		{
 			add_node(pos);
 			x.next_node(pos);
@@ -66,11 +61,6 @@ void
 		erase_node(pos, false);
 	}
 	_head = _headnext = end_node();
-	/* try
-	node_pointer	_this;
-	_this = reinterpret_cast<node_pointer>(&_head);
-	_head = _headnext = _this;
-	*/
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -130,7 +120,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (end_node()); //return (_head); try
+		return (end_node());
 	pos = _head;
 	while (pos)
 	{
@@ -141,7 +131,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		else
 			pos = pos->Rchild;
 	}
-	return (end_node()); //try  : return (_head->Parent);
+	return (end_node());
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -152,7 +142,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	key_compare		comp;
 
 	if (!_size)
-		return (end_node()); //return (_head); try
+		return (end_node());
 	pos = start;
 	while (pos)
 	{
@@ -164,7 +154,6 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 			pos = pos->Rchild;
 	}
 	return (end_node());
-	//return (_head->Parent);	//try
 }
 
 template <typename Key, typename T, typename Compare, typename Alloc>
@@ -246,7 +235,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		if (res && prev == pos)
 			break;
 		else if (prev == pos)
-			return (end_node()); //try : return (_head->Parent);
+			return (end_node());
 	}
 	if (begin)
 		return (pos);
@@ -267,7 +256,7 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 		prev = pos;
 		pos = next_node(pos);
 		if (prev == pos)
-			return (end_node()); // try : return (_head->Parent);
+			return (end_node());
 		if (k == prev->data.first)
 			break;
 	}
@@ -284,7 +273,6 @@ ft::pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
 	pos = hint;
 	if (comp(pos->data.first, _head->data.first))
 	{
-		// find larger : pos > k
 		while (comp(pos->data.first, k) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -294,7 +282,6 @@ ft::pair<bool, typename map_base<Key, T, Compare, Alloc>::node_pointer>
 	}
 	else
 	{
-		// find smaller : pos < k
 		while (comp(k, pos->data.first) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -525,13 +512,13 @@ void
 	{
 		status_parent = isLchild(x->Parent);
 		status_x = isLchild(x);
-		if (status_parent && status_x)			//LL
+		if (status_parent && status_x)			
 			restructuring1(x);
-		else if (status_parent && !status_x)	//LR
+		else if (status_parent && !status_x)	
 			restructuring2(x);
-		else if (!status_parent && status_x)	//RL
+		else if (!status_parent && status_x)	
 			restructuring3(x);
-		else									//RR
+		else									
 			restructuring4(x);
 	}
 }
@@ -665,7 +652,7 @@ void
 		temp->color = BLACK;
 	else if (isDoubleBlack)
 	{
-		if (getColor(sibling) == RED)			//try
+		if (getColor(sibling) == RED)			
 			sibling = case_change(sibling);
 		check_double_black(temp, sibling);
 	}
@@ -675,13 +662,9 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 void
 	map_base<Key, T, Compare, Alloc>::check_double_black(node_pointer const& x, node_pointer const& sibling)
 {
-	node_pointer pos;
+	node_pointer	pos;
 
 	pos = x;
-	/* try  : return (void)->node_poineter
-	if (getColor(sibling) == RED)
-		case_change(sibling);
-	*/
 	if (!isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseA(sibling);
 	else if (!isLchild(sibling) && getColor(sibling->Lchild) == RED)
@@ -705,12 +688,12 @@ typename map_base<Key, T, Compare, Alloc>::node_pointer
 	sibling->Parent->color = RED;
 	if (isLchild(sibling))
 	{
-		new_sibling = sibling->Rchild; //try
+		new_sibling = sibling->Rchild; 
 		rotate_to_right(sibling->Parent);
 	}
 	else
 	{
-		new_sibling = sibling->Lchild; //try
+		new_sibling = sibling->Lchild; 
 		rotate_to_left(sibling->Parent);
 	}
 	return (new_sibling);

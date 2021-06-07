@@ -53,7 +53,6 @@ template <typename Key, typename T, typename Compare, typename Alloc>
 void
 	multimap_base<Key, T, Compare, Alloc>::clear_node() 
 {
-	//try
 	node_pointer	pos;
 
 	while (_size)
@@ -256,7 +255,6 @@ bool
 	pos = hint;
 	if (comp(pos->data.first, _head->data.first))
 	{
-		// find larger : pos > k
 		while (comp(pos->data.first, k) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -266,7 +264,6 @@ bool
 	}
 	else
 	{
-		// find smaller : pos <= k
 		while (comp(k, pos->data.first) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head && pos->data.first != k)
@@ -495,13 +492,13 @@ void
 	{
 		status_parent = isLchild(x->Parent);
 		status_x = isLchild(x);
-		if (status_parent && status_x)			//LL
+		if (status_parent && status_x)			
 			restructuring1(x);
-		else if (status_parent && !status_x)	//LR
+		else if (status_parent && !status_x)	
 			restructuring2(x);
-		else if (!status_parent && status_x)	//RL
+		else if (!status_parent && status_x)	
 			restructuring3(x);
-		else									//RR
+		else									
 			restructuring4(x);
 	}
 }

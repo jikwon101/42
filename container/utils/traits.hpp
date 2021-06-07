@@ -1,5 +1,5 @@
-#ifndef TRAITS_HPP
-# define TRAITS_HPP
+#ifndef FT_TRAITS_HPP
+# define FT_TRAITS_HPP
 
 #include "../iterator/iterator.hpp"
 

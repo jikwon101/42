@@ -76,19 +76,6 @@ typename multiset_base<T, Compare, Alloc>::node_pointer
 	alloc.construct(res, val);
 	return (res);
 }
-/*
-template <typename T, typename Compare, typename Alloc>
-typename multiset_base<T, Compare, Alloc>::node_pointer
-	multiset_base<T, Compare, Alloc>::construct_node(key_type const& key)
-{
-	node_allocator_type	alloc;
-	node_pointer		res;
-
-	res = alloc.allocate(1);
-	alloc.construct(res, ft::make_pair<const key_type, mapped_type>(key, mapped_type()));
-	return (res);
-}
-*/
 
 template <typename T, typename Compare, typename Alloc>
 typename multiset_base<T, Compare, Alloc>::node_pointer
@@ -257,7 +244,6 @@ bool
 	pos = hint;
 	if (comp(pos->data,_head->data))
 	{
-		// find larger : pos > k
 		while (comp(pos->data, k) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -267,7 +253,6 @@ bool
 	}
 	else
 	{
-		// find smaller : pos <= k
 		while (comp(k, pos->data) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head && pos->data != k)
@@ -494,13 +479,13 @@ void
 	{
 		status_parent = isLchild(x->Parent);
 		status_x = isLchild(x);
-		if (status_parent && status_x)			//LL
+		if (status_parent && status_x)			
 			restructuring1(x);
-		else if (status_parent && !status_x)	//LR
+		else if (status_parent && !status_x)	
 			restructuring2(x);
-		else if (!status_parent && status_x)	//RL
+		else if (!status_parent && status_x)	
 			restructuring3(x);
-		else									//RR
+		else									
 			restructuring4(x);
 	}
 }
@@ -531,19 +516,7 @@ typename multiset_base<T, Compare, Alloc>::node_pointer
 	check_double_red(new_node);
 	return (new_node);
 }
-/*
-template <typename T, typename Compare, typename Alloc>
-typename multiset_base<T, Compare, Alloc>::node_pointer
-	multiset_base<T, Compare, Alloc>::add_node(key_type const& key)
-{
-	node_pointer new_node;
 
-	new_node = construct_node(key);
-	insert_node(new_node);
-	check_double_red(new_node);
-	return (new_node);
-}
-*/
 template <typename T, typename Compare, typename Alloc>
 typename multiset_base<T, Compare, Alloc>::node_pointer
 	multiset_base<T, Compare, Alloc>::Farleft_after(node_pointer const& parent) const
@@ -557,6 +530,7 @@ typename multiset_base<T, Compare, Alloc>::node_pointer
 		pos = pos->Lchild;
 	return (pos);
 }
+
 template <typename T, typename Compare, typename Alloc>
 typename multiset_base<T, Compare, Alloc>::node_pointer
 	multiset_base<T, Compare, Alloc>::Farright_after(node_pointer const& parent) const

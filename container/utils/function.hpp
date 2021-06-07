@@ -1,5 +1,5 @@
-#ifndef FUNCTION_HPP
-# define FUNCTION_HPP
+#ifndef FT_FUNCTION_HPP
+# define FT_FUNCTION_HPP
 
 #include "../iterator/iterator.hpp"
 #include "./traits.hpp"

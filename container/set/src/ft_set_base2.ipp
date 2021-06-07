@@ -16,7 +16,6 @@ set_base<T, Compare, Alloc>::~set_base()
 template <typename T, typename Compare, typename Alloc>
 set_base<T, Compare, Alloc>::set_base(set_base const& x) 
 {
-	//try 
 	node_pointer	pos;
 	
 	_head = _headnext = end_node();
@@ -33,7 +32,6 @@ set_base<T, Compare, Alloc>::set_base(set_base const& x)
 template <typename T, typename Compare, typename Alloc>
 set_base<T, Compare, Alloc>&	set_base<T, Compare, Alloc>::operator=(set_base const& x) 
 {
-	//try
 	if (this != &x)
 	{
 		node_pointer	pos;
@@ -55,7 +53,6 @@ template <typename T, typename Compare, typename Alloc>
 void
 	set_base<T, Compare, Alloc>::clear_node() 
 {
-	//try
 	node_pointer	pos;
 
 	while (_size)
@@ -106,7 +103,6 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_key(key_type const& k) const
 {
-	//try
 	node_pointer	pos;
 	key_compare		comp;
 
@@ -129,7 +125,6 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_key(key_type const& k, node_pointer const& start) const
 {
-	//try
 	node_pointer	pos;
 	key_compare		comp;
 
@@ -204,7 +199,6 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_lower_bound(key_type const& k) const
 {	
-	//try
 	node_pointer	pos;
 	node_pointer	prev;
 	key_compare		comp;
@@ -239,7 +233,6 @@ template <typename T, typename Compare, typename Alloc>
 typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::find_upper_bound(key_type const& k) const
 {		
-	//try
 	node_pointer	pos;
 	node_pointer	prev;
 	key_compare		comp;
@@ -267,7 +260,6 @@ ft::pair<bool, typename set_base<T, Compare, Alloc>::node_pointer>
 	pos = hint;
 	if (comp(pos->data, _head->data))
 	{
-		// find larger : pos > k
 		while (comp(pos->data, k) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -277,7 +269,6 @@ ft::pair<bool, typename set_base<T, Compare, Alloc>::node_pointer>
 	}
 	else
 	{
-		// find smaller : pos < k
 		while (comp(k, pos->data) && pos != _head)
 			pos = pos->Parent;
 		if (pos == _head)
@@ -508,13 +499,13 @@ void
 	{
 		status_parent = isLchild(x->Parent);
 		status_x = isLchild(x);
-		if (status_parent && status_x)			//LL
+		if (status_parent && status_x)			
 			restructuring1(x);
-		else if (status_parent && !status_x)	//LR
+		else if (status_parent && !status_x)	
 			restructuring2(x);
-		else if (!status_parent && status_x)	//RL
+		else if (!status_parent && status_x)	
 			restructuring3(x);
-		else									//RR
+		else									
 			restructuring4(x);
 	}
 }
