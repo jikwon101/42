@@ -1,6 +1,7 @@
 #include <iostream>
 #ifndef TEST
 #include "ft_multimap.hpp"
+#include "../map/ft_map.hpp"
 #endif
 #ifdef TEST
 #include <map>
@@ -19,6 +20,15 @@ void print_it(std::multimap<int, int>::iterator const& it, std::multimap<int, in
 
 int main()
 {
+	{
+		std::map<int, int> t1;
+		t1[3] = 30;
+		t1[2] = 20;
+		t1[4] = 40;
+		std::multimap<int, int> t2;
+		t1.insert(t1.begin(), t1.end());
+		print("t2", t2);
+	}
 	print("-----------------------\n");
 	print("CONSTRUCTOR/ITERATOR\n");
 	print("-----------------------\n");

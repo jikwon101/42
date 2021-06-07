@@ -23,6 +23,12 @@ map_const_iterator<_Iters>::map_const_iterator(map_const_iterator const& rhs)
 }
 
 template <typename _Iters>
+map_const_iterator<_Iters>::map_const_iterator(map_iterator<_Iters> const& rhs)
+{
+	_ptr = rhs._ptr;
+}
+
+template <typename _Iters>
 map_const_iterator<_Iters>&	
 	map_const_iterator<_Iters>::operator=(map_const_iterator const& rhs)
 {

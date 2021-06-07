@@ -45,6 +45,7 @@ namespace ft
 			~map_const_iterator();
 			map_const_iterator(iterator_type const& src);
 			map_const_iterator(map_const_iterator const& rhs);
+			map_const_iterator(map_iterator<Pair> const& rhs);
 			map_const_iterator&		operator=(map_const_iterator const& rhs);
 			const_reference			operator*() const;		
 			map_const_iterator&		operator++();

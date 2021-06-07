@@ -17,7 +17,6 @@ int main()
 {
 	{
 		int arr[] = {2,4,6,8,10,12,14};
-	
 		ft::map<int, int> m1;
 		for (int i = 0; i < 7 ; i++)
 			m1[arr[i]];
@@ -37,6 +36,11 @@ int main()
 			std::cout << (*it).first << " ";
 		}
 		std::cout << "\n";
+		ft::map<int, int>::iterator it = m1.begin();
+		ft::map<int, int>::const_iterator cit(it);
+		cit = it;
+		if (cit == it) print("cit == it\n"); else print("cit != it\n");
+
 	}
 	print("-------------------------\n");
 	{

@@ -16,8 +16,17 @@ void	print_itpair(T val, U end);
 int main()
 {
 	{
+		std::pair<int, int> arr[4];
+		for (int i = 0; i < 4 ; i++)
+			arr[i].first = i;
+		for (int i = 0; i < 4 ; i++)
+			arr[i].second = i * 2;
+		std::map<int, int> m1;
+		m1.insert(arr, arr + 4);
+		print(m1);
+	}
+	{
 		int arr[] = {2,4,6,8,10,12,14};
-	
 		std::map<int, int> m1;
 		for (int i = 0; i < 7 ; i++)
 			m1[arr[i]];
@@ -37,6 +46,11 @@ int main()
 			std::cout << (*it).first << " ";
 		}
 		std::cout << "\n";
+		std::map<int, int>::iterator it = m1.begin();
+		std::map<int, int>::const_iterator cit(it);
+		cit = it;
+		if (cit == it) print("cit == it\n"); else print("cit != it\n");
+
 	}
 	print("-------------------------\n");
 	{
