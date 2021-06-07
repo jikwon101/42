@@ -159,7 +159,7 @@ template <typename _Iters>
 typename map_const_iterator<_Iters>::const_pointer		
 	map_const_iterator<_Iters>::operator->()	
 {
-	return (&(_ptr->_val)); 
+	return (&(_ptr->data)); 
 }
 
 template <typename _iters>

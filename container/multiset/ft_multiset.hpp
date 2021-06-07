@@ -10,19 +10,19 @@
 
 namespace ft
 {
-	template <typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
-	class multiset : private multiset_base<Key, T, Compare, Alloc>
+	template <typename T, typename Compare = std::less<T>, typename Alloc = std::allocator<T> >
+	class multiset : private multiset_base<T, Compare, Alloc>
 	{
 		private:
-			typedef ft::multiset_base<Key, T, Compare, Alloc>	base;
+			typedef ft::multiset_base<T, Compare, Alloc>	base;
 			typedef typename base::node						node;
 			typedef typename base::node_pointer				node_pointer;
 		public:
-			typedef Key			key_type;
-			typedef T			mapped_type;
+			typedef T			key_type;
+			typedef T			value_type;
 			typedef Compare		key_compare;
+			typedef Compare		value_compare;
 			typedef Alloc		allocator_type;
-			typedef ft::pair<const key_type, mapped_type>		value_type;
 			typedef typename allocator_type::size_type			size_type;
 			typedef typename allocator_type::reference			reference;
 			typedef typename allocator_type::const_reference	const_reference;
@@ -33,18 +33,6 @@ namespace ft
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef typename iterator::difference_type		difference_type;
-			class value_compare
-			{
-				friend class multiset;
-				protected:
-					Compare comp;
-					value_compare (Compare c);
-				public:
-					typedef bool result_type;
-					typedef value_type first_argument_type;
-					typedef value_type second_argument_type;
-					bool operator() (const value_type& x, const value_type& y) const;
-			};
 			
 			multiset(const key_compare& comp = key_compare(),const allocator_type& = allocator_type());
 			template <typename InputIt>
@@ -85,18 +73,18 @@ namespace ft
 			ft::pair<iterator, iterator>				equal_range(const key_type& k);
 			ft::pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
 	};
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator==(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator!=(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator<(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator<=(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator>(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator>=(const multiset<Key, T, Compare, Alloc>& lhs, const multiset<Key, T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator==(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator!=(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator<(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator<=(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator>(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
+	template <typename T, typename Compare, typename Alloc>
+	bool	operator>=(const multiset<T, Compare, Alloc>& lhs, const multiset<T, Compare, Alloc>& rhs);
 	#include "./src/ft_multiset2.ipp"
 }
 #endif

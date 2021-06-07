@@ -170,7 +170,7 @@ template <typename _Iters>
 typename set_iterator<_Iters>::pointer	
 	set_iterator<_Iters>::operator->()	
 {
-	return (&(_ptr->_val)); 
+	return (&(_ptr->data)); 
 }
 
 template <typename _iters>

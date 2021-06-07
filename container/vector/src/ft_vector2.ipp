@@ -6,9 +6,7 @@ template <typename T, typename Alloc>
 vector<T, Alloc>::vector(alloc_type const & alloc) 
 	: _begin(NULL), _end(NULL), _end_cap(NULL)
 {
-	alloc_type	allocator(alloc);
-	_begin = _end = allocator.allocate(0);
-	_end_cap = _begin + 0;
+	(void)alloc;
 	return ;
 }
 
@@ -76,6 +74,7 @@ vector<T, Alloc>&
 {
 	if (this != &rhs)
 	{
+		clear();
 		assign(rhs.begin(), rhs.end());
 	}
 	return (*this);

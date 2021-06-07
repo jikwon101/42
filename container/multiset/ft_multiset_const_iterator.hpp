@@ -1,5 +1,5 @@
-#ifndef FT_multiset_CONST_ITERATOR_HPP
-# define FT_multiset_CONST_ITERATOR_HPP
+#ifndef FT_MULTISET_CONST_ITERATOR_HPP
+# define FT_MULTISET_CONST_ITERATOR_HPP
 
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
@@ -8,15 +8,15 @@
 
 namespace ft
 {
-	template <typename Key, typename T, typename Compare, typename Alloc>
+	template <typename T, typename Compare, typename Alloc>
 	class multiset;
 	template <typename U>
 	class multiset_iteraotr;
 
-	template <typename Pair>
-	class multiset_const_iterator : public iterator<ft::bidirectional_iterator_tag, Pair>
+	template <typename V>
+	class multiset_const_iterator : public iterator<ft::bidirectional_iterator_tag, V>
 	{
-		template <typename Key, typename T, typename Compare, typename Alloc>
+		template <typename T, typename Compare, typename Alloc>
 		friend class ft::multiset;
 		template <typename U>
 		friend class ft::multiset_iterator;
@@ -25,15 +25,13 @@ namespace ft
 		template <typename U>
 		friend bool operator!=(multiset_const_iterator<U> const& lhs, multiset_const_iterator<U> const& rhs);
 		public:
-			typedef Pair								value_type;
-			typedef typename value_type::first_type		key_type;
-			typedef typename value_type::second_type	mapped_type;
+			typedef V									value_type;
 			typedef value_type*							pointer;
 			typedef const value_type*					const_pointer;
 			typedef value_type&							reference;
 			typedef const value_type&					const_reference;
 			typedef ptrdiff_t							difference_type;
-			typedef ft::node_multiset<value_type>*			iterator_type;
+			typedef ft::node_multiset<value_type>*		iterator_type;
 		private:
 			iterator_type	_ptr;
 			iterator_type	Farleft_after(iterator_type const& parent);
@@ -45,7 +43,7 @@ namespace ft
 			~multiset_const_iterator();
 			multiset_const_iterator(iterator_type const& src);
 			multiset_const_iterator(multiset_const_iterator const& rhs);
-			multiset_const_iterator(multiset_iterator<Pair> const& rhs);
+			multiset_const_iterator(multiset_iterator<V> const& rhs);
 			multiset_const_iterator&		operator=(multiset_const_iterator const& rhs);
 			const_reference			operator*() const;		
 			multiset_const_iterator&		operator++();

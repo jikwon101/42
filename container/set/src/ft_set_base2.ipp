@@ -575,6 +575,7 @@ void
 	node_allocator_type destructor;
 
 	destructor.destroy(node);
+	destructor.deallocate(node, 1);
 	_size--;
 }
 
@@ -630,7 +631,11 @@ void
 	if (temp && !isDoubleBlack)
 		temp->color = BLACK;
 	else if (isDoubleBlack)
+	{
+		if (getColor(sibling) == RED)
+			sibling = case_change(sibling);
 		check_double_black(temp, sibling);
+	}
 }
 
 template <typename T, typename Compare, typename Alloc>
@@ -640,8 +645,8 @@ void
 	node_pointer pos;
 
 	pos = x;
-	if (getColor(sibling) == RED)
-		case_change(sibling);
+	//if (getColor(sibling) == RED)
+	//	case_change(sibling);
 	if (!isLchild(sibling) && getColor(sibling->Rchild) == RED)
 		caseA(sibling);
 	else if (!isLchild(sibling) && getColor(sibling->Lchild) == RED)
@@ -656,15 +661,24 @@ void
 }
 
 template <typename T, typename Compare, typename Alloc>
-void	
+typename set_base<T, Compare, Alloc>::node_pointer
 	set_base<T, Compare, Alloc>::case_change(node_pointer const& sibling)
 {
+	node_pointer new_sibling;
+
 	sibling->color = BLACK;
 	sibling->Parent->color = RED;
 	if (isLchild(sibling))
+	{
+		new_sibling = sibling->Rchild;
 		rotate_to_right(sibling->Parent);
+	}
 	else
+	{
+		new_sibling = sibling->Lchild;
 		rotate_to_left(sibling->Parent);
+	}
+	return (new_sibling);
 }
 
 template <typename T, typename Compare, typename Alloc>

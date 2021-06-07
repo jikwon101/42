@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:46:00 by jikwon            #+#    #+#             */
-/*   Updated: 2021/06/05 19:09:14 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/06/07 12:44:40 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #endif
 
 #include <iostream>
-
+#include <algorithm>
 template <typename T>
 void print_info(T const& src);
 
@@ -39,8 +39,6 @@ void print_it(T const & src);
 
 int main()
 {
-	std::vector<int> t;
-
 	print("---------------------");
 	print("Constructor\n");
 	{

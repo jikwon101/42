@@ -8,16 +8,16 @@
 
 namespace ft
 {
-	template <typename Key, typename T, typename Compare, typename Alloc>
+	template <typename T, typename Compare, typename Alloc>
 	class multiset;
 
 	template <typename U>
 	class multiset_const_iterator;
 
-	template <typename Pair>
-	class multiset_iterator : public iterator<ft::bidirectional_iterator_tag, Pair>
+	template <typename V>
+	class multiset_iterator : public iterator<ft::bidirectional_iterator_tag, V>
 	{
-		template <typename Key, typename T, typename Compare, typename Alloc>
+		template <typename T, typename Compare, typename Alloc>
 		friend class ft::multiset;
 		template <typename U>
 		friend class ft::multiset_const_iterator;
@@ -26,13 +26,11 @@ namespace ft
 		template <typename U>
 		friend bool operator!=(multiset_iterator<U> const& lhs, multiset_iterator<U> const& rhs);
 		public:
-			typedef Pair								value_type;
-			typedef typename value_type::first_type		key_type;
-			typedef typename value_type::second_type	mapped_type;
+			typedef V									value_type;
 			typedef value_type*							pointer;
 			typedef value_type&							reference;
 			typedef ptrdiff_t							difference_type;
-			typedef ft::node_multiset<value_type>*			iterator_type;
+			typedef ft::node_multiset<value_type>*		iterator_type;
 		private:
 			iterator_type	_ptr;
 			bool	isRchild(iterator_type const& node);

@@ -604,6 +604,7 @@ void
 	node_allocator_type destructor;
 
 	destructor.destroy(node);
+	destructor.deallocate(node, 1);
 	_size--;
 }
 

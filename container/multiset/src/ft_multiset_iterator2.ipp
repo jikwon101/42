@@ -2,28 +2,28 @@
 ** Member function : Coplien's form
 */
 template <typename _Iters>
-multimap_iterator<_Iters>::multimap_iterator() 
+multiset_iterator<_Iters>::multiset_iterator() 
 	: _ptr(0)
 {}
 
 template <typename _Iters>
-multimap_iterator<_Iters>::~multimap_iterator()
+multiset_iterator<_Iters>::~multiset_iterator()
 {}
 	
 template <typename _Iters>
-multimap_iterator<_Iters>::multimap_iterator(iterator_type const& src)
+multiset_iterator<_Iters>::multiset_iterator(iterator_type const& src)
 	: _ptr(src) 
 {}
 
 template <typename _Iters>
-multimap_iterator<_Iters>::multimap_iterator(multimap_iterator const& rhs)
+multiset_iterator<_Iters>::multiset_iterator(multiset_iterator const& rhs)
 {
 	_ptr = rhs._ptr;
 }
 
 template <typename _Iters>
-multimap_iterator<_Iters>&
-	multimap_iterator<_Iters>::operator=(multimap_iterator const& rhs)
+multiset_iterator<_Iters>&
+	multiset_iterator<_Iters>::operator=(multiset_iterator const& rhs)
 {
 	if (this != &rhs)
 		this->_ptr = rhs._ptr;
@@ -34,26 +34,26 @@ multimap_iterator<_Iters>&
 ** Member function
 */
 template <typename _Iters>
-typename multimap_iterator<_Iters>::reference
-	multimap_iterator<_Iters>::operator*() const 
+typename multiset_iterator<_Iters>::reference
+	multiset_iterator<_Iters>::operator*() const 
 {
 	return (_ptr->data);
 }
 
 template <typename _Iters>
-bool	multimap_iterator<_Iters>::isRchild(iterator_type const& node)
+bool	multiset_iterator<_Iters>::isRchild(iterator_type const& node)
 {
 	return (node == node->Parent->Rchild);
 }
 template <typename _Iters>
-bool	multimap_iterator<_Iters>::isLchild(iterator_type const& node)
+bool	multiset_iterator<_Iters>::isLchild(iterator_type const& node)
 {
 	return (node == node->Parent->Lchild);
 }
 
 template <typename _Iters>
-multimap_iterator<_Iters>&
-	multimap_iterator<_Iters>::operator--()
+multiset_iterator<_Iters>&
+	multiset_iterator<_Iters>::operator--()
 {	
 	iterator_type pos;
 
@@ -70,11 +70,11 @@ multimap_iterator<_Iters>&
 }
 
 template <typename _Iters>
-multimap_iterator<_Iters>	
-	multimap_iterator<_Iters>::operator--(int) 
+multiset_iterator<_Iters>	
+	multiset_iterator<_Iters>::operator--(int) 
 {
 	iterator_type pos;
-	multimap_iterator ret(*this);
+	multiset_iterator ret(*this);
 
 	if (_ptr->Lchild)
 		_ptr = Farright_after(_ptr->Lchild);
@@ -89,8 +89,8 @@ multimap_iterator<_Iters>
 
 }
 template <typename _Iters>
-multimap_iterator<_Iters>&
-	multimap_iterator<_Iters>::operator++() 
+multiset_iterator<_Iters>&
+	multiset_iterator<_Iters>::operator++() 
 {
 	iterator_type pos;
 
@@ -108,10 +108,10 @@ multimap_iterator<_Iters>&
 }
 
 template <typename _Iters>
-multimap_iterator<_Iters>	
-	multimap_iterator<_Iters>::operator++(int) 
+multiset_iterator<_Iters>	
+	multiset_iterator<_Iters>::operator++(int) 
 {
-	multimap_iterator ret(*this);
+	multiset_iterator ret(*this);
 	iterator_type pos;
 
 	if (_ptr->Rchild)
@@ -128,8 +128,8 @@ multimap_iterator<_Iters>
 
 
 template <typename _Iters>
-typename multimap_iterator<_Iters>::iterator_type 
-	multimap_iterator<_Iters>::Farright_after(iterator_type const& hint)
+typename multiset_iterator<_Iters>::iterator_type 
+	multiset_iterator<_Iters>::Farright_after(iterator_type const& hint)
 {
 	iterator_type pos = hint;
 
@@ -140,8 +140,8 @@ typename multimap_iterator<_Iters>::iterator_type
 
 
 template <typename _Iters>
-typename multimap_iterator<_Iters>::iterator_type 
-	multimap_iterator<_Iters>::Farleft_after(iterator_type const& hint)
+typename multiset_iterator<_Iters>::iterator_type 
+	multiset_iterator<_Iters>::Farleft_after(iterator_type const& hint)
 {
 	iterator_type pos = hint;
 
@@ -151,32 +151,32 @@ typename multimap_iterator<_Iters>::iterator_type
 }
 
 template <typename _Iters>
-typename multimap_iterator<_Iters>::pointer	
-	multimap_iterator<_Iters>::operator->()	
+typename multiset_iterator<_Iters>::pointer	
+	multiset_iterator<_Iters>::operator->()	
 {
-	return (&(_ptr->_val)); 
+	return (&(_ptr->data)); 
 }
 
 template <typename _iters>
-bool		multimap_iterator<_iters>::operator==(multimap_const_iterator<value_type> const& x) const
+bool		multiset_iterator<_iters>::operator==(multiset_const_iterator<value_type> const& x) const
 {
 	return (_ptr == x._ptr);
 }
 
 template <typename _iters>
-bool		multimap_iterator<_iters>::operator!=(multimap_const_iterator<value_type> const& x) const
+bool		multiset_iterator<_iters>::operator!=(multiset_const_iterator<value_type> const& x) const
 {
 	return (_ptr == x._ptr);
 }
 
 template <typename u>
-bool	operator==(ft::multimap_iterator<u> const& lhs, ft::multimap_iterator<u> const& rhs)
+bool	operator==(ft::multiset_iterator<u> const& lhs, ft::multiset_iterator<u> const& rhs)
 {
 	return (lhs._ptr == rhs._ptr);
 }
 
 template <typename u>
-bool	operator!=(ft::multimap_iterator<u> const& lhs, ft::multimap_iterator<u> const& rhs)
+bool	operator!=(ft::multiset_iterator<u> const& lhs, ft::multiset_iterator<u> const& rhs)
 {
 	return (lhs._ptr != rhs._ptr);
 }

@@ -165,7 +165,7 @@ template <typename _Iters>
 typename multimap_const_iterator<_Iters>::const_pointer		
 	multimap_const_iterator<_Iters>::operator->()	
 {
-	return (&(_ptr->_val)); 
+	return (&(_ptr->data)); 
 }
 
 template <typename _iters>

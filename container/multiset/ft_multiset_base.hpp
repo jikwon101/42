@@ -8,15 +8,14 @@
 
 namespace ft
 {
-	template <typename Key, typename T, typename Compare, typename Alloc>
+	template <typename T, typename Compare, typename Alloc>
 	class multiset_base
 	{
 		protected:
-			typedef Key			key_type;
-			typedef T			mapped_type;
+			typedef T			key_type;
+			typedef T			value_type;
 			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
-			typedef ft::pair<const key_type, mapped_type> value_type;
 			typedef ft::node_multiset<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 			typedef typename allocator_type::size_type				size_type;
@@ -41,7 +40,7 @@ namespace ft
 			void			clear_node();
 			node_pointer	add_node(value_type const& val);
 			node_pointer	add_node(value_type const& val, node_pointer const& position);
-			node_pointer	add_node(key_type const& key);
+			//node_pointer	add_node(key_type const& key);
 			void			erase_node(node_pointer const& target, bool check);
 			size_type		maxsize() const;
 			bool			check_position(key_type const&k, node_pointer const& hint) const;
@@ -55,7 +54,7 @@ namespace ft
 			node_pointer	next_node(node_pointer const& x) const;
 			node_pointer	prev_node(node_pointer const& x) const;
 			node_pointer	construct_node(value_type const& val);
-			node_pointer	construct_node(key_type const& key);
+			//node_pointer	construct_node(key_type const& key);
 			Color	getColor(node_pointer const& node);
 			void	swap_color(node_pointer const& x, node_pointer const& y);
 			void	rotate_to_right(node_pointer const x);

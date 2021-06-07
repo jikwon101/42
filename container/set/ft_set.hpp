@@ -14,15 +14,15 @@ namespace ft
 	class set : private set_base<T, Compare, Alloc>
 	{	
 		private:
-			typedef ft::set_base<T, Compare, Alloc>	base;
-			typedef typename base::node						node;
-			typedef typename base::node_pointer				node_pointer;
+			typedef ft::set_base<T, Compare, Alloc>		base;
+			typedef typename base::node					node;
+			typedef typename base::node_pointer			node_pointer;
 		public:
-			typedef T key_type;
-			typedef T value_type;
-			typedef Compare key_compare;
-			typedef Compare value_compare;
-			typedef Alloc allocator_type;
+			typedef T		key_type;
+			typedef T		value_type;
+			typedef Compare	key_compare;
+			typedef Compare	value_compare;
+			typedef Alloc	allocator_type;
 			typedef typename allocator_type::size_type			size_type;
 			typedef typename allocator_type::reference			reference;
 			typedef typename allocator_type::const_reference	const_reference;

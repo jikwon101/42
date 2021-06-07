@@ -154,7 +154,7 @@ template <typename _Iters>
 typename map_iterator<_Iters>::pointer	
 	map_iterator<_Iters>::operator->()	
 {
-	return (&(_ptr->_val)); 
+	return (&(_ptr->data)); 
 }
 
 template <typename _iters>

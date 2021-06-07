@@ -26,11 +26,11 @@ namespace ft
 		template <typename U>
 		friend bool operator!=(set_iterator<U> const& lhs, set_iterator<U> const& rhs);
 		public:
-			typedef V	value_type;
-			typedef value_type*							pointer;
-			typedef value_type&							reference;
-			typedef ptrdiff_t							difference_type;
-			typedef ft::node_set<value_type>*			iterator_type;
+			typedef V								value_type;
+			typedef value_type*						pointer;
+			typedef value_type&						reference;
+			typedef ptrdiff_t						difference_type;
+			typedef ft::node_set<value_type>*		iterator_type;
 		private:
 			iterator_type	_ptr;
 			bool	isRchild(iterator_type const& node);

@@ -55,7 +55,6 @@ void
 {
 	//try
 	node_pointer	pos;
-	node_pointer	_this;
 
 	while (_size)
 	{
@@ -578,6 +577,7 @@ void
 	node_allocator_type destructor;
 
 	destructor.destroy(node);
+	destructor.deallocate(node, 1);
 	_size--;
 }
 
