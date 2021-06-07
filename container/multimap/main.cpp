@@ -20,15 +20,6 @@ void print_it(ft::multimap<int, int>::iterator const& it, ft::multimap<int, int>
 
 int main()
 {
-	{
-		ft::map<int, int> t1;
-		t1[3] = 30;
-		t1[2] = 20;
-		t1[4] = 40;
-		ft::multimap<int, int> t2;
-		t2.insert(t1.begin(), t1.end());
-		print("t2", t2);
-	}
 	print("-----------------------\n");
 	print("CONSTRUCTOR/ITERATOR\n");
 	print("-----------------------\n");
@@ -63,6 +54,13 @@ int main()
 		ft::multimap<int, int>::const_iterator cit(it);
 		cit = it;
 		if (cit == it) print("cit == it\n"); else print("cit != it\n");
+		ft::map<int, int> t1;
+		t1[3] = 30;
+		t1[2] = 20;
+		t1[4] = 40;
+		ft::multimap<int, int> t2;
+		t2.insert(t1.begin(), t1.end());
+		print("t2", t2);
 	}
 	NL;
 	print("-----------------------\n");
@@ -295,6 +293,7 @@ std::ostream& operator<<(std::ostream& os, test & x)
 	os << x.nbr;
 	return (os);
 }
+
 template <typename X, typename T, typename U>
 void	print(X name, ft::multimap<T, U> const& src)
 {

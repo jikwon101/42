@@ -1,6 +1,7 @@
 #include <iostream>
 #ifndef TEST
 #include "ft_multiset.hpp"
+#include "../set/ft_set.hpp"
 #endif
 #ifdef TEST
 #include <set>
@@ -47,6 +48,13 @@ int main()
 		ft::multiset<int>::iterator cit(it);
 		cit = it;
 		if (cit == it) print("cit == it\n"); else print("cit != it\n");
+		ft::set<int> t1;
+		t1.insert(3);
+		t1.insert(2);
+		t1.insert(1);
+		ft::multiset<int> t2;
+		t2.insert(t1.begin(), t1.end());
+		print("t2", t2);
 	}
 	
 	NL;
