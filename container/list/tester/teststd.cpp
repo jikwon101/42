@@ -8,7 +8,6 @@
 #endif
 
 #include <iostream>
-#include <list>
 class Test;
 struct is_odd
 {
