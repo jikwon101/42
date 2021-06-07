@@ -4,7 +4,8 @@
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
 #include "../iterator/iterator.hpp"
-#include "./ft_node_multimap.hpp"
+//#include "./ft_node_multimap.hpp"
+#include "../utils/ft_RBTNode.hpp"
 
 namespace ft
 {
@@ -32,7 +33,7 @@ namespace ft
 			typedef value_type*							pointer;
 			typedef value_type&							reference;
 			typedef ptrdiff_t							difference_type;
-			typedef ft::node_multimap<value_type>*			iterator_type;
+			typedef ft::RBTNode<value_type>*			iterator_type;
 		private:
 			iterator_type	_ptr;
 			bool	isRchild(iterator_type const& node);

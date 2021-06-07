@@ -2,7 +2,7 @@
 # define FT_MULTISET_BASE_HPP
 
 #include <memory>
-#include "./ft_node_multiset.hpp"
+#include "../utils/ft_RBTNode.hpp"
 #include "../utils/pair.hpp"
 #include "../utils/function.hpp"
 
@@ -16,7 +16,7 @@ namespace ft
 			typedef T			value_type;
 			typedef Compare		key_compare;
 			typedef Alloc		allocator_type;
-			typedef ft::node_multiset<value_type>	node;
+			typedef ft::RBTNode<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 			typedef typename allocator_type::size_type				size_type;
 			typedef typename node_allocator_type::reference			node_reference;

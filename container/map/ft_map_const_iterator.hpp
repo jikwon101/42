@@ -4,7 +4,8 @@
 #include "../utils/traits.hpp"
 #include "../utils/function.hpp"
 #include "../iterator/iterator.hpp"
-#include "./ft_node_map.hpp"
+#include "../utils/ft_RBTNode.hpp"
+
 
 namespace ft
 {
@@ -33,7 +34,7 @@ namespace ft
 			typedef value_type&							reference;
 			typedef const value_type&					const_reference;
 			typedef ptrdiff_t							difference_type;
-			typedef ft::node_map<value_type>*			iterator_type;
+			typedef ft::RBTNode<value_type>*			iterator_type;
 		private:
 			iterator_type	_ptr;
 			iterator_type	Farleft_after(iterator_type const& parent);

@@ -16,16 +16,6 @@ void	print_itpair(T val, U end);
 int main()
 {
 	{
-		std::pair<int, int> arr[4];
-		for (int i = 0; i < 4 ; i++)
-			arr[i].first = i;
-		for (int i = 0; i < 4 ; i++)
-			arr[i].second = i * 2;
-		std::map<int, int> m1;
-		m1.insert(arr, arr + 4);
-		print(m1);
-	}
-	{
 		int arr[] = {2,4,6,8,10,12,14};
 		std::map<int, int> m1;
 		for (int i = 0; i < 7 ; i++)

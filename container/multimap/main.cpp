@@ -26,7 +26,7 @@ int main()
 		t1[2] = 20;
 		t1[4] = 40;
 		ft::multimap<int, int> t2;
-		t1.insert(t1.begin(), t1.end());
+		t2.insert(t1.begin(), t1.end());
 		print("t2", t2);
 	}
 	print("-----------------------\n");

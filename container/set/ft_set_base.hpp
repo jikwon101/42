@@ -2,7 +2,7 @@
 # define FT_SET_BASE_HPP
 
 #include <memory>
-#include "./ft_node_set.hpp"
+#include "../utils/ft_RBTNode.hpp"
 #include "../utils/function.hpp"
 #include "../utils/pair.hpp"
 
@@ -17,7 +17,7 @@ namespace ft
 			typedef Compare	key_compare;
 			typedef Compare	value_compare;
 			typedef Alloc	allocator_type;
-			typedef ft::node_set<value_type>	node;
+			typedef ft::RBTNode<value_type>	node;
 			typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 			typedef typename allocator_type::size_type				size_type;
 			typedef typename node_allocator_type::reference			node_reference;
