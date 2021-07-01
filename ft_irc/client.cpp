@@ -30,8 +30,15 @@ void funt(int fd)
 		{ print("Error in recv\n");	}
 		else if (res > 0)
 		{
-			rbuf[res] = '\0';
-			std::cout << rbuf << "\n";
+			for (int i = 0 ; i < res ; i++)
+			{
+				if (rbuf[i] < 32 || rbuf[i] == 127)
+					std::cout << (int)(rbuf[i]);
+				else
+					std::cout << rbuf[i];
+				std::cout << " ";
+			}
+			std::cout << "\n";
 		}
 	}
 }
@@ -56,13 +63,13 @@ int main(int ac, char *av[])
 	{ print("Error in connect\n"); exit(1);}
 
 	std::thread _t1(funt, client_sockfd);
-	int len = 100;
-	//char sbuf[len];
 	std::string sbuf;
 	while (1)
 	{
 		getline(std::cin, sbuf);
-		if ((res = send(client_sockfd, sbuf.c_str(), len, 0)) == -1)
+		sbuf += "\r\n";
+		std::cout << sbuf.length() << "bytes data are ready\n";
+		if ((res = send(client_sockfd, sbuf.c_str(), sbuf.length(), 0)) == -1)
 			print("Error in send\n");
 	}
 	close(client_sockfd);

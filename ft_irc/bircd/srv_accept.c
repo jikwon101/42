@@ -18,4 +18,6 @@ void			srv_accept(t_env *e, int s)
   e->fds[cs].type = FD_CLIENT;
   e->fds[cs].fct_read = client_read;
   e->fds[cs].fct_write = client_write;
+ // char msg[] = "001\r\n";
+//	send(cs, msg, strlen(msg), 0);
 }

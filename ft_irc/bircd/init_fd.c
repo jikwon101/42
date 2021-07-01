@@ -22,6 +22,8 @@ void	init_fd(t_env *e)
 	    }
 	  e->max = MAX(e->max, i);
 	}
+	 if (!e->fds[i].request)
+		e->fds[i].request = strdup("");
       i++;
     }
 }

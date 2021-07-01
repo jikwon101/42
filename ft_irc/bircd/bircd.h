@@ -2,7 +2,7 @@
 # define BIRCD_H_
 
 # include <sys/select.h>
-
+#include "../gnl/get_next_line.h"
 # define FD_FREE	0
 # define FD_SERV	1
 # define FD_CLIENT	2
@@ -22,6 +22,7 @@ typedef struct	s_fd
   void	(*fct_write)();
   char	buf_read[BUF_SIZE + 1];
   char	buf_write[BUF_SIZE + 1];
+  char  *request;
 }		t_fd;
 
 typedef struct	s_env

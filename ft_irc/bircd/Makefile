@@ -2,7 +2,7 @@
 SRCS =	main.c init_env.c clean_fd.c get_opt.c x.c main_loop.c \
 	init_fd.c do_select.c check_fd.c \
 	srv_create.c srv_accept.c \
-	client_read.c client_write.c
+	client_read.c client_write.c 
 
 OBJS = ${SRCS:.c=.o}
 
@@ -15,7 +15,7 @@ CC = gcc
 RM = rm -f
 
 ${NAME}:	${OBJS}
-		${CC} -o ${NAME} ${OBJS} ${LDFLAGS}
+		${CC} -o ${NAME} ${OBJS} ${LDFLAGS} ../gnl/get_next_line.a
 
 all:		${NAME}
 
