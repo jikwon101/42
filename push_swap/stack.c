@@ -3,13 +3,12 @@
 void	init(t_stack *st)
 {
 	st->head = NULL;
+	st->size = 0;
 }
 
 int	empty(t_stack *st)
 {
-	if (st->head == NULL)
-		return (1);
-	return (0);
+	return (st->size == 0);
 }
 
 void	pop(t_stack *st)
@@ -23,6 +22,7 @@ void	pop(t_stack *st)
 	if (st->head)
 		st->head->prev = NULL;
 	free(temp);
+	st->size--;
 }
 
 void	push(t_stack *st, int val)
@@ -45,6 +45,7 @@ void	push(t_stack *st, int val)
 		st->head->prev = newnode;
 		st->head = newnode;
 	}
+	st->size++;
 }
 
 int		top(t_stack const* st)
@@ -59,7 +60,7 @@ void	clear(t_stack *st)
 		pop(st);
 	}
 }
-/*
+
 void	swap(t_stack *st)
 {
 	t_node	*temp;
@@ -71,7 +72,7 @@ void	swap(t_stack *st)
 	temp->next = st->head->next;
 	st->head->next = temp;
 }
-*/
+
 void	rotate(t_stack *st)
 {
 	t_node	*temp;
@@ -113,6 +114,8 @@ void	reverse_rotate(t_stack *st)
 void print(t_stack*st)
 {
 	t_node *pos;
+	int a_size;
+	int b_size;
 	
 	printf("------------\nTOP\n");
 	pos = st->head;
@@ -122,4 +125,43 @@ void print(t_stack*st)
 		pos = pos->next;
 	}
 	printf("END\n------------\n");
+}
+
+void printpair(t_stack *a, t_stack *b)
+{
+	t_node *a_pos = a->head;
+	t_node *b_pos = b->head;
+	int a_size = a->size;
+	int b_size = b->size;
+
+	printf("------------\nTOP\n");
+	while (a_size > b_size)
+	{
+		printf("%2d\n", a_pos->data);
+		a_pos = a_pos->next;
+		a_size--;
+	}
+	while (a_size < b_size)
+	{
+		printf("            %2d\n", b_pos->data);
+		b_pos = b_pos->next;
+		b_size--;
+	}
+	while (a_size && b_size)
+	{
+		printf("%2d          %2d\n", a_pos->data, b_pos->data);
+		a_pos = a_pos->next;
+		b_pos = b_pos->next;
+		a_size--;
+		b_size--;
+	}
+	printf("\033[0;33m");	//set yello color
+	printf(" a           b\n");
+	printf("\033[0m");		//reset color
+	printf("END\n------------\n");
+}
+
+int	next(t_stack const* st)
+{
+	return (st->head->next->data);
 }
