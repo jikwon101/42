@@ -27,7 +27,7 @@ void	clear(t_stack *st);
 void	swap(t_stack *st);
 void	rotate(t_stack *st);
 void	reverse_rotate(t_stack *st);
-
+void	connecting(t_node *prev, t_node *net);
 void	print(t_stack *st); //temp
 void	printpair(t_stack *a, t_stack *b); //temp
 #endif

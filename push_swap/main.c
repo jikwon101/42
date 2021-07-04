@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "libft.h"
 #include "push_swap.h"
+#include "quickpivot.h"
 
 int	check_arguments(int size, char *argv[])
 {	
@@ -9,6 +10,7 @@ int	check_arguments(int size, char *argv[])
 	// av[] is duplicate.
 	return (1);
 }
+
 void	init_stack(int ac, char *av[], t_stack *a)
 {
 	while (ac > 1)
@@ -18,16 +20,34 @@ void	init_stack(int ac, char *av[], t_stack *a)
 	}
 }
 
-int	ordered(t_stack *st)
+int	a_ordered(t_stack *st)
 {
 	t_node *pos;
+	int	cnt = st->size;
 
 	pos = st->head;
-	while (pos->next)
+	while (cnt)
 	{
 		if (pos->data > pos->next->data)
 			return (0);
 		pos = pos->next;
+		cnt--;
+	}
+	return (1);
+}
+
+int	b_ordered(t_stack *st)
+{
+	t_node	*pos;
+	int cnt = st->size;
+
+	pos = st->head;
+	while (cnt)
+	{
+		if (pos->data < pos->next->data)
+			return (0);
+		pos = pos->next;
+		cnt--;
 	}
 	return (1);
 }
@@ -40,38 +60,10 @@ int main(int ac, char *av[])
 
 	if (ac < 2 || !(res = check_arguments(ac, av)))
 	{
-		printf("Error\n");
+		printf("Error\n"); //stdderr ***
 		return (1);
 	}
 	init_stack(ac, av, &a);
-	//printpair(&a, &b);
-	while (!ordered(&a))
-	{
-		if (top(&a) > next(&a))
-		{
-			printf("sa\n");
-			sa(&a, &b);
-		}
-		else
-		{
-			printf("pb\n");
-			pb(&a, &b);
-			if (b.size > 1 && top(&b) < next(&b))
-			{
-				printf("sa\n");
-				sb(&a, &b);
-			}
-		}
-	}
-	while (b.size)
-	{
-		printf("pa\n");
-		pa(&a, &b);
-		if (a.size > 1 && top(&a) > next(&a))
-		{
-			printf("sa\n");
-			sa(&a, &b);
-		}
-	}
-	//printpair(&a, &b);
+	printpair(&a, &b);
+	printf("pivot : %d\n", find_pivot(&a));
 }

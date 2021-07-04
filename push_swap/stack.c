@@ -11,8 +11,34 @@ int	empty(t_stack *st)
 	return (st->size == 0);
 }
 
+void	connecting(t_node *prev, t_node *next)
+{
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+}
+
 void	pop(t_stack *st)
 {
+	t_node	*target;
+	
+	if (empty(st))
+		return ;
+	target = st->head;
+	if (st->size == 1)
+	{
+		st->head = NULL;
+		free(target);
+	}
+	else
+	{
+		connecting(target->prev, target->next);
+		st->head = target->next;
+		free(target);
+	}
+	st->size--;
+		/*
 	t_node	*temp;
 
 	if (empty(st))
@@ -23,10 +49,33 @@ void	pop(t_stack *st)
 		st->head->prev = NULL;
 	free(temp);
 	st->size--;
+	*/
 }
 
 void	push(t_stack *st, int val)
 {
+	t_node	*newnode;
+
+	newnode = (t_node *)malloc(sizeof(t_node));
+	if (!newnode)
+		return ;
+	newnode->data = val;
+	if (empty(st))
+	{
+		st->head = newnode;
+		connecting(newnode, newnode);
+	}
+	else
+	{
+		t_node	*temp;
+
+		temp = st->head->prev;
+		connecting(newnode, st->head);
+		connecting(temp, newnode);
+		st->head = newnode;
+	}
+	st->size++;
+		/*
 	t_node *newnode;
 
 	newnode = (t_node *)malloc(sizeof(t_node));
@@ -46,6 +95,7 @@ void	push(t_stack *st, int val)
 		st->head = newnode;
 	}
 	st->size++;
+	*/
 }
 
 int		top(t_stack const* st)
@@ -63,18 +113,21 @@ void	clear(t_stack *st)
 
 void	swap(t_stack *st)
 {
-	t_node	*temp;
+	int	temp;
 
-	temp = st->head;
-	st->head = st->head->next;
-	st->head->prev = NULL;
-	temp->prev = st->head;
-	temp->next = st->head->next;
-	st->head->next = temp;
+	if (empty(st))
+		return ;
+	temp = st->head->data;
+	st->head->data = st->head->next->data;
+	st->head->next->data = temp;
 }
 
 void	rotate(t_stack *st)
 {
+	if (empty(st))
+		return ;
+	st->head = st->head->next;
+	/*
 	t_node	*temp;
 	t_node	*pos;
 
@@ -90,10 +143,15 @@ void	rotate(t_stack *st)
 	}
 	pos->next = temp;
 	temp->prev = pos;
+	*/
 }
 
 void	reverse_rotate(t_stack *st)
 {
+	if (empty(st))
+		return ;
+	st->head = st->head->prev;
+	/*
 	t_node	*pos;
 	t_node	*temp;
 
@@ -108,21 +166,22 @@ void	reverse_rotate(t_stack *st)
 	temp->next = st->head;
 	st->head->prev = temp;
 	st->head = temp;
+	*/
 }
 
 #include <stdio.h>
 void print(t_stack*st)
 {
 	t_node *pos;
-	int a_size;
-	int b_size;
-	
+	int		cnt = st->size;
+
 	printf("------------\nTOP\n");
 	pos = st->head;
-	while (pos)
+	while (cnt)
 	{
 		printf("%d\n", pos->data);
 		pos = pos->next;
+		cnt--;
 	}
 	printf("END\n------------\n");
 }

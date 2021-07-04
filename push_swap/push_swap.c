@@ -1,47 +1,31 @@
-#include "stack.h"
+#include "push_swap.h"
 
-void	sa(t_stack *a, t_stack *b)
+void	sa(t_stack *a)
 {
-	int	temp;
-
-	//printf("sa\n");
+	printf("sa\n");
 	if (a->size < 2)
 		return ;
-	push(b, top(a));
-	pop(a);
-	temp = top(a);
-	pop(a);
-	push(a, top(b));
-	pop(b);
-	push(a, temp);
+	swap(a);
 }
 
-void	sb(t_stack *a, t_stack *b)
+void	sb(t_stack *b)
 {
-	int	temp;
-
-	//printf("sb\n");
+	printf("sb\n");
 	if (b->size < 2)
 		return ;
-	push(a, top(b));
-	pop(b);
-	temp = top(b);
-	pop(b);
-	push(b, top(a));
-	pop(a);
-	push(b, temp);
+	swap(b);
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
-	//printf("ss\n");
-	sa(a, b);
-	sb(a, b);
+	printf("ss\n");
+	swap(a);
+	swap(b);
 }
 
 void	pa(t_stack *a, t_stack *b)
 {
-	//printf("pa\n");
+	printf("pa\n");
 	if (b->size == 0)
 		return ;
 	push(a, top(b));
@@ -50,124 +34,55 @@ void	pa(t_stack *a, t_stack *b)
 
 void	pb(t_stack *a, t_stack *b)
 {
-	//printf("pb\n");
+	printf("pb\n");
 	if (a->size == 0)
 		return ;
 	push(b, top(a));
 	pop(a);
 }
 
-void	ra(t_stack *a, t_stack *b)
+void	ra(t_stack *a)
 {
-	int	temp;
-	int	cnt;
-
-	//printf("ra\n");
+	printf("ra\n");
 	if (a->size < 2)
 		return ;
-	cnt = a->size - 1;
-	temp = top(a);
-	pop(a);
-	while (a->size)
-	{
-		push(b, top(a));
-		pop(a);
-	}
-	push(a, temp);
-	while (cnt)
-	{
-		push(a, top(b));
-		pop(b);
-		cnt--;
-	}
+	rotate(a);
 }
 
-void	rb(t_stack *a, t_stack *b)
+void	rb(t_stack *b)
 {
-	int	temp;
-	int	cnt;
-
-	//printf("rb\n");
+	printf("rb\n");
 	if (b->size < 2)
 		return ;
-	cnt = b->size - 1;
-	temp = top(b);
-	pop(b);
-	while (b->size)
-	{
-		push(a, top(b));
-		pop(b);
-	}
-	push(b, temp);
-	while (cnt)
-	{
-		push(b, top(a));
-		pop(a);
-		cnt--;
-	}
+	rotate(b);
 }
 
 void	rr(t_stack *a, t_stack *b)
 {
-	//printf("rr\n");
-	ra(a, b);
-	rb(a, b);
+	printf("rr\n");
+	rotate(a);
+	rotate(b);
 }
 
-void	rra(t_stack *a, t_stack *b)
+void	rra(t_stack *a)
 {
-	int	temp;
-	int	cnt;
-
-	//printf("rra\n");
+	printf("rra\n");
 	if (a->size < 2)
 		return ;
-	cnt = a->size - 1;
-	while (a->size != 1)
-	{
-		push(b, top(a));
-		pop(a);
-	}
-	temp = top(a);
-	pop(a);
-	while(cnt)
-	{
-		push(a, top(b));
-		pop(b);
-		cnt--;
-	}
-	push(a, temp);
+	reverse_rotate(a);
 }
 
-void	rrb(t_stack *a, t_stack *b)
+void	rrb(t_stack *b)
 {
-	int	temp;
-	int	cnt;
-
-	//printf("rrb\n");
+	printf("rrb\n");
 	if (b->size < 2)
 		return ;
-	cnt = b->size - 1;
-	while (b->size != 1)
-	{
-		push(a, top(b));
-		pop(b);
-	}
-	temp = top(b);
-	pop(b);
-	while(cnt)
-	{
-		push(b, top(a));
-		pop(a);
-		cnt--;
-	}
-	push(b, temp);
-
+	reverse_rotate(b);
 }
 
 void	rrr(t_stack *a, t_stack *b)
 {
-	//printf("rrr\n");
-	rra(a, b);
-	rrb(a, b);
+	printf("rrr\n");
+	reverse_rotate(a);
+	reverse_rotate(b);
 }
