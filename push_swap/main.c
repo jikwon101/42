@@ -20,13 +20,14 @@ void	init_stack(int ac, char *av[], t_stack *a)
 	}
 }
 
-int	a_ordered(t_stack *st)
+int	ordered(t_stack *st)
 {
-	t_node *pos;
-	int	cnt = st->size;
+	t_node	*pos;
+	int		cnt;;
 
+	cnt = st->size;
 	pos = st->head;
-	while (cnt)
+	while (cnt - 1 > 0)
 	{
 		if (pos->data > pos->next->data)
 			return (0);
@@ -36,13 +37,13 @@ int	a_ordered(t_stack *st)
 	return (1);
 }
 
-int	b_ordered(t_stack *st)
+int	reverse_ordered(t_stack *st)
 {
 	t_node	*pos;
 	int cnt = st->size;
 
 	pos = st->head;
-	while (cnt)
+	while (cnt - 1 > 0)
 	{
 		if (pos->data < pos->next->data)
 			return (0);
@@ -52,18 +53,46 @@ int	b_ordered(t_stack *st)
 	return (1);
 }
 
+void	quicksort(t_stack *a, t_stack *b)
+{
+	int	info[2];
+	int	pivot;
+	
+	if (a->size == 1)
+		return ;
+	pivot = find_pivot(a, info);
+	printf("pivot : %d\n", pivot);
+	while (!ordered(a))
+	{
+		while (top(a) < pivot)
+		{
+			pb(a, b);
+			printpair(a, b);
+			usleep(1000000);
+		}
+		while (top(a) > pivot)
+		{
+			ra(a);
+			printpair(a, b);
+			usleep(1000000);
+		}
+	}
+
+}
+
 int main(int ac, char *av[])
 {
 	t_stack	a;
 	t_stack	b;
-	int		res;
 
-	if (ac < 2 || !(res = check_arguments(ac, av)))
+	if (ac < 2 || !(check_arguments(ac, av)))
 	{
 		printf("Error\n"); //stdderr ***
 		return (1);
 	}
 	init_stack(ac, av, &a);
 	printpair(&a, &b);
-	printf("pivot : %d\n", find_pivot(&a));
+	usleep(2000000);
+	quicksort(&a, &b);
+	printpair(&a, &b);
 }

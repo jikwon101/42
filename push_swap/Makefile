@@ -1,5 +1,5 @@
 SRCS=main.c push_swap.c quickpivot.c stack.c
-LIB=libft.a
+LIB=libft.a		#folder libft 만들어서 새로 make 해서 컴파일해야함. 
 OBJT= $(SRCS:.c=.o)
 NAME=a.out
 CFLAG=-g3
@@ -14,4 +14,4 @@ clean :
 fclean : clean
 	rm -rf $(NAME)
 
-re : fclena all
+re : fclean all

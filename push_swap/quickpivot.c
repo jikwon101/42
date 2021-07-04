@@ -62,11 +62,9 @@ void push_backward(int pos, t_arr *arr, int val)
 	
 	cnt = arr->size - I(pos - arr->head, NOP);
 	k = 0;
-	//i = (pos + cnt - 1) % arr->stsize;
 	i = I(pos + cnt - 1, NOP);
 	while (k < cnt)
 	{
-		
 		(arr->data)[I(i + 1, NOP)] = (arr->data)[I(i, NOP)];
 		i--;
 		k++;
@@ -141,7 +139,7 @@ void	sort(t_arr *arr, t_stack *st)
 	}
 }
 
-int	find_pivot(t_stack *st)
+int	find_pivot(t_stack *st, int *res)
 {
 	t_arr	arr;
 
@@ -150,5 +148,7 @@ int	find_pivot(t_stack *st)
 	if (!arr.data)
 		exit(1);
 	sort(&arr, st);
+	res[0] = (arr.data)[arr.head];
+	res[1] = (arr.data)[I(arr.head + arr.size - 1, NOP)];
 	return (arr.data[I(arr.head + (arr.size / 2), NOP)]);
 }
