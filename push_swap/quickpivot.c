@@ -16,15 +16,15 @@ int	I(int i, int option)
 	return (i);
 }
 
-void	initarr(t_arr *arr, int stsize)
+void	initarr(t_arr *arr, int lsize)
 {
 	arr->head = 0;
 	arr->size = 0;
-	arr->data = (int *)malloc(sizeof(stsize));
+	arr->data = (int *)malloc(sizeof(lsize));
 	//temp
 	if (arr->data)
 	{
-		for (int i = 0 ; i < stsize ; i++)
+		for (int i = 0 ; i < lsize ; i++)
 			(arr->data)[i] = -100;
 	}
 }
@@ -109,7 +109,7 @@ void	printarray(t_arr *arr, int stsize)
 	*/
 	
 }
-
+/*
 void	sort(t_arr *arr, t_stack *st)
 {
 	int		stcnt;
@@ -135,20 +135,54 @@ void	sort(t_arr *arr, t_stack *st)
 			push_backward(i, arr, pos->data);
 		stcnt++;
 		pos = pos->next;
-		printarray(arr, st->size);
+		//printarray(arr, st->size);
 	}
 }
+*/
+void	sort(t_arr *arr, t_stack *st, int lsize)
+{
+	int		cnt;
+	t_node	*pos;
+	int		i;
 
-int	find_pivot(t_stack *st, int *info)
+	cnt = 0;
+	pos = st->head;
+	while (cnt < lsize)
+	{
+		i = arr->head;
+		while (i < (arr->head + arr->size))
+		{
+			if ((arr->data)[I(i, NOP)] < pos->data)
+				i++;
+			else
+				break;
+		}
+		i = I(i, NOP);
+		if (distance(i, arr))
+			push_forward(i, arr, pos->data);
+		else
+			push_backward(i, arr, pos->data);
+		cnt++;
+		pos = pos->next;
+	}
+	//printarray(arr, lsize);
+}
+
+int	find_pivot(t_stack *st, int *info, int lsize)
 {
 	t_arr	arr;
 	int		res;
 
+	/*
 	I(NOP, st->size);
 	initarr(&arr, st->size);
+	*/
+	printf("lsize : %d, st->size : %d\n", lsize, st->size);
+	I(NOP, lsize);
+	initarr(&arr, lsize);
 	if (!arr.data)
 		exit(1);
-	sort(&arr, st);
+	sort(&arr, st, lsize);
 	info[0] = (arr.data)[arr.head];
 	info[1] = (arr.data)[I(arr.head + arr.size - 1, NOP)];
 	res = (arr.data[I(arr.head + (arr.size / 2), NOP)]);

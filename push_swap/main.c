@@ -3,8 +3,13 @@
 #include "push_swap.h"
 #include "quickpivot.h"
 
-# define ASC 0
-# define DESC 1
+#define RED "\x1b[31m"
+#define BLUE "\x1b[36m"
+#define RESET "\x1b[0m"
+
+
+# define ASC 1
+# define DESC -1
 
 int	check_arguments(int size, char *argv[])
 {	
@@ -62,33 +67,64 @@ int		is_ordered(t_stack *st, int type)
 		return (ordered(st));
 	return (reverse_ordered(st));
 }
-void	divide(t_stack *a, t_stack *b)
+
+void	divide(t_stack *a, t_stack *b, int type)
 {
 	int	pivot;
 	int	cnt;
 	int	info[2];
+	int rtime;
 	
+	rtime = 0;
 	cnt = a->size;
-	pivot = find_pivot(a, info);
-	printf("pivot : %d\n", pivot);
+	pivot = find_pivot(a, info, a->size);
+	printf(BLUE "pivot : %d\n", pivot); printf(RESET);
 	while (cnt > 0)
 	{
-		if (top(a) < pivot)
+		if (type == ASC)
 		{
-			pb(a, b);
-			//printpair(a, b);
-			//usleep(1000000);
+			if (top(a) < pivot)
+				pb(a, b);
+			else
+			{
+				ra(a);
+				rtime++;
+			}
 		}
 		else
 		{
-			ra(a);
-			//printpair(a, b);
-			//usleep(1000000);
+			if (top(a) > pivot)
+				pb(a, b);
+			else
+			{
+				ra(a);
+				rtime++;
+			}
 		}
 		cnt--;
 	}
+	while (rtime)
+	{
+		rra(a);
+		rtime--;
+	}
+	if (type == ASC)
+		printpair(a, b);
+	else
+		printpair(b, a);
+}
+
+void	remerge(t_stack *a, t_stack *b, int asize, int bsize)
+{
+	int cnt;
+	
+	cnt = asize - a->size;
+	while (cnt)
+	{
+		pa(a, b);
+		cnt--;
+	}
 	printpair(a, b);
-	usleep(1000000);
 }
 
 void	quicksort(t_stack *a, t_stack *b, int type)
@@ -101,22 +137,14 @@ void	quicksort(t_stack *a, t_stack *b, int type)
 	if (a->size == 2 && !is_ordered(a, type))
 	{
 		sa(a);
+		printpair(a, b);
 		return ;
 	}
-	while (!is_ordered(a, type))
-	{
-		asize = a->size;
-		bsize = b->size;
-		printf("-----------------------DIVIDE\n");
-		divide(a, b);
-		if (!is_ordered(a, ASC))
-		{	
-			printf("-----------------------SORT_A\n");
-			quicksort(a, b, ASC);
-			printpair(a, b);
-			usleep(1000000);
-		}
-	}
+	asize = a->size;
+	bsize = b->size;
+	divide(a, b, type);
+	quicksort(a, b, type);
+	remerge(a, b, asize, bsize);
 }
 
 int main(int ac, char *av[])
@@ -130,15 +158,11 @@ int main(int ac, char *av[])
 		return (1);
 	}
 	init_stack(ac, av, &a);
-	printf("--------------------------PRE\n");
+	printf(RED "--------------------------PRE\n" RESET);
 	printpair(&a, &b);
-	usleep(2000000);
-	while (!is_ordered(&a, ASC))
-	{
-		quicksort(&a, &b, ASC);
-		printf("------------------MID\n");
-		quicksort(&b, &a, DESC);
-	}
-	printf("--------------------------RES\n");
+	printf(RED "-----------------------------\n" RESET);
+	quicksort(&a, &b, ASC);
+	printf(RED "--------------------------RES\n" RESET);
 	printpair(&a, &b);
+	printf(RED "-----------------------------\n" RESET);
 }

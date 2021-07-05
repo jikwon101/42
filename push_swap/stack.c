@@ -218,6 +218,7 @@ void printpair(t_stack *a, t_stack *b)
 	printf(" a           b\n");
 	printf("\033[0m");		//reset color
 	printf("END\n------------\n");
+	usleep(1000000);
 }
 
 int	next(t_stack const* st)
