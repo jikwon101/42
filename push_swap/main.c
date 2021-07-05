@@ -142,7 +142,6 @@ void	quicksort(t_stack *a, t_stack *b, int type)
 	}
 	asize = a->size;
 	bsize = b->size;
-	divide(a, b, type);
 	quicksort(a, b, type);
 	remerge(a, b, asize, bsize);
 }
