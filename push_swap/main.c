@@ -63,7 +63,7 @@ void	divide(t_stack *a, t_stack *b)
 	printf("pivot : %d\n", pivot);
 	while (cnt > 0)
 	{
-		if (top(a) <= pivot)
+		if (top(a) < pivot)
 		{
 			pb(a, b);
 			printpair(a, b);
