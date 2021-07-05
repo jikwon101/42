@@ -52,32 +52,40 @@ int	reverse_ordered(t_stack *st)
 	}
 	return (1);
 }
-
-void	quicksort(t_stack *a, t_stack *b)
+void	divide(t_stack *a, t_stack *b)
 {
-	int	info[2];
 	int	pivot;
+	int	cnt;
+	int	info[2];
 	
-	if (a->size == 1)
-		return ;
+	cnt = a->size;
 	pivot = find_pivot(a, info);
 	printf("pivot : %d\n", pivot);
-	while (!ordered(a))
+	while (cnt > 0)
 	{
-		while (top(a) < pivot)
+		if (top(a) <= pivot)
 		{
 			pb(a, b);
 			printpair(a, b);
 			usleep(1000000);
 		}
-		while (top(a) > pivot)
+		else
 		{
 			ra(a);
 			printpair(a, b);
 			usleep(1000000);
 		}
+		cnt--;
 	}
 
+
+}
+
+void	quicksort(t_stack *a, t_stack *b)
+{
+	if (a->size == 1)
+		return ;
+	divide(a, b);
 }
 
 int main(int ac, char *av[])
