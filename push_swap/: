@@ -96,26 +96,25 @@ void	quicksort(t_stack *a, t_stack *b, int type)
 	int	asize;
 	int	bsize;
 
-	if (a->size == 1 || is_ordered(a, type))
-		return ; 
-	if (a->size == 2 && !is_ordered(a, type))
+	if (a->size == 1)
+		return ;
+	if (a->size == 2 && is_ordered(a, type))
+		return ;
+	if (a->size == 2 && is_ordered(a, type))
 	{
 		sa(a);
 		return ;
 	}
-	while (!is_ordered(a, type))
+	while (a->size > 1)
 	{
 		asize = a->size;
 		bsize = b->size;
+		divide(a, b, ASC);
 		printf("-----------------------DIVIDE\n");
-		divide(a, b);
-		if (!is_ordered(a, ASC))
-		{	
-			printf("-----------------------SORT_A\n");
-			quicksort(a, b, ASC);
-			printpair(a, b);
-			usleep(1000000);
-		}
+		quicksort(a, b, ASC);
+		printf("-----------------------SORT_A\n");
+		quicksort(b, a, DESC);
+		printf("-----------------------SORT_B\n");
 	}
 }
 
@@ -130,15 +129,8 @@ int main(int ac, char *av[])
 		return (1);
 	}
 	init_stack(ac, av, &a);
-	printf("--------------------------PRE\n");
 	printpair(&a, &b);
 	usleep(2000000);
-	while (!is_ordered(&a, ASC))
-	{
-		quicksort(&a, &b, ASC);
-		printf("------------------MID\n");
-		quicksort(&b, &a, DESC);
-	}
-	printf("--------------------------RES\n");
+	quicksort(&a, &b, ASC);
 	printpair(&a, &b);
 }

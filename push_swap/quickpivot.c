@@ -139,16 +139,20 @@ void	sort(t_arr *arr, t_stack *st)
 	}
 }
 
-int	find_pivot(t_stack *st, int *res)
+int	find_pivot(t_stack *st, int *info)
 {
 	t_arr	arr;
+	int		res;
 
 	I(NOP, st->size);
 	initarr(&arr, st->size);
 	if (!arr.data)
 		exit(1);
 	sort(&arr, st);
-	res[0] = (arr.data)[arr.head];
-	res[1] = (arr.data)[I(arr.head + arr.size - 1, NOP)];
-	return (arr.data[I(arr.head + (arr.size / 2), NOP)]);
+	info[0] = (arr.data)[arr.head];
+	info[1] = (arr.data)[I(arr.head + arr.size - 1, NOP)];
+	res = (arr.data[I(arr.head + (arr.size / 2), NOP)]);
+	if (arr.data)
+		free(arr.data);
+	return (res);
 }
