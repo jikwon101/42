@@ -68,6 +68,44 @@ int		is_ordered(t_stack *st, int type)
 	return (reverse_ordered(st));
 }
 
+int	n_ordered(t_stack *st, int size)
+{
+	t_node	*pos;
+
+	pos = st->head;
+	while (size - 1 > 0)
+	{
+		if (pos->data > pos->next->data)
+			return (0);
+		pos = pos->next;
+		size--;
+	}
+	return (1);
+}
+
+int	n_reverse_ordered(t_stack *st, int size)
+{
+	t_node	*pos;
+
+	pos = st->head;
+	while (size - 1 > 0)
+	{
+		if (pos->data < pos->next->data)
+			return (0);
+		pos = pos->next;
+		size--;
+	}
+	return (1);
+}
+
+int		n_is_ordered(t_stack *st, int type, int size)
+{
+	if (type == ASC)
+		return (n_ordered(st, size));
+	return (n_reverse_ordered(st, size));
+}
+
+
 void	divide(t_stack *a, t_stack *b, int type)
 {
 	int	pivot;
@@ -142,8 +180,75 @@ void	quicksort(t_stack *a, t_stack *b, int type)
 	}
 	asize = a->size;
 	bsize = b->size;
-	quicksort(a, b, type);
+	divide(a, b, type);
+	//quicksort(a, b, type);
 	remerge(a, b, asize, bsize);
+}
+
+int		all_bigger_than(t_stack *a, int cnt , int pivot)
+{
+	int	i;
+	t_node	*pos;
+
+	i = 0;
+	pos = a->head;
+	while (i < cnt)
+	{
+		if (pos->data < pivot)
+			return (0);
+		i++;
+		pos = pos->next;
+	}
+	return (1);
+}
+
+void	n_divide(t_stack *a, t_stack *b, int size)
+{
+	int	pivot;
+	int	i;
+	int	cnt;
+	int	info[2];
+
+	i = 0;
+	cnt = size;
+	pivot = find_pivot(a, info, a->size);
+	printf(BLUE "pivot : %d\n", pivot); printf(RESET);
+	while (i < cnt || !all_bigger_than(a, cnt - size, pivot))
+	{
+		if (top(a) < pivot)
+			pb(a, b);
+		else
+			ra(a);
+		printpair(a, b);
+		i++;
+	}
+}
+
+void	n_merge(t_stack *a, t_stack *b, int size)
+{
+	for (int i = 0 ; i < size ; i++)
+		pa(a, b);
+}
+
+void	o_sort(t_stack *a, t_stack *b, int size)
+{
+	
+}
+void	r_sort(t_stack *b, t_stack *a, int size)
+{
+
+}
+
+void	process(t_stack *a, t_stack *b, int lsize)
+{
+	int	asize;
+	int bsize;
+
+	asize = a->size;
+	n_divide(a, b, lsize);
+	o_sort(a, b, a->size - lsize);
+	r_sort(b, a, asize - a->size);
+	n_merge(a, b, asize - a->size);
 }
 
 int main(int ac, char *av[])
@@ -160,7 +265,8 @@ int main(int ac, char *av[])
 	printf(RED "--------------------------PRE\n" RESET);
 	printpair(&a, &b);
 	printf(RED "-----------------------------\n" RESET);
-	quicksort(&a, &b, ASC);
+	//quicksort(&a, &b, ASC);
+	process(&a, &b);
 	printf(RED "--------------------------RES\n" RESET);
 	printpair(&a, &b);
 	printf(RED "-----------------------------\n" RESET);
