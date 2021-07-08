@@ -19,7 +19,7 @@ void	push_forward(int pos, t_arr *arr, int val);
 void	push_backward(int pos, t_arr *arr, int val);
 int		distance(int pos, t_arr *arr);
 void	sort(t_arr *arr, t_stack *st, int lsize);
-int		find_pivot(t_stack *st, int *res, int lsize);
+int		find_pivot(t_stack *st, int lsize);
 
 void	printarray(t_arr *arr, int stsize);		//temp
 #endif

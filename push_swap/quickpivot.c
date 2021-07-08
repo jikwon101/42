@@ -20,7 +20,7 @@ void	initarr(t_arr *arr, int lsize)
 {
 	arr->head = 0;
 	arr->size = 0;
-	arr->data = (int *)malloc(sizeof(lsize));
+	arr->data = (int *)malloc(sizeof(int) * lsize);
 	//temp
 	if (arr->data)
 	{
@@ -38,7 +38,6 @@ void	insert(int pos, t_arr *arr, int val)
 
 void push_forward(int pos, t_arr *arr, int val)
 {
-	//printf("%d is forward of %d\n", val, (arr->data)[pos]);
 	int	i;
 	int	cnt;
 
@@ -55,7 +54,6 @@ void push_forward(int pos, t_arr *arr, int val)
 
 void push_backward(int pos, t_arr *arr, int val)
 {
-	//printf("%d is backward of %d\n", val, (arr->data)[pos]);
 	int	i;
 	int	k;
 	int	cnt;
@@ -168,23 +166,16 @@ void	sort(t_arr *arr, t_stack *st, int lsize)
 	//printarray(arr, lsize);
 }
 
-int	find_pivot(t_stack *st, int *info, int lsize)
+int	find_pivot(t_stack *st, int lsize)
 {
 	t_arr	arr;
 	int		res;
 
-	/*
-	I(NOP, st->size);
-	initarr(&arr, st->size);
-	*/
-	printf("lsize : %d, st->size : %d\n", lsize, st->size);
 	I(NOP, lsize);
 	initarr(&arr, lsize);
 	if (!arr.data)
 		exit(1);
 	sort(&arr, st, lsize);
-	info[0] = (arr.data)[arr.head];
-	info[1] = (arr.data)[I(arr.head + arr.size - 1, NOP)];
 	res = (arr.data[I(arr.head + (arr.size / 2), NOP)]);
 	if (arr.data)
 		free(arr.data);

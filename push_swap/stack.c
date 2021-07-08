@@ -38,18 +38,6 @@ void	pop(t_stack *st)
 		free(target);
 	}
 	st->size--;
-		/*
-	t_node	*temp;
-
-	if (empty(st))
-		return ;
-	temp = st->head;
-	st->head = st->head->next;
-	if (st->head)
-		st->head->prev = NULL;
-	free(temp);
-	st->size--;
-	*/
 }
 
 void	push(t_stack *st, int val)
@@ -57,8 +45,10 @@ void	push(t_stack *st, int val)
 	t_node	*newnode;
 
 	newnode = (t_node *)malloc(sizeof(t_node));
-	if (!newnode)
+	if(!newnode)
+	{
 		return ;
+	}
 	newnode->data = val;
 	if (empty(st))
 	{
@@ -75,27 +65,6 @@ void	push(t_stack *st, int val)
 		st->head = newnode;
 	}
 	st->size++;
-		/*
-	t_node *newnode;
-
-	newnode = (t_node *)malloc(sizeof(t_node));
-	if (!newnode)
-		return ;
-	newnode->data = val;
-	newnode->prev = NULL;
-	if (empty(st))
-	{
-		newnode->next = NULL;
-		st->head = newnode;
-	}
-	else
-	{
-		newnode->next = st->head;
-		st->head->prev = newnode;
-		st->head = newnode;
-	}
-	st->size++;
-	*/
 }
 
 int		top(t_stack const* st)
@@ -127,23 +96,6 @@ void	rotate(t_stack *st)
 	if (empty(st))
 		return ;
 	st->head = st->head->next;
-	/*
-	t_node	*temp;
-	t_node	*pos;
-
-	temp = st->head;
-	st->head = st->head->next;
-	st->head->prev = NULL;
-	temp->prev = NULL;
-	temp->next = NULL;
-	pos = st->head;
-	while (pos->next)
-	{
-		pos = pos->next;
-	}
-	pos->next = temp;
-	temp->prev = pos;
-	*/
 }
 
 void	reverse_rotate(t_stack *st)
@@ -151,22 +103,6 @@ void	reverse_rotate(t_stack *st)
 	if (empty(st))
 		return ;
 	st->head = st->head->prev;
-	/*
-	t_node	*pos;
-	t_node	*temp;
-
-	pos = st->head;
-	while (pos->next)
-	{
-		pos = pos->next;
-	}
-	temp = pos;
-	pos->prev->next = NULL;
-	temp->prev = NULL;
-	temp->next = st->head;
-	st->head->prev = temp;
-	st->head = temp;
-	*/
 }
 
 #include <stdio.h>
@@ -179,7 +115,7 @@ void print(t_stack*st)
 	pos = st->head;
 	while (cnt)
 	{
-		printf("%d\n", pos->data);
+		printf("%d \n", pos->data);
 		pos = pos->next;
 		cnt--;
 	}
@@ -218,7 +154,7 @@ void printpair(t_stack *a, t_stack *b)
 	printf(" a           b\n");
 	printf("\033[0m");		//reset color
 	printf("END\n------------\n");
-	usleep(1000000);
+	usleep(500000);
 }
 
 int	next(t_stack const* st)
