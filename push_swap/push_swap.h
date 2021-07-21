@@ -2,7 +2,12 @@
 # define PUSH_SWAP_H
 
 #include "stack.h"
+#include "log.h"
 #include <stdio.h> //temp
+#define RED "\x1b[31m"
+#define BLUE "\x1b[36m"
+#define RESET "\x1b[0m"
+
 
 void	sa(t_stack *a);
 void	sb(t_stack *b);

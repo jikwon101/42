@@ -2,21 +2,23 @@
 #include "libft.h"
 #include "push_swap.h"
 #include "quickpivot.h"
-
+#include "log.h"
 #define RED "\x1b[31m"
 #define BLUE "\x1b[36m"
 #define RESET "\x1b[0m"
 
-
 # define ASC 1
 # define DESC -1
-void	process(t_stack *a, t_stack *b, int type, int lsize);
+
 void	r_sort(t_stack *a, t_stack *b, int lsize);
+void	o_sort(t_stack *a, t_stack *b, int lsize);
 int	check_arguments(int size, char *argv[])
 {	
 	// av[] is not int
 	// av[] is bigger than an int
 	// av[] is duplicate.
+	(void)size;
+	(void)argv;
 	return (1);
 }
 
@@ -124,8 +126,6 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 				time++;
 			}
 			i++;
-	//		printf("DIVIDE_ASC\n");
-			//printpair(a, b);
 		}
 		for (int i = 0 ; i < time ; i++)
 			rra(a);
@@ -143,8 +143,6 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 				time++;
 			}
 			i++;
-	//		printf("DIVIDE_DESC\n");
-			//printpair(a, b);
 		}
 		for (int i = 0 ; i < time ; i++)
 			rrb(b);
@@ -153,49 +151,55 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 
 void	n_merge(t_stack *a, t_stack *b, int type, int size)
 {
-	if (type == ASC)
+	int	i;
+
+	i = 0;
+	while (i < size)
 	{
-		for (int i = 0 ; i < size ; i++)
+		if (type == ASC)
 			pa(a, b);
+		else
+			pb(a, b);
+		i++;
+	}
+}
+
+void	special_o_sort(t_stack *a)
+{
+	int	md;
+
+	md = find_pivot(a, 3);
+	if (top(a) < md)
+	{
+		rra(a);
+		sa(a);
+	}
+	else if (top(a) == md)
+	{
+		t_node *temp = a->head->next;
+		if (temp->data < md)
+			sa(a);
+		else
+			rra(a);
 	}
 	else
 	{
-		for (int i = 0 ; i < size ; i++)
-			pb(a, b);
+		t_node *temp = a->head->next;
+		if (temp->data < md)
+			ra(a);
+		else
+		{
+			sa(a);
+			rra(a);
+		}
 	}
-//	printf("MERGE\n");
-	//printpair(a, b);
-}
-
-void	o_sort(t_stack *a, t_stack *b, int lsize)
-{
-	int	asize;
-	int	bsize;
-	int	type;
-
-	type = ASC;
-	//printf("a is sorting in [%d]\n", lsize);
-	if (lsize == 1 || n_is_ordered(a, type, lsize))
-		return ;
-	else if (lsize == 2 && !n_is_ordered(a, type, lsize))
-	{
-		sa(a);
-		return ;
-	}
-	asize = a->size;
-	n_divide(a, b, type, lsize);
-	o_sort(a, b, lsize - (asize - a->size));
-	r_sort(a, b, asize - a->size);
-	n_merge(a, b, type, asize - a->size);
 }
 
 void	r_sort(t_stack *a, t_stack *b, int lsize)
 {	
-	int	asize;
 	int	bsize;
 	int	type;
 
-//	printf("b is sorting in [%d]\n", lsize);
 	type = DESC;
 	if (lsize == 1 || n_is_ordered(b, type, lsize))
 		return ;
@@ -211,16 +215,22 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 	n_merge(a, b, type, bsize - b->size);
 }
 
-void	process(t_stack *a, t_stack *b, int type, int lsize)
+void	o_sort(t_stack *a, t_stack *b, int lsize)
 {
 	int	asize;
-	int bsize;
+	int	type;
 
+	type = ASC;
 	if (lsize == 1 || n_is_ordered(a, type, lsize))
 		return ;
 	else if (lsize == 2 && !n_is_ordered(a, type, lsize))
 	{
 		sa(a);
+		return ;
+	}	
+	else if (a->size == 3)
+	{
+		special_o_sort(a);
 		return ;
 	}
 	asize = a->size;
@@ -233,6 +243,7 @@ void	process(t_stack *a, t_stack *b, int type, int lsize)
 int main(int ac, char *av[])
 {
 	t_stack	a;
+	t_stack a_t;	//temp
 	t_stack	b;
 
 	if (ac < 2 || !(check_arguments(ac, av)))
@@ -241,14 +252,14 @@ int main(int ac, char *av[])
 		return (1);
 	}
 	init_stack(ac, av, &a, &b);
-	//printf(RED "--------------------------PRE\n" RESET);
-	//printpair(&a, &b);
-	//printf(RED "-----------------------------\n" RESET);
-	//quicksort(&a, &b, ASC);
-	process(&a, &b, ASC, a.size);
-	//printf(RED "--------------------------RES\n" RESET);
-//	printpair(&a, &b);
-//	printf(RED "-----------------------------\n" RESET);
+	init_stack(ac, av, &a_t, &b);	//temp
+	control_log(INIT, NOCMD);
+	//process(&a, &b, a.size);
+	o_sort(&a, &b, a.size);
+//	printpair(&a_t, &a);	//temp
 	clear(&a);
 	clear(&b);
+	clear(&a_t);	//temp
+	control_log(PRINT, NOCMD);
+	control_log(CLEAR, NOCMD);
 }
