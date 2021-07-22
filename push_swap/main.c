@@ -151,8 +151,11 @@ void	a_divide(t_stack *a, t_stack *b, int lsize)
 		}
 		i++;
 	}
-	for (int i = 0 ; i < time ; i++)
+	i = 0;
+	while (i < time)
+	{
 		rra(a);
+	}
 }
 
 void	d_divide(t_stack *a, t_stack *b, int lsize)
@@ -179,11 +182,15 @@ void	d_divide(t_stack *a, t_stack *b, int lsize)
 		}
 		i++;
 	}
-	for (int i = 0 ; i < time ; i++)
+	i = 0;
+	while (i < time)
+	{
 		rrb(b);
+		i++;
+	}
 }
 
-void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
+void	divide(t_stack *a, t_stack *b, int type, int lsize)
 {
 	if (type == ASC)
 		a_divide(a, b, lsize);
@@ -191,7 +198,7 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 		d_divide(a, b, lsize);
 }
 
-void	n_merge(t_stack *a, t_stack *b, int type, int size)
+void	merge(t_stack *a, t_stack *b, int type, int size)
 {
 	int	i;
 
@@ -325,10 +332,10 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 		return ;
 	}
 	bsize = b->size;
-	n_divide(a, b, type, lsize);
+	divide(a, b, type, lsize);
 	o_sort(a, b, bsize - b->size);
 	r_sort(a, b, lsize - (bsize - b->size));
-	n_merge(a, b, type, bsize - b->size);
+	merge(a, b, type, bsize - b->size);
 }
 
 int	o_ordertype(t_stack *a)
@@ -349,6 +356,7 @@ int	o_ordertype(t_stack *a)
 		return (1);
 	return (0);
 }
+
 void	o_sort(t_stack *a, t_stack *b, int lsize)
 {
 	int	asize;
@@ -373,10 +381,10 @@ void	o_sort(t_stack *a, t_stack *b, int lsize)
 		return ;
 	}
 	asize = a->size;
-	n_divide(a, b, type, lsize);
+	divide(a, b, type, lsize);
 	o_sort(a, b, lsize - (asize - a->size));
 	r_sort(a, b, asize - a->size);
-	n_merge(a, b, type, asize - a->size);
+	merge(a, b, type, asize - a->size);
 }
 
 int main(int ac, char *av[])
