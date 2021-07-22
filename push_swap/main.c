@@ -169,28 +169,51 @@ void	special_o_sort(t_stack *a)
 	int	md;
 
 	md = find_pivot(a, 3);
-	if (top(a) < md)
-	{
-		rra(a);
+	if ((top(a) < md && next(a) > md)
+		|| (top(a) == md && next(a) < md)
+		|| (top(a) > md && next(a) == md))
 		sa(a);
-	}
-	else if (top(a) == md)
+	if (n_is_ordered(a, ASC, 3))
+		return ;
+	if (top(a) == md)
+		rra(a);
+	else
+		ra(a);
+}
+
+void	special_r_sort(t_stack *b)
+{
+	int	md;
+
+	md = find_pivot(b, 3);
+	if ((top(b) < md && next(b) == md)
+		|| (top(b) == md && next(b) > md)
+		|| (top(b) > md && next(b) < md))
+		sb(b);
+	if (n_is_ordered(b,DESC, 3))
+		return ;
+	if (b->size == 3)
 	{
-		t_node *temp = a->head->next;
-		if (temp->data < md)
-			sa(a);
+		if (top(b) == md)
+			rrb(b);
 		else
-			rra(a);
+			rb(b);
 	}
 	else
 	{
-		t_node *temp = a->head->next;
-		if (temp->data < md)
-			ra(a);
+		if (top(b) == md)
+		{
+			rb(b);
+			sb(b);
+			rrb(b);
+			sb(b);
+		}
 		else
 		{
-			sa(a);
-			rra(a);
+			sb(b);
+			rb(b);
+			sb(b);
+			rrb(b);
 		}
 	}
 }
@@ -206,6 +229,11 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 	else if (lsize == 2 && !n_is_ordered(b, type, lsize))
 	{
 		sb(b);
+		return ;
+	}
+	else if (lsize == 3) //else if (b->size == 3)
+	{
+		special_r_sort(b);
 		return ;
 	}
 	bsize = b->size;
@@ -256,7 +284,7 @@ int main(int ac, char *av[])
 	control_log(INIT, NOCMD);
 	//process(&a, &b, a.size);
 	o_sort(&a, &b, a.size);
-//	printpair(&a_t, &a);	//temp
+	//printpair(&a_t, &a);	//temp
 	clear(&a);
 	clear(&b);
 	clear(&a_t);	//temp

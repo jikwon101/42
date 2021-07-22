@@ -35,6 +35,7 @@ static int		strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
+// strcmp-> ft_strcmp 변경 필요:
 static int		isopposite(char *s1, char *s2)
 {	
 	if ((strcmp(s1, "pa") && strcmp(s2, "pb")))
@@ -53,6 +54,10 @@ static int		isopposite(char *s1, char *s2)
 		return (1);
 	if ((strcmp(s1, "sb") && strcmp(s2, "sb")))
 		return (1);
+	if ((strcmp(s1, "rr") && strcmp(s2, "rrr")))
+		return (1);
+	if ((strcmp(s1, "rrr") && strcmp(s2, "rr")))
+		return (1);
 	return (0);
 	if ((strcmp(s1, "pa") && strcmp(s2, "pb"))
 		|| (strcmp(s1, "pb") && strcmp(s2, "pa"))
@@ -61,8 +66,25 @@ static int		isopposite(char *s1, char *s2)
 		|| (strcmp(s1, "rb") && strcmp(s2, "rrb"))
 		|| (strcmp(s1, "rrb") && strcmp(s2, "rb"))
 		|| (strcmp(s1, "sa") && strcmp(s2, "sa"))
-		|| (strcmp(s1, "sb") && strcmp(s2, "sb")))
+		|| (strcmp(s1, "sb") && strcmp(s2, "sb"))
+		|| (strcmp(s1, "rr") && strcmp(s2, "rrr"))
+		|| (strcmp(s1, "rrr") && strcmp(s2, "rr")))
 			return (1);
+	return (0);
+}
+
+// strcmp-> ft_strcmp 변경 필요:
+int	ispair(char *s1, char *s2)
+{
+	if ((strcmp(s1, "ra") && strcmp(s2, "rb"))
+		|| (strcmp(s1, "rb") && strcmp(s2, "ra")))
+		return (1);
+	else if ((strcmp(s1, "rra") && strcmp(s2, "rrb"))
+		|| (strcmp(s1, "rrb") && strcmp(s2, "rra")))
+		return (2);
+	else if ((strcmp(s1, "sa") && strcmp(s2, "sb"))
+			|| (strcmp(s1, "sb") && strcmp(s2, "sa")))
+		return (3);
 	return (0);
 }
 
@@ -70,6 +92,7 @@ static void	addlog(t_log *log, char *cmd)
 {
 	char	*lastcmd;
 	t_history	*newhistory;
+	int		pairtype;
 
 	//printf("%s\n", cmd);
 	if (log->last == NULL)
@@ -85,22 +108,31 @@ static void	addlog(t_log *log, char *cmd)
 		return ;
 	}
 	lastcmd = log->last->command;
-	if (!isopposite(lastcmd, cmd))
-	{
-		//printf("%s\n", cmd);
-		newhistory = (t_history *)malloc(sizeof(t_history));
-		if (!newhistory)
-			exit(1);
-		newhistory->command = cmd;
-		newhistory->next = NULL;
-		newhistory->prev = log->last;
-		log->last->next = newhistory;
-		log->last = newhistory;
-	}
-	else
+	if (isopposite(lastcmd, cmd))
 	{
 		remove_history(log);
+		return ;
 	}
+	newhistory = (t_history *)malloc(sizeof(t_history));
+	if (!newhistory)
+		exit(1);
+	pairtype = ispair(lastcmd, cmd);
+	if (pairtype > 0)
+	{
+		remove_history(log);
+		if (pairtype == 1)
+			addlog(log, "rr");
+		else if (pairtype == 2)
+			addlog(log, "rrr");
+		else if (pairtype == 3)
+			addlog(log, "ss");
+		return ;
+	}
+	newhistory->command = cmd;
+	newhistory->next = NULL;
+	newhistory->prev = log->last;
+	log->last->next = newhistory;
+	log->last = newhistory;
 }
 
 static void	printlog(t_log *log)

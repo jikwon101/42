@@ -3,7 +3,7 @@
 void	printcmd(char *s)
 {
 	control_log(ADD, s);
-	//printf("%s", s);
+	//printf("%s\n", s); //temp
 	return ;
 	printf(RED "%s", s);
 	printf(RESET);
