@@ -29,46 +29,49 @@ static int		strcmp(const char *s1, const char *s2)
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
-			return (0);
+			return (s1[i] - s2[i]);
 		i++;
 	}
-	return (1);
+	return (s1[i] - s2[i]);
 }
 
 // strcmp-> ft_strcmp 변경 필요:
 static int		isopposite(char *s1, char *s2)
 {	
-	if ((strcmp(s1, "pa") && strcmp(s2, "pb")))
+	if ((!strcmp(s1, "pa") && !strcmp(s2, "pb")))
 		return (1);
-	if ((strcmp(s1, "pb") && strcmp(s2, "pa")))
+	if ((!strcmp(s1, "pb") && !strcmp(s2, "pa")))
 		return (1);
-	if ((strcmp(s1, "ra") && strcmp(s2, "rra")))
+	if ((!strcmp(s1, "ra") && !strcmp(s2, "rra")))
 		return (1);
-	if ((strcmp(s1, "rra") && strcmp(s2, "ra")))
+	if ((!strcmp(s1, "rra") && !strcmp(s2, "ra")))
 		return (1);
-	if ((strcmp(s1, "rb") && strcmp(s2, "rrb")))
+	if ((!strcmp(s1, "rb") && !strcmp(s2, "rrb")))
 		return (1);
-	if ((strcmp(s1, "rrb") && strcmp(s2, "rb")))
+	if ((!strcmp(s1, "rrb") && !strcmp(s2, "rb")))
 		return (1);
-	if ((strcmp(s1, "sa") && strcmp(s2, "sa")))
+	if ((!strcmp(s1, "sa") && !strcmp(s2, "sa")))
 		return (1);
-	if ((strcmp(s1, "sb") && strcmp(s2, "sb")))
+	if ((!strcmp(s1, "sb") && !strcmp(s2, "sb")))
 		return (1);
-	if ((strcmp(s1, "rr") && strcmp(s2, "rrr")))
+	if ((!strcmp(s1, "ss") && !strcmp(s2, "ss")))
 		return (1);
-	if ((strcmp(s1, "rrr") && strcmp(s2, "rr")))
+	if ((!strcmp(s1, "rr") && !strcmp(s2, "rrr")))
+		return (1);
+	if ((!strcmp(s1, "rrr") && !strcmp(s2, "rr")))
 		return (1);
 	return (0);
-	if ((strcmp(s1, "pa") && strcmp(s2, "pb"))
-		|| (strcmp(s1, "pb") && strcmp(s2, "pa"))
-		|| (strcmp(s1, "ra") && strcmp(s2, "rra"))
-		|| (strcmp(s1, "rra") && strcmp(s2, "ra"))
-		|| (strcmp(s1, "rb") && strcmp(s2, "rrb"))
-		|| (strcmp(s1, "rrb") && strcmp(s2, "rb"))
-		|| (strcmp(s1, "sa") && strcmp(s2, "sa"))
-		|| (strcmp(s1, "sb") && strcmp(s2, "sb"))
-		|| (strcmp(s1, "rr") && strcmp(s2, "rrr"))
-		|| (strcmp(s1, "rrr") && strcmp(s2, "rr")))
+	if ((!strcmp(s1, "pa") && !strcmp(s2, "pb"))
+		|| (!strcmp(s1, "pb") && !strcmp(s2, "pa"))
+		|| (!strcmp(s1, "ra") && !strcmp(s2, "rra"))
+		|| (!strcmp(s1, "rra") && !strcmp(s2, "ra"))
+		|| (!strcmp(s1, "rb") && !strcmp(s2, "rrb"))
+		|| (!strcmp(s1, "rrb") && !strcmp(s2, "rb"))
+		|| (!strcmp(s1, "sa") && !strcmp(s2, "sa"))
+		|| (!strcmp(s1, "sb") && !strcmp(s2, "sb"))
+		|| (!strcmp(s1, "ss") && !strcmp(s2, "ss"))
+		|| (!strcmp(s1, "rr") && !strcmp(s2, "rrr"))
+		|| (!strcmp(s1, "rrr") && !strcmp(s2, "rr")))
 			return (1);
 	return (0);
 }
@@ -76,14 +79,14 @@ static int		isopposite(char *s1, char *s2)
 // strcmp-> ft_strcmp 변경 필요:
 int	ispair(char *s1, char *s2)
 {
-	if ((strcmp(s1, "ra") && strcmp(s2, "rb"))
-		|| (strcmp(s1, "rb") && strcmp(s2, "ra")))
+	if ((!strcmp(s1, "ra") && !strcmp(s2, "rb"))
+		|| (!strcmp(s1, "rb") && !strcmp(s2, "ra")))
 		return (1);
-	else if ((strcmp(s1, "rra") && strcmp(s2, "rrb"))
-		|| (strcmp(s1, "rrb") && strcmp(s2, "rra")))
+	else if ((!strcmp(s1, "rra") && !strcmp(s2, "rrb"))
+		|| (!strcmp(s1, "rrb") && !strcmp(s2, "rra")))
 		return (2);
-	else if ((strcmp(s1, "sa") && strcmp(s2, "sb"))
-			|| (strcmp(s1, "sb") && strcmp(s2, "sa")))
+	else if ((!strcmp(s1, "sa") && !strcmp(s2, "sb"))
+		|| (!strcmp(s1, "sb") && !strcmp(s2, "sa")))
 		return (3);
 	return (0);
 }
@@ -94,10 +97,8 @@ static void	addlog(t_log *log, char *cmd)
 	t_history	*newhistory;
 	int		pairtype;
 
-	//printf("%s\n", cmd);
 	if (log->last == NULL)
 	{	
-		//printf("%s\n", cmd);
 		newhistory = (t_history *)malloc(sizeof(t_history));
 		if (!newhistory)
 			exit(1);
@@ -113,9 +114,6 @@ static void	addlog(t_log *log, char *cmd)
 		remove_history(log);
 		return ;
 	}
-	newhistory = (t_history *)malloc(sizeof(t_history));
-	if (!newhistory)
-		exit(1);
 	pairtype = ispair(lastcmd, cmd);
 	if (pairtype > 0)
 	{
@@ -128,6 +126,9 @@ static void	addlog(t_log *log, char *cmd)
 			addlog(log, "ss");
 		return ;
 	}
+	newhistory = (t_history *)malloc(sizeof(t_history));
+	if (!newhistory)
+		exit(1);
 	newhistory->command = cmd;
 	newhistory->next = NULL;
 	newhistory->prev = log->last;

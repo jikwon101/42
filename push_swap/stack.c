@@ -122,6 +122,26 @@ void print(t_stack*st)
 	printf("END\n------------\n");
 }
 
+void savef(int fd, t_stack*st)
+{
+	t_node *pos;
+	int		cnt = st->size;
+
+	char top[] = "------------\nTOP\n";
+	char end[] = "END\n------------\n";
+	write(fd, top, strlen(top));
+	pos = st->head;
+	while (cnt)
+	{
+		char *temp = ft_itoa(pos->data); 
+		write(fd, temp, strlen(temp));
+		write(fd, " \n", 2);
+		pos = pos->next;
+		cnt--;
+	}
+	write(fd, end, strlen(end));
+}
+
 void printpair(t_stack *a, t_stack *b)
 {
 	t_node *a_pos = a->head;

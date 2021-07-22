@@ -115,6 +115,8 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 	cnt = lsize;
 	if (type == ASC)
 	{
+		if (a->size == lsize)
+			time = 0 - lsize - 1;
 		pivot = find_pivot(a, lsize);
 		while (i < cnt && !all_bigger_than(a, cnt - i, pivot))
 		{
@@ -132,6 +134,8 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 	}
 	else
 	{
+		if (b->size == lsize)
+			time = 0 - lsize - 1;
 		pivot = find_pivot(b, lsize);
 		while (i < cnt && !all_smaller_than(b, cnt - i, pivot))
 		{
@@ -175,10 +179,31 @@ void	special_o_sort(t_stack *a)
 		sa(a);
 	if (n_is_ordered(a, ASC, 3))
 		return ;
-	if (top(a) == md)
-		rra(a);
+	if (a->size == 3)
+	{
+		if (top(a) == md)
+			rra(a);
+		else
+			ra(a);
+		return ;
+	}
 	else
-		ra(a);
+	{
+		if (top(a) == md)
+		{
+			ra(a);
+			sa(a);
+			rra(a);
+			sa(a);
+		}
+		else
+		{
+			sa(a);
+			ra(a);
+			sa(a);
+			rra(a);
+		}
+	}
 }
 
 void	special_r_sort(t_stack *b)
@@ -198,6 +223,7 @@ void	special_r_sort(t_stack *b)
 			rrb(b);
 		else
 			rb(b);
+		return  ;
 	}
 	else
 	{
@@ -217,6 +243,25 @@ void	special_r_sort(t_stack *b)
 		}
 	}
 }
+int	r_ordertype(t_stack *b)
+{
+	int	i;
+	t_node	*pos;
+	
+	i = 0;
+	pos = b->head;
+	while (i < 2)
+	{
+		if (pos->data < pos->next->data)
+			return (0);
+		pos = pos->next;
+		i++;
+	}
+	if (b->head->data < pos->next->data)
+		return (1);
+	return (0);
+}
+
 
 void	r_sort(t_stack *a, t_stack *b, int lsize)
 {	
@@ -236,6 +281,11 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 		special_r_sort(b);
 		return ;
 	}
+	else if (lsize == 4 && lsize == b->size && r_ordertype(b))
+	{
+		rrb(b);
+		return ;
+	}
 	bsize = b->size;
 	n_divide(a, b, type, lsize);
 	o_sort(a, b, bsize - b->size);
@@ -243,6 +293,24 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 	n_merge(a, b, type, bsize - b->size);
 }
 
+int	o_ordertype(t_stack *a)
+{
+	int	i;
+	t_node	*pos;
+	
+	i = 0;
+	pos = a->head;
+	while (i < 2)
+	{
+		if (pos->data > pos->next->data)
+			return (0);
+		pos = pos->next;
+		i++;
+	}
+	if (a->head->data > pos->next->data)
+		return (1);
+	return (0);
+}
 void	o_sort(t_stack *a, t_stack *b, int lsize)
 {
 	int	asize;
@@ -256,9 +324,14 @@ void	o_sort(t_stack *a, t_stack *b, int lsize)
 		sa(a);
 		return ;
 	}	
-	else if (a->size == 3)
+	else if (lsize == 3) //else if (a->size == 3)
 	{
 		special_o_sort(a);
+		return ;
+	}
+	else if (lsize == 4 && lsize == a->size && o_ordertype(a))
+	{
+		rra(a);
 		return ;
 	}
 	asize = a->size;
@@ -271,7 +344,6 @@ void	o_sort(t_stack *a, t_stack *b, int lsize)
 int main(int ac, char *av[])
 {
 	t_stack	a;
-	t_stack a_t;	//temp
 	t_stack	b;
 
 	if (ac < 2 || !(check_arguments(ac, av)))
@@ -280,14 +352,10 @@ int main(int ac, char *av[])
 		return (1);
 	}
 	init_stack(ac, av, &a, &b);
-	init_stack(ac, av, &a_t, &b);	//temp
 	control_log(INIT, NOCMD);
-	//process(&a, &b, a.size);
 	o_sort(&a, &b, a.size);
-	//printpair(&a_t, &a);	//temp
 	clear(&a);
 	clear(&b);
-	clear(&a_t);	//temp
 	control_log(PRINT, NOCMD);
 	control_log(CLEAR, NOCMD);
 }
