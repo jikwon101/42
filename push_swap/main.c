@@ -5,6 +5,7 @@
 #include "log.h"
 #include "check_argument.h"
 #include "utils.h"
+
 #define RED "\x1b[31m"
 #define BLUE "\x1b[36m"
 #define RESET "\x1b[0m"
@@ -56,7 +57,7 @@ void	init_stack(int *data, int size, t_stack *a, t_stack *b)
 }
 
 
-int	n_ordered(t_stack *st, int size)
+int		a_ordered(t_stack *st, int size)
 {
 	t_node	*pos;
 
@@ -71,7 +72,7 @@ int	n_ordered(t_stack *st, int size)
 	return (1);
 }
 
-int	n_reverse_ordered(t_stack *st, int size)
+int		d_ordered(t_stack *st, int size)
 {
 	t_node	*pos;
 
@@ -86,16 +87,16 @@ int	n_reverse_ordered(t_stack *st, int size)
 	return (1);
 }
 
-int		n_is_ordered(t_stack *st, int type, int size)
+int		is_ordered(t_stack *st, int type, int size)
 {
 	if (type == ASC)
-		return (n_ordered(st, size));
-	return (n_reverse_ordered(st, size));
+		return (a_ordered(st, size));
+	return (d_ordered(st, size));
 }
 
 int		all_bigger_than(t_stack *a, int cnt , int pivot)
 {
-	int	i;
+	int		i;
 	t_node	*pos;
 
 	i = 0;
@@ -109,13 +110,14 @@ int		all_bigger_than(t_stack *a, int cnt , int pivot)
 	}
 	return (1);
 }
-int	all_smaller_than(t_stack *a, int cnt, int pivot)
+
+int		all_smaller_than(t_stack *b, int cnt, int pivot)
 {
-	int	i;
-	t_node *pos;
+	int		i;
+	t_node	*pos;
 
 	i = 0;
-	pos = a->head;
+	pos = b->head;
 	while (i < cnt)
 	{
 		if (pos->data > pivot)
@@ -125,8 +127,8 @@ int	all_smaller_than(t_stack *a, int cnt, int pivot)
 	}
 	return (1);
 }
-void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
-{
+void	a_divide(t_stack *a, t_stack *b, int lsize)
+{	
 	int	pivot;
 	int	i;
 	int	cnt;
@@ -135,44 +137,58 @@ void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
 	i = 0;
 	time = 0;
 	cnt = lsize;
+	if (a->size == lsize)
+		time = 0 - lsize - 1;
+	pivot = find_pivot(a, lsize);
+	while (i < cnt && !all_bigger_than(a, cnt - i, pivot))
+	{
+		if (top(a) < pivot)
+			pb(a, b);
+		else
+		{
+			ra(a);
+			time++;
+		}
+		i++;
+	}
+	for (int i = 0 ; i < time ; i++)
+		rra(a);
+}
+
+void	d_divide(t_stack *a, t_stack *b, int lsize)
+{		
+	int	pivot;
+	int	i;
+	int	cnt;
+	int	time;
+
+	i = 0;
+	time = 0;
+	cnt = lsize;
+	if (b->size == lsize)
+		time = 0 - lsize - 1;
+	pivot = find_pivot(b, lsize);
+	while (i < cnt && !all_smaller_than(b, cnt - i, pivot))
+	{
+		if (top(b) > pivot)
+			pa(a, b);
+		else
+		{
+			rb(b);
+			time++;
+		}
+		i++;
+	}
+	for (int i = 0 ; i < time ; i++)
+		rrb(b);
+}
+
+void	n_divide(t_stack *a, t_stack *b, int type, int lsize)
+{
 	if (type == ASC)
-	{
-		if (a->size == lsize)
-			time = 0 - lsize - 1;
-		pivot = find_pivot(a, lsize);
-		while (i < cnt && !all_bigger_than(a, cnt - i, pivot))
-		{
-			if (top(a) < pivot)
-				pb(a, b);
-			else
-			{
-				ra(a);
-				time++;
-			}
-			i++;
-		}
-		for (int i = 0 ; i < time ; i++)
-			rra(a);
-	}
+		a_divide(a, b, lsize);
 	else
-	{
-		if (b->size == lsize)
-			time = 0 - lsize - 1;
-		pivot = find_pivot(b, lsize);
-		while (i < cnt && !all_smaller_than(b, cnt - i, pivot))
-		{
-			if (top(b) > pivot)
-				pa(a, b);
-			else
-			{
-				rb(b);
-				time++;
-			}
-			i++;
-		}
-		for (int i = 0 ; i < time ; i++)
-			rrb(b);
-	}
+		d_divide(a, b, lsize);
 }
 
 void	n_merge(t_stack *a, t_stack *b, int type, int size)
@@ -199,7 +215,7 @@ void	special_o_sort(t_stack *a)
 		|| (top(a) == md && next(a) < md)
 		|| (top(a) > md && next(a) == md))
 		sa(a);
-	if (n_is_ordered(a, ASC, 3))
+	if (is_ordered(a, ASC, 3))
 		return ;
 	if (a->size == 3)
 	{
@@ -237,7 +253,7 @@ void	special_r_sort(t_stack *b)
 		|| (top(b) == md && next(b) > md)
 		|| (top(b) > md && next(b) < md))
 		sb(b);
-	if (n_is_ordered(b,DESC, 3))
+	if (is_ordered(b,DESC, 3))
 		return ;
 	if (b->size == 3)
 	{
@@ -291,9 +307,9 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 	int	type;
 
 	type = DESC;
-	if (lsize == 1 || n_is_ordered(b, type, lsize))
+	if (lsize == 1 || is_ordered(b, type, lsize))
 		return ;
-	else if (lsize == 2 && !n_is_ordered(b, type, lsize))
+	else if (lsize == 2 && !is_ordered(b, type, lsize))
 	{
 		sb(b);
 		return ;
@@ -339,9 +355,9 @@ void	o_sort(t_stack *a, t_stack *b, int lsize)
 	int	type;
 
 	type = ASC;
-	if (lsize == 1 || n_is_ordered(a, type, lsize))
+	if (lsize == 1 || is_ordered(a, type, lsize))
 		return ;
-	else if (lsize == 2 && !n_is_ordered(a, type, lsize))
+	else if (lsize == 2 && !is_ordered(a, type, lsize))
 	{
 		sa(a);
 		return ;
