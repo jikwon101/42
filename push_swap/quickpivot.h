@@ -1,8 +1,10 @@
 #ifndef QUICKPIVOT_H
 # define QUICKPIVOT_H
 
+#include "utils.h"
 #include "stack.h"
 #include <stdio.h> //temp
+
 # define NOP -1
 
 typedef struct	s_arr
@@ -21,5 +23,6 @@ int		distance(int pos, t_arr *arr);
 void	sort(t_arr *arr, t_stack *st, int lsize);
 int		find_pivot(t_stack *st, int lsize);
 
+void	sort_arr(t_arr *arr, int *data, int lsize);
 void	printarray(t_arr *arr, int stsize);		//temp
 #endif

@@ -3,6 +3,8 @@
 #include "push_swap.h"
 #include "quickpivot.h"
 #include "log.h"
+#include "check_argument.h"
+#include "utils.h"
 #define RED "\x1b[31m"
 #define BLUE "\x1b[36m"
 #define RESET "\x1b[0m"
@@ -12,25 +14,45 @@
 
 void	r_sort(t_stack *a, t_stack *b, int lsize);
 void	o_sort(t_stack *a, t_stack *b, int lsize);
-int	check_arguments(int size, char *argv[])
-{	
-	// av[] is not int
-	// av[] is bigger than an int
-	// av[] is duplicate.
-	(void)size;
-	(void)argv;
-	return (1);
+
+int		find(t_arr arr, int val)
+{
+	int	i;
+	int	cnt;
+
+	cnt = 0;
+	i = arr.head;
+	while (cnt < arr.size)
+	{
+		if (arr.data[I(i, NOP)] == val)
+			return (cnt);
+		cnt++;
+		i++;
+	}
+	return (cnt);
 }
 
-void	init_stack(int ac, char *av[], t_stack *a, t_stack *b)
+void	init_stack(int *data, int size, t_stack *a, t_stack *b)
 {
+	t_arr	arr;
+	int		i;
+	int		index;
+
+	I(NOP, size);
+	initarr(&arr, size);
+	if (!arr.data)
+		error("Malloc Error\n");
 	init(a);
 	init(b);
-	while (ac > 1)
+	sort_arr(&arr, data, size);
+	i = size - 1;
+	while (i >= 0)
 	{
-		push(a, ft_atoi(av[ac - 1]));
-		ac--;
+		index = find(arr, data[i]);
+		push(a, index);
+		i--;
 	}
+	free(arr.data);
 }
 
 
@@ -345,13 +367,17 @@ int main(int ac, char *av[])
 {
 	t_stack	a;
 	t_stack	b;
+	int		*data;
 
-	if (ac < 2 || !(check_arguments(ac, av)))
+	data = NULL;
+	if (ac < 2 || !(check_arguments(&data, ac, av)))
 	{
-		printf("Error\n"); //stdderr ***
-		return (1);
+		if (data)
+			free(data);
+		error("Error : Arguments\n");
 	}
-	init_stack(ac, av, &a, &b);
+	init_stack(data, ac - 1,  &a, &b);
+	free(data);
 	control_log(INIT, NOCMD);
 	o_sort(&a, &b, a.size);
 	clear(&a);

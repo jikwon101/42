@@ -85,7 +85,7 @@ int	distance(int pos, t_arr *arr)
 
 void	printarray(t_arr *arr, int stsize)
 {
-	printf("[%2d] :  ", (arr->data)[arr->head]);
+	printf("[%2d] : ", (arr->data)[arr->head]);
 	int i = 0;
 	while (i < stsize)
 	{
@@ -96,47 +96,45 @@ void	printarray(t_arr *arr, int stsize)
 		i++;
 	}
 	printf("\n");
-/*
+  printf("---------\n");
 	int k = arr->head;
 	while (k < arr->head + arr->size)
 	{
-		printf("%d ", (arr->data)[k % arr->stsize]);
+		printf("%d ", (arr->data)[k % stsize]);
 		k++;
 	}
 	printf("\n");
-	*/
-	
 }
-/*
-void	sort(t_arr *arr, t_stack *st)
+
+void	sort_arr(t_arr *arr, int *data, int lsize)
 {
-	int		stcnt;
-	t_node	*pos;
+	int		cnt;
+	int		pos;
 	int		i;
 
-	stcnt = 0;
-	pos = st->head;
-	while (stcnt < st->size)
+	cnt = 0;
+	pos = 0;
+	while (cnt < lsize)
 	{
 		i = arr->head;
 		while (i < (arr->head + arr->size))
 		{
-			if ((arr->data)[I(i, NOP)] < pos->data)
+			if ((arr->data)[I(i, NOP)] < data[pos])
 				i++;
 			else
 				break;
 		}
 		i = I(i, NOP);
 		if (distance(i, arr))
-			push_forward(i, arr, pos->data);
+			push_forward(i, arr, data[pos]);
 		else
-			push_backward(i, arr, pos->data);
-		stcnt++;
-		pos = pos->next;
-		//printarray(arr, st->size);
+			push_backward(i, arr, data[pos]);
+		cnt++;
+		pos++;
 	}
+	//printarray(arr, lsize);
 }
-*/
+
 void	sort(t_arr *arr, t_stack *st, int lsize)
 {
 	int		cnt;
@@ -174,7 +172,7 @@ int	find_pivot(t_stack *st, int lsize)
 	I(NOP, lsize);
 	initarr(&arr, lsize);
 	if (!arr.data)
-		exit(1);
+		error("Error : Malloc error\n");
 	sort(&arr, st, lsize);
 	res = (arr.data[I(arr.head + (arr.size / 2), NOP)]);
 	if (arr.data)
