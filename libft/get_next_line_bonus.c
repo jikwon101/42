@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 18:04:13 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/24 02:10:27 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:22:46 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ int	to_line(char **line, char *w_nl, char **fd_set, char *temp_buff)
 	return (0);
 }
 
+static char	*tempstr(char *fdbuff, char *buff, int res)
+{
+	if (!fdbuff)
+		return (ft_strndup(buff, res));
+	return (ft_strjoin(buff, res));
+}
+
 int	get_next_line(int fd, char **line)
 {
 	static char	*fd_set[1024];
@@ -68,10 +75,7 @@ int	get_next_line(int fd, char **line)
 	while (w_nl == 0 && res > 0)
 	{
 		buff[res] = '\0';
-		if (!fd_set[fd])
-			temp = ft_strndup(buff, re);
-		else
-			ft_strjoin(fd_set[fd], buff);
+		temp = tempstr(fd_set[fd], buff, res);
 		if (fd_set[fd] != NULL)
 			free(fd_set[fd]);
 		fd_set[fd] = temp;

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 12:19:18 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/24 01:57:32 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:16:58 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static int	ft_cnt(long nbr, char *base_to)
 	return (cnt);
 }
 
+static void	init_sign(int *sign, long nbr)
+{
+	if (nbr < 0)
+		*sign = -1;
+	else
+		*sign = 1;
+}
+
 char	*putnbr_base(long nbr, char *base_to)
 {
 	int		cnt;
@@ -36,10 +44,7 @@ char	*putnbr_base(long nbr, char *base_to)
 	int		sign;
 
 	cnt = 0;
-	if (nbr < 0)
-		sign = -1;
-	else
-		sign = 1;
+	init_sign(&sign, nbr);
 	if (nbr < 0)
 		nbr = -nbr;
 	cnt = ft_cnt(nbr, base_to);
