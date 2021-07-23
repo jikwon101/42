@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:24:49 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/06 20:19:46 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:05:34 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	int	ft_init(size_t *i, size_t *j, int *count)
 	return (0);
 }
 
-char		*ft_strnstr(const char *big, const char *little, size_t n)
+char	*ft_strnstr(const char *big, const char *little, size_t n)
 {
 	size_t	i;
 	size_t	j;

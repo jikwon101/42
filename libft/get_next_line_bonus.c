@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 18:04:13 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 22:00:04 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:10:27 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ static char	*ft_strndup(char *str, int size)
 
 	if (str == NULL)
 		return (0);
-	if ((result = (char *)malloc(size + 1)) == 0)
+	result = (char *)malloc(size + 1);
+	if (!result)
 		return (0);
 	result[size] = '\0';
 	ft_memcpy(result, str, size);
 	return (result);
 }
 
-int			to_line(char **line, char *w_nl, char **fd_set, char *temp_buff)
+int	to_line(char **line, char *w_nl, char **fd_set, char *temp_buff)
 {
 	char	*temp;
 
@@ -49,7 +50,7 @@ int			to_line(char **line, char *w_nl, char **fd_set, char *temp_buff)
 	return (0);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*fd_set[1024];
 	char		*buff;
@@ -57,18 +58,25 @@ int			get_next_line(int fd, char **line)
 	char		*w_nl;
 	char		*temp;
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0
-			|| !(buff = (char *)malloc(BUFFER_SIZE + 1)))
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	while ((w_nl = ft_strchr(fd_set[fd], '\n')) == 0
-			&& (res = read(fd, buff, BUFFER_SIZE)) > 0)
+	buff = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (-1);
+	w_nl = ft_strchr(fd_set[fd], '\n');
+	res = read(fd, buff, BUFFER_SIZE);
+	while (w_nl == 0 && res > 0)
 	{
 		buff[res] = '\0';
-		temp = fd_set[fd] == NULL ? ft_strndup(buff, res)
-			: ft_strjoin(fd_set[fd], buff);
+		if (!fd_set[fd])
+			temp = ft_strndup(buff, re);
+		else
+			ft_strjoin(fd_set[fd], buff);
 		if (fd_set[fd] != NULL)
 			free(fd_set[fd]);
 		fd_set[fd] = temp;
+		w_nl = ft_strchr(fd_set[fd], '\n');
+		res = read(fd, buff, BUFFER_SIZE);
 	}
 	if (res < 0)
 	{

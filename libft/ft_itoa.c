@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:23:51 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/24 01:54:41 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:03:58 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	int	ft_count(int n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int			sign;
 	long		num;

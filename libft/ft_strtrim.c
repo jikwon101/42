@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 22:52:03 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/29 16:35:40 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:06:08 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static	int	ft_count(const char *s1, const char *set)
 	return (count);
 }
 
-char		*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim(const char *s1, const char *set)
 {
 	int		i;
 	int		j;
@@ -60,7 +60,8 @@ char		*ft_strtrim(const char *s1, const char *set)
 	i = 0;
 	j = 0;
 	count = ft_count(s1, set);
-	if ((result = (char *)malloc(sizeof(char) * count)) == 0)
+	result = (char *)malloc(sizeof(char) * count);
+	if (!result)
 		return (0);
 	while (ft_check(s1[j], set))
 		j++;

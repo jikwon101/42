@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:24:54 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/12 17:20:08 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:06:30 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 		count++;
 	}
-	if ((result = (char *)malloc(count + 1)) == 0)
+	result = (char *)malloc(count + 1);
+	if (!result)
 		return (0);
 	result[count] = 0;
 	i = start;
