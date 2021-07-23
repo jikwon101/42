@@ -1,6 +1,6 @@
 #include "check_argument.h"
 
-int		is_int(char *str)
+int	is_int(char *str)
 {
 	int	i;
 
@@ -16,7 +16,7 @@ int		is_int(char *str)
 	return (1);
 }
 
-int		is_under_min(char *str, int len)
+int	is_under_min(char *str, int len)
 {
 	int		res;
 	char	*minint;
@@ -25,23 +25,36 @@ int		is_under_min(char *str, int len)
 	minint = ft_strdup("-2147483648");	
 	if (!minint)
 		error("Error : Malloc error\n");
+	if (*str && *str == '-')
+		str++;
+	while (*str && *str == '0')
+		str++;
 	if (len > 11 || (len == 11 && ft_strcmp(minint, str) < 0))
 		res = 1;
 	free(minint);
 	return (res);
 }
 
-int		is_over_max(char *str, int len)
+int	is_over_max(char *str, int len)
 {
+	int		plus;
 	int		res;
 	char	*maxint;
 
+	plus = 0;
 	res = 0;
 	maxint = ft_strdup("2147483647");
 	if (!maxint)
 		error("Error : Malloc error\n");
-	if ((str[0] == '+')
-		&&(len > 11 || (len == 1 && ft_strcmp(maxint, str + 1) < 0)))
+	if (*str && *str == '+')
+	{
+		str++;
+		plus = 1;
+	}
+	while (*str && *str == '0')
+		str++;
+	if (plus
+		&&(len > 11 || (len == 11 && ft_strcmp(maxint, str + 1) < 0)))
 		res = 1;
 	else if ((len > 10 || (len == 10 && ft_strcmp(maxint, str) < 0)))
 		res = 1;
@@ -49,7 +62,7 @@ int		is_over_max(char *str, int len)
 	return (res);
 }
 
-int		isn_int_range(char *str)
+int	isn_int_range(char *str)
 {
 	int	res;
 	int	len;
@@ -63,7 +76,7 @@ int		isn_int_range(char *str)
 	return (res);
 }
 
-int		is_duplicate(int *data, int size, int n)
+int	is_duplicate(int *data, int size, int n)
 {
 	int	i;
 
