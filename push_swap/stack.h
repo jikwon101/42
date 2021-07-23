@@ -21,8 +21,8 @@ typedef struct	s_stack
 void	init(t_stack *st);
 void	pop(t_stack *st);
 void	push(t_stack *st, int val);
-int		top(t_stack* st);
-int		next(t_stack* st);//hmm?
+int		top(t_stack *st);
+int		next(t_stack *st);//hmm?
 int		isempty(t_stack *st);
 void	clear(t_stack *st);
 void	swap(t_stack *st);

@@ -64,7 +64,7 @@ void	push(t_stack *st, int val)
 	st->size++;
 }
 
-int	top(t_stack* st)
+int	top(t_stack *st)
 {
 	return (st->head->data);
 }
@@ -102,13 +102,13 @@ void	reverse_rotate(t_stack *st)
 	st->head = st->head->prev;
 }
 
-int	next(t_stack const* st)
+int	next(t_stack *st)
 {
 	return (st->head->next->data);
 }
 
 #include <stdio.h>
-void	print(t_stack* st)
+void	print(t_stack *st)
 {
 	t_node	*pos;
 	int		cnt;
@@ -125,7 +125,7 @@ void	print(t_stack* st)
 	printf("END\n------------\n");
 }
 
-void savef(int fd, t_stack*st)
+void savef(int fd, t_stack *st)
 {
 	t_node *pos;
 	int		cnt = st->size;

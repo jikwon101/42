@@ -38,64 +38,51 @@ static int		strcmp(const char *s1, const char *s2)
 // strcmp-> ft_strcmp 변경 필요:
 static int		isopposite(char *s1, char *s2)
 {	
-	if ((!strcmp(s1, "pa") && !strcmp(s2, "pb")))
+	if ((!ft_strcmp(s1, "pa") && !ft_strcmp(s2, "pb")))
 		return (1);
-	if ((!strcmp(s1, "pb") && !strcmp(s2, "pa")))
+	if ((!ft_strcmp(s1, "pb") && !ft_strcmp(s2, "pa")))
 		return (1);
-	if ((!strcmp(s1, "ra") && !strcmp(s2, "rra")))
+	if ((!ft_strcmp(s1, "ra") && !ft_strcmp(s2, "rra")))
 		return (1);
-	if ((!strcmp(s1, "rra") && !strcmp(s2, "ra")))
+	if ((!ft_strcmp(s1, "rra") && !ft_strcmp(s2, "ra")))
 		return (1);
-	if ((!strcmp(s1, "rb") && !strcmp(s2, "rrb")))
+	if ((!ft_strcmp(s1, "rb") && !ft_strcmp(s2, "rrb")))
 		return (1);
-	if ((!strcmp(s1, "rrb") && !strcmp(s2, "rb")))
+	if ((!ft_strcmp(s1, "rrb") && !ft_strcmp(s2, "rb")))
 		return (1);
-	if ((!strcmp(s1, "sa") && !strcmp(s2, "sa")))
+	if ((!ft_strcmp(s1, "sa") && !ft_strcmp(s2, "sa")))
 		return (1);
-	if ((!strcmp(s1, "sb") && !strcmp(s2, "sb")))
+	if ((!ft_strcmp(s1, "sb") && !ft_strcmp(s2, "sb")))
 		return (1);
-	if ((!strcmp(s1, "ss") && !strcmp(s2, "ss")))
+	if ((!ft_strcmp(s1, "ss") && !ft_strcmp(s2, "ss")))
 		return (1);
-	if ((!strcmp(s1, "rr") && !strcmp(s2, "rrr")))
+	if ((!ft_strcmp(s1, "rr") && !ft_strcmp(s2, "rrr")))
 		return (1);
-	if ((!strcmp(s1, "rrr") && !strcmp(s2, "rr")))
+	if ((!ft_strcmp(s1, "rrr") && !ft_strcmp(s2, "rr")))
 		return (1);
-	return (0);
-	if ((!strcmp(s1, "pa") && !strcmp(s2, "pb"))
-		|| (!strcmp(s1, "pb") && !strcmp(s2, "pa"))
-		|| (!strcmp(s1, "ra") && !strcmp(s2, "rra"))
-		|| (!strcmp(s1, "rra") && !strcmp(s2, "ra"))
-		|| (!strcmp(s1, "rb") && !strcmp(s2, "rrb"))
-		|| (!strcmp(s1, "rrb") && !strcmp(s2, "rb"))
-		|| (!strcmp(s1, "sa") && !strcmp(s2, "sa"))
-		|| (!strcmp(s1, "sb") && !strcmp(s2, "sb"))
-		|| (!strcmp(s1, "ss") && !strcmp(s2, "ss"))
-		|| (!strcmp(s1, "rr") && !strcmp(s2, "rrr"))
-		|| (!strcmp(s1, "rrr") && !strcmp(s2, "rr")))
-			return (1);
 	return (0);
 }
 
-// strcmp-> ft_strcmp 변경 필요:
+// ft_strcmp-> ft_ft_strcmp 변경 필요:
 int	ispair(char *s1, char *s2)
 {
-	if ((!strcmp(s1, "ra") && !strcmp(s2, "rb"))
-		|| (!strcmp(s1, "rb") && !strcmp(s2, "ra")))
+	if ((!ft_strcmp(s1, "ra") && !ft_strcmp(s2, "rb"))
+		|| (!ft_strcmp(s1, "rb") && !ft_strcmp(s2, "ra")))
 		return (1);
-	else if ((!strcmp(s1, "rra") && !strcmp(s2, "rrb"))
-		|| (!strcmp(s1, "rrb") && !strcmp(s2, "rra")))
+	else if ((!ft_strcmp(s1, "rra") && !ft_strcmp(s2, "rrb"))
+		|| (!ft_strcmp(s1, "rrb") && !ft_strcmp(s2, "rra")))
 		return (2);
-	else if ((!strcmp(s1, "sa") && !strcmp(s2, "sb"))
-		|| (!strcmp(s1, "sb") && !strcmp(s2, "sa")))
+	else if ((!ft_strcmp(s1, "sa") && !ft_strcmp(s2, "sb"))
+		|| (!ft_strcmp(s1, "sb") && !ft_strcmp(s2, "sa")))
 		return (3);
 	return (0);
 }
 
 static void	addlog(t_log *log, char *cmd)
 {
-	char	*lastcmd;
+	char		*lastcmd;
 	t_history	*newhistory;
-	int		pairtype;
+	int			pairtype;
 
 	if (log->last == NULL)
 	{	
