@@ -7,7 +7,7 @@ static void	initlog(t_log *log)
 
 static void	remove_history(t_log *log)
 {
-	t_history *target;
+	t_history	*target;
 
 	if (!log || !log->last)
 		return ;
@@ -19,7 +19,7 @@ static void	remove_history(t_log *log)
 	return ;
 }
 
-static int		strcmp(const char *s1, const char *s2)
+static int	strcmp(const char *s1, const char *s2)
 {
 	int	i;
 
@@ -35,8 +35,7 @@ static int		strcmp(const char *s1, const char *s2)
 	return (s1[i] - s2[i]);
 }
 
-// strcmp-> ft_strcmp 변경 필요:
-static int		isopposite(char *s1, char *s2)
+static int	isopposite(char *s1, char *s2)
 {	
 	if ((!ft_strcmp(s1, "pa") && !ft_strcmp(s2, "pb")))
 		return (1);
@@ -63,7 +62,6 @@ static int		isopposite(char *s1, char *s2)
 	return (0);
 }
 
-// ft_strcmp-> ft_ft_strcmp 변경 필요:
 int	ispair(char *s1, char *s2)
 {
 	if ((!ft_strcmp(s1, "ra") && !ft_strcmp(s2, "rb"))
@@ -123,6 +121,36 @@ static void	addlog(t_log *log, char *cmd)
 	log->last = newhistory;
 }
 
+static void	clearlog(t_log *log)
+{
+	t_history	*pos;
+
+	if (!log)
+		return ;
+	pos = log->last;
+	while (pos)
+	{
+		remove_history(log);
+		pos = log->last;
+	}
+	return ;
+}
+
+void	control_log(int option, char *cmd)
+{
+	static	t_log	log;
+
+	if (option == INIT)
+		initlog(&log);
+	else if (option == ADD)
+		addlog(&log, cmd);
+	else if (option == PRINT)
+		printlog(&log);
+	else if (option == CLEAR)
+		clearlog(&log);
+	return ;
+}
+
 static void	printlog(t_log *log)
 {
 	t_history *pos;
@@ -145,31 +173,3 @@ static void	printlog(t_log *log)
 	//free(pos);
 }
 
-static void	clearlog(t_log *log)
-{
-	t_history *pos;
-
-	if (!log)
-		return ;
-	pos = log->last;
-	while (pos)
-	{
-		remove_history(log);
-		pos = log->last;
-	}
-	return ;
-}
-
-void	control_log(int option, char *cmd)
-{
-	static t_log	log;
-
-	if (option == INIT)
-		initlog(&log);
-	else if (option == ADD)
-		addlog(&log, cmd);
-	else if (option == PRINT)
-		printlog(&log);
-	else if (option == CLEAR)
-		clearlog(&log);
-}
