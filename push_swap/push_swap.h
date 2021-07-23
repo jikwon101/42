@@ -1,13 +1,13 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "stack.h"
-#include "log.h"
-#include <stdio.h> //temp
-#define RED "\x1b[31m"
-#define BLUE "\x1b[36m"
-#define RESET "\x1b[0m"
+# include "stack.h"
+# include "log.h"
+# include <stdio.h> //temp
 
+# define RED "\x1b[31m"	//temp
+# define BLUE "\x1b[36m" //temp
+# define RESET "\x1b[0m" //temp
 
 void	sa(t_stack *a);
 void	sb(t_stack *b);
