@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:24:06 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/12 20:35:57 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:56:05 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static	void	*ft_memcpy_rev(void *dst, void const *src, size_t size)
 	return (dst);
 }
 
-void			*ft_memmove(void *dest, void const *src, size_t n)
+void	*ft_memmove(void *dest, void const *src, size_t n)
 {
 	unsigned long int	addr_dest;
 	unsigned long int	addr_src;

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:21:47 by jikwon            #+#    #+#             */
-/*   Updated: 2020/06/25 16:05:47 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:50:09 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static	int	is_space(char c)
 {
 	if (c == '\t' || c == '\n' || c == ' '
-			|| c == '\v' || c == '\f' || c == '\r')
+		|| c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	else
 		return (0);
@@ -38,7 +38,7 @@ static	int	w_sign(const char *str)
 	return (sign);
 }
 
-int			ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int	sign;
 	int	i;

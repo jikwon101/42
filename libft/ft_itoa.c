@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:23:51 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/12 21:26:03 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:54:41 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,21 @@ static	int	ft_count(int n)
 
 	num = (long)n;
 	count = 0;
-	sign = (num >= 0) ? 1 : -1;
-	num = (num >= 0) ? num : -num;
+	if (num >= 0)
+		sign = 1;
+	else
+		sign = -1;
+	if (num < 0)
+		num = -num;
 	while (num > 0)
 	{
 		num /= 10;
 		count++;
 	}
-	count = (sign >= 0) ? count : count + 1;
-	count = (n == 0) ? 1 : count;
+	if (count < 0)
+		count += 1;
+	if (n == 0)
+		count = 1;
 	return (count);
 }
 
@@ -41,12 +47,17 @@ char		*ft_itoa(int n)
 	char		*result;
 
 	num = (long)n;
-	sign = (num >= 0) ? 1 : -1;
+	if (num >= 0)
+		sign = 1;
+	else
+		sign = -1;
 	count = ft_count(n);
-	if ((result = (char *)malloc(sizeof(char) * (count + 1))) == 0)
+	result = (char *)malloc(sizeof(char) * (count + 1));
+	if (!result)
 		return (0);
 	result[count] = '\0';
-	num = (num >= 0) ? num : -num;
+	if (num < 0)
+		num = -num;
 	result[0] = '0';
 	while (count > 0)
 	{

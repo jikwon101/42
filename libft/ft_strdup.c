@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:24:38 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/06 16:02:23 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:00:55 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_strdup(const char *s)
 	len = 0;
 	while (s[len])
 		len++;
-	if ((new = (char *)malloc(len + 1)) == 0)
+	new = (char *)malloc(len + 1);
+	if (!new)
 		return (0);
 	while (s[i])
 	{

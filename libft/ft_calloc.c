@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:25:43 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/11 03:06:53 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:51:52 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ static	void	ft_zero(void *s, size_t n)
 	}
 }
 
-void			*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	tot;
 	void	*result;
 
 	tot = nmemb * size;
-	if ((result = malloc(tot)) == 0)
+	result = malloc(tot);
+	if (!result)
 		return (0);
 	ft_zero(result, tot);
 	return (result);

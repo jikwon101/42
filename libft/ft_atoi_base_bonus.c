@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 12:04:28 by jikwon            #+#    #+#             */
-/*   Updated: 2020/07/28 21:58:57 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:51:18 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_index(char *base, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (base[i])
@@ -26,18 +26,21 @@ static int	ft_index(char *base, char c)
 	return (i);
 }
 
-int			ft_atoi_base(char *str, char *base)
+int	ft_atoi_base(char *str, char *base)
 {
 	int	i;
-	int nbr;
-	int sign;
+	int	nbr;
+	int	sign;
 
 	i = 0;
 	nbr = 0;
 	sign = 1;
 	while (str[i] == '-' || str[i] == '+')
 	{
-		sign = (str[i] == '-') ? -1 : 1;
+		if (str[i] == '-')
+			sign = -1;
+		else
+			sign = 1;
 		i++;
 	}
 	while (str[i])

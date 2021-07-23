@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 21:24:16 by jikwon            #+#    #+#             */
-/*   Updated: 2020/04/05 00:29:41 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 01:58:08 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static	void	ft_putchr_fd(char c, int fd)
 	return ;
 }
 
-void			ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	num;
 
