@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 18:04:13 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/24 02:22:46 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/24 02:29:44 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ int	to_line(char **line, char *w_nl, char **fd_set, char *temp_buff)
 	return (0);
 }
 
-static char	*tempstr(char *fdbuff, char *buff, int res)
+static void	addstr(char **fd_set, int fd, char *buff, int res)
 {
-	if (!fdbuff)
-		return (ft_strndup(buff, res));
-	return (ft_strjoin(buff, res));
+	char	*temp;
+
+	if (!fd_set[fd])
+		temp = ft_strndup(buff, res);
+	else
+		temp = ft_strjoin(fd_set[fd], buff);
+	if (fd_set[fd] != NULL)
+		free(fd_set[fd]);
+	fd_set[fd] = temp;
 }
 
 int	get_next_line(int fd, char **line)
@@ -63,7 +69,6 @@ int	get_next_line(int fd, char **line)
 	char		*buff;
 	int			res;
 	char		*w_nl;
-	char		*temp;
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
@@ -75,10 +80,7 @@ int	get_next_line(int fd, char **line)
 	while (w_nl == 0 && res > 0)
 	{
 		buff[res] = '\0';
-		temp = tempstr(fd_set[fd], buff, res);
-		if (fd_set[fd] != NULL)
-			free(fd_set[fd]);
-		fd_set[fd] = temp;
+		addstr(fd_set, fd, buff, res);
 		w_nl = ft_strchr(fd_set[fd], '\n');
 		res = read(fd, buff, BUFFER_SIZE);
 	}
