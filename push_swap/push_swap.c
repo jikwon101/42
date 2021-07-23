@@ -1,16 +1,15 @@
 #include "push_swap.h"
 
-void	printcmd(char *s)
+void	writelog(char *s)
 {
 	control_log(ADD, s);
 	//printf("%s\n", s); //temp
 	return ;
-	printf(RED "%s", s);
-	printf(RESET);
 }
+
 void	sa(t_stack *a)
 {
-	printcmd("sa");
+	writelog("sa");
 	if (a->size < 2)
 		return ;
 	swap(a);
@@ -18,7 +17,7 @@ void	sa(t_stack *a)
 
 void	sb(t_stack *b)
 {
-	printcmd("sb");
+	writelog("sb");
 	if (b->size < 2)
 		return ;
 	swap(b);
@@ -26,14 +25,14 @@ void	sb(t_stack *b)
 
 void	ss(t_stack *a, t_stack *b)
 {
-	printcmd("ss");
+	writelog("ss");
 	swap(a);
 	swap(b);
 }
 
 void	pa(t_stack *a, t_stack *b)
 {
-	printcmd("pa");
+	writelog("pa");
 	if (b->size == 0)
 		return ;
 	push(a, top(b));
@@ -42,7 +41,7 @@ void	pa(t_stack *a, t_stack *b)
 
 void	pb(t_stack *a, t_stack *b)
 {
-	printcmd("pb");
+	writelog("pb");
 	if (a->size == 0)
 		return ;
 	push(b, top(a));
@@ -51,7 +50,7 @@ void	pb(t_stack *a, t_stack *b)
 
 void	ra(t_stack *a)
 {
-	printcmd("ra");
+	writelog("ra");
 	if (a->size < 2)
 		return ;
 	rotate(a);
@@ -59,7 +58,7 @@ void	ra(t_stack *a)
 
 void	rb(t_stack *b)
 {
-	printcmd("rb");
+	writelog("rb");
 	if (b->size < 2)
 		return ;
 	rotate(b);
@@ -67,14 +66,14 @@ void	rb(t_stack *b)
 
 void	rr(t_stack *a, t_stack *b)
 {
-	printcmd("rr");
+	writelog("rr");
 	rotate(a);
 	rotate(b);
 }
 
 void	rra(t_stack *a)
 {
-	printcmd("rra");
+	writelog("rra");
 	if (a->size < 2)
 		return ;
 	reverse_rotate(a);
@@ -82,7 +81,7 @@ void	rra(t_stack *a)
 
 void	rrb(t_stack *b)
 {
-	printcmd("rrb");
+	writelog("rrb");
 	if (b->size < 2)
 		return ;
 	reverse_rotate(b);
@@ -90,7 +89,7 @@ void	rrb(t_stack *b)
 
 void	rrr(t_stack *a, t_stack *b)
 {
-	printcmd("rrr");
+	writelog("rrr");
 	reverse_rotate(a);
 	reverse_rotate(b);
 }

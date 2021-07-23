@@ -6,7 +6,7 @@ void	init(t_stack *st)
 	st->size = 0;
 }
 
-int	empty(t_stack *st)
+int	isempty(t_stack *st)
 {
 	return (st->size == 0);
 }
@@ -22,8 +22,8 @@ void	connecting(t_node *prev, t_node *next)
 void	pop(t_stack *st)
 {
 	t_node	*target;
-	
-	if (empty(st))
+
+	if (isempty(st))
 		return ;
 	target = st->head;
 	if (st->size == 1)
@@ -46,11 +46,9 @@ void	push(t_stack *st, int val)
 
 	newnode = (t_node *)malloc(sizeof(t_node));
 	if(!newnode)
-	{
 		return ;
-	}
 	newnode->data = val;
-	if (empty(st))
+	if (isempty(st))
 	{
 		st->head = newnode;
 		connecting(newnode, newnode);
@@ -67,14 +65,14 @@ void	push(t_stack *st, int val)
 	st->size++;
 }
 
-int		top(t_stack const* st)
+int	top(t_stack const* st)
 {
 	return (st->head->data);
 }
 
 void	clear(t_stack *st)
 {
-	while (!empty(st))
+	while (!isempty(st))
 	{
 		pop(st);
 	}
@@ -84,7 +82,7 @@ void	swap(t_stack *st)
 {
 	int	temp;
 
-	if (empty(st))
+	if (isempty(st))
 		return ;
 	temp = st->head->data;
 	st->head->data = st->head->next->data;
@@ -93,16 +91,21 @@ void	swap(t_stack *st)
 
 void	rotate(t_stack *st)
 {
-	if (empty(st))
+	if (isempty(st))
 		return ;
 	st->head = st->head->next;
 }
 
 void	reverse_rotate(t_stack *st)
 {
-	if (empty(st))
+	if (isempty(st))
 		return ;
 	st->head = st->head->prev;
+}
+
+int	next(t_stack const* st)
+{
+	return (st->head->next->data);
 }
 
 #include <stdio.h>
@@ -177,7 +180,4 @@ void printpair(t_stack *a, t_stack *b)
 	usleep(500000);
 }
 
-int	next(t_stack const* st)
-{
-	return (st->head->next->data);
-}
+

@@ -23,7 +23,7 @@ void	pop(t_stack *st);
 void	push(t_stack *st, int val);
 int		top(t_stack const* st);
 int		next(t_stack const* st);//hmm?
-int		empty(t_stack *st);
+int		isempty(t_stack *st);
 void	clear(t_stack *st);
 void	swap(t_stack *st);
 void	rotate(t_stack *st);
