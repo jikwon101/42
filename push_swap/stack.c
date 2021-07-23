@@ -113,7 +113,7 @@ void	print(t_stack *st)
 	t_node	*pos;
 	int		cnt;
 
-	cnd = st->size;
+	cnt = st->size;
 	printf("------------\nTOP\n");
 	pos = st->head;
 	while (cnt)

@@ -19,22 +19,6 @@ static void	remove_history(t_log *log)
 	return ;
 }
 
-static int	strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
-
 static int	isopposite(char *s1, char *s2)
 {	
 	if ((!ft_strcmp(s1, "pa") && !ft_strcmp(s2, "pb")))
@@ -76,6 +60,19 @@ int	ispair(char *s1, char *s2)
 	return (0);
 }
 
+static void	add_firstlog(t_log *log, char *cmd)
+{
+	t_history	*newhistory;
+
+	newhistory = (t_history *)malloc(sizeof(t_history));
+	if (!newhistory)
+		exit(1);
+	newhistory->command = cmd;
+	newhistory->next = NULL;
+	newhistory->prev = NULL;
+	log->last = newhistory;
+}
+
 static void	addlog(t_log *log, char *cmd)
 {
 	char		*lastcmd;
@@ -83,16 +80,7 @@ static void	addlog(t_log *log, char *cmd)
 	int			pairtype;
 
 	if (log->last == NULL)
-	{	
-		newhistory = (t_history *)malloc(sizeof(t_history));
-		if (!newhistory)
-			exit(1);
-		newhistory->command = cmd;
-		newhistory->next = NULL;
-		newhistory->prev = NULL;
-		log->last = newhistory;
-		return ;
-	}
+		return (add_firstlog(log, cmd));
 	lastcmd = log->last->command;
 	if (isopposite(lastcmd, cmd))
 	{
@@ -136,9 +124,10 @@ static void	clearlog(t_log *log)
 	return ;
 }
 
+static void	printlog(t_log *log); //temp
 void	control_log(int option, char *cmd)
 {
-	static	t_log	log;
+	static t_log	log;
 
 	if (option == INIT)
 		initlog(&log);
@@ -153,7 +142,7 @@ void	control_log(int option, char *cmd)
 
 static void	printlog(t_log *log)
 {
-	t_history *pos;
+	t_history	*pos;
 
 	if (!log || !log->last)
 		return ;
@@ -172,4 +161,3 @@ static void	printlog(t_log *log)
 	//printf("%s\n", pos->command);
 	//free(pos);
 }
-
