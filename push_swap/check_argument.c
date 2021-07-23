@@ -20,9 +20,9 @@ int	is_under_min(char *str, int len)
 {
 	int		res;
 	char	*minint;
-	
+
 	res = 0;
-	minint = ft_strdup("-2147483648");	
+	minint = ft_strdup("-2147483648");
 	if (!minint)
 		error("Error : Malloc error\n");
 	if (*str && *str == '-')
@@ -54,7 +54,7 @@ int	is_over_max(char *str, int len)
 	while (*str && *str == '0')
 		str++;
 	if (plus
-		&&(len > 11 || (len == 11 && ft_strcmp(maxint, str + 1) < 0)))
+		&& (len > 11 || (len == 11 && ft_strcmp(maxint, str + 1) < 0)))
 		res = 1;
 	else if ((len > 10 || (len == 10 && ft_strcmp(maxint, str) < 0)))
 		res = 1;
@@ -94,7 +94,7 @@ int	check_arguments(int **data, int ac, char *argv[])
 {	
 	int	i;
 	int	res;
-	
+
 	*data = (int *)malloc(sizeof(int) * (ac - 1));
 	if (!*data)
 		error("Error : Malloc error\n");
