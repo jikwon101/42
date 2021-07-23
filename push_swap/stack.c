@@ -64,7 +64,7 @@ void	push(t_stack *st, int val)
 	st->size++;
 }
 
-int	top(t_stack const* st)
+int	top(t_stack* st)
 {
 	return (st->head->data);
 }
