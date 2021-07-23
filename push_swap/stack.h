@@ -1,18 +1,19 @@
-#ifndef FT_STACK_H
-# define FT_STACK_H
+#ifndef STACK_H
+# define STACK_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h> //temp
-#include "libft.h" //temp
-typedef struct	s_node
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h> //temp
+# include "libft.h" //temp
+
+typedef struct s_node
 {
 	struct s_node	*prev;
 	struct s_node	*next;
 	int				data;
 }				t_node;
 
-typedef struct	s_stack
+typedef struct s_stack
 {
 	t_node	*head;		//last added data
 	int		size;

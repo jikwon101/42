@@ -1,20 +1,20 @@
 #ifndef QUICKPIVOT_H
 # define QUICKPIVOT_H
 
-#include "utils.h"
-#include "stack.h"
-#include <stdio.h> //temp
+# include "utils.h"
+# include "stack.h"
+# include <stdio.h> //temp
 
 # define NOP -1
 
-typedef struct	s_arr
+typedef struct s_arr
 {
 	int	*data;
 	int	head;
 	int	size;
 }				t_arr;
 
-int		I(int i, int option)	;
+int		I(int i, int option);
 void	initarr(t_arr *arr, int stsize);
 void	insert(int pos, t_arr *arr, int val);
 void	push_forward(int pos, t_arr *arr, int val);
