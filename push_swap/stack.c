@@ -42,10 +42,11 @@ void	pop(t_stack *st)
 
 void	push(t_stack *st, int val)
 {
+	t_node	*temp;
 	t_node	*newnode;
 
 	newnode = (t_node *)malloc(sizeof(t_node));
-	if(!newnode)
+	if (!newnode)
 		return ;
 	newnode->data = val;
 	if (isempty(st))
@@ -55,8 +56,6 @@ void	push(t_stack *st, int val)
 	}
 	else
 	{
-		t_node	*temp;
-
 		temp = st->head->prev;
 		connecting(newnode, st->head);
 		connecting(temp, newnode);
@@ -109,11 +108,12 @@ int	next(t_stack const* st)
 }
 
 #include <stdio.h>
-void print(t_stack*st)
+void	print(t_stack* st)
 {
-	t_node *pos;
-	int		cnt = st->size;
+	t_node	*pos;
+	int		cnt;
 
+	cnd = st->size;
 	printf("------------\nTOP\n");
 	pos = st->head;
 	while (cnt)
