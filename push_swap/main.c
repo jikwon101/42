@@ -321,7 +321,7 @@ void	r_sort(t_stack *a, t_stack *b, int lsize)
 		sb(b);
 		return ;
 	}
-	else if (lsize == 3) //else if (b->size == 3)
+	else if (lsize == 3)
 	{
 		special_r_sort(b);
 		return ;
@@ -370,7 +370,7 @@ void	o_sort(t_stack *a, t_stack *b, int lsize)
 		sa(a);
 		return ;
 	}	
-	else if (lsize == 3) //else if (a->size == 3)
+	else if (lsize == 3)
 	{
 		special_o_sort(a);
 		return ;
