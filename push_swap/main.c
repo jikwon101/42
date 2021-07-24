@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "libft.h"
-#include "command.h"
-#include "quickpivot.h"
-#include "log.h"
-#include "check_argument_main.h"
-#include "utils.h"
+#include "../include/libft.h"
+#include "../include/command.h"
+#include "../include/quickpivot.h"
+#include "../include/log.h"
+#include "../include/check_argument.h"
+#include "../include/utils.h"
 
 #define RED "\x1b[31m"
 #define BLUE "\x1b[36m"
