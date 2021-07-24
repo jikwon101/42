@@ -14,7 +14,7 @@ void	init_stack(char **sets, int size, t_stack *a, t_stack *b)
 	}
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	int		size;
 	t_stack	a;

@@ -34,7 +34,7 @@ int	all_bigger_than(t_stack *a, int cnt, int pivot)
 
 int	a_arranged_type(t_stack *a, int lsize)
 {
-	int type;
+	int	type;
 
 	if (lsize == 1 || is_ordered(a, ASC, lsize))
 		return (1);
