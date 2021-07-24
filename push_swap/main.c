@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "libft.h"
-#include "push_swap.h"
+#include "command.h"
 #include "quickpivot.h"
 #include "log.h"
 #include "check_argument_main.h"

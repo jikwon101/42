@@ -1,10 +1,8 @@
 #ifndef STACK_H
 # define STACK_H
 
-# include <unistd.h>
 # include <stdlib.h>
-# include <string.h> //temp
-# include "libft.h" //temp
+# include <unistd.h>
 
 typedef struct s_node
 {
@@ -19,18 +17,20 @@ typedef struct s_stack
 	int		size;
 }				t_stack;			
 
-void	init(t_stack *st);
+
 void	pop(t_stack *st);
 void	push(t_stack *st, int val);
 int		top(t_stack *st);
-int		next(t_stack *st);//hmm?
-int		isempty(t_stack *st);
 void	clear(t_stack *st);
+
+int		isempty(t_stack *st);
+void	init(t_stack *st);
+int		next(t_stack *st);
+void	connecting(t_node *prev, t_node *net);
+
 void	swap(t_stack *st);
 void	rotate(t_stack *st);
 void	reverse_rotate(t_stack *st);
-void	connecting(t_node *prev, t_node *net);
-void	print(t_stack *st); //temp
-void	savef(int fd, t_stack *st); //temp
-void	printpair(t_stack *a, t_stack *b); //temp
+
+# include "stack_print.h" //temp
 #endif
