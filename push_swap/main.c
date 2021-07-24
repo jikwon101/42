@@ -3,7 +3,7 @@
 #include "push_swap.h"
 #include "quickpivot.h"
 #include "log.h"
-#include "check_argument.h"
+#include "check_argument_main.h"
 #include "utils.h"
 
 #define RED "\x1b[31m"
@@ -155,6 +155,7 @@ void	a_divide(t_stack *a, t_stack *b, int lsize)
 	while (i < time)
 	{
 		rra(a);
+		i++;
 	}
 }
 
