@@ -38,7 +38,7 @@ void	d_sort_three_sp(t_stack *b)
 		|| (top(b) == md && next(b) > md)
 		|| (top(b) > md && next(b) < md))
 		sb(b);
-	if (is_ordered(b,DESC, 3))
+	if (is_ordered(b, DESC, 3))
 		return ;
 	if (top(b) == md)
 		rrb(b);
@@ -57,7 +57,7 @@ void	d_sort_three(t_stack *b)
 		|| (top(b) == md && next(b) > md)
 		|| (top(b) > md && next(b) < md))
 		sb(b);
-	if (is_ordered(b,DESC, 3))
+	if (is_ordered(b, DESC, 3))
 		return ;
 	if (top(b) == md)
 	{

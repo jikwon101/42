@@ -1,13 +1,9 @@
 #ifndef SORT_H
 # define SORT_H
 
-#include "../include/stack.h"
-#include "../include/quickpivot.h"
-#include "../include/command.h"
-
-#define RED "\x1b[31m"
-#define BLUE "\x1b[36m"
-#define RESET "\x1b[0m"
+# include "../include/stack.h"
+# include "../include/quickpivot.h"
+# include "../include/command.h"
 
 # define ASC 1
 # define DESC -1

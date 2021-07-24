@@ -1,6 +1,6 @@
 #include "sort.h"
 
-int		is_ordered(t_stack *st, int type, int size)
+int	is_ordered(t_stack *st, int type, int size)
 {
 	if (type == ASC)
 		return (a_ordered(st, size));

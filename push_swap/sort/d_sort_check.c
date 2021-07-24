@@ -71,4 +71,3 @@ int	d_order_type(t_stack *b, int lsize)
 		return (3);
 	return (0);
 }
-

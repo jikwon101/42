@@ -1,6 +1,6 @@
 #include "quickpivot.h"
 
-void push_forward(int pos, t_arr *arr, int val)
+void	push_forward(int pos, t_arr *arr, int val)
 {
 	int	i;
 	int	cnt;
@@ -16,12 +16,12 @@ void push_forward(int pos, t_arr *arr, int val)
 	insert(pos - 1, arr, val);
 }
 
-void push_backward(int pos, t_arr *arr, int val)
+void	push_backward(int pos, t_arr *arr, int val)
 {
 	int	i;
 	int	k;
 	int	cnt;
-	
+
 	cnt = arr->size - _i(pos - arr->head, NOP);
 	k = 0;
 	i = _i(pos + cnt - 1, NOP);
@@ -50,7 +50,7 @@ void	sort(t_arr *arr, t_stack *st, int lsize)
 			if ((arr->data)[_i(i, NOP)] < pos->data)
 				i++;
 			else
-				break;
+				break ;
 		}
 		i = _i(i, NOP);
 		if (distance(i, arr))

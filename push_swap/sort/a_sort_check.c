@@ -58,7 +58,7 @@ int	check_sa(t_stack *a)
 	return (0);
 }
 
-int a_order_type(t_stack *a, int lsize)
+int	a_order_type(t_stack *a, int lsize)
 {
 	if (a->size == lsize && a->size > 3)
 	{
@@ -71,4 +71,3 @@ int a_order_type(t_stack *a, int lsize)
 		return (3);
 	return (0);
 }
-

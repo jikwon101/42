@@ -15,7 +15,7 @@ int	a_ordered(t_stack *st, int size)
 	return (1);
 }
 
-int	all_bigger_than(t_stack *a, int cnt , int pivot)
+int	all_bigger_than(t_stack *a, int cnt ,int pivot)
 {
 	int		i;
 	t_node	*pos;
@@ -32,10 +32,9 @@ int	all_bigger_than(t_stack *a, int cnt , int pivot)
 	return (1);
 }
 
-
-int		a_arranged_type(t_stack *a, int lsize)
+int	a_arranged_type(t_stack *a, int lsize)
 {
-	int type;;
+	int type;
 
 	if (lsize == 1 || is_ordered(a, ASC, lsize))
 		return (1);

@@ -2,7 +2,7 @@
 
 int	_i(int i, int option)
 {
-	static int stsize;
+	static int	stsize;
 
 	if (option >= 0)
 	{
@@ -38,6 +38,6 @@ int	distance(int pos, t_arr *arr)
 	front = _i(pos - arr->head, NOP);
 	back = arr->size - front;
 	if (front < back)
-		return (1);		//push_forward
-	return (0);			//push_backward
+		return (1);
+	return (0);
 }

@@ -32,7 +32,6 @@ int	all_smaller_than(t_stack *b, int cnt, int pivot)
 	return (1);
 }
 
-
 int	d_arranged_type(t_stack *b, int lsize)
 {
 	int	type;
