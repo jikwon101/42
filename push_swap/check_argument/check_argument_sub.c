@@ -24,7 +24,7 @@ int	is_under_min(char *str, int len)
 	res = 0;
 	minint = ft_strdup("-2147483648");
 	if (!minint)
-		error("Error : Malloc error\n");
+		errorexit("Error : Malloc error\n");
 	if (*str && *str == '-')
 		str++;
 	while (*str && *str == '0')
@@ -45,7 +45,7 @@ int	is_over_max(char *str, int len)
 	res = 0;
 	maxint = ft_strdup("2147483647");
 	if (!maxint)
-		error("Error : Malloc error\n");
+		errorexit("Error : Malloc error\n");
 	if (*str && *str == '+')
 	{
 		str++;

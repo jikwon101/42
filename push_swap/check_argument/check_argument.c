@@ -7,7 +7,7 @@ int	check_arguments(int **data, int ac, char *argv[])
 
 	*data = (int *)malloc(sizeof(int) * (ac - 1));
 	if (!*data)
-		error("Error : Malloc error\n");
+		errorexit("Error : Malloc error\n");
 	i = 1;
 	while (i < ac)
 	{

@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
-# include "stack.h"
-# include "log.h"
+# include "../include/stack.h"
+# include "../include/log.h"
 
 void	sa(t_stack *a);
 void	sb(t_stack *b);

@@ -1,8 +1,8 @@
 #ifndef QUICKPIVOT_H
 # define QUICKPIVOT_H
 
-# include "utils.h"
-# include "stack.h"
+# include "./include/libft.h"
+# include "./include/stack.h"
 # include <stdio.h> //temp
 
 # define NOP -1

@@ -1,6 +1,6 @@
-#include "utils.h"
+#include "libft.h"
 
-void	error(char *str)
+void	errorexit(char *str)
 {
 	write(2, str, ft_strlen(str));
 	exit(1);

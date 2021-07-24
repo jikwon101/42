@@ -172,7 +172,7 @@ int	find_pivot(t_stack *st, int lsize)
 	I(NOP, lsize);
 	initarr(&arr, lsize);
 	if (!arr.data)
-		error("Error : Malloc error\n");
+		errorexit("Error : Malloc error\n");
 	sort(&arr, st, lsize);
 	res = (arr.data[I(arr.head + (arr.size / 2), NOP)]);
 	if (arr.data)

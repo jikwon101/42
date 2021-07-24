@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include "../include/libft.h"
-#include "../include/command.h"
-#include "../include/quickpivot.h"
-#include "../include/log.h"
-#include "../include/check_argument.h"
-#include "../include/utils.h"
+#include "push_swap.h"
 
 #define RED "\x1b[31m"
 #define BLUE "\x1b[36m"
@@ -42,7 +36,7 @@ void	init_stack(int *data, int size, t_stack *a, t_stack *b)
 	I(NOP, size);
 	initarr(&arr, size);
 	if (!arr.data)
-		error("Malloc Error\n");
+		errorexit("Error : Malloc Error\n");
 	init(a);
 	init(b);
 	sort_arr(&arr, data, size);
@@ -399,7 +393,7 @@ int main(int ac, char *av[])
 	{
 		if (data)
 			free(data);
-		error("Error : Arguments\n");
+		errorexit("Error : Arguments\n");
 	}
 	init_stack(data, ac - 1,  &a, &b);
 	free(data);

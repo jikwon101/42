@@ -76,7 +76,7 @@ t_history	*make_newhistory(char *cmd)
 		return (NULL);
 	res = (t_history *)malloc(sizeof(t_history));
 	if (!res)
-		error("Malloc Error\n");
+		errorexit("Error : Malloc Error\n");
 	res->command = cmd;
 	res->next = NULL;
 	res->prev = NULL;
