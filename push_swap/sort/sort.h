@@ -13,7 +13,7 @@ void	divide(t_stack *a, t_stack *b, int type, int lsize);
 void	merge(t_stack *a, t_stack *b, int type, int size);
 
 int		a_ordered(t_stack *st, int size);
-int		all_bigger_than(t_stack *a, int cnt , int pivot);
+int		all_bigger_than(t_stack *a, int cnt, int pivot);
 int		a_order_type(t_stack *a, int lszie);
 int		a_arranged_type(t_stack *a, int lsize);
 void	a_sort_sp(t_stack *a, int type);

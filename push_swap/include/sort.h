@@ -1,13 +1,9 @@
 #ifndef SORT_H
 # define SORT_H
 
-#include "../include/stack.h"
-#include "../include/quickpivot.h"
-#include "../include/command.h"
-
-#define RED "\x1b[31m"
-#define BLUE "\x1b[36m"
-#define RESET "\x1b[0m"
+# include "../include/stack.h"
+# include "../include/quickpivot.h"
+# include "../include/command.h"
 
 # define ASC 1
 # define DESC -1
@@ -17,7 +13,7 @@ void	divide(t_stack *a, t_stack *b, int type, int lsize);
 void	merge(t_stack *a, t_stack *b, int type, int size);
 
 int		a_ordered(t_stack *st, int size);
-int		all_bigger_than(t_stack *a, int cnt , int pivot);
+int		all_bigger_than(t_stack *a, int cnt, int pivot);
 int		a_order_type(t_stack *a, int lszie);
 int		a_arranged_type(t_stack *a, int lsize);
 void	a_sort_sp(t_stack *a, int type);
