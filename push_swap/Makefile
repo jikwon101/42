@@ -4,7 +4,7 @@ CC=gcc
 
 CFLAG= -g3 -Wall -Werror -Wextra
 
-SRCS=main.c quickpivot.c
+SRCS=main.c pivot/quickpivot.c sort/sort.c
 
 OBJT=$(SRCS:.c=.o)
 
@@ -18,11 +18,14 @@ STACK=./stack/stack.a
 
 COMMAND=./command/command.a
 
+SORT=./sort/sort.a
+
+PIVOT=./pivot/pivot.a
 
 all : $(NAME)
 
-$(NAME) : $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND)
-	$(CC) -o $(NAME) $(SRCS) $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND)
+$(NAME) : $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND) $(SORT) $(PIVOT)
+	$(CC) $(CFLAG) -o $(NAME) $(SRCS) $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND) $(SORT) $(PIVOT)
 
 $(LIB) :
 	$(MAKE) -s -C ./libft
@@ -44,9 +47,18 @@ $(COMMAND) :
 	$(MAKE) -s -C ./command
 	$(MAKE) clean -C ./command
 
+$(SORT) : 
+	$(MAKE) -s -C ./sort
+	$(MAKE) clean -C ./sort
+
+$(PIVOT) : 
+	$(MAKE) -s -C ./pivot
+	$(MAKE) clean -C ./pivot
+
+
 clean : 
 	rm -rf $(OBJT)
-	rm -rf $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND)
+	rm -rf $(LIB) $(CHECK_ARG) $(LOG) $(STACK) $(COMMAND) $(SORT) $(PIVOT)
 	
 fclean : clean
 	rm -rf $(NAME)

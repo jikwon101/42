@@ -141,4 +141,4 @@ for ((stack_size = $startRange; stack_size <= $endRange; stack_size++)); do
   printf "\nMean: $MEAN for stack of size $stack_size \n\n"
 done 
 
-rm -rf push_swap_result.txt
+#rm -rf push_swap_result.txt

@@ -70,7 +70,7 @@ void	add_firstlog(t_log *log, char *cmd)
 
 t_history	*make_newhistory(char *cmd)
 {
-	t_history *res;
+	t_history	*res;
 
 	if (!cmd)
 		return (NULL);

@@ -17,7 +17,6 @@ typedef struct s_stack
 	int		size;
 }				t_stack;			
 
-
 void	pop(t_stack *st);
 void	push(t_stack *st, int val);
 int		top(t_stack *st);

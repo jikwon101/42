@@ -1,22 +1,29 @@
 #include "check_argument.h"
 
-int	check_arguments(int **data, int ac, char *argv[])
+int	check_arguments(int size, char **sets)
 {	
 	int	i;
 	int	res;
+	int	*arr;
 
-	*data = (int *)malloc(sizeof(int) * (ac - 1));
-	if (!*data)
+	arr = (int *)malloc(sizeof(int) * (size));
+	if (!arr)
 		errorexit("Error : Malloc error\n");
-	i = 1;
-	while (i < ac)
+	i = 0;
+	while (i < size)
 	{
-		if (!is_int(argv[i]) || isn_int_range(argv[i]))
+		if (!is_int(sets[i]) || isn_int_range(sets[i]))
+		{
+			free(arr);
 			return (0);
-		res = ft_atoi(argv[i]);
-		if (is_duplicate(*data, i - 1, res))
+		}
+		res = ft_atoi(sets[i]);
+		if (is_duplicate(arr, i, res))
+		{
+			free(arr);
 			return (0);
-		(*data)[i - 1] = res;
+		}
+		arr[i] = res;
 		i++;
 	}
 	return (1);
