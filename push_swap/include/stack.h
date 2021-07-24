@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/25 02:31:29 by jikwon            #+#    #+#             */
+/*   Updated: 2021/07/25 02:31:30 by jikwon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STACK_H
 # define STACK_H
 
@@ -16,7 +28,6 @@ typedef struct s_stack
 	t_node	*head;		//last added data
 	int		size;
 }				t_stack;			
-
 
 void	pop(t_stack *st);
 void	push(t_stack *st, int val);
