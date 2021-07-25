@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:25:13 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:25:14 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/25 23:01:19 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,45 @@ int	is_int(char *str)
 	return (1);
 }
 
-int	is_under_min(char *str, int len)
+int	is_under_min(char *str)
 {
 	int		res;
 	char	*minint;
+	size_t	len;
 
 	res = 0;
-	minint = ft_strdup("-2147483648");
+	minint = ft_strdup("2147483648");
 	if (!minint)
 		errorexit("Error : Malloc error\n");
 	if (*str && *str == '-')
 		str++;
 	while (*str && *str == '0')
 		str++;
-	if (len > 11 || (len == 11 && ft_strcmp(minint, str) < 0))
+	len = ft_strlen(str);
+	if (len > ft_strlen(minint)
+		|| (len == ft_strlen(minint) && ft_strcmp(minint, str) < 0))
 		res = 1;
 	free(minint);
 	return (res);
 }
 
-int	is_over_max(char *str, int len)
+int	is_over_max(char *str)
 {
-	int		plus;
 	int		res;
 	char	*maxint;
+	size_t	len;
 
-	plus = 0;
 	res = 0;
 	maxint = ft_strdup("2147483647");
 	if (!maxint)
 		errorexit("Error : Malloc error\n");
 	if (*str && *str == '+')
-	{
 		str++;
-		plus = 1;
-	}
 	while (*str && *str == '0')
 		str++;
-	if (plus
-		&& (len > 11 || (len == 11 && ft_strcmp(maxint, str + 1) < 0)))
-		res = 1;
-	else if ((len > 10 || (len == 10 && ft_strcmp(maxint, str) < 0)))
+	len = ft_strlen(str);
+	if ((len > ft_strlen(maxint))
+		|| (len == ft_strlen(maxint) && ft_strcmp(maxint, str) < 0))
 		res = 1;
 	free(maxint);
 	return (res);
@@ -77,14 +75,12 @@ int	is_over_max(char *str, int len)
 int	isn_int_range(char *str)
 {
 	int	res;
-	int	len;
 
 	res = 0;
-	len = ft_strlen(str);
 	if (str[0] == '-')
-		res = is_under_min(str, len);
+		res = is_under_min(str);
 	else
-		res = is_over_max(str, len);
+		res = is_over_max(str);
 	return (res);
 }
 
