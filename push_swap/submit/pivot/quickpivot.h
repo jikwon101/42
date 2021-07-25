@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:53 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:29:54 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/25 22:09:51 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,5 @@ void	initarr(t_arr *arr, int stsize);
 void	insert(int pos, t_arr *arr, int val);
 int		distance(int pos, t_arr *arr);
 int		find_pivot(t_stack *st, int lsize);
-
-void	printarray(t_arr *arr, int stsize);		//temp
 
 #endif

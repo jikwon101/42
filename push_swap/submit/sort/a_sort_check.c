@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:30:32 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:30:33 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/25 22:11:40 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_ra(t_stack *a)
 {
-	// t 5 1 2 3 4 (type1)
 	int		i;
 	t_node	*pos;
 
@@ -32,7 +31,6 @@ int	check_ra(t_stack *a)
 
 int	check_rra(t_stack *a)
 {	
-	// t : 2 3 4 5 1 (type2)
 	int		i;
 	t_node	*pos;
 
@@ -50,7 +48,6 @@ int	check_rra(t_stack *a)
 
 int	check_sa(t_stack *a)
 {
-	// t 2 1 3 4 5 (type1)
 	t_node	*pos;
 	t_node	*second;
 	int		i;

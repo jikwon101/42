@@ -6,14 +6,13 @@
 #    By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/25 02:29:41 by jikwon            #+#    #+#              #
-#    Updated: 2021/07/25 02:29:43 by jikwon           ###   ########.fr        #
+#    Updated: 2021/07/25 22:10:26 by jikwon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=pivot.a
 
-SRCS=quickpivot.c quickpivot_utils.c \
-	 quickpivot_print.c #temp
+SRCS=quickpivot.c quickpivot_utils.c 
 
 OBJT=$(SRCS:.c=.o)
 
