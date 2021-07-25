@@ -35,7 +35,7 @@ void	client_read(t_env *e, int cs)
   //int	i;
 
   r = recv(cs, e->fds[cs].buf_read, BUF_SIZE, 0);
-  printf("recevie %d from User %d \n", r, cs);
+  printf("recevie %d from User %d : \n", r, cs);
   if (r <= 0)
   {
       close(cs);
@@ -44,6 +44,11 @@ void	client_read(t_env *e, int cs)
   }
   else
   {
+	for (int i = 0 ; i < r ; i++)
+	{
+		printf("%d ", e->fds[cs].buf_read[i]);
+	}
+	printf("\n");
 		  /*
 	int i = 0;
 	e->fds[cs].buf_read[r] = '\0';
