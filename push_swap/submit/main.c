@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:24:47 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:24:49 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 13:35:32 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ void	init_stack(char **sets, int size, t_stack *a, t_stack *b)
 	}
 }
 
+void	clear_all(t_stack *a, t_stack *b, char **sets, int type)
+{
+	int	i;
+
+	clear(a);
+	clear(b);
+	if (type == 2 && sets)
+	{
+		i = 0;
+		while (sets[i])
+		{
+			free(sets[i]);
+			i++;
+		}
+		free(sets);
+	}
+}
+
 int	main(int ac, char *av[])
 {
 	int		size;
@@ -39,7 +57,7 @@ int	main(int ac, char *av[])
 	{
 		sets = ft_split(av[1], ' ');
 		if (!sets)
-			errorexit("Error : Check Argument\n");
+			errorexit("Error : Error Malloc\n");
 		size = 0;
 		while (sets[size])
 			size++;
@@ -49,8 +67,7 @@ int	main(int ac, char *av[])
 	init_stack(sets, size, &a, &b);
 	control_log(INIT, NOCMD);
 	a_sort(&a, &b, a.size);
-	clear(&a);
-	clear(&b);
 	control_log(PRINT, NOCMD);
 	control_log(CLEAR, NOCMD);
+	clear_all(&a, &b, sets, ac);
 }

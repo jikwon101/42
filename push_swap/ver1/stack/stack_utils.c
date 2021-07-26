@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:31:46 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:31:47 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 01:54:33 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	isempty(t_stack *st)
 
 void	init(t_stack *st)
 {
+	clear(st);
 	st->head = NULL;
 	st->size = 0;
 }

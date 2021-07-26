@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:31:46 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:31:47 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 13:11:15 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	isempty(t_stack *st)
 {
-	return (st->size == 0);
+	if (st->size == 0)
+		return (1);
+	return (0);
 }
 
 void	init(t_stack *st)

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:25:06 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:25:08 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 13:27:45 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int	check_arguments(int size, char **sets)
 		arr[i] = res;
 		i++;
 	}
+	free(arr);
 	return (1);
 }
