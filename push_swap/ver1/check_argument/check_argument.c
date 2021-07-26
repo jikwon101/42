@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:25:06 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/26 13:41:53 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 13:54:59 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,21 @@ int	check_arguments(int size, char **sets)
 	arr = (int *)malloc(sizeof(int) * (size));
 	if (!arr)
 		errorexit("Error : Malloc error\n");
-	i = 0;
+	i = -1;
 	res = 1;
-	while (i < size)
+	while (i++ < size - 1)
 	{
 		if (!is_int(sets[i]) || isn_int_range(sets[i]))
 		{
 			res = 0;
 			break ;
 		}
-		res = ft_atoi(sets[i]);
 		if (is_duplicate(arr, i, ft_atoi(sets[i])))
 		{
 			res = 0;
 			break ;
 		}
-		arr[i] = res;
-		i++;
+		arr[i] = ft_atoi(sets[i]);
 	}
 	free(arr);
 	return (res);
