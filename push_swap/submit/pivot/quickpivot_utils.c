@@ -6,13 +6,13 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:58 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:29:58 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 17:06:34 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "quickpivot.h"
 
-int	_i(int i, int option)
+int	i_(int i, int option)
 {
 	static int	stsize;
 
@@ -37,7 +37,7 @@ void	initarr(t_arr *arr, int lsize)
 
 void	insert(int pos, t_arr *arr, int val)
 {
-	pos = _i(pos, NOP);
+	pos = i_(pos, NOP);
 	(arr->data)[pos] = val;
 	arr->size++;
 }
@@ -47,7 +47,7 @@ int	distance(int pos, t_arr *arr)
 	int	front;
 	int	back;
 
-	front = _i(pos - arr->head, NOP);
+	front = i_(pos - arr->head, NOP);
 	back = arr->size - front;
 	if (front < back)
 		return (1);
