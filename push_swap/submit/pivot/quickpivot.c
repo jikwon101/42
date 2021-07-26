@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:46 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/26 17:03:13 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:09:49 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	find_pivot(t_stack *st, int lsize)
 	i_(NOP, lsize);
 	initarr(&arr, lsize);
 	if (!arr.data)
-		errorexit("Error : Malloc error\n");
+		errorexit(NULL);
 	sort(&arr, st, lsize);
 	res = (arr.data[i_(arr.head + (arr.size / 2), NOP)]);
 	if (arr.data)

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:25:13 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 23:01:19 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:13:01 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_under_min(char *str)
 	res = 0;
 	minint = ft_strdup("2147483648");
 	if (!minint)
-		errorexit("Error : Malloc error\n");
+		errorexit(NULL);
 	if (*str && *str == '-')
 		str++;
 	while (*str && *str == '0')
@@ -59,7 +59,7 @@ int	is_over_max(char *str)
 	res = 0;
 	maxint = ft_strdup("2147483647");
 	if (!maxint)
-		errorexit("Error : Malloc error\n");
+		errorexit(NULL);
 	if (*str && *str == '+')
 		str++;
 	while (*str && *str == '0')

@@ -6,13 +6,13 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:24:47 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/26 13:35:32 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:04:02 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_stack(char **sets, int size, t_stack *a, t_stack *b)
+void	init_proc(char **sets, int size, t_stack *a, t_stack *b)
 {
 	int	i;
 
@@ -26,13 +26,13 @@ void	init_stack(char **sets, int size, t_stack *a, t_stack *b)
 	}
 }
 
-void	clear_all(t_stack *a, t_stack *b, char **sets, int type)
+void	clear_proc(t_stack *a, t_stack *b, char **sets)
 {
 	int	i;
 
 	clear(a);
 	clear(b);
-	if (type == 2 && sets)
+	if (sets)
 	{
 		i = 0;
 		while (sets[i])
@@ -44,6 +44,55 @@ void	clear_all(t_stack *a, t_stack *b, char **sets, int type)
 	}
 }
 
+char	**arrjoin(char **arr, char *new)
+{
+	int		i;
+	int		cnt;
+	char	**res;
+
+	cnt = ft_arrsize(arr) + 1;
+	res = (char **)malloc(sizeof(char *) * (cnt + 1));
+	if (!res)
+		errorexit(NULL);
+	res[cnt] = NULL;
+	i = 0;
+	while (i < cnt - 1)
+	{
+		res[i] = arr[i];
+		i++;
+	}
+	res[i] = new;
+	free(arr);
+	return (res);
+}
+
+char	**pre_proc(int ac, char **av, int *size)
+{
+	int		i;
+	char	**temp;
+	char	**res;
+	int		j;
+
+	i = 1;
+	res = NULL;
+	while (i < ac)
+	{
+		j = 0;
+		temp = ft_split(av[i], ' ');
+		if (!temp)
+			errorexit(NULL);
+		while (temp[j])
+		{
+			res = arrjoin(res, temp[j]);
+			j++;
+		}
+		free(temp);
+		i++;
+	}
+	*size = ft_arrsize(res);
+	return (res);
+}
+
 int	main(int ac, char *av[])
 {
 	int		size;
@@ -51,23 +100,15 @@ int	main(int ac, char *av[])
 	t_stack	b;
 	char	**sets;
 
-	size = ac - 1;
-	sets = av + 1;
-	if (ac == 2)
-	{
-		sets = ft_split(av[1], ' ');
-		if (!sets)
-			errorexit("Error : Error Malloc\n");
-		size = 0;
-		while (sets[size])
-			size++;
-	}
-	if (ac < 2 || !size || !check_arguments(size, sets))
-		errorexit("Error : Check Arguments\n");
-	init_stack(sets, size, &a, &b);
+	if (ac < 2)
+		errorexit(NULL);
+	sets = pre_proc(ac, av, &size);
+	if  (!size || !check_arguments(size, sets))
+		errorexit(NULL);
+	init_proc(sets, size, &a, &b);
 	control_log(INIT, NOCMD);
 	a_sort(&a, &b, a.size);
 	control_log(PRINT, NOCMD);
 	control_log(CLEAR, NOCMD);
-	clear_all(&a, &b, sets, ac);
+	clear_proc(&a, &b, sets);
 }

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:30:38 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 22:11:50 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 17:10:19 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	a_arranged_type(t_stack *a, int lsize)
 	if (lsize == 1 || is_ordered(a, ASC, lsize))
 		return (1);
 	type = a_order_type(a, lsize);
-	if (lsize == 2 || type == 3 )
+	if (lsize == 2 || type == 3)
 		return (2);
 	else if (lsize == 3)
 		return (3);

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:32 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:29:34 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:07:35 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,7 @@ void	add_firstlog(t_log *log, char *cmd)
 {
 	t_history	*newhistory;
 
-	newhistory = (t_history *)malloc(sizeof(t_history));
-	if (!newhistory)
-		exit(1);
-	newhistory->command = cmd;
-	newhistory->next = NULL;
-	newhistory->prev = NULL;
+	newhistory = make_newhistory(cmd);
 	log->last = newhistory;
 }
 
@@ -88,7 +83,7 @@ t_history	*make_newhistory(char *cmd)
 		return (NULL);
 	res = (t_history *)malloc(sizeof(t_history));
 	if (!res)
-		errorexit("Error : Malloc Error\n");
+		errorexit(NULL);
 	res->command = cmd;
 	res->next = NULL;
 	res->prev = NULL;

@@ -6,14 +6,14 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:30:28 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:30:29 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 17:10:29 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort.h"
 
 void	a_divide(t_stack *a, t_stack *b, int lsize)
-{	
+{
 	int	pivot;
 	int	i;
 	int	cnt;
