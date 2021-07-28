@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:31:37 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:31:37 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:10:33 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	push(t_stack *st, int val)
 
 	newnode = (t_node *)malloc(sizeof(t_node));
 	if (!newnode)
-		return ;
+		errorexit("Error : Malloc Error\n");
 	newnode->data = val;
 	if (isempty(st))
 	{

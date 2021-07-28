@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:27:57 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:28:00 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:02:54 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_strmapi(char const *s, char(*f)(unsigned int, char));
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_strcmp(char *s1, char *s2);
+int				ft_arrsize(char **str);
 void			errorexit(char *str);
 
 #endif

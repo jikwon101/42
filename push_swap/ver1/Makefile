@@ -6,7 +6,7 @@
 #    By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/25 02:31:56 by jikwon            #+#    #+#              #
-#    Updated: 2021/07/25 02:31:57 by jikwon           ###   ########.fr        #
+#    Updated: 2021/07/26 17:05:09 by jikwon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC=gcc
 
 CFLAG= -g3 -Wall -Werror -Wextra
 
-SRCS=main.c pivot/quickpivot.c sort/sort.c
+SRCS=main.c
 
 OBJT=$(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:53 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:29:54 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 17:07:35 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_arr
 	int	size;
 }				t_arr;
 
-int		_i(int i, int option);
+int		i_(int i, int option);
 void	initarr(t_arr *arr, int stsize);
 void	insert(int pos, t_arr *arr, int val);
 int		distance(int pos, t_arr *arr);

@@ -6,7 +6,7 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:29:46 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 02:29:47 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 17:07:44 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	push_forward(int pos, t_arr *arr, int val)
 	int	i;
 	int	cnt;
 
-	cnt = _i(pos - arr->head, NOP);
+	cnt = i_(pos - arr->head, NOP);
 	i = arr->head - 1;
 	while (i < arr->head - 1 + cnt)
 	{
-		(arr->data)[_i(i, NOP)] = (arr->data)[_i(i + 1, NOP)];
+		(arr->data)[i_(i, NOP)] = (arr->data)[i_(i + 1, NOP)];
 		i++;
 	}
-	arr->head = _i(arr->head - 1, NOP);
+	arr->head = i_(arr->head - 1, NOP);
 	insert(pos - 1, arr, val);
 }
 
@@ -34,12 +34,12 @@ void	push_backward(int pos, t_arr *arr, int val)
 	int	k;
 	int	cnt;
 
-	cnt = arr->size - _i(pos - arr->head, NOP);
+	cnt = arr->size - i_(pos - arr->head, NOP);
 	k = 0;
-	i = _i(pos + cnt - 1, NOP);
+	i = i_(pos + cnt - 1, NOP);
 	while (k < cnt)
 	{
-		(arr->data)[_i(i + 1, NOP)] = (arr->data)[_i(i, NOP)];
+		(arr->data)[i_(i + 1, NOP)] = (arr->data)[i_(i, NOP)];
 		i--;
 		k++;
 	}
@@ -59,12 +59,12 @@ void	sort(t_arr *arr, t_stack *st, int lsize)
 		i = arr->head;
 		while (i < (arr->head + arr->size))
 		{
-			if ((arr->data)[_i(i, NOP)] < pos->data)
+			if ((arr->data)[i_(i, NOP)] < pos->data)
 				i++;
 			else
 				break ;
 		}
-		i = _i(i, NOP);
+		i = i_(i, NOP);
 		if (distance(i, arr))
 			push_forward(i, arr, pos->data);
 		else
@@ -79,12 +79,12 @@ int	find_pivot(t_stack *st, int lsize)
 	t_arr	arr;
 	int		res;
 
-	_i(NOP, lsize);
+	i_(NOP, lsize);
 	initarr(&arr, lsize);
 	if (!arr.data)
 		errorexit("Error : Malloc error\n");
 	sort(&arr, st, lsize);
-	res = (arr.data[_i(arr.head + (arr.size / 2), NOP)]);
+	res = (arr.data[i_(arr.head + (arr.size / 2), NOP)]);
 	if (arr.data)
 		free(arr.data);
 	return (res);

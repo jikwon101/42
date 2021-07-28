@@ -6,7 +6,7 @@
 #    By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/25 02:27:32 by jikwon            #+#    #+#              #
-#    Updated: 2021/07/25 02:27:33 by jikwon           ###   ########.fr        #
+#    Updated: 2021/07/26 20:14:57 by jikwon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS=ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	 ft_strnstr.c ft_strncmp.c ft_atoi.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 	 ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c \
 	 ft_substr.c ft_strjoin.c ft_split.c ft_itoa.c ft_strcmp_bonus.c ft_strtrim.c \
-	 ft_errorexit.c 
+	 ft_errorexit.c ft_arrsize.c
 
 OBJT=$(SRCS:.c=.o)
 

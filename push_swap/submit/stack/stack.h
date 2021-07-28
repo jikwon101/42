@@ -6,13 +6,14 @@
 /*   By: jikwon <jikwon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 02:31:29 by jikwon            #+#    #+#             */
-/*   Updated: 2021/07/25 22:13:30 by jikwon           ###   ########.fr       */
+/*   Updated: 2021/07/26 20:27:44 by jikwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_H
 # define STACK_H
 
+# include "../include/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 
