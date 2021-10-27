@@ -390,7 +390,7 @@ typename vector<T, Alloc>::iterator
 	{
 		vector new_vec((alloc_type()));
 		size_type _new_n;
-
+		
 		_new_n = (capacity() * 2 > size() + 1) ? (capacity() * 2) : (size() + 1);
 		new_vec.vector_allocate(_new_n);
 		new_vec.construct_at_end(begin(), position);
