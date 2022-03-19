@@ -1,2 +1,0 @@
-# philosopher
-projet in progress
