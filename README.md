@@ -8,7 +8,7 @@
 | 01     | [ft_printf](https://github.com/jikwon101/42/tree/master/ft_printf) | Variadic Arguments | Computer Architecture | C |
 | 02     | [libasm](https://github.com/jikwon101/42/tree/master/libasm) | | |
 | 02     | [push_swap](https://github.com/jikwon101/42/tree/master/push_swap) | Complexity | Algorithms & Analysis | C |
-| 02     | [cub3D](https://github.com/jikwon101/42/tree/master/cub3d) | | | C |
+| 02     | [cub3D](https://github.com/jikwon101/42/tree/master/cub3D) | | | C |
 | 03     | [Philosophers](https://github.com/jikwon101/42/tree/master/philosopher) | Synchronization | Operating Systems | C |
 | 03     | [ft_server](https://github.com/jikwon101/42/tree/master/ft_server) | Container| | docker|
 | 03     | [ft_services](https://github.com/jikwon101/42/tree/master/ft_services) | | | shell, k8s|
