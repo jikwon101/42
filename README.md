@@ -13,7 +13,7 @@
 | 03     | [ft_server](https://github.com/jikwon101/42/tree/master/ft_server) | Container| | docker|
 | 03     | [ft_services](https://github.com/jikwon101/42/tree/master/ft_services) | | | shell, k8s|
 | 03     | [minishell](https://github.com/jikwon101/42/tree/master/minishell) | UNIX Shell | Operating Systems | C |
-| 04     | [CPP Module](https://github.com/24siefil/42SEOUL-42cursus/tree/main/04-cpp-module) | - | Objective Oriented Programming | C++ |
+| 04     | [CPP Module](https://github.com/jikwon101/42/tree/master/CPP_Module) | - | Objective Oriented Programming | C++ |
 | 04     | [ft_container](https://github.com/jikwon101/42/tree/master/ft_container) | |  | C++|
 
 
