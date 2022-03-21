@@ -6,7 +6,7 @@
 | 01     | [netpractice](https://github.com/jikwon101/42/tree/master/netpractice) | Network |   Computer Network   | - |
 | 02     | [get_next_line](https://github.com/jikwon101/42/tree/master/get_next_line) | Static Variables | Computer Architecture | C |
 | 03     | [ft_printf](https://github.com/jikwon101/42/tree/master/ft_printf) | Variadic Arguments | Computer Architecture | C |
-| 04     | [libasm](https://github.com/jikwon101/42/tree/master/libasm) | | Assembly |
+| 04     | [libasm](https://github.com/jikwon101/42/tree/master/libasm) |  || Assembly |
 | 05     | [push_swap](https://github.com/jikwon101/42/tree/master/push_swap) | Complexity | Algorithms & Analysis | C |
 | 06     | [cub3D](https://github.com/jikwon101/42/tree/master/cub3D) | | | C |
 | 07     | [Philosophers](https://github.com/jikwon101/42/tree/master/philosopher) | Synchronization | Operating Systems | C |
