@@ -17,5 +17,5 @@
 | 04     | [ft_container](https://github.com/jikwon101/42/tree/master/ft_container) | |  | C++|
 | 04 | [ft_irc](http://github.com/jikwon101/42/tree/master/ft_irc) | | | C++|
 
-# 42Pischine
+# 42Piscine
 [piscine](https://github.com/jikwon101/42/tree/master/piscine)
