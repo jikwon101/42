@@ -4,9 +4,7 @@
 
 
 ### 1. 프로젝트 소개
-다중 file descriptor을 관리하고 해당 파일의 텍스트를 한줄씩 잃어드리는 프로그램
-
-```
+다중 file descriptor을 관리하고 해당 파일의 텍스트를 한줄씩 잃어드리는 프로그램.
 이 프로젝트를 통해서 다음을 배웠다. 
 * static variable
 * file descriptor
