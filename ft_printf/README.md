@@ -31,9 +31,11 @@ int ft_printf(const char*, ...);
 ```
 
 *conversion*
+
 c, s, p, d, i, u, x, X, %
 
 *flag*
+
 '-', '*', '0', '.', 'minimun filed width'
 
 
