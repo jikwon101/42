@@ -10,8 +10,8 @@
 | 05     | [push_swap](https://github.com/jikwon101/42/tree/master/push_swap) | Complexity | Algorithms & Analysis | C |
 | 06     | [cub3D](https://github.com/jikwon101/42/tree/master/cub3D) | | | C |
 | 07     | [Philosophers](https://github.com/jikwon101/42/tree/master/philosopher) | Synchronization | Operating Systems | C |
-| 08     | [ft_server](https://github.com/jikwon101/42/tree/master/ft_server) | - | Container | docker|
-| 09     | [ft_services](https://github.com/jikwon101/42/tree/master/ft_services) | - | | k8s |
+| 08     | [ft_server](https://github.com/jikwon101/42/tree/master/ft_server) | - | System Administration | docker|
+| 09     | [ft_services](https://github.com/jikwon101/42/tree/master/ft_services) | - |System Administration | k8s |
 | 10     | [minishell](https://github.com/jikwon101/42/tree/master/minishell) | UNIX Shell | Operating Systems | C |
 | 11     | [CPP Module](https://github.com/jikwon101/42/tree/master/CPP_Module) | - | Objective Oriented Programming | C++ |
 | 12     | [ft_containers](https://github.com/jikwon101/42/tree/master/ft_container) | STL container |  | C++|
