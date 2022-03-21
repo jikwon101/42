@@ -28,46 +28,16 @@ such as this simple map is valid:
 ◦ Except for the map content, each type of element can be separated by one or more empty line(s).
 ◦ Except for the map content which always have to be in last, each type of element can be set in any order in the file.
 ◦ Each type of information from an element can be separated by one or more space(s).
-   111111
+```
+111111
 100101
- 102001
+102001
 1100N1
- 111111
-  6
+111111
+```
 
- cub3D
-My first RayCaster with miniLibX
- ◦ Each element (except the map) first’s information is the type identifier (com- posed by one or two character(s)), followed by all specific informations for each objects in a strict order such as :
-∗ Resolution:
-R 1920 1080
-· identifier: R · x render size · y render size
-∗ North texture:
-         NO ./path_to_the_north_texture
-· identifier: NO
-· path to the north texure ∗ South texture:
-         SO ./path_to_the_south_texture
-· identifier: SO
-· path to the south texure ∗ West texture:
-         WE ./path_to_the_west_texture
-· identifier: WE
-· path to the west texure ∗ East texture:
-         EA ./path_to_the_east_texture
-· identifier: EA
-· path to the east texure ∗ Sprite texture:
-         S ./path_to_the_sprite_texture
-· identifier: S
-· path to the sprite texure ∗ Floor color:
-F 220,100,0
-· identifier: F
-· R,G,B colors in range [0,255]: 0, 255, 255
-                                   7
+* Each element (except the map) first’s information is the type identifier (composed by one or two character(s)), followed by all specific informations for each objects in a strict order such as :
 
- cub3D
-My first RayCaster with miniLibX
- ∗ Ceilling color:
-C 225,30,0
-· identifier: C
-· R,G,B colors in range [0,255]: 0, 255, 255
 ◦ Example for the mandatory part with a minimalist .cub scene:
 R 1920 1080
 NO ./path_to_the_north_texture
@@ -85,3 +55,4 @@ C 225,30,0
 10000000000000001101010010001 11000000110101011111011110N01
 11110111111101011111011110001 11111111111111111111111111111
 ◦ If any misconfiguration of any kind is encountered in the file the program must exit properly and return "Error\n" followed by an explicit error message of your choice
+
