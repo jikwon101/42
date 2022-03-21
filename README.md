@@ -16,6 +16,6 @@
 | 11     | [CPP Module](https://github.com/jikwon101/42/tree/master/CPP_Module) | - | Objective Oriented Programming | C++ |
 | 12     | [ft_containers](https://github.com/jikwon101/42/tree/master/ft_container) | |  | C++|
 | 13     | [ft_irc](http://github.com/jikwon101/42/tree/master/ft_irc) | | | C++|
-| 14     | [ft_transcendence]() | | | Typescript, NestJS|  
+| 14     | ft_transcendence | | | Typescript, NestJS|  
 # 42Piscine
 [piscine](https://github.com/jikwon101/42/tree/master/piscine)
