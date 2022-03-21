@@ -37,10 +37,12 @@ int get_next_line(int fd, char **line);
 *Parameter*
 1. fd : file descriptor for reading
 2. line : The value of what has been read
+
 *Return*
 Return 2 if A line has beed read.
 Return 0 if EOF has been reached.
 Return -1 if An error happend.
+
 *Compile*
 `-D BUFFER_SIZE=%{NUMBER}` 플래그를 추가하여 컴파일 하여야 한다.
 
