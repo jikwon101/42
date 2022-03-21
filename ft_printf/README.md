@@ -36,7 +36,7 @@ c, s, p, d, i, u, x, X, %
 
 *flag*
 
-'-', '*', '0', '.', 'minimun filed width'
+`-`, `*`, `0`, `.`, 'minimun filed width'
 
 
 ### 4. 프로젝트 규칙
